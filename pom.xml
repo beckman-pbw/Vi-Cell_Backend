@@ -63,7 +63,7 @@
     <!-- *****            com.beckman              **********************-->
     <!-- ****************************************************************-->
     <dependency>
-	<groupId>com.beckman.particle.vi-cell</groupId>
+	<groupId>com.beckman.particle.hawkeye</groupId>
 	<artifactId>algorithm</artifactId>
 	<version>4.3.8</version>
 	<classifier>installer</classifier>
