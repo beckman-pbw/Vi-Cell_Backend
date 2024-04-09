@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Production Source Files">
+      <UniqueIdentifier>{00a48696-44dd-47e5-9ee9-5429d98c0029}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Production Source Files\UserList">
+      <UniqueIdentifier>{95fdc6bc-c982-4c61-9dc2-e9afb53dbf12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests Source Files">
+      <UniqueIdentifier>{21c793dc-de31-4e59-a6f0-827428eee76c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Production Source Files\Hardware">
+      <UniqueIdentifier>{1fc681a7-35b9-4f35-92dd-323d8664d0dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Production Source Files\API">
+      <UniqueIdentifier>{0998aafc-15e5-4a37-a86c-17f101d80668}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resource Files\Source Files\Hardware">
+      <UniqueIdentifier>{d7118f16-0248-447f-92bb-6b94026754e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests Source Files\Mock">
+      <UniqueIdentifier>{fa22b32a-6725-485e-9c39-2b6a4dbbb1c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests Source Files\TestFixtures">
+      <UniqueIdentifier>{ddbb3a9a-82ba-4696-b377-08b7cfd9db41}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ControllerBoardFW_TestFixtures.hpp">
+      <Filter>Tests Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleFTDI.h">
+      <Filter>Resource Files\Source Files\Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HawkeyeCore\Core\SecurityHelpers.hpp">
+      <Filter>Production Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\HawkeyeCore\Core\CommandParser.hpp">
+      <Filter>Production Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ControllerBoardInterfaceMock.h">
+      <Filter>Tests Source Files\Mock</Filter>
+    </ClInclude>
+    <ClInclude Include="RfidTests.h">
+      <Filter>Tests Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CBITestFixture.h">
+      <Filter>Tests Source Files\TestFixtures</Filter>
+    </ClInclude>
+    <ClInclude Include="RfidTestFixture.h">
+      <Filter>Tests Source Files\TestFixtures</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Resource Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitTestsMain.cpp">
+      <Filter>Resource Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\UserList.cpp">
+      <Filter>Production Source Files\UserList</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\HawkeyeUser.cpp">
+      <Filter>Production Source Files\UserList</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\SecurityHelpers.cpp">
+      <Filter>Production Source Files\UserList</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\Configuration.cpp">
+      <Filter>Production Source Files\UserList</Filter>
+    </ClCompile>
+    <ClCompile Include="UserListTests.cpp">
+      <Filter>Tests Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\FTDI_Error_To_Boost.cpp">
+      <Filter>Production Source Files\Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="ControllerBoardDownloadTests.cpp">
+      <Filter>Tests Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleFTDI.cpp">
+      <Filter>Resource Files\Source Files\Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\Logger.cpp">
+      <Filter>Production Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\ControllerBoardCommand.cpp">
+      <Filter>Production Source Files\Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\ControllerBoardMessage.cpp">
+      <Filter>Production Source Files\Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\ControllerBoardStatus.cpp">
+      <Filter>Production Source Files\Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\ErrorCode.cpp">
+      <Filter>Production Source Files\Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\SecurityHelpers.cpp">
+      <Filter>Production Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\HawkeyeConfig.cpp">
+      <Filter>Production Source Files\API</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\AppConfig.cpp">
+      <Filter>Production Source Files\API</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\ControllerBoardEzPort.cpp">
+      <Filter>Production Source Files\Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="LoggingAudit.cpp">
+      <Filter>Tests Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\CommandParser.cpp">
+      <Filter>Production Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ControllerBoardInterfaceMock.cpp">
+      <Filter>Resource Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RfidTests.cpp">
+      <Filter>Tests Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ReagentTests.cpp">
+      <Filter>Tests Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\Rfid.cpp">
+      <Filter>Production Source Files\Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\BaseClass\RfidBase.cpp">
+      <Filter>Production Source Files\Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\SystemErrors.cpp">
+      <Filter>Production Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CBITestFixture.cpp">
+      <Filter>Tests Source Files\TestFixtures</Filter>
+    </ClCompile>
+    <ClCompile Include="RfidTestFixture.cpp">
+      <Filter>Tests Source Files\TestFixtures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\SystemErrors.cpp">
+      <Filter>Production Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="$(SolutionDir)\target\properties\UnitTests\UnitTests.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

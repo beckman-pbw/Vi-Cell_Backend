@@ -1,0 +1,171 @@
+! command list:
+! leading alpha-numeric tokens designate the commands;
+! parameters are marker as ?1, ?2, etc,;
+! all indicated parameter values are required
+! lines starting with the '!' character are comments and not executed as commands
+!
+! all units are in user-units (0.1 degrees for theta, 0.1 microns for radius)
+!
+! Ip            // Initialize Plate: home both theta and radius plate motors
+! Ic            // Initialize Carousel: home the carousel; may not be the tube 1 position
+! Sp            // Select Plate: initialize and apply plate motor control parameters for all following commands
+! Sc            // Select Carousel: initialize and apply carousel motor control parameters for all following commands
+! Ht            // Home the Theta motor
+! Hr            // Home the Radius motor
+! Mt, ?1        // move the Theta motor to the specified absolute location
+! Rt, ?1        // move the Theta motor to the specified relative location
+! Mr, ?1        // move the Radius motor to the specified absolute location
+! Rr, ?1        // move the Radius motor to the specified relative location
+! Mx, ?1, ?2	// move the Theta and Radius motors to the specified absolute theta (p1) / radius (p2) coordinate pair
+! Rx, ?1, ?2    // move the Theta and Radius motors to the specified relative theta (p1) / radius (p2) coordinate pair
+! Xt, ?1        // move carousel to tube number: '0' for next tube, 1-24 for discreet tube numbers
+! Xw, ?1, ?2    // move the plate to the specified row (p1) / col (p2) well location
+! Xx, ?1, ?2    // Move plate to absolute theta (p1), radius (p2) position
+! Xr, ?1, ?2    // Move plate to relative theta (p1), radius (p2) position
+! Ph            // home the probe
+! P, ?1         // move the probe: '0' for 'Up', and '1' for 'down'
+! K             // Wait for a keypress.
+! D             // insert a delay (in milliseconds) into the command stream processing
+! E             // Stop processing the run list and exit the program.
+!
+! commands do not need to be separated by blank lines
+
+K
+
+Sc
+
+Ic
+
+K
+
+! move to tube #1
+At, 1
+
+! wait for the operator to continue...
+K
+
+P, 1
+!delay 1 second
+D, 1000
+
+! tube 2
+At, 2
+P, 1
+D, 1000
+
+! tube 3
+At, 3
+P, 1
+D, 1000
+
+! tube 4
+At, 4
+P, 1
+D, 1000
+
+! tube 5
+At, 5
+P, 1
+D, 1000
+
+! tube 6
+At, 6
+P, 1
+D, 1000
+
+! tube 7
+At, 7
+P, 1
+D, 1000
+
+! tube 8
+At, 8
+P, 1
+D, 1000
+
+! tube 9
+At, 9
+P, 1
+D, 1000
+
+! tube 10
+At, 10
+P, 1
+D, 1000
+
+! tube 11
+At, 11
+P, 1
+D, 1000
+
+! tube 12
+At, 12
+P, 1
+D, 1000
+
+! tube 13
+At, 13
+P, 1
+D, 1000
+
+! tube 14
+At, 14
+P, 1
+D, 1000
+
+! tube 15
+At, 15
+P, 1
+D, 1000
+
+! tube 16
+At, 16
+P, 1
+D, 1000
+
+! tube 17
+At, 17
+P, 1
+D, 1000
+
+! tube 18
+At, 18
+P, 1
+D, 1000
+
+! tube 19
+At, 19
+P, 1
+D, 1000
+
+! tube 20
+At, 20
+P, 1
+D, 1000
+
+! tube 21
+At, 21
+P, 1
+D, 1000
+
+! tube 22
+At, 22
+P, 1
+D, 1000
+
+! tube 23
+At, 23
+P, 1
+D, 1000
+
+! tube 24
+At, 24
+P, 1
+D, 1000
+
+At, 1
+D, 1000
+
+K
+
+E

@@ -1,0 +1,119 @@
+! command list:
+! leading alpha-numeric tokens designate the commands;
+! parameters are marker as ?1, ?2, etc,;
+! all indicated parameter values are required
+! lines starting with the '!' character are comments and not executed as commands
+!
+! all units are in user-units (0.1 degrees for theta, 0.1 microns for radius)
+!
+! Ip            // Initialize Plate: home both theta and radius plate motors
+! Ic            // Initialize Carousel: home the carousel; may not be the tube 1 position
+! Sp            // Select Plate: initialize and apply plate motor control parameters for all following commands
+! Sc            // Select Carousel: initialize and apply carousel motor control parameters for all following commands
+! Ht            // Home the Theta motor
+! Zt            // Set the current position as the Theta zero point
+! Hr            // Home the Radius motor
+! Zr            // Set the current position as the Radius zero point
+! Tc            // move the Theta motor to the cal position
+! Rc            // move the Radius motor to the center calibration position
+! Mt, ?1        // move the Theta motor to the specified absolute location
+! Rt, ?1        // move the Theta motor to the specified relative location
+! Mr, ?1        // move the Radius motor to the specified absolute location
+! Rr, ?1        // move the Radius motor to the specified relative location
+! Mx, ?1, ?2	// move the Theta and Radius motors to the specified absolute theta (p1) / radius (p2) coordinate pair
+! Rx, ?1, ?2    // move the Theta and Radius motors to the specified relative theta (p1) / radius (p2) coordinate pair
+! Ct            // set the plate Theta motor cal position to the current plate position
+! Cr            // set the plate Radius motor center calibration position to the current plate position
+! Xt, ?1        // move carousel to tube number: '0' for next tube, 1-24 for discreet tube numbers
+! Xw, ?1, ?2    // move the plate to the specified row (p1) / col (p2) well location
+! Xx, ?1, ?2    // Move plate to absolute theta (p1), radius (p2) position
+! Xr, ?1, ?2    // Move plate to relative theta (p1), radius (p2) position
+! Ph            // home the probe
+! P, ?1         // move the probe: '0' for 'Up', and '1' for 'down'
+! K             // Wait for a keypress.
+! D             // insert a delay (in milliseconds) into the command stream processing
+! E             // Stop processing the run list and exit the program.
+!
+! commands do not need to be separated by blank lines
+
+K
+
+Sp
+
+Ht
+
+D, 1000
+
+Hr
+
+D, 1000
+
+Mt, 600
+
+D, 1000
+
+Mr, 625000
+
+D, 1000
+
+Xx, 7200, 650000
+
+K
+
+Zr
+
+Xx, 7400, 50000
+
+D, 1000
+
+K
+
+Xw, 1, 1
+
+D, 1000
+
+Xw, 1, 2
+
+D, 1000
+
+Xw, 1, 3
+
+D, 1000
+
+Xw, 1, 4
+
+D, 1000
+
+Xw, 1, 5
+
+D, 1000
+
+Xw, 1, 6
+
+D, 1000
+
+Xw, 1, 7
+
+D, 1000
+
+Xw, 1, 8
+
+D, 1000
+
+Xw, 1, 9
+
+D, 1000
+
+Xw, 1, 10
+
+D, 1000
+
+Xw, 1, 11
+
+D, 1000
+
+Xw, 1, 12
+
+K
+
+E

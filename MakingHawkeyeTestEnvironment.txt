@@ -1,0 +1,71 @@
+The same File folder organization is used by both the Scout and Hunter instruments.  For test purposes, a
+minimum set of the expected folders must be created, and the test application pointed at the folder structure.
+
+For both instruments the folder structure is as described below:
+
+    \Instrument
+                \bin
+                        \Archive
+                \Config
+                        \Backup
+                        \Installed
+                \Data
+                \DBData
+                \DBTools
+                \Export
+                \Images
+                \Logs
+                \Software
+                \Tools
+                        \BeckmanConnect
+
+Of this folder set, the following folders are required for testing deployment:
+
+
+    \Instrument
+                \bin
+                \Config
+                        \Backup
+                        \Installed
+                \Data
+                \Export
+                \Images*
+                \Logs
+                \Software
+
+* the Images folder is required only for test/simulation images
+
+The HawkeyeCore DLL and associated files are installed into the \Instrument\Software folder.  The UI is also
+installed into the \Instrument\Software folder.  For debug testing, the HawkeyeCore dll must be in the folder
+containing the UI executable so the UI may properly load the DLL.
+
+The BldDbgEnv.bat script will create the instrument folder structure required for basic installation and testing
+on a development instrument.  It does not create the database-related folders, or install an instance of the
+database on the development instrument.  The folders are created on the current working drive, and the application
+should avoid drive dependencies.
+
+Depending on the test target (UI or DLL) the supporting target may need to be installed using the associated
+installation method.  For the DLL, files are expected in specific locations.
+
+For each software version installation/update, the default instrument configuration files are copied to the
+\Instrument\Config\Installed folder, which always represents the configuration files associated with a version
+release.  On initial installation or a forced update, these files are copied to the \Instrument\Config and
+\Instrument\Config\Backup folders which represent the working folder and the fault-tolerance backup folder.
+After the initial installation, the configuration files in the \Instrument\Config and \Instrument\Config\Backup
+folders are only updated by the application (or the DLL).  The configuration folders also contain the syringe
+pump configuration file (currently kloehn.cfg).
+
+The motor configuration files are an exception to the  placement of the configuration files.  These files,
+MotorControl.info and ControlllerCal.info, are placed in the \Instrument\Software folder.  The MotorControl.info
+file is not updated by the application.  The ControllerCal.info file contains the instrument-specific motor
+registration and alignment information, and is updated by the application.  This file is preserved across
+software, similar to the files in the \Instrument\Config and \Instrument\Config\Backup folders, except when
+performing a forced update.
+
+If testing the UI, ensure that the UI build output and all UI dependencies (including the tested version of the DLL)
+are present in the debug folder.
+
+When testing the DLL, the built test object should be copied to the folder containing the UI executable to be used.
+Visual Studio may be configured to start the debugging session in the folder containing the UI test executable version,
+while using the source code from the DLL project build folders.
+

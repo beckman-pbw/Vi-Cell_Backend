@@ -1,0 +1,11 @@
+config
+{
+	logger
+	{
+		logfile DataImporter.log
+		sensitivity DBG1
+		max_size_bytes 25000000
+		max_log_rolls 100
+		TESTING__always_flush true
+	}
+}

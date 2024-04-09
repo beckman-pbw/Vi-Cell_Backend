@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <configSections>
+    <section name="uiConfiguration" type="ScoutUtilities.UIConfiguration.UIConfigurationSettings, ScoutUtilities" allowLocation="true" allowDefinition="Everywhere" />
+  </configSections>
+  <uiConfiguration
+    deploymentConfigurationSource="UIConfiguration\deployment.config"
+    driveName="C:"
+    environmentConfigurationSource="UIConfiguration\environment.config"
+    exportPath="..\Export\"
+    instrumentPath="..\"
+    isMinimizeButtonVisible="True"
+    loggingConfigurationSource="UIConfiguration\logging.config"
+    masterDataXmlFilePath="XMLDB\Master.xml"
+    maximumSearchCountForOpenSample="5000"
+    responseTimeOutSeconds="120"
+    shutDownTimeoutSecond="30"
+    systemBrightness="100"
+    systemStatusTimerInterval="1000"
+    timeoutHour="0"
+    timeoutMinute="0"
+    timeoutSecond="90"
+    workQueueStatusTimer="500"
+    diameterHistogramBinWidth="0.40"
+    xmlDBConfigurationXmlFilePath="XMLDB\ConfigurationSettings.xml"
+    nightlyCleanTimeOutSeconds="250"
+    licensesHtmlPath="..\legal\legal.html"
+    helpHtmlPath="..\legal\IFUpage.html"
+    setFocusTimeOutSec="120"
+    dustReffTimeOutSec="120"
+    maximumRecentMessages="1000"
+    useWindowedMode="True"
+    overrideEssVcrControls="True"
+  />
+</configuration>

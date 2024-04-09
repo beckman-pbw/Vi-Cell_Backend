@@ -1,0 +1,410 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+#include "verrsrc.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "#include ""verrsrc.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#include ""res\\MotorControl.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""      // Standard components\r\n"
+    "#if !defined(_AFXDLL)\r\n"
+    "#include ""afxribbon.rc""   // MFC ribbon and control bar resources\r\n"
+    "#endif\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\MotorControl.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0,0,220,74
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About MotorControlSA"
+FONT 8,"MS Shell Dlg",0,0,0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,21,20
+    LTEXT           "MotorControlSA, Version ${parsedVersion.majorVersion},${parsedVersion.minorVersion},${parsedVersion.incrementalVersion},${timestamp}",IDC_STATIC,42,14,160,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) ${current.year} Beckman Coulter Life Sciences.",IDC_STATIC,42,26,160,8
+    LTEXT           "All rights reserved.",IDC_STATIC,42,38,114,8
+    DEFPUSHBUTTON   "OK",IDOK,160,54,50,14,WS_GROUP
+END
+
+IDD_MOTORCONTROL_DIALOG DIALOGEX 0,0,724,464
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "MotorControlSA"
+FONT 8,"MS Shell Dlg",0,0,0x1
+BEGIN
+    CONTROL         "Carousel Select",IDC_CAROUSEL_SELECT,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,16,10,60,10
+    CONTROL         "Plate Select",IDC_PLATE_SELECT,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,156,10,60,10
+    GROUPBOX        "Carousel",IDC_CAROUSEL_CNTL_GRP_LBL,16,22,112,184
+    CTEXT           "Current Position",IDC_CAROUSEL_POS_LBL,43,32,56,8
+    CTEXT           "Tube",IDC_CAROUSEL_TUBE_DISP_LBL,52,40,40,8
+    EDITTEXT        IDC_CAROUSEL_TUBE_DISP,52,50,40,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY | ES_NUMBER
+    CTEXT           "Step Tube",IDC_CAROUSEL_NEXT_TUBE_LBL,28,66,40,8
+    PUSHBUTTON      "Go to\rNext\rTube",IDC_CAROUSEL_NEXT_TUBE_BTN,32,76,32,30,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    CTEXT           "Find Tube",IDC_CAROUSEL_FIND_TUBE_LBL,76,66,40,8
+    PUSHBUTTON      "Find\rNext\rTube",IDC_CAROUSEL_FIND_TUBE_BTN,80,76,32,30,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    CTEXT           "Set Tube",IDC_CAROUSEL_TUBE_SET_LBL,56,110,32,8
+    EDITTEXT        IDC_CAROUSEL_TUBE_SET_EDIT,56,120,32,12,ES_CENTER | ES_NUMBER
+    PUSHBUTTON      "+",IDC_CAROUSEL_TUBE_PLUS_BTN,32,138,32,30
+    PUSHBUTTON      "-",IDC_CAROUSEL_TUBE_MINUS_BTN,80,138,32,30
+    PUSHBUTTON      "Go To",IDC_CAROUSEL_TUBE_SET_BTN,56,172,32,30,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    GROUPBOX        "Plate",IDC_PLATE_CNTL_GRP_LBL,136,22,100,184
+    CTEXT           "Current Position",IDC_PLATE_POS_LBL,158,32,56,8
+    CTEXT           "Row",IDC_PLATE_ROW_DISP_LBL,142,40,40,8
+    EDITTEXT        IDC_PLATE_ROW_DISP,142,50,40,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "Column",IDC_PLATE_COL_DISP_LBL,190,40,40,8
+    EDITTEXT        IDC_PLATE_COL_DISP,190,50,40,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY | ES_NUMBER
+    CTEXT           "Set Row",IDC_PLATE_ROW_SET_LBL,142,78,40,8
+    EDITTEXT        IDC_PLATE_ROW_SET_EDIT,146,88,32,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "+",IDC_PLATE_ROW_PLUS_BTN,146,104,32,30
+    PUSHBUTTON      "-",IDC_PLATE_ROW_MINUS_BTN,146,138,32,30
+    CTEXT           "Set Column",IDC_PLATE_COL_SET_LBL,190,78,40,8
+    EDITTEXT        IDC_PLATE_COL_SET_EDIT,194,88,32,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY | ES_NUMBER
+    PUSHBUTTON      "+",IDC_PLATE_COL_PLUS_BTN,194,104,32,30
+    PUSHBUTTON      "-",IDC_PLATE_COL_MINUS_BTN,194,138,32,30
+    PUSHBUTTON      "Go To",IDC_PLATE_ROW_COL_SET_BTN,170,172,32,30,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    CTEXT           "Sample Probe",IDC_SAMPLE_PROBE_CNTL_LBL,242,16,48,8,SS_CENTERIMAGE
+    PUSHBUTTON      "Probe\rUp",IDC_SAMPLE_PROBE_UP_BTN,248,28,32,30,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    PUSHBUTTON      "Probe\rDown",IDC_SAMPLE_PROBE_DN_BTN,248,62,32,30,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    CTEXT           "Reagent Arm",IDC_REAGENT_ARM_CNTL_LBL,298,16,44,8
+    PUSHBUTTON      "Arm\rUp",IDC_REAGENT_ARM_UP_BTN,304,28,32,30,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    PUSHBUTTON      "Arm\rDown",IDC_REAGENT_ARM_DN_BTN,304,62,32,30,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    CTEXT           "Focus",IDC_FOCUS_CNTL_LBL,396,8,40,8
+    CTEXT           "Fine",IDC_FINE_FOCUS_LBL,356,16,40,8
+    PUSHBUTTON      "Up",IDC_FINE_FOCUS_CNTL_UP_BTN,360,28,32,30,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    PUSHBUTTON      "Down",IDC_FINE_FOCUS_CNTL_DN_BTN,360,62,32,30,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    CTEXT           "Coarse",IDC_COARSE_FOCUS_LBL,396,16,40,8
+    PUSHBUTTON      "Up",IDC_COARSE_FOCUS_CNTL_UP_BTN,400,28,32,30,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    PUSHBUTTON      "Down",IDC_COARSE_FOCUS_CNTL_DN_BTN,400,62,32,30,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    CTEXT           "Fast",IDC_FAST_FOCUS_LBL,436,16,40,8
+    PUSHBUTTON      "Up",IDC_FAST_FOCUS_CNTL_UP_BTN,440,28,32,30,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    PUSHBUTTON      "Down",IDC_FAST_FOCUS_CNTL_DN_BTN,440,62,32,30,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    LTEXT           "Motor Status",IDC_MOTOR_STATUS_DISP_LBL,484,8,48,8
+    EDITTEXT        IDC_MOTOR_STATUS_DISP,484,20,232,186,ES_MULTILINE | ES_AUTOHSCROLL | ES_READONLY
+    GROUPBOX        "Configuration",IDC_CONFIG_GRP,8,206,708,250
+    CTEXT           "Carousel Status",IDC_CAROUSEL_STATUS_LBL,20,222,72,8
+    EDITTEXT        IDC_CAROUSEL_STATUS_DISP,20,232,72,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "Plate Status",IDC_PLATE_STATUS_LBL,20,248,72,8
+    EDITTEXT        IDC_PLATE_STATUS_DISP,20,258,72,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "Controller Status",IDC_BOARD_STATUS_LBL,20,274,72,8,SS_CENTERIMAGE
+    EDITTEXT        IDC_BOARD_STATUS_DISP,20,284,72,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
+    GROUPBOX        "Carousel Controller",IDC_CAROUSEL_CNTLR_CONFIG_GRP,112,214,124,88
+    PUSHBUTTON      "Reset",IDC_CAROUSEL_CNTLR_RESET_BTN,120,228,32,30,BS_MULTILINE
+    PUSHBUTTON      "Load /\r\nHome",IDC_CAROUSEL_CNTLR_LOAD_HOME_BTN,120,264,32,30,BS_MULTILINE
+    PUSHBUTTON      "Init",IDC_CAROUSEL_CNTLR_INIT_BTN,158,228,32,30,BS_MULTILINE
+    PUSHBUTTON      "Eject",IDC_CAROUSEL_CNTLR_EJECT_BTN,158,264,32,30,BS_MULTILINE
+    PUSHBUTTON      "Cal\rCarousel",IDC_CAROUSEL_CNTLR_CAL_BTN,196,228,32,30,BS_MULTILINE
+    GROUPBOX        "Plate Controller",IDC_PLATE_CNTLR_CONFIG_GRP,242,214,124,88
+    PUSHBUTTON      "Reset",IDC_PLATE_CNTLR_RESET_BTN,250,228,32,30,BS_MULTILINE
+    PUSHBUTTON      "Load /\r\nHome",IDC_PLATE_CNTLR_LOAD_HOME_BTN,250,264,32,30,BS_MULTILINE
+    PUSHBUTTON      "Init",IDC_PLATE_CNTLR_INIT_BTN,288,228,32,30,BS_MULTILINE
+    PUSHBUTTON      "Eject",IDC_PLATE_CNTLR_EJECT_BTN,288,264,32,30,BS_MULTILINE
+    PUSHBUTTON      "Cal\r\nPlate",IDC_PLATE_CNTLR_CAL_BTN,326,228,32,30,BS_MULTILINE
+    GROUPBOX        "LED Controller",IDC_LED_CNTLR_CONFIG_GRP,372,214,236,88
+    PUSHBUTTON      "Reset",IDC_LED_CNTLR_RESET_BTN,380,228,32,30,BS_MULTILINE
+    PUSHBUTTON      "Home",IDC_LED_CNTLR_HOME_BTN,380,264,32,30,BS_MULTILINE
+    CTEXT           "Rack 1",IDC_LED_CNTLR_RACK1_LBL,456,222,32,8
+    EDITTEXT        IDC_LED_CNTLR_RACK1_PATH_DISP,494,221,28,12,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "Top",IDC_LED_CNTLR_RACK1_SET_TOP_BTN,456,236,32,14
+    PUSHBUTTON      "Set Cal",IDC_LED_CNTLR_RACK1_CAL_TOP_BTN,492,236,32,14
+    PUSHBUTTON      "Ctr",IDC_LED_CNTLR_RACK1_SET_CTR_BTN,456,252,32,14
+    PUSHBUTTON      "Set Cal",IDC_LED_CNTLR_RACK1_CAL_CTR_BTN,492,252,32,14
+    PUSHBUTTON      "Bot",IDC_LED_CNTLR_RACK1_SET_BOT_BTN,456,268,32,14
+    PUSHBUTTON      "Set Cal",IDC_LED_CNTLR_RACK1_CAL_BOT_BTN,492,268,32,14
+    PUSHBUTTON      "Home",IDC_LED_CNTLR_RACK1_SET_HOME_BTN,456,284,32,14,BS_MULTILINE
+    CTEXT           "Rack 2",IDC_LED_CNTLR_RACK2_LBL,532,222,32,8
+    EDITTEXT        IDC_LED_CNTLR_RACK2_PATH_DISP,570,221,28,12,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "Top",IDC_LED_CNTLR_RACK2_SET_TOP_BTN,532,236,32,14
+    PUSHBUTTON      "Set Cal",IDC_LED_CNTLR_RACK2_CAL_TOP_BTN,568,236,32,14
+    PUSHBUTTON      "Ctr",IDC_LED_CNTLR_RACK2_SET_CTR_BTN,532,252,32,14
+    PUSHBUTTON      "Set Cal",IDC_LED_CNTLR_RACK2_CAL_CTR_BTN,568,252,32,14
+    PUSHBUTTON      "Bot",IDC_LED_CNTLR_RACK2_SET_BOT_BTN,532,268,32,14
+    PUSHBUTTON      "Set Cal",IDC_LED_CNTLR_RACK2_CAL_BOT_BTN,568,268,32,14
+    PUSHBUTTON      "Home",IDC_LED_CNTLR_RACK2_SET_HOME_BTN,532,284,32,14,BS_MULTILINE
+    GROUPBOX        "Focus",IDC_FOCUS_MOTOR_CONFIG_GRP,612,214,96,148
+    PUSHBUTTON      "Motor\rReset",IDC_FOCUS_MOTOR_RESET_BTN,620,226,32,30,BS_MULTILINE
+    PUSHBUTTON      "Home",IDC_FOCUS_MOTOR_HOME_BTN,620,260,32,30,BS_MULTILINE
+    PUSHBUTTON      "Clear\rErrors",IDC_FOCUS_CLEAR_ERRORS_BTN,620,294,32,30,BS_MULTILINE
+    PUSHBUTTON      "Stop",IDC_FOCUS_CNTLR_STOP_BTN,620,328,32,14
+    PUSHBUTTON      "Status",IDC_FOCUS_CNTLR_STATUS_BTN,620,344,32,14
+    CTEXT           "Current\rPosition",IDC_FOCUS_POS_LBL,663,225,32,16
+    EDITTEXT        IDC_FOCUS_POS_DISP,659,243,40,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
+    CTEXT           "Enter\rPosition",IDC_ENTER_FOCUS_POS_LBL,663,259,32,16,0,WS_EX_ACCEPTFILES
+    EDITTEXT        IDC_FOCUS_POS_SET_EDIT,663,277,32,12,ES_CENTER
+    PUSHBUTTON      "Go To",IDC_FOCUS_POS_SET_BTN,664,294,32,30,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    PUSHBUTTON      "Go To\rCenter\rTravel",IDC_FOCUS_POS_SET_MID_BTN,663,328,32,30,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    GROUPBOX        "Sample Probe",IDC_SAMPLE_PROBE_CONFIG_GRP,12,304,96,148
+    PUSHBUTTON      "Motor\rReset",IDC_SAMPLE_PROBE_RESET_BTN,18,316,32,30,BS_MULTILINE
+    PUSHBUTTON      "Home",IDC_SAMPLE_PROBE_HOME_BTN,62,316,32,30,BS_MULTILINE
+    PUSHBUTTON      "Set\rAbove",IDC_SAMPLE_PROBE_SET_ABOVE_BTN,18,350,32,30,BS_MULTILINE
+    PUSHBUTTON      "Set\rRaise",IDC_SAMPLE_PROBE_SET_RAISE_BTN,62,350,32,30,BS_MULTILINE
+    PUSHBUTTON      "Adjust\rUp",IDC_SAMPLE_PROBE_ADJUST_UP_BTN,18,384,32,30,BS_MULTILINE
+    PUSHBUTTON      "Adjust\rDown",IDC_SAMPLE_PROBE_ADJUST_DN_BTN,62,384,32,30,BS_MULTILINE
+    PUSHBUTTON      "Clear Err",IDC_SAMPLE_PROBE_CLEAR_ERRORS_BTN,18,418,32,14
+    PUSHBUTTON      "Status",IDC_SAMPLE_PROBE_CNTLR_STATUS_BTN,61,418,32,14
+    PUSHBUTTON      "Stop",IDC_SAMPLE_PROBE_CNTLR_STOP_BTN,18,434,32,14
+    GROUPBOX        "Theta",IDC_THETA_MOTOR_CONFIG_GRP,112,304,96,148
+    PUSHBUTTON      "Motor\rReset",IDC_THETA_MOTOR_RESET_BTN,118,316,32,30,BS_MULTILINE
+    PUSHBUTTON      "Home",IDC_THETA_MOTOR_HOME_BTN,162,316,32,30,BS_MULTILINE
+    PUSHBUTTON      "Set Tube 1 Position",IDC_THETA_MOTOR_SET_TUBE1_POS_BTN,118,350,32,30,BS_MULTILINE
+    PUSHBUTTON      "Adjust  Left",IDC_THETA_ADJUST_LEFT_BTN,118,384,32,30,BS_MULTILINE
+    PUSHBUTTON      "Adjust Right",IDC_THETA_ADJUST_RIGHT_BTN,162,384,32,30,BS_MULTILINE
+    PUSHBUTTON      "Clear Err",IDC_THETA_CLEAR_ERRORS_BTN,118,418,32,14
+    PUSHBUTTON      "Status",IDC_THETA_CNTLR_STATUS_BTN,162,418,32,14
+    PUSHBUTTON      "Stop",IDC_THETA_CNTLR_STOP_BTN,118,434,32,14
+    GROUPBOX        "Radius",IDC_RADIUS_MOTOR_CONFIG_GRP,212,304,96,148
+    PUSHBUTTON      "Motor Reset",IDC_RADIUS_MOTOR_RESET_BTN,218,316,32,30,BS_MULTILINE
+    PUSHBUTTON      "Home",IDC_RADIUS_MOTOR_HOME_BTN,261,316,32,30,BS_MULTILINE
+    PUSHBUTTON      "Set\rTube\rPosition",IDC_RADIUS_MOTOR_SET_TUBE_POS_BTN,218,350,32,30,BS_MULTILINE
+    PUSHBUTTON      "Set\rCenter\rPosition",IDC_RADIUS_MOTOR_SET_PLATE_CENTER_POS_BTN,261,350,32,30,BS_MULTILINE
+    PUSHBUTTON      "Adjust\rIn",IDC_RADIUS_ADJUST_IN_BTN,218,384,32,30,BS_MULTILINE
+    PUSHBUTTON      "Adjust\rOut",IDC_RADIUS_ADJUST_OUT_BTN,262,384,32,30,BS_MULTILINE
+    PUSHBUTTON      "Clear Err",IDC_RADIUS_CLEAR_ERRORS_BTN,218,418,32,14
+    PUSHBUTTON      "Status",IDC_RADIUS_CNTLR_STATUS_BTN,262,418,32,14
+    PUSHBUTTON      "Stop",IDC_RADIUS_CNTLR_STOP_BTN,218,434,32,14
+    GROUPBOX        "Reagent Arm",IDC_REAGENT_ARM_CONFIG_GRP,312,304,96,148
+    PUSHBUTTON      "Motor\rReset",IDC_REAGENT_ARM_RESET_BTN,318,316,32,30,BS_MULTILINE
+    PUSHBUTTON      "Home",IDC_REAGENT_ARM_HOME_BTN,362,316,32,30,BS_MULTILINE
+    PUSHBUTTON      "Adjust\rUp",IDC_REAGENT_ADJUST_UP_BTN,318,384,32,30,BS_MULTILINE
+    PUSHBUTTON      "Adjust\rDown",IDC_REAGENT_ADJUST_DN_BTN,362,384,32,30,BS_MULTILINE
+    PUSHBUTTON      "Clear Err",IDC_REAGENT_CLEAR_ERRORS_BTN,318,418,32,14
+    PUSHBUTTON      "Status",IDC_REAGENT_CNTLR_STATUS_BTN,362,418,32,14
+    PUSHBUTTON      "Stop",IDC_REAGENT_CNTLR_STOP_BTN,318,434,32,14
+    GROUPBOX        "LED Rack1",IDC_LEDRACK1_MOTOR_CONFIG_GRP,412,304,96,148
+    PUSHBUTTON      "Motor\rReset",IDC_LEDRACK1_MOTOR_RESET_BTN,418,316,32,30,BS_MULTILINE
+    PUSHBUTTON      "Home",IDC_LEDRACK1_MOTOR_HOME_BTN,418,350,32,30,BS_MULTILINE
+    PUSHBUTTON      "Top",IDC_LEDRACK1_SET_TOP_BTN,462,332,32,14
+    PUSHBUTTON      "Ctr",IDC_LEDRACK1_SET_CTR_BTN,462,350,32,14
+    PUSHBUTTON      "Bot",IDC_LEDRACK1_SET_BOT_BTN,462,366,32,14
+    PUSHBUTTON      "Adjust\rUp",IDC_LEDRACK1_ADJUST_UP_BTN,418,384,32,30,BS_MULTILINE
+    PUSHBUTTON      "Adjust\rDown",IDC_LEDRACK1_ADJUST_DN_BTN,462,384,32,30,BS_MULTILINE
+    PUSHBUTTON      "Clear Err",IDC_LEDRACK1_CLEAR_ERRORS_BTN,418,418,32,14
+    PUSHBUTTON      "Status",IDC_LEDRACK1_MOTOR_STATUS_BTN,462,418,32,14
+    PUSHBUTTON      "Stop",IDC_LEDRACK1_MOTOR_STOP_BTN,418,434,32,14
+    GROUPBOX        "LED Rack2",IDC_LEDRACK2_MOTOR_CONFIG_GRP,512,304,96,148
+    PUSHBUTTON      "Motor\rReset",IDC_LEDRACK2_MOTOR_RESET_BTN,518,316,32,30,BS_MULTILINE
+    PUSHBUTTON      "Home",IDC_LEDRACK2_MOTOR_HOME_BTN,518,350,32,30,BS_MULTILINE
+    PUSHBUTTON      "Top",IDC_LEDRACK2_SET_TOP_BTN,562,332,32,14
+    PUSHBUTTON      "Ctr",IDC_LEDRACK2_SET_CTR_BTN,562,350,32,14
+    PUSHBUTTON      "Bot",IDC_LEDRACK2_SET_BOT_BTN,562,366,32,14
+    PUSHBUTTON      "Adjust\rUp",IDC_LEDRACK2_ADJUST_UP_BTN,518,384,32,30,BS_MULTILINE
+    PUSHBUTTON      "Adjust\rDown",IDC_LEDRACK2_ADJUST_DN_BTN,562,384,32,30,BS_MULTILINE
+    PUSHBUTTON      "Clear Err",IDC_LEDRACK2_CLEAR_ERRORS_BTN,518,418,32,14
+    PUSHBUTTON      "Status",IDC_LEDRACK2_MOTOR_STATUS_BTN,562,418,32,14
+    PUSHBUTTON      "Stop",IDC_LEDRACK2_MOTOR_STOP_BTN,518,434,32,14
+    DEFPUSHBUTTON   "Exit",IDOK,666,442,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION ${parsedVersion.majorVersion},${parsedVersion.minorVersion},${parsedVersion.incrementalVersion},${timestamp}
+ PRODUCTVERSION ${parsedVersion.majorVersion},${parsedVersion.minorVersion},${parsedVersion.incrementalVersion},${timestamp}
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "Beckman Coulter Life Sciences"
+            VALUE "FileDescription", "MotorControlSA: stand-alone motor controller subsystem test utility"
+            VALUE "FileVersion", "${parsedVersion.majorVersion},${parsedVersion.minorVersion},${parsedVersion.incrementalVersion},${timestamp}"
+            VALUE "InternalName", "MotorControlSA.exe"
+            VALUE "LegalCopyright", "Copyright (C) ${current.year} Beckman Coulter Life Sciences. All rights reserved."
+            VALUE "LegalTrademarks", "Beckman Coulter, the stylized logo, and the Beckman Coulter product and service marks mentioned herein are trademarks or registered trademarks of Beckman Coulter, Inc. in the United States and other countries."
+            VALUE "OriginalFilename", "MotorControlSA.exe"
+            VALUE "ProductName", "MotorControlSA"
+            VALUE "ProductVersion", "${parsedVersion.majorVersion},${parsedVersion.minorVersion},${parsedVersion.incrementalVersion},${timestamp}"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation",0x409,1200
+    END
+END
+
+IDR_VERSION2 VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName", "Beckman Coulter Life Sciences"
+            VALUE "FileDescription", "MotorControlSA: stand-alone motor controller subsystem test utility"
+            VALUE "FileVersion", "${parsedVersion.majorVersion},${parsedVersion.minorVersion},${parsedVersion.incrementalVersion},${timestamp}"
+            VALUE "InternalName", "MotorControlSA.exe"
+            VALUE "LegalCopyright", "Copyright (C) ${current.year} Beckman Coulter Life Sciences. All rights reserved."
+            VALUE "OriginalFilename", "MotorControlSA.exe"
+            VALUE "ProductName", "MotorControlSA"
+            VALUE "ProductVersion", "${parsedVersion.majorVersion},${parsedVersion.minorVersion},${parsedVersion.incrementalVersion},${timestamp}"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation",0x409,1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 163
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 55
+    END
+
+    IDD_MOTORCONTROL_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 716
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 456
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_MOTORCONTROL_DIALOG AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_ABOUTBOX            "&About MotorControlSA..."
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#include "res\MotorControl.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"      // Standard components
+#if !defined(_AFXDLL)
+#include "afxribbon.rc"   // MFC ribbon and control bar resources
+#endif
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E7E84E66-9A3C-4961-8076-E71407EACBF6}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>UnitTests</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="PropertySheet.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="PropertySheet.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="PropertySheet.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="PropertySheet.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+    <OutDir>$(SolutionDir)$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_AFXDLL;WIN32;_DEBUG;_CONSOLE;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;$(GTEST_INCLUDE);$(GMOCK_INCLUDE);$(SolutionDir)target\dependencies\include;$(SolutionDir)target\dependencies\crypto\;$(SolutionDir)target\dependencies\boost\;$(SolutionDir)target\dependencies\opencv\include;$(SolutionDir)target\dependencies\basler\include;$(SolutionDir)target\dependencies\ftdi\;$(SolutionDir)HawkeyeCore;$(SolutionDir)HawkeyeCore\API;$(SolutionDir)HawkeyeCore\APIImplementation;$(SolutionDir)HawkeyeCore\Core;$(SolutionDir)HawkeyeCore\DLLLayer;$(SolutionDir)HawkeyeCore\HardwareLayer;$(SolutionDir)HawkeyeCore\HardwareLayer\BaseClass;$(SolutionDir)HawkeyeCore\HardwareLayer\Simulation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>.;$(GTEST_LIB_64)\Debug;$(GMOCK_LIB_64)\Debug;$(SolutionDir)target\dependencies\googletest\Debug;$(SolutionDir)target\dependencies\lib;$(SolutionDir)target\dependencies\crypto\x64\Output\$(Configuration);$(SolutionDir)target\dependencies\boost\stage\lib;$(SolutionDir)target\dependencies\opencv\lib;$(SolutionDir)target\dependencies\basler\lib\x64;$(SolutionDir)target\dependencies\ftdi\amd64;$(SolutionDir)target\$(Configuration);$(SolutionDir)HawkeyeCore\$(Platform)\$(Configuration);$(SolutionDir)HawkeyeCore\CellCounting\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cryptlib.lib;gtestd.lib;gmockd.lib;ftd2xx.lib;HawkeyeCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_AFXDLL;WIN32_LEAN_AND_MEAN;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;$(GTEST_INCLUDE);$(GMOCK_INCLUDE);$(SolutionDir)target\dependencies\include;$(SolutionDir)target\dependencies\crypto\;$(SolutionDir)target\dependencies\boost\;$(SolutionDir)target\dependencies\opencv\include;$(SolutionDir)target\dependencies\basler\include;$(SolutionDir)target\dependencies\ftdi\;$(SolutionDir)HawkeyeCore;$(SolutionDir)HawkeyeCore\API;$(SolutionDir)HawkeyeCore\APIImplementation;$(SolutionDir)HawkeyeCore\Core;$(SolutionDir)HawkeyeCore\DLLLayer;$(SolutionDir)HawkeyeCore\HardwareLayer;$(SolutionDir)HawkeyeCore\HardwareLayer\BaseClass;$(SolutionDir)HawkeyeCore\HardwareLayer\Simulation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>.;$(GTEST_LIB_64)\Release;$(GMOCK_LIB_64)\Release;$(SolutionDir)target\dependencies\googletest\Release;$(SolutionDir)target\dependencies\lib;$(SolutionDir)target\dependencies\crypto\x64\Output\$(Configuration);$(SolutionDir)target\dependencies\boost\stage\lib;$(SolutionDir)target\dependencies\opencv\lib;$(SolutionDir)target\dependencies\basler\lib\x64;$(SolutionDir)target\dependencies\ftdi\amd64;$(SolutionDir)target\$(Configuration);$(SolutionDir)HawkeyeCore\$(Platform)\$(Configuration);$(SolutionDir)HawkeyeCore\CellCounting\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cryptlib.lib;gtest.lib;gmock.lib;ftd2xx.lib;HawkeyeCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\HawkeyeCore\Core\CommandParser.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\Core\SecurityHelpers.hpp" />
+    <ClInclude Include="CBITestFixture.h" />
+    <ClInclude Include="ControllerBoardFW_TestFixtures.hpp" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="ControllerBoardInterfaceMock.h" />
+    <ClInclude Include="RfidTestFixture.h" />
+    <ClInclude Include="RfidTests.h" />
+    <ClInclude Include="SimpleFTDI.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\HawkeyeCore\Core\AppConfig.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\CommandParser.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\Configuration.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\HawkeyeUser.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\Logger.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\SecurityHelpers.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\SystemErrors.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\UserList.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\HawkeyeConfig.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\BaseClass\RfidBase.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\ControllerBoardCommand.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\ControllerBoardEzPort.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\ControllerBoardMessage.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\ControllerBoardStatus.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\ErrorCode.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\FTDI_Error_To_Boost.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\Rfid.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\SystemErrors.cpp" />
+    <ClCompile Include="CBITestFixture.cpp" />
+    <ClCompile Include="ControllerBoardDownloadTests.cpp" />
+    <ClCompile Include="ControllerBoardInterfaceMock.cpp" />
+    <ClCompile Include="LoggingAudit.cpp" />
+    <ClCompile Include="ReagentTests.cpp" />
+    <ClCompile Include="RfidTestFixture.cpp" />
+    <ClCompile Include="RfidTests.cpp" />
+    <ClCompile Include="SimpleFTDI.cpp" />
+    <ClCompile Include="UserListTests.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="UnitTestsMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="$(SolutionDir)target\properties\UnitTests\UnitTests.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

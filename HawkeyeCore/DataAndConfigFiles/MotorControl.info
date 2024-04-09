@@ -1,0 +1,1185 @@
+config
+{
+    logger
+    {
+        logfile MotorControl.log
+        sensitivity NORM
+        max_size_bytes 5000000
+    }
+    motor_controllers
+    {
+        carousel_controller
+        {
+            motor_parameters
+            {
+                theta_motor
+                {
+                    HomeDirection 1
+                    MotorFullStepsPerRev 200
+                    ; user units per full MOTOR revolution in 1/10th degree = 90.0 degrees of CAROUSEL (or plate) revolution
+                    ; NOTE that end result movement (carousel or plate rotation movement) is 1/4 due to reduction gearing between motor and carousel
+                    UnitsPerRev 900
+                    ; gearing is 'effective' gearing through the reduction pulleys, not an internal motor gearhead
+                    GearheadRatio 4
+                    EncoderTicksPerRev 800
+                    ; Calculate user units of deadband corresponding to 4 encoder ticks;
+                    ; That calculation is: U = 4 * (UnitsPerRev/EncoderTicksPerRev)
+                    ; for 800 EncoderTicksPerRev, 4 encoder ticks of deadband calculates to 5 user units when rounded up to ensure full integer value encoder ticks
+                    Deadband 10
+                    InvertedDirection 1
+                    StepSize 8
+                    Acceleration 1200
+                    DeAcceleration 1200
+                    MinSpeed 0
+                    MaxSpeed 150
+                    ; NOTE: the overcurrent internal register is only 4-bits over the range of 0 to 6.0 amps, yielding steps of 0.375A
+                    ; multiples of .375A (375000 uA) should be used, and may result in values potentially higher than the motor's rated current
+                    ; 1.5A rated value
+                    OverCurrent 2625000
+                    StallCurrent 0
+                    ; NOTE: the Hold-, Run-, Accel-, and Decel- current internal registers have a resolution of 0.03125amps (31.25 mA)
+                    ; multiples of .03125A (31250 uA) should be used; Accel and Decel values should ALWAYS be more than 40% less than
+                    ; the overcurrent value, as the overcurrent value may effectively vary by +/- 20% from the nominal setting
+                    ; NOTE: the minimum allowable hold voltage divider value appears to be 31250.
+                    ; Values less than this cause the controller chip to report an overcurrent condition at the end of move operations, including the 'home' command.
+                    HoldVoltageDivide 750000
+;                    HoldVoltageDivide 60000
+                    RunVoltageDivide 1500000
+                    AccVoltageDivide 1500000
+                    DecVoltageDivide 1500000
+                    CONFIG 44696
+                    INT_SPEED 0
+                    ST_SLP 25
+                    FN_SLP_ACC 41
+                    FN_SLP_DEC 41
+                    HomingStepSize 0
+                    DelayAfterMove 0
+                    ProbeSpeed1 0
+                    ProbeCurrent1 0
+                    ProbeAbovePosition 0
+                    ProbeSpeed2 0
+                    ProbeCurrent2 0
+                    ProbeRaise 0
+                    MaxTravelPosition 0
+                    MaxMoveRetries 0
+                }
+                probe_motor
+                {
+                    HomeDirection 0
+                    MotorFullStepsPerRev 200
+                    ; user units per revolution in 1/10th microns = 10.16 mm per revolution or 10160.0 microns
+                    UnitsPerRev 101600
+                    GearheadRatio 1
+                    ; use negative value for reversed encoder wiring if using rev2 (or later) hw
+                    EncoderTicksPerRev -1440
+                    ; Allow 2 encoder ticks of deadband
+                    ; That calculation is 4 * (UnitsPerRev/EncoderTicksPerRev)
+                    ; for 1440 EncoderTicksPerRev, that calculates and rounds to 285 User Units of deadband rounded up to ensure the 4 encoder ticks
+                    Deadband 500
+                    InvertedDirection 0
+                    StepSize 8
+                    Acceleration 1000000
+                    DeAcceleration 1000000
+                    MinSpeed 0
+                    MaxSpeed 750000
+                    ; NOTE: the overcurrent internal register is only 4-bits over the range of 0 to 6.0 amps, yielding steps of 0.375A
+                    ; multiples of .375A (375000 uA) should be used, and may result in values potentially higher than the motor's rated current
+                    ; 1.0A rated value (needs to be spec'd at 1.125A)
+                    OverCurrent 1875000
+                    StallCurrent 0
+                    ; NOTE: the Hold-, Run-, Accel-, and Decel- current internal registers have a resolution of 0.03125amps (31.25 mA)
+                    ; multiples of .03125A (31250 uA) should be used; Accel and Decel values should ALWAYS be more than 40% less than
+                    ; the overcurrent value, as the overcurrent value may effectively vary by +/- 20% from the nominal setting
+                    ; NOTE: the minimum allowable hold voltage divider value appears to be 31250.
+                    ; Values less than this cause the controller chip to report an overcurrent condition at the end of move operations, including the 'home' command.
+                    HoldVoltageDivide 100000
+                    RunVoltageDivide 1000000
+                    AccVoltageDivide 1000000
+                    DecVoltageDivide 1000000
+                    CONFIG 44696
+                    INT_SPEED 0
+                    ST_SLP 25
+                    FN_SLP_ACC 41
+                    FN_SLP_DEC 41
+                    HomingStepSize 0
+                    DelayAfterMove 0
+                    ProbeSpeed1 750000
+                    ProbeCurrent1 1000000
+                    ProbeAbovePosition 385000
+                    ProbeSpeed2 20000
+                    ProbeCurrent2 500000
+                    ProbeRaise 10000
+                    MaxTravelPosition 470000
+                    MaxMoveRetries 0
+                }
+                radius_motor
+                {
+                    HomeDirection 0
+                    MotorFullStepsPerRev 200
+                    ; user units per revolution in 1/10th microns = 32.00 mm per revolution or 32000.0 microns
+                    UnitsPerRev 320000
+                    GearheadRatio 1
+                    ; use negative value for reversed encoder wiring if using rev2 (or later) hw
+                    EncoderTicksPerRev -800
+                    ; Allow 3 encoder ticks of deadband
+                    ; That calculation is 3 * (UnitsPerRev/EncoderTicksPerRev)
+                    ; for 800 EncoderTicksPerRev, that calculates to 1200 User Units of deadband
+                    Deadband 2000
+                    InvertedDirection 0
+                    StepSize 8
+                    Acceleration 1500000
+                    DeAcceleration 1500000
+                    MinSpeed 0
+                    MaxSpeed 350000
+                    ; NOTE: the overcurrent internal register is only 4-bits over the range of 0 to 6.0 amps, yielding steps of 0.375A
+                    ; multiples of .375A (375000 uA) should be used, and may result in values potentially higher than the motor's rated current
+                    ; 1.5A rated value
+                    OverCurrent 2625000
+                    StallCurrent 0
+                    ; NOTE: the Hold-, Run-, Accel-, and Decel- current internal registers have a resolution of 0.03125amps (31.25 mA)
+                    ; multiples of .03125A (31250 uA) should be used; Accel and Decel values should ALWAYS be more than 40% less than
+                    ; the overcurrent value, as the overcurrent value may effectively vary by +/- 20% from the nominal setting
+                    ; NOTE: the minimum allowable hold voltage divider value appears to be 31250.
+                    ; Values less than this cause the controller chip to report an overcurrent condition at the end of move operations, including the 'home' command.
+                    HoldVoltageDivide 750000
+;                    HoldVoltageDivide 150000
+                    RunVoltageDivide 1500000
+                    AccVoltageDivide 1500000
+                    DecVoltageDivide 1500000
+                    CONFIG 44696
+                    INT_SPEED 0
+                    ST_SLP 25
+                    FN_SLP_ACC 41
+                    FN_SLP_DEC 41
+                    HomingStepSize 0
+                    DelayAfterMove 0
+                    ProbeSpeed1 0
+                    ProbeCurrent1 0
+                    ProbeAbovePosition 0
+                    ProbeSpeed2 0
+                    ProbeCurrent2 0
+                    ProbeRaise 0
+                    MaxTravelPosition 1050000
+                    MaxMoveRetries 3
+                }
+            }
+            controller_config
+            {
+                ; theta position tolerance accounts for the gearing
+                CarouselPositionTolerance 10
+                CarouselThetaHomePos 0
+                CarouselThetaHomePosOffset 1845
+                CarouselTubes 24
+                ; Mechanical tolerances for backlash for the theta motor have varied significantly across the various builds.
+                ; This indicates the need to be able to tune backlash at the time of manufacture
+                ; to accomodate changes in the mechanical build tolerances
+                CarouselThetaBacklash 20
+                CarouselRadiusOffset 824800
+                CarouselRadiusMaxTravel 1050000
+                ProbePositionTolerance 1000
+                ProbeHomePos 0
+                ProbeHomePosOffset -35000
+                ProbeDownPos 455000
+                ProbeMaxTravel 470000
+                ProbeInternalRetries 1
+                ThetaStartTimeout 20
+                ThetaFullTimeout 300
+                ProbeStartTimeout 20
+                ProbeBusyTimeout 250
+                RadiusStartTimeout 20
+                RadiusFullTimeout 200
+                ControllerInternalRetries 0
+            }
+        }
+        focus_controller
+        {
+            motor_parameters
+            {
+                focus_motor
+                {
+                    HomeDirection 0
+                    MotorFullStepsPerRev 200
+                    ; user units per revolution in 1/10th microns = 0.3 mm per revolution or 300.0 microns
+                    ; NOTE: the minimum user unit resolution possible is 0.1875 micron per motor micro-step using 8 micro-steps per full step
+                    UnitsPerRev 3000
+                    GearheadRatio 1
+                    ; NOTE: motors that do not have encoders must use (EncoderStepsPerRev * StepSize) as their pseudo encoder count
+                    EncoderTicksPerRev 1600
+                    ; NOTE: the deadband represents 0.4 micron, which translates to 2.133 motor micro-steps;
+                    ; Since motor steps must be an interger value, the actual deadband is 0.375 microns;
+                    ; Reducing the deadband any further may result in the inability to hit the desired location
+                    Deadband 4
+                    InvertedDirection 0
+                    StepSize 8
+                    Acceleration 7500
+                    DeAcceleration 7500
+                    MinSpeed 0
+                    MaxSpeed 2500
+                    ; NOTE: the overcurrent internal register is only 4-bits over the range of 0 to 6.0 amps, yielding steps of 0.375A
+                    ; multiples of .375A (375000 uA) should be used, and may result in values potentially higher than the motor's rated current
+                    ; 0.5A rated value (needs to be spec'd at 0.75A)
+                    OverCurrent 1125000
+                    StallCurrent 0
+                    ; NOTE: the Hold-, Run-, Accel-, and Decel- current internal registers have a resolution of 0.03125amps (31.25 mA)
+                    ; multiples of .03125A (31250 uA) should be used; Accel and Decel values should ALWAYS be more than 40% less than
+                    ; the overcurrent value, as the overcurrent value may effectively vary by +/- 20% from the nominal setting
+                    ; NOTE: the minimum allowable hold voltage divider value appears to be 31250.
+                    ; Values less than this cause the controller chip to report an overcurrent condition at the end of move operations, including the 'home' command.
+                    HoldVoltageDivide 32000
+                    RunVoltageDivide 500000
+                    AccVoltageDivide 500000
+                    DecVoltageDivide 500000
+                    CONFIG 44696
+                    INT_SPEED 0
+                    ST_SLP 25
+                    FN_SLP_ACC 41
+                    FN_SLP_DEC 41
+                    HomingStepSize 0
+                    DelayAfterMove 0
+                    ProbeSpeed1 0
+                    ProbeCurrent1 0
+                    ProbeAbovePosition 0
+                    ProbeSpeed2 0
+                    ProbeCurrent2 0
+                    ProbeRaise 0
+                    MaxTravelPosition 140000
+                    MaxMoveRetries 0
+                }
+            }
+            controller_config
+            {
+                FocusMaxTravel 180000
+                PositionTolerance 6
+                FocusStartPos 105000
+                FocusMaxPos 140000
+                ; user units per coarse step = 0.03 mm per step (30 micron), representing 160 motor microsteps (20 full motor steps)
+                FocusCoarseStepValue 300
+                ; user units per fine step = 0.0015 mm per step (1.5 micron), representing 8 motor micro-steps (1 full motor step)
+                FocusFineStepValue 15
+                FocusStartTimeout 20
+                FocusBusyTimeout 1000
+                HoldingCurrentEnabled 0
+            }
+        }
+        ledrack_controller
+        {
+            motor_parameters
+            {
+                rack1_motor
+                {
+                    HomeDirection 0
+                    MotorFullStepsPerRev 200
+                    ; user units per revolution in 1/10th microns = 10.16 mm per revolution or 10160.0 microns
+                    UnitsPerRev 101600
+                    GearheadRatio 1
+                    ; NOTE: motors that do not have encoders must use (EncoderStepsPerRev * StepSize) as their pseudo encoder count
+                    EncoderTicksPerRev 1600
+                    ; Allow 2 encoder ticks of deadband
+                    ; That calculation is 2 * (UnitsPerRev/EncoderTicksPerRev)
+                    ; for 1600 EncoderTicksPerRev, that calculates to 127 User Units of deadband
+                    Deadband 127
+                    InvertedDirection 0
+                    StepSize 8
+                    Acceleration 8000000
+                    DeAcceleration 8000000
+                    MinSpeed 0
+                    MaxSpeed 1500000
+                    ; NOTE: the overcurrent internal register is only 4-bits over the range of 0 to 6.0 amps, yielding steps of 0.375A
+                    ; multiples of .375A (375000 uA) should be used, and may result in values potentially higher than the motor's rated current
+                    ; 0.95A rated value (needs to be spec's at 1.125A)
+                    OverCurrent 1875000
+                    StallCurrent 0
+                    ; NOTE: the Hold-, Run-, Accel-, and Decel- current internal registers have a resolution of 0.03125amps (31.25 mA)
+                    ; multiples of .03125A (31250 uA) should be used; Accel and Decel values should ALWAYS be more than 40% less than
+                    ; the overcurrent value, as the overcurrent value may effectively vary by +/- 20% from the nominal setting
+                    ; NOTE: the minimum allowable hold voltage divider value appears to be 31250.
+                    ; Values less than this cause the controller chip to report an overcurrent condition at the end of move operations, including the 'home' command.
+                    HoldVoltageDivide 200000
+                    RunVoltageDivide 1000000
+                    AccVoltageDivide 1000000
+                    DecVoltageDivide 1000000
+                    CONFIG 44696
+                    INT_SPEED 0
+                    ST_SLP 25
+                    FN_SLP_ACC 41
+                    FN_SLP_DEC 41
+                    HomingStepSize 0
+                    DelayAfterMove 0
+                    ProbeSpeed1 0
+                    ProbeCurrent1 0
+                    ProbeAbovePosition 0
+                    ProbeSpeed2 0
+                    ProbeCurrent2 0
+                    ProbeRaise 0
+                    MaxTravelPosition 500000
+                    MaxMoveRetries 0
+                }
+                rack2_motor
+                {
+                    HomeDirection 0
+                    MotorFullStepsPerRev 200
+                    ; user units per revolution in 1/10th microns = 10.16 mm per revolution or 10160.0 microns
+                    UnitsPerRev 101600
+                    GearheadRatio 1
+                    ; NOTE: motors that do not have encoders must use (EncoderStepsPerRev * StepSize) as their pseudo encoder count
+                    EncoderTicksPerRev 1600
+                    ; Allow 2 encoder ticks of deadband
+                    ; That calculation is 2 * (UnitsPerRev/EncoderTicksPerRev)
+                    ; for 1600 EncoderTicksPerRev, that calculates to 127 User Units of deadband
+                    Deadband 127
+                    InvertedDirection 0
+                    StepSize 8
+                    Acceleration 8000000
+                    DeAcceleration 8000000
+                    MinSpeed 0
+                    MaxSpeed 1500000
+                    ; NOTE: the overcurrent internal register is only 4-bits over the range of 0 to 6.0 amps, yielding steps of 0.375A
+                    ; multiples of .375A (375000 uA) should be used, and may result in values potentially higher than the motor's rated current
+                    ; 0.95A rated value (needs to be spec's at 1.125A)
+                    OverCurrent 1875000
+                    StallCurrent 0
+                    ; NOTE: the Hold-, Run-, Accel-, and Decel- current internal registers have a resolution of 0.03125amps (31.25 mA)
+                    ; multiples of .03125A (31250 uA) should be used; Accel and Decel values should ALWAYS be more than 40% less than
+                    ; the overcurrent value, as the overcurrent value may effectively vary by +/- 20% from the nominal setting
+                    ; NOTE: the minimum allowable hold voltage divider value appears to be 31250.
+                    ; Values less than this cause the controller chip to report an overcurrent condition at the end of move operations, including the 'home' command.
+                    HoldVoltageDivide 200000
+                    RunVoltageDivide 1000000
+                    AccVoltageDivide 1000000
+                    DecVoltageDivide 1000000
+                    CONFIG 44696
+                    INT_SPEED 0
+                    ST_SLP 25
+                    FN_SLP_ACC 41
+                    FN_SLP_DEC 41
+                    HomingStepSize 0
+                    DelayAfterMove 0
+                    ProbeSpeed1 0
+                    ProbeCurrent1 0
+                    ProbeAbovePosition 0
+                    ProbeSpeed2 0
+                    ProbeCurrent2 0
+                    ProbeRaise 0
+                    MaxTravelPosition 500000
+                    MaxMoveRetries 0
+                }
+            }
+            controller_config
+            {
+                RackPositionTolerance 500
+                Rack1HomePosOffset 0
+                Rack1BottomPos 10000
+                Rack1MiddlePos 203200
+                Rack1TopPos 396400
+                Rack2HomePosOffset 0
+                Rack2BottomPos 10000
+                Rack2MiddlePos 203200
+                Rack2TopPos 396400
+                RackStartTimeout 20
+                RackFullTimeout 300
+                RackMaxTravel 500000
+            }
+        }
+        plate_controller
+        {
+            motor_parameters
+            {
+                radius_motor
+                {
+                    HomeDirection 0
+                    MotorFullStepsPerRev 200
+                    ; user units per revolution in 1/10th microns = 32.00 mm per revolution or 32000.0 microns
+                    UnitsPerRev 320000
+                    GearheadRatio 1
+                    ; use negative value for reversed encoder wiring if using rev2 (or later) hw
+                    EncoderTicksPerRev -800
+                    ; Allow 3 encoder ticks of deadband
+                    ; That calculation is 3 * (UnitsPerRev/EncoderTicksPerRev)
+                    ; for 800 EncoderTicksPerRev, that calculates to 1200 User Units of deadband
+                    Deadband 2000
+                    InvertedDirection 0
+                    StepSize 8
+                    Acceleration 1500000
+                    DeAcceleration 1500000
+                    MinSpeed 0
+                    MaxSpeed 350000
+                    ; NOTE: the overcurrent internal register is only 4-bits over the range of 0 to 6.0 amps, yielding steps of 0.375A
+                    ; multiples of .375A (375000 uA) should be used, and may result in values potentially higher than the motor's rated current
+                    ; 1.5A rated value
+                    OverCurrent 2625000
+                    StallCurrent 0
+                    ; NOTE: the Hold-, Run-, Accel-, and Decel- current internal registers have a resolution of 0.03125amps (31.25 mA)
+                    ; multiples of .03125A (31250 uA) should be used; Accel and Decel values should ALWAYS be more than 40% less than
+                    ; the overcurrent value, as the overcurrent value may effectively vary by +/- 20% from the nominal setting
+                    ; NOTE: the minimum allowable hold voltage divider value appears to be 31250.
+                    ; Values less than this cause the controller chip to report an overcurrent condition at the end of move operations, including the 'home' command.
+                    HoldVoltageDivide 750000
+;                    HoldVoltageDivide 150000
+                    RunVoltageDivide 1500000
+                    AccVoltageDivide 1500000
+                    DecVoltageDivide 1500000
+                    CONFIG 44696
+                    INT_SPEED 0
+                    ST_SLP 25
+                    FN_SLP_ACC 41
+                    FN_SLP_DEC 41
+                    HomingStepSize 0
+                    DelayAfterMove 0
+                    ProbeSpeed1 0
+                    ProbeCurrent1 0
+                    ProbeAbovePosition 0
+                    ProbeSpeed2 0
+                    ProbeCurrent2 0
+                    ProbeRaise 0
+                    MaxTravelPosition 1050000
+                    MaxMoveRetries 0
+                }
+                theta_motor
+                {
+                    HomeDirection 1
+                    MotorFullStepsPerRev 200
+                    ; user units per full MOTOR revolution in 1/10th degree = 90.0 degrees of CAROUSEL (or plate) revolution
+                    ; NOTE that end result movement (carousel or plate rotation movement) is 1/4 due to reduction gearing between motor and carousel
+                    UnitsPerRev 900
+                    ; gearing is 'effective' gearing through the reduction pulleys, not an internal motor gearhead
+                    GearheadRatio 4
+                    EncoderTicksPerRev 800
+                    ; Calculate user units of deadband corresponding to 4 encoder ticks;
+                    ; That calculation is: U = 4 * (UnitsPerRev/EncoderTicksPerRev)
+                    ; for 800 EncoderTicksPerRev, 4 encoder ticks of deadband calculates to 5 user units when rounded up to ensure full integer value encoder ticks
+                    Deadband 10
+                    InvertedDirection 1
+                    StepSize 8
+                    Acceleration 1200
+                    DeAcceleration 1200
+                    MinSpeed 0
+                    MaxSpeed 150
+                    ; NOTE: the overcurrent internal register is only 4-bits over the range of 0 to 6.0 amps, yielding steps of 0.375A
+                    ; multiples of .375A (375000 uA) should be used, and may result in values potentially higher than the motor's rated current
+                    ; 1.5A rated value
+                    OverCurrent 2625000
+                    StallCurrent 0
+                    ; NOTE: the Hold-, Run-, Accel-, and Decel- current internal registers have a resolution of 0.03125amps (31.25 mA)
+                    ; multiples of .03125A (31250 uA) should be used; Accel and Decel values should ALWAYS be more than 40% less than
+                    ; the overcurrent value, as the overcurrent value may effectively vary by +/- 20% from the nominal setting
+                    ; NOTE: the minimum allowable hold voltage divider value appears to be 31250.
+                    ; Values less than this cause the controller chip to report an overcurrent condition at the end of move operations, including the 'home' command.
+                    HoldVoltageDivide 750000
+                    RunVoltageDivide 1500000
+                    AccVoltageDivide 1500000
+                    DecVoltageDivide 1500000
+                    CONFIG 44696
+                    INT_SPEED 0
+                    ST_SLP 25
+                    FN_SLP_ACC 41
+                    FN_SLP_DEC 41
+                    HomingStepSize 0
+                    DelayAfterMove 0
+                    ProbeSpeed1 0
+                    ProbeCurrent1 0
+                    ProbeAbovePosition 0
+                    ProbeSpeed2 0
+                    ProbeCurrent2 0
+                    ProbeRaise 0
+                    MaxTravelPosition 0
+                    MaxMoveRetries 0
+                }
+                probe_motor
+                {
+                    HomeDirection 0
+                    MotorFullStepsPerRev 200
+                    ; user units per revolution in 1/10th microns = 10.16 mm per revolution or 10160.0 microns
+                    UnitsPerRev 101600
+                    GearheadRatio 1
+                    ; use negative value for reversed encoder wiring if using rev2 (or later) hw
+                    EncoderTicksPerRev -1440
+                    ; Allow 2 encoder ticks of deadband
+                    ; That calculation is 4 * (UnitsPerRev/EncoderTicksPerRev)
+                    ; for 1440 EncoderTicksPerRev, that calculates and rounds to 285 User Units of deadband rounded up to ensure the 4 encoder ticks
+                    Deadband 500
+                    InvertedDirection 0
+                    StepSize 8
+                    Acceleration 1000000
+                    DeAcceleration 1000000
+                    MinSpeed 0
+                    MaxSpeed 750000
+                    ; NOTE: the overcurrent internal register is only 4-bits over the range of 0 to 6.0 amps, yielding steps of 0.375A
+                    ; multiples of .375A (375000 uA) should be used, and may result in values potentially higher than the motor's rated current
+                    ; 1.0A rated value (needs to be spec'd at 1.125A)
+                    OverCurrent 1875000
+                    StallCurrent 0
+                    ; NOTE: the Hold-, Run-, Accel-, and Decel- current internal registers have a resolution of 0.03125amps (31.25 mA)
+                    ; multiples of .03125A (31250 uA) should be used; Accel and Decel values should ALWAYS be more than 40% less than
+                    ; the overcurrent value, as the overcurrent value may effectively vary by +/- 20% from the nominal setting
+                    ; NOTE: the minimum allowable hold voltage divider value appears to be 31250.
+                    ; Values less than this cause the controller chip to report an overcurrent condition at the end of move operations, including the 'home' command.
+                    HoldVoltageDivide 100000
+                    RunVoltageDivide 1000000
+                    AccVoltageDivide 1000000
+                    DecVoltageDivide 1000000
+                    CONFIG 44696
+                    INT_SPEED 0
+                    ST_SLP 25
+                    FN_SLP_ACC 41
+                    FN_SLP_DEC 41
+                    HomingStepSize 0
+                    DelayAfterMove 0
+                    ProbeSpeed1 750000
+                    ProbeCurrent1 1000000
+                    ProbeAbovePosition 385000
+                    ProbeSpeed2 20000
+                    ProbeCurrent2 500000
+                    ProbeRaise 10000
+                    MaxTravelPosition 470000
+                    MaxMoveRetries 0
+                }
+            }
+            controller_config
+            {
+                ; theta position tolerance accounts for the gearing
+                PlateThetaPositionTolerance 10
+                PlateThetaCalPos 920
+                PlateThetaHomePosOffset 20
+                ; Mechanical tolerances for backlash for the theta motor have varied significantly across the various builds.
+                ; For plate, theta backlash appears to be handled in software, but this may not always be correct.
+                ; For plate, radius backlash appears to be the bigger error copmponent and is given a default value.
+                ; This indicates the need to be able to tune backlash at the time of manufacture
+                ; to accomodate changes in the mechanical build tolerances.
+                PlateRadiusBacklash 10000
+                PlateThetaBacklash 0
+                PlateRadiusPositionTolerance 1000
+                PlateRadiusCenterPos 0
+                PlateRadiusMaxTravel 1050000
+                ProbePositionTolerance 1000
+                ProbeHomePos 0
+                ProbeHomePosOffset -35000
+                ProbeDownPos 455000
+                ProbeMaxTravel 470000
+                ProbeInternalRetries 1
+                PlateWellSpacing 90000
+                ThetaStartTimeout 20
+                ThetaFullTimeout 300
+                RadiusStartTimeout 20
+                RadiusFullTimeout 200
+                ProbeStartTimeout 20
+                ProbeBusyTimeout 250
+                ControllerInternalRetries 3
+            }
+        }
+        probe_controller
+        {
+            motor_parameters
+            {
+                probe_motor
+                {
+                    HomeDirection 0
+                    MotorFullStepsPerRev 200
+                    ; user units per revolution in 1/10th microns = 10.16 mm per revolution or 10160.0 microns
+                    UnitsPerRev 101600
+                    GearheadRatio 1
+                    ; use negative value for reversed encoder wiring if using rev2 (or later) hw
+                    EncoderTicksPerRev -1440
+                    ; Allow 2 encoder ticks of deadband
+                    ; That calculation is 4 * (UnitsPerRev/EncoderTicksPerRev)
+                    ; for 1440 EncoderTicksPerRev, that calculates and rounds to 285 User Units of deadband rounded up to ensure the 4 encoder ticks
+                    Deadband 500
+                    InvertedDirection 0
+                    StepSize 8
+                    Acceleration 1000000
+                    DeAcceleration 1000000
+                    MinSpeed 0
+                    MaxSpeed 750000
+                    ; NOTE: the overcurrent internal register is only 4-bits over the range of 0 to 6.0 amps, yielding steps of 0.375A
+                    ; multiples of .375A (375000 uA) should be used, and may result in values potentially higher than the motor's rated current
+                    ; 1.0A rated value (needs to be spec'd at 1.125A)
+                    OverCurrent 1875000
+                    StallCurrent 0
+                    ; NOTE: the Hold-, Run-, Accel-, and Decel- current internal registers have a resolution of 0.03125amps (31.25 mA)
+                    ; multiples of .03125A (31250 uA) should be used; Accel and Decel values should ALWAYS be more than 40% less than
+                    ; the overcurrent value, as the overcurrent value may effectively vary by +/- 20% from the nominal setting
+                    ; NOTE: the minimum allowable hold voltage divider value appears to be 31250.
+                    ; Values less than this cause the controller chip to report an overcurrent condition at the end of move operations, including the 'home' command.
+                    HoldVoltageDivide 100000
+                    RunVoltageDivide 1000000
+                    AccVoltageDivide 1000000
+                    DecVoltageDivide 1000000
+                    CONFIG 44696
+                    INT_SPEED 0
+                    ST_SLP 25
+                    FN_SLP_ACC 41
+                    FN_SLP_DEC 41
+                    HomingStepSize 0
+                    DelayAfterMove 0
+                    ProbeSpeed1 750000
+                    ProbeCurrent1 1000000
+                    ProbeAbovePosition 385000
+                    ProbeSpeed2 20000
+                    ProbeCurrent2 500000
+                    ProbeRaise 10000
+                    MaxTravelPosition 470000
+                    MaxMoveRetries 3
+                }
+            }
+            controller_config
+            {
+                ProbePositionTolerance 1000
+                ProbeHomePos 0
+                ProbeHomePosOffset -35000
+                ProbeDownPos 455000
+                ProbeMaxTravel 470000
+                ProbeInternalRetries 1
+                ProbeStartTimeout 20
+                ProbeBusyTimeout 200
+            }
+        }
+        radius_controller
+        {
+            motor_parameters
+            {
+                radius_motor
+                {
+                    HomeDirection 0
+                    MotorFullStepsPerRev 200
+                    ; user units per revolution in 1/10th microns = 32.00 mm per revolution or 32000.0 microns
+                    UnitsPerRev 320000
+                    GearheadRatio 1
+                    ; use negative value for reversed encoder wiring if using rev2 (or later) hw
+                    EncoderTicksPerRev -800
+                    ; Allow 3 encoder ticks of deadband
+                    ; That calculation is 3 * (UnitsPerRev/EncoderTicksPerRev)
+                    ; for 800 EncoderTicksPerRev, that calculates to 1200 User Units of deadband
+                    Deadband 2000
+                    InvertedDirection 0
+                    StepSize 8
+                    Acceleration 1500000
+                    DeAcceleration 1500000
+                    MinSpeed 0
+                    MaxSpeed 350000
+                    ; NOTE: the overcurrent internal register is only 4-bits over the range of 0 to 6.0 amps, yielding steps of 0.375A
+                    ; multiples of .375A (375000 uA) should be used, and may result in values potentially higher than the motor's rated current
+                    ; 1.5A rated value
+                    OverCurrent 2625000
+                    StallCurrent 0
+                    ; NOTE: the Hold-, Run-, Accel-, and Decel- current internal registers have a resolution of 0.03125amps (31.25 mA)
+                    ; multiples of .03125A (31250 uA) should be used; Accel and Decel values should ALWAYS be more than 40% less than
+                    ; the overcurrent value, as the overcurrent value may effectively vary by +/- 20% from the nominal setting
+                    ; NOTE: the minimum allowable hold voltage divider value appears to be 31250.
+                    ; Values less than this cause the controller chip to report an overcurrent condition at the end of move operations, including the 'home' command.
+                    HoldVoltageDivide 150000
+                    RunVoltageDivide 1500000
+                    AccVoltageDivide 1500000
+                    DecVoltageDivide 1500000
+                    CONFIG 44696
+                    INT_SPEED 0
+                    ST_SLP 25
+                    FN_SLP_ACC 41
+                    FN_SLP_DEC 41
+                    HomingStepSize 0
+                    DelayAfterMove 0
+                    ProbeSpeed1 0
+                    ProbeCurrent1 0
+                    ProbeAbovePosition 0
+                    ProbeSpeed2 0
+                    ProbeCurrent2 0
+                    ProbeRaise 0
+                    MaxTravelPosition 1050000
+                    MaxMoveRetries 3
+                }
+            }
+            controller_config
+            {
+                PositionTolerance 1000
+                RadiusHomePosOffset 0
+                RadiusMaxTravel 1000000
+                RadiusTubePos 763200
+                RadiusPlateCenterPos 0
+                RadiusStartTimeout 20
+                RadiusFullTimeout 200
+            }
+        }
+        reagent_controller
+        {
+            motor_parameters
+            {
+                reagent_motor
+                {
+                    HomeDirection 0
+                    MotorFullStepsPerRev 200
+                    ; user units per revolution in 1/10th microns = 32.00 mm per revolution or 32000.0 microns
+                    UnitsPerRev 320000
+                    GearheadRatio 1
+                    ; NOTE: motors that do not have encoders must use (EncoderStepsPerRev * StepSize) as their pseudo encoder count
+                    EncoderTicksPerRev 1600
+                    ; Allow 5 encoder ticks of deadband
+                    ; That calculation is 5 * (UnitsPerRev/EncoderTicksPerRev)
+                    ; for 1600 EncoderTicksPerRev, that calculates to 1000 User Units of deadband
+                    Deadband 1000
+                    InvertedDirection 1
+                    StepSize 8
+                    Acceleration   1500000
+                    DeAcceleration 1500000
+                    MinSpeed 0
+                    MaxSpeed 350000
+                    ; NOTE: the overcurrent internal register is only 4-bits over the range of 0 to 6.0 amps, yielding steps of 0.375A
+                    ; multiples of .375A (375000 uA) should be used, and may result in values potentially higher than the motor's rated current
+                    ; 1.5A rated value
+                    OverCurrent 2625000
+                    StallCurrent 0
+                    ; NOTE: the Hold-, Run-, Accel-, and Decel- current internal registers have a resolution of 0.03125amps (31.25 mA)
+                    ; multiples of .03125A (31250 uA) should be used; Accel and Decel values should ALWAYS be more than 40% less than
+                    ; the overcurrent value, as the overcurrent value may effectively vary by +/- 20% from the nominal setting
+                    ; NOTE: the minimum allowable hold voltage divider value appears to be 31250.
+                    ; Values less than this cause the controller chip to report an overcurrent condition at the end of move operations, including the 'home' command.
+                    HoldVoltageDivide 300000
+                    RunVoltageDivide 1500000
+                    AccVoltageDivide 1500000
+                    DecVoltageDivide 1500000
+                    CONFIG 44696
+                    INT_SPEED 0
+                    ST_SLP 25
+                    FN_SLP_ACC 41
+                    FN_SLP_DEC 41
+                    HomingStepSize 0
+                    DelayAfterMove 0
+                    ProbeSpeed1 0
+                    ProbeCurrent1 0
+                    ProbeAbovePosition 0
+                    ProbeSpeed2 0
+                    ProbeCurrent2 0
+                    ProbeRaise 0
+                    MaxTravelPosition 1150000
+                    MaxMoveRetries 0
+                }
+            }
+            controller_config
+            {
+                ReagentArmMaxTravel 1150000
+                PositionTolerance 20000
+                ReagentHomePos 0
+                ReagentHomePosOffset -30000
+                ReagentDownPos 1127112
+                ReagentDownPosOffset 0
+                ReagentPurgePosition -830000
+                ReagentStartTimeout 20
+                ReagentBusyTimeout 150
+            }
+        }
+        theta_controller
+        {
+            motor_parameters
+            {
+                theta_motor
+                {
+                    HomeDirection 1
+                    MotorFullStepsPerRev 200
+                    ; user units per full MOTOR revolution in 1/10th degree = 90.0 degrees of CAROUSEL (or plate) revolution
+                    ; NOTE that end result movement (carousel or plate rotation movement) is 1/4 due to reduction gearing between motor and carousel
+                    UnitsPerRev 900
+                    ; gearing is 'effective' gearing through the reduction pulleys, not an internal motor gearhead
+                    GearheadRatio 4
+                    EncoderTicksPerRev 800
+                    ; Calculate user units of deadband corresponding to 4 encoder ticks;
+                    ; That calculation is: U = 4 * (UnitsPerRev/EncoderTicksPerRev)
+                    ; for 800 EncoderTicksPerRev, 4 encoder ticks of deadband calculates to 5 user units when rounded up to ensure full integer value encoder ticks
+                    Deadband 10
+                    InvertedDirection 1
+                    StepSize 8
+                    Acceleration 1200
+                    DeAcceleration 1200
+                    MinSpeed 0
+                    MaxSpeed 150
+                    ; NOTE: the overcurrent internal register is only 4-bits over the range of 0 to 6.0 amps, yielding steps of 0.375A
+                    ; multiples of .375A (375000 uA) should be used, and may result in values potentially higher than the motor's rated current
+                    ; 1.5A rated value
+                    OverCurrent 2625000
+                    StallCurrent 0
+                    ; NOTE: the Hold-, Run-, Accel-, and Decel- current internal registers have a resolution of 0.03125amps (31.25 mA)
+                    ; multiples of .03125A (31250 uA) should be used; Accel and Decel values should ALWAYS be more than 40% less than
+                    ; the overcurrent value, as the overcurrent value may effectively vary by +/- 20% from the nominal setting
+                    ; NOTE: the minimum allowable hold voltage divider value appears to be 31250.
+                    ; Values less than this cause the controller chip to report an overcurrent condition at the end of move operations, including the 'home' command.
+                    HoldVoltageDivide  60000
+                    RunVoltageDivide 1500000
+                    AccVoltageDivide 1500000
+                    DecVoltageDivide 1500000
+                    CONFIG 44696
+                    INT_SPEED 0
+                    ST_SLP 25
+                    FN_SLP_ACC 41
+                    FN_SLP_DEC 41
+                    HomingStepSize 0
+                    DelayAfterMove 0
+                    ProbeSpeed1 0
+                    ProbeCurrent1 0
+                    ProbeAbovePosition 0
+                    ProbeSpeed2 0
+                    ProbeCurrent2 0
+                    ProbeRaise 0
+                    MaxTravelPosition 0
+                    MaxMoveRetries 0
+                }
+            }
+            controller_config
+            {
+                ; theta position tolerance accounts for the gearing
+                PositionTolerance 10
+                ThetaHomePos 0
+                ThetaHomePosOffset 0
+                CarouselThetaHomePos 0
+                CarouselThetaHomePosOffset 1818
+                PlateThetaHomePos 0
+                PlateThetaHomePosOffset 20
+                ThetaStartTimeout 20
+                ThetaFullTimeout 300
+            }
+        }
+    }
+    motor_parameters
+    {
+        focus_motor
+        {
+            HomeDirection 0
+            MotorFullStepsPerRev 200
+            ; user units per revolution in 1/10th microns = 0.3 mm per revolution or 300.0 microns
+            ; NOTE: the minimum user unit resolution possible is 0.1875 micron per motor micro-step using 8 micro-steps per full step
+            UnitsPerRev 3000
+            GearheadRatio 1
+            ; NOTE: motors that do not have encoders must use (EncoderStepsPerRev * StepSize) as their pseudo encoder count
+            EncoderTicksPerRev 1600
+            ; NOTE: the deadband represents 0.4 micron, which translates to 2.133 motor micro-steps;
+            ; Since motor steps must be an interger value, the actual deadband is 0.375 microns;
+            ; Reducing the deadband any further may result in the inability to hit the desired location
+            Deadband 4
+            InvertedDirection 0
+            StepSize 8
+            Acceleration 7500
+            DeAcceleration 7500
+            MinSpeed 0
+            MaxSpeed 2500
+            ; NOTE: the overcurrent internal register is only 4-bits over the range of 0 to 6.0 amps, yielding steps of 0.375A
+            ; multiples of .375A (375000 uA) should be used, and may result in values potentially higher than the motor's rated current
+            ; 0.5A rated value (needs to be spec'd at 0.75A)
+            OverCurrent 1125000
+            StallCurrent 0
+            ; NOTE: the Hold-, Run-, Accel-, and Decel- current internal registers have a resolution of 0.03125amps (31.25 mA)
+            ; multiples of .03125A (31250 uA) should be used; Accel and Decel values should ALWAYS be more than 40% less than
+            ; the overcurrent value, as the overcurrent value may effectively vary by +/- 20% from the nominal setting
+            ; NOTE: the minimum allowable hold voltage divider value appears to be 31250.
+            ; Values less than this cause the controller chip to report an overcurrent condition at the end of move operations, including the 'home' command.
+            HoldVoltageDivide 32000
+            RunVoltageDivide 500000
+            AccVoltageDivide 500000
+            DecVoltageDivide 500000
+            CONFIG 44696
+            INT_SPEED 0
+            ST_SLP 25
+            FN_SLP_ACC 41
+            FN_SLP_DEC 41
+            HomingStepSize 0
+            DelayAfterMove 0
+            ProbeSpeed1 0
+            ProbeCurrent1 0
+            ProbeAbovePosition 0
+            ProbeSpeed2 0
+            ProbeCurrent2 0
+            ProbeRaise 0
+            MaxTravelPosition 140000
+            MaxMoveRetries 0
+        }
+        probe_motor
+        {
+            HomeDirection 0
+            MotorFullStepsPerRev 200
+            ; user units per revolution in 1/10th microns = 10.16 mm per revolution or 10160.0 microns
+            UnitsPerRev 101600
+            GearheadRatio 1
+            ; use negative value for reversed encoder wiring if using rev2 (or later) hw
+            EncoderTicksPerRev -1440
+            ; Allow 2 encoder ticks of deadband
+            ; That calculation is 4 * (UnitsPerRev/EncoderTicksPerRev)
+            ; for 1440 EncoderTicksPerRev, that calculates and rounds to 285 User Units of deadband rounded up to ensure the 4 encoder ticks
+            Deadband 500
+            InvertedDirection 0
+            StepSize 8
+            Acceleration 1000000
+            DeAcceleration 1000000
+            MinSpeed 0
+            MaxSpeed 750000
+            ; NOTE: the overcurrent internal register is only 4-bits over the range of 0 to 6.0 amps, yielding steps of 0.375A
+            ; multiples of .375A (375000 uA) should be used, and may result in values potentially higher than the motor's rated current
+            ; 1.0A rated value (needs to be spec'd at 1.125A)
+            OverCurrent 1875000
+            StallCurrent 0
+            ; NOTE: the Hold-, Run-, Accel-, and Decel- current internal registers have a resolution of 0.03125amps (31.25 mA)
+            ; multiples of .03125A (31250 uA) should be used; Accel and Decel values should ALWAYS be more than 40% less than
+            ; the overcurrent value, as the overcurrent value may effectively vary by +/- 20% from the nominal setting
+            ; NOTE: the minimum allowable hold voltage divider value appears to be 31250.
+            ; Values less than this cause the controller chip to report an overcurrent condition at the end of move operations, including the 'home' command.
+            HoldVoltageDivide 100000
+            RunVoltageDivide 1000000
+            AccVoltageDivide 1000000
+            DecVoltageDivide 1000000
+            CONFIG 44696
+            INT_SPEED 0
+            ST_SLP 25
+            FN_SLP_ACC 41
+            FN_SLP_DEC 41
+            HomingStepSize 0
+            DelayAfterMove 0
+            ProbeSpeed1 750000
+            ProbeCurrent1 1000000
+            ProbeAbovePosition 385000
+            ProbeSpeed2 20000
+            ProbeCurrent2 500000
+            ProbeRaise 10000
+            MaxTravelPosition 470000
+            MaxMoveRetries 0
+        }
+        rack1_motor
+        {
+            HomeDirection 0
+            MotorFullStepsPerRev 200
+            ; user units per revolution in 1/10th microns = 10.16 mm per revolution or 10160.0 microns
+            UnitsPerRev 101600
+            GearheadRatio 1
+            ; NOTE: motors that do not have encoders must use (EncoderStepsPerRev * StepSize) as their pseudo encoder count
+            EncoderTicksPerRev 1600
+            ; Allow 2 encoder ticks of deadband
+            ; That calculation is 2 * (UnitsPerRev/EncoderTicksPerRev)
+            ; for 1600 EncoderTicksPerRev, that calculates to 127 User Units of deadband
+            Deadband 127
+            InvertedDirection 0
+            StepSize 8
+            Acceleration 8000000
+            DeAcceleration 8000000
+            MinSpeed 0
+            MaxSpeed 1500000
+            ; NOTE: the overcurrent internal register is only 4-bits over the range of 0 to 6.0 amps, yielding steps of 0.375A
+            ; multiples of .375A (375000 uA) should be used, and may result in values potentially higher than the motor's rated current
+            ; 0.95A rated value (needs to be spec'd at 1.125A)
+            OverCurrent 1875000
+            StallCurrent 0
+            ; NOTE: the Hold-, Run-, Accel-, and Decel- current internal registers have a resolution of 0.03125amps (31.25 mA)
+            ; multiples of .03125A (31250 uA) should be used; Accel and Decel values should ALWAYS be more than 40% less than
+            ; the overcurrent value, as the overcurrent value may effectively vary by +/- 20% from the nominal setting
+            ; NOTE: the minimum allowable hold voltage divider value appears to be 31250.
+            ; Values less than this cause the controller chip to report an overcurrent condition at the end of move operations, including the 'home' command.
+            HoldVoltageDivide 200000
+            RunVoltageDivide 1000000
+            AccVoltageDivide 1000000
+            DecVoltageDivide 1000000
+            CONFIG 44696
+            INT_SPEED 0
+            ST_SLP 25
+            FN_SLP_ACC 41
+            FN_SLP_DEC 41
+            HomingStepSize 0
+            DelayAfterMove 0
+            ProbeSpeed1 0
+            ProbeCurrent1 0
+            ProbeAbovePosition 0
+            ProbeSpeed2 0
+            ProbeCurrent2 0
+            ProbeRaise 0
+            MaxTravelPosition 500000
+            MaxMoveRetries 0
+        }
+        rack2_motor
+        {
+            HomeDirection 0
+            MotorFullStepsPerRev 200
+            ; user units per revolution in 1/10th microns = 10.16 mm per revolution or 10160.0 microns
+            UnitsPerRev 101600
+            GearheadRatio 1
+            ; NOTE: motors that do not have encoders must use (EncoderStepsPerRev * StepSize) as their pseudo encoder count
+            EncoderTicksPerRev 1600
+            ; Allow 2 encoder ticks of deadband
+            ; That calculation is 2 * (UnitsPerRev/EncoderTicksPerRev)
+            ; for 1600 EncoderTicksPerRev, that calculates to 127 User Units of deadband
+            Deadband 127
+            InvertedDirection 0
+            StepSize 8
+            Acceleration 8000000
+            DeAcceleration 8000000
+            MinSpeed 0
+            MaxSpeed 1500000
+            ; NOTE: the overcurrent internal register is only 4-bits over the range of 0 to 6.0 amps, yielding steps of 0.375A
+            ; multiples of .375A (375000 uA) should be used, and may result in values potentially higher than the motor's rated current
+            ; 0.95A rated value (needs to be spec'd at 1.125A)
+            OverCurrent 1875000
+            StallCurrent 0
+            ; NOTE: the Hold-, Run-, Accel-, and Decel- current internal registers have a resolution of 0.03125amps (31.25 mA)
+            ; multiples of .03125A (31250 uA) should be used; Accel and Decel values should ALWAYS be more than 40% less than
+            ; the overcurrent value, as the overcurrent value may effectively vary by +/- 20% from the nominal setting
+            ; NOTE: the minimum allowable hold voltage divider value appears to be 31250.
+            ; Values less than this cause the controller chip to report an overcurrent condition at the end of move operations, including the 'home' command.
+            HoldVoltageDivide 200000
+            RunVoltageDivide 1000000
+            AccVoltageDivide 1000000
+            DecVoltageDivide 1000000
+            CONFIG 44696
+            INT_SPEED 0
+            ST_SLP 25
+            FN_SLP_ACC 41
+            FN_SLP_DEC 41
+            HomingStepSize 0
+            DelayAfterMove 0
+            ProbeSpeed1 0
+            ProbeCurrent1 0
+            ProbeAbovePosition 0
+            ProbeSpeed2 0
+            ProbeCurrent2 0
+            ProbeRaise 0
+            MaxTravelPosition 500000
+            MaxMoveRetries 0
+        }
+        radius_motor
+        {
+            HomeDirection 0
+            MotorFullStepsPerRev 200
+            ; user units per revolution in 1/10th microns = 32.00 mm per revolution or 32000.0 microns
+            UnitsPerRev 320000
+            GearheadRatio 1
+            ; use negative value for reversed encoder wiring if using rev2 (or later) hw
+            EncoderTicksPerRev -800
+            ; Allow 3 encoder ticks of deadband
+            ; That calculation is 3 * (UnitsPerRev/EncoderTicksPerRev)
+            ; for 800 EncoderTicksPerRev, that calculates to 1200 User Units of deadband
+            Deadband 2000
+            InvertedDirection 0
+            StepSize 8
+            Acceleration 1500000
+            DeAcceleration 1500000
+            MinSpeed 0
+            MaxSpeed 350000
+            ; NOTE: the overcurrent internal register is only 4-bits over the range of 0 to 6.0 amps, yielding steps of 0.375A
+            ; multiples of .375A (375000 uA) should be used, and may result in values potentially higher than the motor's rated current
+            ; 1.5A rated value
+            OverCurrent 2625000
+            StallCurrent 0
+            ; NOTE: the Hold-, Run-, Accel-, and Decel- current internal registers have a resolution of 0.03125amps (31.25 mA)
+            ; multiples of .03125A (31250 uA) should be used; Accel and Decel values should ALWAYS be more than 40% less than
+            ; the overcurrent value, as the overcurrent value may effectively vary by +/- 20% from the nominal setting
+            ; NOTE: the minimum allowable hold voltage divider value appears to be 31250.
+            ; Values less than this cause the controller chip to report an overcurrent condition at the end of move operations, including the 'home' command.
+            HoldVoltageDivide 150000
+            RunVoltageDivide 1500000
+            AccVoltageDivide 1500000
+            DecVoltageDivide 1500000
+            CONFIG 44696
+            INT_SPEED 0
+            ST_SLP 25
+            FN_SLP_ACC 41
+            FN_SLP_DEC 41
+            HomingStepSize 0
+            DelayAfterMove 0
+            ProbeSpeed1 0
+            ProbeCurrent1 0
+            ProbeAbovePosition 0
+            ProbeSpeed2 0
+            ProbeCurrent2 0
+            ProbeRaise 0
+            MaxTravelPosition 1050000
+            MaxMoveRetries 3
+        }
+        reagent_motor
+        {
+            HomeDirection 0
+            MotorFullStepsPerRev 200
+            ; user units per revolution in 1/10th microns = 32.00 mm per revolution or 32000.0 microns
+            UnitsPerRev 320000
+            GearheadRatio 1
+            ; NOTE: motors that do not have encoders must use (EncoderStepsPerRev * StepSize) as their pseudo encoder count
+            EncoderTicksPerRev 1600
+            ; Allow 5 encoder ticks of deadband
+            ; That calculation is 5 * (UnitsPerRev/EncoderTicksPerRev)
+            ; for 1600 EncoderTicksPerRev, that calculates to 1000 User Units of deadband
+            Deadband 1000
+            InvertedDirection 1
+            StepSize 8
+            Acceleration 1500000
+            DeAcceleration 1500000
+            MinSpeed 0
+            MaxSpeed 350000
+            ; NOTE: the overcurrent internal register is only 4-bits over the range of 0 to 6.0 amps, yielding steps of 0.375A
+            ; multiples of .375A (375000 uA) should be used, and may result in values potentially higher than the motor's rated current
+            ; 1.5A rated value
+            OverCurrent 2625000
+            StallCurrent 0
+            ; NOTE: the Hold-, Run-, Accel-, and Decel- current internal registers have a resolution of 0.03125amps (31.25 mA)
+            ; multiples of .03125A (31250 uA) should be used; Accel and Decel values should ALWAYS be more than 40% less than
+            ; the overcurrent value, as the overcurrent value may effectively vary by +/- 20% from the nominal setting
+            ; NOTE: the minimum allowable hold voltage divider value appears to be 31250.
+            ; Values less than this cause the controller chip to report an overcurrent condition at the end of move operations, including the 'home' command.
+            HoldVoltageDivide 300000
+            RunVoltageDivide 1500000
+            AccVoltageDivide 1500000
+            DecVoltageDivide 1500000
+            CONFIG 44696
+            INT_SPEED 0
+            ST_SLP 25
+            FN_SLP_ACC 41
+            FN_SLP_DEC 41
+            HomingStepSize 0
+            DelayAfterMove 0
+            ProbeSpeed1 0
+            ProbeCurrent1 0
+            ProbeAbovePosition 0
+            ProbeSpeed2 0
+            ProbeCurrent2 0
+            ProbeRaise 0
+            MaxTravelPosition 1150000
+            MaxMoveRetries 0
+        }
+        theta_motor
+        {
+            HomeDirection 1
+            MotorFullStepsPerRev 200
+            ; user units per full MOTOR revolution in 1/10th degree = 90.0 degrees of CAROUSEL (or plate) revolution
+            ; NOTE that end result movement (carousel or plate rotation movement) is 1/4 due to reduction gearing between motor and carousel
+            UnitsPerRev 900
+            ; gearing is 'effective' gearing through the reduction pulleys, not an internal motor gearhead
+            GearheadRatio 4
+            EncoderTicksPerRev 800
+            ; Calculate user units of deadband corresponding to 4 encoder ticks;
+            ; That calculation is: U = 4 * (UnitsPerRev/EncoderTicksPerRev)
+            ; for 800 EncoderTicksPerRev, 4 encoder ticks of deadband calculates to 5 user units when rounded up to ensure full integer value encoder ticks
+            Deadband 10
+            InvertedDirection 1
+            StepSize 8
+            Acceleration 1200
+            DeAcceleration 1200
+            MinSpeed 0
+            MaxSpeed 150
+            ; NOTE: the overcurrent internal register is only 4-bits over the range of 0 to 6.0 amps, yielding steps of 0.375A
+            ; multiples of .375A (375000 uA) should be used, and may result in values potentially higher than the motor's rated current
+            ; 1.5A rated value
+            OverCurrent 2625000
+            StallCurrent 0
+            ; NOTE: the Hold-, Run-, Accel-, and Decel- current internal registers have a resolution of 0.03125amps (31.25 mA)
+            ; multiples of .03125A (31250 uA) should be used; Accel and Decel values should ALWAYS be more than 40% less than
+            ; the overcurrent value, as the overcurrent value may effectively vary by +/- 20% from the nominal setting
+            ; NOTE: the minimum allowable hold voltage divider value appears to be 31250.
+            ; Values less than this cause the controller chip to report an overcurrent condition at the end of move operations, including the 'home' command.
+            HoldVoltageDivide 60000
+            RunVoltageDivide 1500000
+            AccVoltageDivide 1500000
+            DecVoltageDivide 1500000
+            CONFIG 44696
+            INT_SPEED 0
+            ST_SLP 25
+            FN_SLP_ACC 41
+            FN_SLP_DEC 41
+            HomingStepSize 0
+            DelayAfterMove 0
+            ProbeSpeed1 0
+            ProbeCurrent1 0
+            ProbeAbovePosition 0
+            ProbeSpeed2 0
+            ProbeCurrent2 0
+            ProbeRaise 0
+            MaxTravelPosition 0
+            MaxMoveRetries 0
+        }
+    }
+}

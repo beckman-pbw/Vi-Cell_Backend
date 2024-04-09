@@ -1,0 +1,11 @@
+config
+{
+    logger
+    {
+        logfile UnitTest.txt
+        logpath .
+        sensitivity DBG1
+        max_size_bytes 5000000
+        max_log_rolls 50
+    }
+}

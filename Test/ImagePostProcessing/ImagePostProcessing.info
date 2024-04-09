@@ -1,0 +1,25 @@
+config
+{
+    logger
+    {
+        logfile ImagePostProcessing.log
+        sensitivity DBG1
+        max_size_bytes 5000000
+    }
+
+	aoi
+	{
+		left     0
+		right    2047
+		top      0
+		bottom   2047
+	}
+
+	what_to_do
+	{
+;		process_histogram true
+;		process_background true
+;		process_focus true
+		process_csv_for_autofocus true
+	}
+}

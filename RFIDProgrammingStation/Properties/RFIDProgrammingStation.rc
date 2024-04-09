@@ -1,0 +1,426 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+// Generated Help ID header file
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "resource.hm"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+#include "verrsrc.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "#include ""verrsrc.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#include ""res\\RFIDProgrammingStation.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""      // Standard components\r\n"
+    "#if !defined(_AFXDLL)\r\n"
+    "#include ""afxribbon.rc""   // MFC ribbon and control bar resources\r\n"
+    "#endif\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\RFIDProgrammingStation.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About RFIDProgrammingStation"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,21,20
+    LTEXT           "RFIDProgrammingStation, Version ${parsedVersion.majorVersion},${parsedVersion.minorVersion},${parsedVersion.incrementalVersion},${timestamp}",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) ${current.year} Beckman Coulter Life Sciences. All rights reserved.",IDC_STATIC,42,26,114,8
+    DEFPUSHBUTTON   "OK",IDOK,113,41,50,14,WS_GROUP
+END
+
+IDD_RFIDPROGRAMMINGSTATION_DIALOG DIALOGEX 0, 0, 627, 465
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "Hawkeye Reagent RFID Programming Station"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    GROUPBOX        "Content Selection",IDC_GB_SELECTION,7,3,614,104
+    GROUPBOX        "Program Status",IDC_GB_PROGRAM_STATUS,7,136,614,107
+    GROUPBOX        "RFID Status",IDC_GB_RFID_STATUS,7,278,614,180
+    COMBOBOX        IDC_COMBO_PART_DESCRIPTION,153,27,269,30,CBS_DROPDOWNLIST | CBS_SORT | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Part Description",IDC_STATIC,97,27,52,8
+    CONTROL         "",IDC_DATETIME_EXPIRATION,"SysDateTimePick32",DTS_RIGHTALIGN | WS_DISABLED | WS_TABSTOP,153,45,100,15
+    LTEXT           "Expiration Date",IDC_STATIC,99,45,50,8
+    EDITTEXT        IDC_EDIT_LOTNUMBER,153,66,101,14,ES_AUTOHSCROLL | ES_NUMBER | WS_DISABLED
+    LTEXT           "Lot Number",IDC_STATIC,111,66,38,8
+    PUSHBUTTON      "&Clear Selection",IDC_BTN_CLEARSELECTION,442,27,50,56,BS_MULTILINE
+    CTEXT           "Hidden",IDC_LABLE_STATUS_SYSTEM,493,133,97,29,SS_CENTERIMAGE | SS_SUNKEN | SS_WORDELLIPSIS | NOT WS_VISIBLE,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE,HIDC_LABLE_STATUS_SYSTEM
+    CTEXT           "Status",IDC_LABLE_STATUS_RFID_RWHW,169,180,119,29,SS_CENTERIMAGE | SS_SUNKEN | SS_WORDELLIPSIS,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE,HIDC_LABLE_STATUS_RFID_RWHW
+    CTEXT           "Status",IDC_LABLE_STATUS_PAYLOAD,452,180,156,29,SS_CENTERIMAGE | SS_SUNKEN | SS_WORDELLIPSIS,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE,HIDC_LABLE_STATUS_PAYLOAD
+    CTEXT           "Status",IDC_LABLE_STATUS_HARDWARE,23,180,122,29,SS_CENTERIMAGE | SS_SUNKEN | SS_WORDELLIPSIS,WS_EX_TRANSPARENT | WS_EX_CLIENTEDGE | WS_EX_STATICEDGE,HIDC_LABLE_STATUS_HARDWARE
+    CTEXT           "Status",IDC_LABLE_STATUS_RFID_OVERALL,42,332,146,73,SS_CENTERIMAGE,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE,HIDC_LABLE_STATUS_RFID_OVERALL
+    CTEXT           "Status",IDC_LABLE_STATUS_RFID_NUM2,363,308,97,50,SS_CENTERIMAGE | SS_SUNKEN | SS_WORDELLIPSIS | NOT WS_VISIBLE,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE,HIDC_LABLE_STATUS_RFID_NUM2
+    CTEXT           "Status",IDC_LABLE_STATUS_RFID_NUM1,227,308,97,50,SS_CENTERIMAGE | SS_SUNKEN | SS_WORDELLIPSIS | NOT WS_VISIBLE,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE,HIDC_LABLE_STATUS_RFID_NUM1
+    CTEXT           "Status",IDC_LABLE_STATUS_RFID_NUM3,502,308,97,50,SS_CENTERIMAGE | SS_SUNKEN | SS_WORDELLIPSIS | NOT WS_VISIBLE,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE,HIDC_LABLE_STATUS_RFID_NUM3
+    CTEXT           "Status",IDC_LABLE_STATUS_RFID_NUM4,227,388,97,50,SS_CENTERIMAGE | SS_SUNKEN | SS_WORDELLIPSIS | NOT WS_VISIBLE,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE,HIDC_LABLE_STATUS_RFID_NUM4
+    CTEXT           "Status",IDC_LABLE_STATUS_RFID_NUM5,363,386,97,50,SS_CENTERIMAGE | SS_SUNKEN | SS_WORDELLIPSIS | NOT WS_VISIBLE,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE,HIDC_LABLE_STATUS_RFID_NUM5
+    CTEXT           "Status",IDC_LABLE_STATUS_RFID_NUM6,501,386,97,50,SS_CENTERIMAGE | SS_SUNKEN | SS_WORDELLIPSIS | NOT WS_VISIBLE,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE,HIDC_LABLE_STATUS_RFID_NUM6
+    CTEXT           "Controller Hardware",IDC_STATIC,23,169,121,8
+    CTEXT           "RFID Reader/Writer",IDC_STATIC,169,169,119,8
+    CTEXT           "Reagent Information",IDC_STATIC,452,170,155,8
+    CTEXT           "Overall System",IDC_STATIC,494,123,96,8,NOT WS_VISIBLE
+    CTEXT           "State of Reagent Packs",IDC_STATIC,42,322,145,8
+    CTEXT           "Pack #1",IDC_STATIC_PACK1,229,298,95,8,NOT WS_VISIBLE
+    CTEXT           "Pack #4",IDC_STATIC_PACK4,227,378,98,8,NOT WS_VISIBLE
+    CTEXT           "Pack #2",IDC_STATIC_PACK2,363,298,97,8,NOT WS_VISIBLE
+    CTEXT           "Pack #5",IDC_STATIC_PACK5,364,375,97,8,NOT WS_VISIBLE
+    CTEXT           "Pack #3",IDC_STATIC_PACK3,502,298,97,8,NOT WS_VISIBLE
+    CTEXT           "Pack #6",IDC_STATIC_PACK6,501,375,97,8,NOT WS_VISIBLE
+    GROUPBOX        "Established RFID Reagent Pack(s)",IDC_STATIC,217,286,392,162
+    PUSHBUTTON      "&Export Logs",IDC_BTN_EXPORT_LOG,502,27,50,56,BS_MULTILINE
+    CONTROL         "",BROWSE_EXPORT_LOG_PATH,"MfcEditBrowse",NOT WS_VISIBLE | WS_BORDER | WS_TABSTOP | 0x80,483,84,80,14
+    LTEXT           "Session::",IDC_STATIC,14,303,30,8
+    LTEXT           "0",IDC_LABEL_TOTAL_TAGS,50,303,167,8
+    PUSHBUTTON      "Application &Mode: Programming",IDC_BTN_APP_MODE,562,27,50,56,BS_MULTILINE
+    PUSHBUTTON      "&Import Reagent Payload",IDC_BTN_IMPORT_PAYLOAD_FILES,21,26,50,56,BS_MULTILINE
+    CONTROL         "",BROWSE_IMPORT_PAYLOAD_PATH,"MfcEditBrowse",NOT WS_VISIBLE | WS_BORDER | WS_TABSTOP | 0x80,98,81,80,14
+    CONTROL         "Replace Payloads",IDC_CHECKPAYLOADREPLACE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,83,72,10
+    LTEXT           "v${parsedVersion.majorVersion},${parsedVersion.minorVersion},${parsedVersion.incrementalVersion}",IDC_STATIC,599,7,22,8
+    CTEXT           "Status",IDC_LABLE_STATUS_CONVEYOR,312,180,122,29,SS_CENTERIMAGE | SS_SUNKEN | SS_WORDELLIPSIS,WS_EX_TRANSPARENT | WS_EX_CLIENTEDGE | WS_EX_STATICEDGE,0x806603fd
+    CTEXT           "Conveyor Controller",IDC_STATIC,312,169,119,8
+END
+
+IDD_FWUPDATE_PROG DIALOGEX 0, 0, 385, 85
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_VISIBLE | WS_CAPTION
+EXSTYLE WS_EX_NOPARENTNOTIFY | WS_EX_TOOLWINDOW
+CAPTION "Updating Frimware"
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    CTEXT           "Controller Hardware Requires a Firmware Update",LABL_FW_TITLE_MESSAGE,27,7,320,24,SS_CENTERIMAGE
+    CONTROL         "",IDC_PROGRESS_FW_UPDATE,"msctls_progress32",PBS_SMOOTH | WS_BORDER,28,52,319,14
+    CTEXT           "Please Do Not Interrupt Firmware Download",IDC_STATIC,28,42,318,8
+END
+
+IDD_TAGWRITEFAILURE DIALOGEX 65521, 0, 320, 200
+STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_VISIBLE | WS_CAPTION
+CAPTION "RFID Write Error"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    PUSHBUTTON      "Confirm Error",IDSTOP_WRITE_ERROR,93,146,132,37
+    CTEXT           "Write Error Detected !",LABL_WRITEERROR_TITLE,7,41,306,16
+    CTEXT           "An Error has been Dected\n During Writing Data to RFID Tag !",LABL_WRITEERROR_MESSAGE,7,65,306,26
+    LTEXT           "Occured At Tag #: ",IDC_STATIC,7,111,152,8,0,WS_EX_RIGHT
+    LTEXT           "Tags Programmed Since Error:",IDC_STATIC,7,126,150,8,0,WS_EX_RIGHT
+    LTEXT           "0",LABL_ERROR_AT_TAG,164,111,149,8
+    LTEXT           "0",LABL_TAGS_SINCE_ERROR,164,126,30,8
+END
+
+IDD_DIALOG1 DIALOGEX 0, 0, 309, 176
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,198,155,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,252,155,50,14
+END
+
+IDD_TAGVERIFYFAILURE DIALOGEX 65521, 0, 320, 200
+STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_VISIBLE | WS_CAPTION
+CAPTION "RFID Verify Error"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    PUSHBUTTON      "Confirm Error",IDSTOP_VERIFY_ERROR,93,146,132,37
+    CTEXT           "Verify Error Detected !",LABL_WRITEERROR_TITLE,7,41,306,17
+    CTEXT           "An Error has been Dected\n During Verifying Data on RFID Tag !",LABL_WRITEERROR_MESSAGE,7,65,306,26
+    LTEXT           "Occured At Tag #: ",IDC_STATIC,7,105,152,8,0,WS_EX_RIGHT
+    LTEXT           "Tags Read Since Last Error:",IDC_STATIC,7,121,150,8,0,WS_EX_RIGHT
+    LTEXT           "0",LABL_ERROR_AT_TAG_VERIFY,164,105,142,8
+    LTEXT           "0",LABL_TAGS_SINCE_ERROR,164,121,30,8
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION ${parsedVersion.majorVersion},${parsedVersion.minorVersion},${parsedVersion.incrementalVersion},${timestamp}
+ PRODUCTVERSION ${parsedVersion.majorVersion},${parsedVersion.minorVersion},${parsedVersion.incrementalVersion},${timestamp}
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName", "Beckman Coulter Life Sciences"
+            VALUE "FileDescription", "RFIDProgrammingStation"
+            VALUE "FileVersion", "${parsedVersion.majorVersion},${parsedVersion.minorVersion},${parsedVersion.incrementalVersion},${timestamp}"
+            VALUE "InternalName", "RFIDProgrammingStation.exe"
+            VALUE "LegalCopyright", "Copyright (C) ${current.year} Beckman Coulter Life Sciences. All rights reserved."
+            VALUE "LegalTrademarks", "Beckman Coulter, the stylized logo, and the Beckman Coulter product and service marks mentioned herein are trademarks or registered trademarks of Beckman Coulter, Inc. in the United States and other countries."
+            VALUE "OriginalFilename", "RFIDProgrammingStation.exe"
+            VALUE "ProductName", "RFID Programming Station"
+            VALUE "ProductVersion", "${parsedVersion.majorVersion},${parsedVersion.minorVersion},${parsedVersion.incrementalVersion},${timestamp}"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 163
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 55
+    END
+
+    IDD_RFIDPROGRAMMINGSTATION_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 621
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 458
+    END
+
+    IDD_FWUPDATE_PROG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 378
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 78
+    END
+
+    IDD_TAGWRITEFAILURE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 313
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 193
+    END
+
+    IDD_DIALOG1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 302
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 169
+    END
+
+    IDD_TAGVERIFYFAILURE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 313
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 193
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_RFIDPROGRAMMINGSTATION_DIALOG AFX_DIALOG_LAYOUT
+BEGIN
+    0,
+    0, 0, 100, 0,
+    0, 0, 100, 0,
+    0, 0, 100, 100,
+    50, 0, 0, 0,
+    50, 0, 0, 0,
+    50, 0, 0, 0,
+    50, 0, 0, 0,
+    50, 0, 0, 0,
+    50, 0, 0, 0,
+    50, 0, 0, 0,
+    100, 0, 1, 0,
+    45, 0, 1, 0,
+    70, 0, 1, 0,
+    25, 0, 1, 0,
+    5, 10, 25, 50,
+    65, 15, 10, 15,
+    45, 15, 10, 15,
+    85, 15, 10, 15,
+    45, 55, 10, 15,
+    65, 55, 10, 15,
+    85, 55, 10, 15,
+    25, 0, 1, 0,
+    45, 0, 1, 0,
+    70, 0, 1, 0,
+    100, 0, 1, 0,
+    5, 10, 25, 0,
+    45, 15, 10, 0,
+    45, 55, 10, 0,
+    65, 15, 10, 0,
+    65, 55, 10, 0,
+    85, 15, 10, 0,
+    85, 55, 10, 0,
+    40, 10, 60, 65,
+    50, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 100, 0,
+    50, 0, 0, 0,
+    50, 0, 0, 0,
+    0, 0, 0, 0,
+    100, 0, 0, 0,
+    25, 0, 1, 0,
+    45, 0, 1, 0
+END
+
+IDD_FWUPDATE_PROG AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_TAGWRITEFAILURE AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_DIALOG1 AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_TAGVERIFYFAILURE AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_RFIDPROGRAMMINGSTATION_DIALOG DLGINIT
+BEGIN
+    BROWSE_EXPORT_LOG_PATH, 0x37c, 42, 0
+0x4d3c, 0x4346, 0x6445, 0x7469, 0x7242, 0x776f, 0x6573, 0x4d5f, 0x646f, 
+0x3e65, 0x3c32, 0x4d2f, 0x4346, 0x6445, 0x7469, 0x7242, 0x776f, 0x6573, 
+0x4d5f, 0x646f, 0x3e65, 
+    BROWSE_IMPORT_PAYLOAD_PATH, 0x37c, 42, 0
+0x4d3c, 0x4346, 0x6445, 0x7469, 0x7242, 0x776f, 0x6573, 0x4d5f, 0x646f, 
+0x3e65, 0x3c32, 0x4d2f, 0x4346, 0x6445, 0x7469, 0x7242, 0x776f, 0x6573, 
+0x4d5f, 0x646f, 0x3e65, 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_ABOUTBOX            "&About RFIDProgrammingStation..."
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#include "res\RFIDProgrammingStation.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"      // Standard components
+#if !defined(_AFXDLL)
+#include "afxribbon.rc"   // MFC ribbon and control bar resources
+#endif
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

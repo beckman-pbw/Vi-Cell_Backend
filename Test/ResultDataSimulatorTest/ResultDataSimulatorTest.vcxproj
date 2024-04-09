@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2B6E550F-22F2-44DB-9033-81E84AC7BE65}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>TestMe</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>ResultDataSimulatorTest</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)target\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)target\$(Configuration)\</OutDir>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\target\dependencies\include;$(SolutionDir)HawkeyeCore\DLLLayer\Workflow;$(SolutionDir)\target\dependencies\basler\\include;$(SolutionDir)\target\dependencies\ftdi\;$(SolutionDir)\target\dependencies\crypto;$(SolutionDir)\target\dependencies\opencv\include;$(SolutionDir)\target\dependencies\boost\;$(SolutionDir)HawkeyeCore\Core;$(SolutionDir)HawkeyeCore;$(SolutionDir)HawkeyeCore\HardwareLayer;$(SolutionDir)HawkeyeCore\DLLLayer;$(SolutionDir)HardwareLayer\Simulation;$(SolutionDir)HawkeyeCore\APIImplementation;$(SolutionDir)HawkeyeCore\API;$(SolutionDir)HawkeyeCore\APIImplementation\Simulation;$(SolutionDir)HawkeyeCore\APIImplementation\Utilities;$(SolutionDir)HawkeyeCore\CellCounting;$(SolutionDir)HawkeyeCore\DLLLayer\Workflow\Helper;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4251; 4996</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\target\dependencies\lib;.;$(SolutionDir)\target\dependencies\crypto\x64\Output\$(Configuration);$(SolutionDir)\target\dependencies\boost\\stage\lib;$(SolutionDir)\target\dependencies\opencv\lib;$(SolutionDir)\target\dependencies\basler\\lib\x64;$(SolutionDir)\target\dependencies\ftdi\\amd64;$(SolutionDir)HawkeyeCore\CellCounting\$(Platform)\$(Configuration);$(SolutionDir)target\$(Configuration);$(SolutionDir)/HawkeyeCore/x64/Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>HawkeyeCore.lib;opencv_core249d.lib;opencv_highgui249d.lib;opencv_imgproc249d.lib;opencv_video249d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy /Y "$(ProjectDir)EnvironmentVariables.bmp" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\target\dependencies\include;$(SolutionDir)HawkeyeCore\DLLLayer\Workflow;$(SolutionDir)\target\dependencies\basler\\include;$(SolutionDir)\target\dependencies\ftdi\;$(SolutionDir)\target\dependencies\crypto\;$(SolutionDir)\target\dependencies\opencv\include;$(SolutionDir)\target\dependencies\boost\;$(SolutionDir)HawkeyeCore\Core;$(SolutionDir)HawkeyeCore;$(SolutionDir)HawkeyeCore\HardwareLayer;$(SolutionDir)HawkeyeCore\DLLLayer;$(SolutionDir)HardwareLayer\Simulation;$(SolutionDir)HawkeyeCore\APIImplementation;$(SolutionDir)HawkeyeCore\API;$(SolutionDir)HawkeyeCore\APIImplementation\Simulation;$(SolutionDir)HawkeyeCore\CellCounting;$(SolutionDir)HawkeyeCore\APIImplementation\Utilities;$(SolutionDir)HawkeyeCore\DLLLayer\Workflow\Helper;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4251; 4996</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\target\dependencies\lib;.;$(SolutionDir)\target\dependencies\crypto\x64\Output\$(Configuration);$(SolutionDir)\target\dependencies\boost\\stage\lib;$(SolutionDir)\target\dependencies\opencv\lib;$(SolutionDir)\target\dependencies\basler\\lib\x64;$(SolutionDir)\target\dependencies\ftdi\\amd64;$(SolutionDir)HawkeyeCore\CellCounting\$(Platform)\$(Configuration);$(SolutionDir)target\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>HawkeyeCore.lib;opencv_core249.lib;opencv_highgui249.lib;opencv_imgproc249.lib;opencv_video249.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy /Y "$(ProjectDir)EnvironmentVariables.bmp" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="ResultDataSimulatorTest.h" />
+    <ClInclude Include="TestAPIs.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\HawkeyeCore\Core\ChronoUtilities.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="ResultDataSimulatorTest.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="$(SolutionDir)\target\properties\ResultDataSimulatorTest\ResultDataSimulatorTest.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

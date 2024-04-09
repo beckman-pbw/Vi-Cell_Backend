@@ -1,0 +1,17 @@
+D, ./autofocus
+
+!CS, C
+
+S, I
+
+L, 1, P, 30
+
+C, E, 30
+
+C, G, 0
+
+F, H
+
+C, ABI, 1, 180, 1
+
+F, R

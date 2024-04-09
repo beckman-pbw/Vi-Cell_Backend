@@ -1,0 +1,10 @@
+config
+{
+    logger
+    {
+        logfile ScoutTest.log
+        sensitivity DBG1
+        max_size_bytes 5000000
+    }
+
+}

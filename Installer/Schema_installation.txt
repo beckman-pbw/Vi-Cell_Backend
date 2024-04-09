@@ -1,0 +1,105 @@
+The following sequences will work under the noted scenarios.
+
+As an alternative to using the ViCell installer to bring in PostgreSQL and all other required
+instrument application components, the standard PostgreSQL installer can be used along with the
+ODBC driver installer, followed by the sequence in the second scenario, with the following exception:
+
+---> IN THIS CASE ONLY, the 'postgres' user must be used, as the database schema installation has not
+	 yet happened to install the other roles that come along with our DB installation.
+
+
+NOTE that pgAdmin4 is bundled with the PostgreSQL installation and the bundled version will work with
+older browsers, including the browser available on the instrument.  The bundled version is located
+(typically) in the
+
+	"\Program Files\PostgreSQL\10\pgAdmin 4\bin"
+
+folder and the executable name is "pgadmin4.exe".
+
+The standalone pgAdmin4 installer creates a separate "\Proggram Files\pgAdmin 4" folder not within
+the "PoastgrSQL" folder and places its executable in the "...\bin" folder of that folder structure.
+ALSO note that the current releases of the pgAdmin4 program NO LONGER WORK WITH InternetExplorer11!
+This is significant because not all workstations or laptops may have (or want) the 'Edge' browser,
+or may not be running recent versions of the 'Chrome' or 'FireFox' browsers.  In addition, the
+Windows 10 IoT OS used on the instrument DOES NOT INCLUDE the 'Edge' browser, and is should NOT
+be updated to include it.
+
+
+If you are working from one of the shared DBs on the .217 server, the template and the individual DBs
+have been kept up to date with what is included in the release candidate.  If you are changing the
+server connection for common test server DB use, and are using current master HawkeyeCore, then the
+private developer DB designation is now done through the 'HawkeyeConfig.einfo' file in the Config
+folder, but that file is NOT present by default, and will need to be created and encrypted using
+DataEncryptDecrypt.exe
+
+
+
+First scenario: Offline install: No PostgreSQl or schema installed.  New development laptop or system;
+	
+	1) Download the current Deployment Release build for the 1.3 software from Jenkins. Ensure that
+	   the offline version is retrieved.
+	2) Run the package installer to install PostgreSQL, the ODBC driver, .NET 4.8, and the supporting
+	   runtime libraries.
+	
+This will create an instrument folder structure, all subfolders, and create the primary and template
+datebases on the target system.  The 'postgres' user role will have it's password changed as is
+expected in an instrument or customer installation, but the BCIViCellAdmin user role will be present
+for all subsequent interactions.  The password for BCIViCellAdmin should be known to all developers.
+
+
+
+Second scenario: New instrument install (or fresh OS);
+	
+	1) Download the current Deployment Release build for the 1.3 software from Jenkins. Ensure that
+	   the instrument version is retrieved.
+	2) Run the package installer to install PostgreSQL, the ODBC driver, .NET 4.8, and the supporting
+	   runtime libraries.
+	
+The instrument installer assumes the '\Instrument\...' folder structure is already present, that
+Postgres, the ODBC driver, .NET 4.8, all instrument-related database roles, and a default DB schema
+are present in the instrument (included with the new OS).  Also, in the instrument folder structure,
+the database is in the '\Instrument\DB_Data' folder rather than in a sub-folder of the Postgres
+installation 'Program Files' folder.  Also in this case, the 'postgres' user role will have had its
+password changed as is expected in an instrument or customer installation, and the BCIViCellAdmin
+user role will be present for all subsequent interactions.  The password for BCIViCellAdmin should
+be known to all developers and in-house parties.
+
+
+
+Third scenario: Instrument installation with all required components already installed, and an obsolete
+instrument database present on the system; data can be discarded
+
+	1) Copy the 'SchemaInstaller.bat' file from the HawkeyteApplicationSource\Installer repository folder
+	   (or other location) to a known location on the target system for later execution.
+	2) Copy the 'DBCreate.sql' file from the HawkeyteApplicationSource\Installer repository folder
+	   to the SAME location as the SchemaInstaller.bat file on the target system.
+	3) Open an ADMINISTRATIVE command prompt and change to the location of the installer batch and sql files.
+	4) Run the 'SchemaInstaller.bat' file.  It is currently configured to check for the presence of an existing
+	   instrument database and configure usernames and passwords appropriately.  Under some circumstances it
+	   MAY prompt for the username to be used (BCIViCellAdmin is recommended), and once entered will prompt
+	   for the password for that user when required.
+	   
+			- ALTERNATIVELY, the copy of the installer can be modified to replace the PGUSER and PGPASSWORD
+			  environment variable 'set' statements with the name and password to be used during the database
+			  schema creation (again, this should be BCIViCellAdmin).
+
+			- NEVER modify the SchemaInstaller.bat file in the repository folder if making custom mods for your
+			  particular installation scenario.  Make a working copy of the file in a different working folder!
+
+	The DBCreate.sql script run by the SchemaInstaller.bat script DROPS (deletes) then recreates the old
+	databases named ViCellDB_template and ViCellDB, in that order.  Its very last step is to change the password
+	for the 'postgres' user role.  While it is NOT RECOMMENDED, the very last step of the DBCreate.sql file may
+	be commented-out (sql comment is the '--' sequence), resulting in a line as shown below:
+	
+-- ALTER ROLE postgres WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION BYPASSRLS PASSWORD 'md5c5d2e02306e8cbdd4740165f9f2b9575';
+
+	This will leave the previously specified password which may be insecure!  It DOES NOT guarantee that the
+	password will be the default!
+
+
+
+A fourth possible scenario is similar to the third scenario, but the installed database contains data which must
+be preserved, and no incompatibilities exist between the new and old schema.  This scenario CANNOT be handled by the
+SchemaInstaller batch script, and must use the SchemaUpdater batch script which attempts to add changed or missing
+elements to the schemas without affecting existing contents.  See the installation help text file for that script.
+

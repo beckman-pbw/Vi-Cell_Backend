@@ -1,0 +1,30 @@
+The same OS image is used by both the Scout and Hunter instruments.  The motherboard for both instruments
+is the same, as are the base drivers and tools needed.
+
+Avoid if possible any changes that are specific to one instrument.  These specific changes should go into
+the application installer, if possible.
+
+DO NOT make modification which are mutually exclusive between the instrument models.  This will REQUIRE
+a separate part number for the OS needed by each instrument, and associated BOM changes if these types
+of changes are needed!
+
+
+1) Attach a hard drive to a Hawkeye motherboard. NOTE that the contents of the hard drive will be completely overwritten!
+
+2) Using Clonezilla (or the image tool currently used), install the previous image onto a hard drive.
+
+3) Update any drivers or OS configurations that need to be changed on the newly imaged drive.
+   This would include changes to the ProService tool or to the version of McAfee white-listing tool, as well
+   as camera or LED engine drivers.
+
+4) Update the OS release version indicator file in the '\Instrument' folder.
+   The file name is 'version'.txt (e.g. "ViCell-OS-v0.6.txt"), and the single-line content of the file
+   is the version descriptor (e.g. 'ViCell OS version 0.6').
+
+5) Ensure the instrument appliation loader batch files are present in the '\Instrument' folder:
+
+        LoadViCell_Installer.bat
+        find_installer.bat
+
+6) Using Clonezilla (or the image tool currently used), Create an image of the updated drive.  Naming convention
+   would be ViCell-Base-OS-Image-vX.Y-yyyy-mm-dd-img.

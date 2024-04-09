@@ -1,0 +1,487 @@
+--------------
+Setting Up Git
+--------------
+
+    *** How to set up SSH key for Git on Windows ***
+
+     - Open PuTTYgen by searching for it in the Start menu or Start screen. If you see multiple entries, any will work.
+
+     - Leave the settings as they are, unless you know what you're doing.
+
+     - Click "Generate".
+
+     - Wiggle the mouse around in the top part of the window until the progress bar is full, as the program asks you to do.
+
+     - Once you've provided enough entropy, a bunch of text fields will appear. It's highly recommended that you provide a passphrase.
+
+     - After providing a passphrase, click "Save private key". The usual directory to save these in is %USERPROFILE%\_ssh.
+
+     - It doesn't matter what you call the key, but for demonstration purposes, I'm going to call it github.ppk. This file should have an extension of .ppk.
+
+     - Now, log in to GitHub.com. Don't close PuTTYgen yet.
+
+     - Go to your Account settings and then to SSH keys.
+
+     - Click "Add SSH key". Copy the text in the top text box in PuTTYgen, the one labeled "Public key for pasting into OpenSSH authorized_keys file" and paste it into the Key box in GitHub. Give it a title that describes what machine the key is on (e.g. "Work laptop").
+
+     - Click "Add key".
+
+       We're now done setting things up to connect to GitHub.
+
+
+    *** Edit the �C:\Users\BCI Developer\.gitconfig file to have your own name and email. *** 
+
+
+    *** Edit the statup entry for Pageant to point to your own personal key ***
+
+        ShortCut is: c:\Users\BCI\Developer\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\Pageant
+
+        In the ShortCut, enter the following in the *Target:* field:
+
+           "C:\Program Files (x86)\PuTTY\pageant.exe" "C:\Users\BCI Developer\XXX"
+
+           where XXX is the ppk filename.
+
+
+    *** Exit any and all running instances of Pageant by right-clicking on icon in System Tray. ***
+
+
+	!!! There appear to be issues with creating Pull Requests from MSVS 2015 !!!
+	Replace the .gitconfig file in C:\Users\BCI Developer with the following from .gitconfig file contents from Durango:
+	
+#------------------------------------------------------------------------------
+[user]
+name = Perry Wischow
+email = pwischow@beckman.com
+[core]
+autocrlf = false
+eol = lf
+excludesfile = ~/.gitignore
+
+# Dealing with firewall:
+[url "https://"]
+insteadOf = git://
+
+# NEVER accidentally push feature branch to origin/master!
+[push]
+default = current
+
+# Cache credentials. Very short-lived.
+[credential]
+helper = cache
+
+# Store merge conflict resolutions so they can be automatically replayed sometimes.
+[rerere]
+#enabled = true
+
+# Make some commands colored
+[color]
+ui = true
+
+# Aliases for our flavor of GitHub Flow
+[alias]
+# TODO: consider using these: http://haacked.com/archive/2014/07/28/github-flow-aliases/
+# Note that rebases will probably be easier if we use `pull --rebase`
+# regularly, instead of `merge`.
+# Abort command if wrong number of args (expected # is first arg)
+    nargs = "!f () { \
+num=$1 ; shift; test $# -eq $num ; \
+res=$? ; \
+if [ $res -ne 0 ]; then \
+echo Wrong number of args! >&2; \
+fi ;\
+return $res ; } ; f"
+# Current branch name
+    br = "rev-parse --abbrev-ref HEAD"
+# Current feature branch (i.e., not master)
+    cfbcmds = "!f () { \
+fb=$(git br) ;\
+if [ \"$fb\" = master ]; then \
+echo You are on master, not on a feature branch! >&2 ;\
+return 1 ;\
+else \
+echo $fb ;\
+fi ; } ; f"
+    cfb = "!set -e; git cfbcmds"
+# Git dir (.git)
+    dir = "rev-parse --git-dir"
+
+# New feature branch
+    nfbcmds = "!f () { \
+git fetch -p ;\
+git checkout -b $1 origin/master ;\
+git push origin $1 ;\
+git config --add branch.${1}.merge refs/heads/${1} ; } ; f"
+    nfb = "!set -e; git nargs 1 $@ ; git nfbcmds"
+
+# Compare: list files changed in feature branch
+    cmp = "diff --name-status master"
+
+# Push feature branch (equivalent to push, assuming branches are correctly
+# configured)
+    pfb = push
+# Write (commit & push) feature branch
+    wfbcmds = "!f () { \
+git add -u ;\
+git commit \"$@\" ;\
+git pfb; } ; f"
+    # Can take any number of arguments, which will be passed to `commit`
+    wfb = "!set -e; git wfbcmds"
+# Save (i.e. write with a dummy commit message)
+    save = "!git wfb -m'Saving feature-branch progress'"
+
+# Merge master
+# Note: if origin/master and origin/<feature> are BOTH configured as upstreams
+# for merging, `git pull --prune` will probably be preferable.
+    mmcmds = "!f () { \
+git fetch -p ;\
+git merge origin/master ; } ; f"
+    mm = "!set -e; git nargs 0 $@; git mmcmds"
+
+# Integrate to master
+    itmcmds = "!f () { \
+if [ \"$1\" != \"editmsg\" ]; then \
+echo Using branch name as default commit message. ;\
+editmsg=false ;\
+else \
+editmsg=true ;\
+shift ;\
+fi ;\
+if [ -z \"$1\" ]; then \
+echo No feature branch specified! >&2 ;\
+return 1 ;\
+fi ;\
+git fetch --prune ;\
+git checkout $1 ;\
+git merge origin/master ;\
+git checkout master ;\
+git merge origin/master ;\
+git merge --squash $1 ;\
+if $editmsg; then \
+echo $1 > \"$(git dir)/SQUASH_MSG\" ;\
+git commit ;\
+else \
+git commit -a -m\"$1\" ;\
+fi ;\
+git push origin master ;\
+git branch -D $1 ;\
+git push origin --delete $1 ; } ; f"
+
+
+# Integrate branch by name
+    itm = "!set -e; git nargs 1 $@ ; git itmcmds editmsg"
+# Integrate CURRENT BRANCH to master
+    icbm = "!set -e; git nargs 0 $@ ; git itmcmds editmsg $(git cfb)"
+# Integrate CURRENT BRANCH to master, using default commit msg (branch name)
+    icdm = "!set -e; git nargs 0 $@ ; git itmcmds $(git cfb)"
+
+# Delete feature branch without integrating
+# To undo: http://stackoverflow.com/questions/4025916/git-undo-local-branch-delete
+    dfbcmds = "!f () { \
+git checkout master ;\
+git branch -D $1 ;\
+git push origin --delete $1 ; } ; f"
+    dfbwarning = "!f () { \
+echo WARNING: this is difficult to undo! >&2 ;\
+echo WARNING: You MAY LOSE WORK! >&2 ;\
+echo Press Ctl-C to exit or Enter to proceed. >&2 ;\
+read answer ; } ; f"
+    dfb = "!set -e; git nargs 1 $@ ; git dfbwarning; git dfbcmds"
+
+# Logging
+    lg0 = "log --color --graph --pretty=format:'%Cred%h%Creset \
+-%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' \
+--abbrev-commit"
+    lg1 = "log --graph --abbrev-commit --decorate --date=relative \
+--format=format:'%C(bold blue)%h%C(reset) - \
+%C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- \
+%an%C(reset)%C(bold yellow)%d%C(reset)' --all"
+    lg2 = "log --graph --abbrev-commit --decorate \
+--format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) \
+%C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n'' \
+%C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all"
+    # Must use ! for meta-alias
+    lg = "!git lg1"
+#------------------------------------------------------------------------------
+
+
+-----------------------------
+Git Branch Naming Conventions
+-----------------------------
+
+    FEAT-*
+        New feature development / refinement.
+        Try to keep one feature per branch (difficult since we�re trying to do a ton of stuff really quickly, but try hard).
+        Should go back to Master fairly quickly after a review & integration process.
+
+    BUGFIX-*
+        SMALL change to patch an identified bug.
+        JUST fix the bug, do NOT introduce new features/behavior.
+        VERY targeted.
+
+    RC-*
+        Release candidate (internal).
+        I am willing to see this as a moving branch for internal testing/integration as we pull features/fixes in towards an actual release 
+            prior to delivering it to customers/manufacturing.
+
+    RELEASE-*
+        May just be a fixed TAG in the codeset.
+        Milestone releases, potentially externally distributed
+        This is a DEAD branch that has a matching tag denoting the exact point that we set it into the wild.
+
+-------------------
+Boost Configuration
+-------------------
+	Need to add x64 version of Boost.
+		- Unzip S:\Projects\Hawkeye\Software\BOOST_32_64_.7z into C:\DEV\Boost\boost_1_62_0\stage\lib.
+		- This will create 32bit and 64bit directories.
+		- Create the following system envvars:
+			BOOST_LIB_32 -> C:\DEV\Boost\boost_1_62_0\stage\lib\32bit
+			BOOST_LIB_64 -> C:\DEV\Boost\boost_1_62_0\stage\lib\64bit
+			BOOST_INCLUDE -> C:\DEV\Boost\boost_1_62_0\
+	
+	
+------
+OpenCV
+------
+	Unzip S:\Projects\Hawkeye\Software\OpenCV_files_for_Win10.zip into C:\DEV\
+
+	Create the following system envvar:
+		OPENCV_ROOT -> C:\DEV\OpenCV\OpenCV 2.4.9\
+
+			
+---------------------------
+Testing Basler Camera in VM
+---------------------------
+    The Basler camera is a USB3.0 device.  To access this camera in a Virtualbox VM requires that Virtualbox be updated to at least
+	version 5.0.x and have the appropriate extension pack installed, and make the following adjustments.  These adjustments are not
+	needed with running directly in Windows 10 (i.e. not in a VM).
+	
+	In Virtualbox Manager...
+	    Select the Win10 VM.
+		Right click, select *Settings*.
+		In the USB section ensure �USB3.0 (xHCI) Controller� is selected, this may need to be added if it does not already show up.
+		Start the VM.
+		
+	In the VM...
+		Select *Devices > USB > Basler something, something*
+		    The driver should load and the item will contain a check mark.
+	
+	In Windows 10...
+		Start the Pylon Viewer application.
+		Select the camera and connect.
+		Right clck on the camera and select *Bandwidth Manager*.
+		Dial slider down to ~10Mbps, at ~50Mbps or higher the image window flickers.
+		Click on the *...* button to the right.
+		Under *Image Format Control*, change the height and width to 1024.
+		
+		
+---------------------------------------------		
+MSVS 2015 Settings Using *All Configurations*
+---------------------------------------------		
+
+All properties below assume a 64-bit target.  The OpenCv libraries currently do not provide the 32-bit versions.
+The Win_32 target platform will NOT link correctly because of this, and should not be built at this time.
+
+    - For classes within the DLL that will be exported to high-level clients, the class declaration must be decorated as in the following example:
+        class SD_DECL_EXPORT MotorBase
+      The 'stdafx.h' file for these projects should include the file:
+        #include "DllExportMacrosInclude.hpp"
+      This file contains the defines for:
+        SD_DECL_EXPORT
+        SD_DECL_IMPORT
+      These are set for the appropriate compiler environment and come from a Qt environment.
+      This is NOT standard Windows practice, which uses the define "AFX_EXT_CLASS" (and others) in the 'stdafx.h' file to change the defined value depending on the need to be an imported or exported class, or in some cases to the null value.
+        
+	- For ALL projects...
+		In Project Properties > Configuration Properties > General
+			Set *Output Directory* to $(Platform)\$(Configuration)
+		In Project Properties > Configuration Properties > Debugging
+            Set the "Working Directory property to "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+        In Project Properties -> C/C++ -> General
+            Set the Additional Include Directories property to ".;$(BOOST_INCLUDE);$(OPENCV_ROOT)include;$(SolutionDir)BASLER\include;$(SolutionDir)FTDI;$(SolutionDir)HawkeyeCore\Core;$(SolutionDir)HawkeyeCore\HardwareLayer;%(AdditionalIncludeDirectories)"
+            NOTE: the %(AdditionalIncludeDirectories) macro is added by checking the 'Inherit from parent or project defaults' check-box
+        In Project Properties -> C/C++ -> Preprocessor
+            Set the Preprocessor Definitions property to "WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions);<different options>"
+            NOTE:   The %(PreprocessorDefinitions) macro is added by checking the 'Inherit from parent or project defaults' check-box.
+                    Additional project-specific definitions (e.g. _CONSOLE) may be added after the 'WIN32_LEAN_AND_MEAN' define, as necessary.
+        In Project Properties -> C/C++ -> Precompiled Headersprocessor
+            projects should be set to "Not using Precompiled headers", but the entry may also be left blank in most cases.
+        In Project Properties -> Linker -> General
+            the Output File property should be set to "$(OutDir)$(TargetName)$(TargetExt)"
+            the Additional Library Directories property should be set to ".;$(BOOST_LIB_64);$(OPENCV_ROOT)lib;$(SolutionDir)BASLER\lib\x64;$(SolutionDir)FTDI\amd64;%(AdditionalLibraryDirectories)"
+            NOTE that targets that don't require the OpenCv library may omit the reference to the "$(OPENCV_ROOT)lib" path.
+        In Project Properties -> Linker -> Input
+            the Additional Dependencies property should be set to "ftd2xx.lib;opencv_core249.lib;opencv_highgui249.lib;GCBase_MD_VC120_v3_0_Basler_pylon_v5_0.lib;%(AdditionalDependencies)"
+            NOTE that targets that don't require the OpenCv library may omit the reference to the "opencv_xxx.lib" dependencies.
+    - include paths are now set to point at the current directory '.', the two HawkeyeCore sub-folders (Core and HardwareLayer),
+      as well as those needed for the external libraries.  The 'Interfaces' sub-folder of the HardwareLayer folder is NOT specified,
+      and files in that folder should be specified as "Interfaces\xxx" in include statements that reference the required file.
+    - Some target projects may require that the Project Properties-> General -> Use of MFC property be set to "Use MFC in a Shared DLL"
+    - For all output targets that must be included in the 'build' folder...
+		In each target, modify the 'Post Build Event' entry to include the complex script required.
+
+        NOTE that the script will contain the 'Return' character, and must be entered using the 'Edit'
+        operation, and not entered on the single property line.
+
+        If the target depends on the core dll, the script will include the requisite copy operations for the core DLL and the target.
+        An example script for a target with core DLL dependency is presented below.  For those that do not depend on the core DLL,
+        remove the test and copy lines for the HawkeyeCore.dll and HawkeyeCore.pbb files.
+
+/*----------------------------------------------------------------------------------------*/
+if not exist "$(SolutionDir)BuildOutput" mkdir "$(SolutionDir)BuildOutput"
+if not exist "$(SolutionDir)BuildOutput\$(Platform)" mkdir "$(SolutionDir)BuildOutput\$(Platform)"
+if not exist "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)" mkdir "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+copy /Y "$(SolutionDir)BASLER\Assemblies\Basler.Pylon\x64\*.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+copy /Y "$(OPENCV_ROOT)bin\opencv_core249.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+copy /Y "$(OPENCV_ROOT)bin\opencv_highgui249.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+copy /Y "$(SolutionDir)FTDI\amd64\*.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+if exist "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)\ftd2xx.dll" del "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)\ftd2xx.dll"
+rename "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)\ftd2xx64.dll" ftd2xx.dll
+
+if not exist "$(SolutionDir)HawkeyeCore\$(Platform)\$(Configuration)\HawkeyeCore.dll" goto no_core
+copy /Y "$(SolutionDir)HawkeyeCore\$(Platform)\$(Configuration)\HawkeyeCore.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(SolutionDir)HawkeyeCore\$(Platform)\$(Configuration)\HawkeyeCore.pdb" goto no_pdb1
+copy /Y "$(SolutionDir)HawkeyeCore\$(Platform)\$(Configuration)\HawkeyeCore.pdb" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" goto no_core
+copy /Y "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName).pdb" goto no_pdb2
+copy /Y "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName).pdb" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+echo BUILD SUCCESS!
+goto done_xit
+
+:no_core
+echo BUILD ERROR: core output dll file not found!
+goto done_xit
+
+:no_pdb1
+echo BUILD ERROR: core output pdb file not found!
+goto done_xit
+
+:no_tgt
+echo BUILD ERROR: output target file "$(TargetName)$(TargetExt)" not found!
+goto done_xit
+
+:no_pdb2
+echo BUILD ERROR: output target pdb file "$(TargetName).pdb" not found!
+
+:done_xit
+
+----------------------------------------
+Installing Google Test
+----------------------------------------
+This is needed to build the new Unit Tests project. 
+
+Unzip "S:\Projects\Hawkeye\Software\GoogleTest HawkBuild DEV.zip" into the Dev directory.
+Rearrange the directory to look like the following:
+
+	C:\Dev 
+		googletest 
+			googlemock
+			googletest
+
+Add the following environmental variables as defined in the following section:
+	GTEST_INCLUDE
+	GMOCK_INCLUDE
+	GTEST_LIB_64
+	GMOCK_LIB_64
+
+----------------------------------------
+Environment Variables for Win10 VM Image
+----------------------------------------
+BOOST_INCLUDE
+C:\DEV\Boost\boost_1_62_0\
+
+BOOST_LIB_32
+C:\DEV\Boost\boost_1_62_0\stage\lib\32bit
+
+BOOST_LIB_64
+C:\DEV\Boost\1.62.0\boost_1_62_0\stage\lib
+
+CRYPTOPP_INCLUDE
+C:\DEV\Hawkeye\CryptoLib5.6.5
+
+CRYPTOPP_LIBDLL_64
+C:\DEV\Hawkeye\CryptoLib5.6.5\x64\DLL_Output
+
+CRYPTOPP_LIBSTATIC_64
+C:\DEV\Hawkeye\CryptoLib5.6.5\x64\Output
+
+OPENCV_ROOT
+C:\DEV\OpenCV\OpenCV 2.4.9\
+
+OPENCV_INCLUDE
+%OPENCV_ROOT%\build\include
+
+PYLON_DEV_DIR
+C:\PROGRA~1\Basler\pylon 5\development
+
+GTEST_INCLUDE
+C:\DEV\googletest\googletest\include
+
+GMOCK_INCLUDE
+C:\DEV\googletest\googlemock\include
+
+GTEST_LIB_64
+C:\DEV\googletest\googletest\msvc\2015\x64
+
+GMOCK_LIB_64
+C:\DEV\googletest\googlemock\msvc\2015\x64
+				
+-------------------------------------
+Using boost in Windows 10 Development
+-------------------------------------
+
+I got the following errors when using boost::asio.
+
+1>------ Build started: Project: CameraTest, Configuration: Debug x64 ------
+1>  stdafx.cpp
+1>  CameraTest.cpp
+1>c:\dev\boost\boost_1_62_0\boost\asio\detail\socket_types.hpp(24): fatal error C1189: #error:  WinSock.h has already been included
+1>  iCamera.cpp
+1>  Camera_Basler.cpp
+1>c:\dev\boost\boost_1_62_0\boost\asio\detail\socket_types.hpp(24): fatal error C1189: #error:  WinSock.h has already been included
+1>  Generating Code...
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+
+The interwebs suggested adding WIN32_LEAN_AND_MEAN to the project preprocessor settings: http://stackoverflow.com/questions/31687008/boost-asio-and-winsock-h-has-already-been-included
+
+This worked�
+
+Essentially, WIN32_LEAN_AND_MEAN limits the number of include files scanned at compile to reduce the compile time.
+
+
+---------------------------
+Kinetis Design Studio 3 IDE
+---------------------------
+
+It is possible that after a crash of the Win10 VM that the *Kinetis Design Studio 3 IDE* may not startup.
+A dialog box will come up with the following text:
+	An error has occurred.  See the log file C:\Users\BCI Developer\workspace.kds\.metadata\.log.
+
+This issue is resolved by deleting the following directory:
+	C:\Users\BCI Developer\workspace.kds\.metadata\.plugins\org.eclipse.core.resources
+
+This directory will be recreated when the IDE starts up.
+
+
+*************************************************************************************************************************************************************************
+*** TODOS ***************************************************************************************************************************************************************
+*************************************************************************************************************************************************************************
+
+   1) Internationalization
+   2) Alerts (errors), status message handling.
+   3) 
+
+
+
+
+
+

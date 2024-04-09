@@ -1,0 +1,687 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_Calibration.cpp" />
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_DustSubtraction.cpp" />
+    <ClCompile Include="APIImplementation\HawkeyeError.cpp" />
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_Configuration.cpp" />
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_NightlyClean.cpp" />
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_QualityControl.cpp" />
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_ReagentFluidics.cpp" />
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_Results.cpp" />
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_Signatures.cpp" />
+    <ClCompile Include="Core\ChronoUtilities.cpp" />
+    <ClCompile Include="Core\CompletionHandlerUtilities.cpp" />
+    <ClCompile Include="Core\FileSystemUtilities.cpp" />
+    <ClCompile Include="Core\DeadlineTimerUtilities.cpp" />
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_Reports.cpp" />
+    <ClCompile Include="APIImplementation\HawkeyeLogic.cpp" />
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl.cpp" />
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_CellType.cpp" />
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_ReagentPack.cpp" />
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_Service.cpp" />
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_SystemStatus.cpp" />
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_UserMgmt.cpp" />
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_Analysis.cpp" />
+    <ClCompile Include="Core\AppConfig.cpp" />
+    <ClCompile Include="Core\CommandParser.cpp" />
+    <ClCompile Include="Core\Configuration.cpp" />
+    <ClCompile Include="Core\HawkeyeUser.cpp" />
+    <ClCompile Include="Core\Logger.cpp" />
+    <ClCompile Include="Core\LoggerSignature.cpp" />
+    <ClCompile Include="Core\RSADigitalSignature.cpp" />
+    <ClCompile Include="Core\SecurityHelpers.cpp" />
+    <ClCompile Include="Core\UserList.cpp" />
+    <ClCompile Include="DLLLayer\AuditLog.cpp" />
+    <ClCompile Include="DLLLayer\ErrorLog.cpp" />
+    <ClCompile Include="DLLLayer\HawkeyeConfig.cpp" />
+    <ClCompile Include="Core\SystemStatus.cpp" />
+    <ClCompile Include="DLLLayer\SampleLog.cpp" />
+    <ClCompile Include="DLLLayer\TemporaryImageAnalysis.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\AppendProcessingWorkflowOperation.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\BrightfieldDustSubtractWorkflow.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\CameraAutofocusWorkflow.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\CameraWorkflowOperation.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\DecontaminateFlowCellWorkflow.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\DrainReagentPackWorkflow.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\FlushFlowCellWorkflow.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\Helper\AdjustBackgroundIntensity.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\Helper\CameraAutofocus.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\LoadNudgeExpelWorkflow.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\ProbeWorkflowOperation.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\SampleWorkflow.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\StateChangeWorkflowOperation.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\FocusWorkflowOperation.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\LedWorkflowOperation.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\ReagentWorkflowOperation.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\SyringeWorkflowOperation.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\WaitStateWorkflowOperation.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\Workflow.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\WorkflowOperation.cpp" />
+    <ClCompile Include="DLLLayer\MotorStatusDLL.cpp" />
+    <ClCompile Include="HardwareLayer\BaseClass\ReagentControllerBase.cpp" />
+    <ClCompile Include="HardwareLayer\BaseClass\StageControllerBase.cpp" />
+    <ClCompile Include="HardwareLayer\BoardStatus.cpp" />
+    <ClCompile Include="HardwareLayer\BeckmanCamera.cpp" />
+    <ClCompile Include="HardwareLayer\Camera_Basler.cpp" />
+    <ClCompile Include="HardwareLayer\ControllerBoardEzPort.cpp" />
+    <ClCompile Include="HardwareLayer\ControllerBoardInterface.cpp" />
+    <ClCompile Include="HardwareLayer\ErrorCode.cpp" />
+    <ClCompile Include="HardwareLayer\ErrorStatus.cpp" />
+    <ClCompile Include="HardwareLayer\FocusController.cpp" />
+    <ClCompile Include="HardwareLayer\FTDI_Error_To_Boost.cpp" />
+    <ClCompile Include="HardwareLayer\Hardware.cpp" />
+    <ClCompile Include="HardwareLayer\Interfaces\iCamera.cpp" />
+    <ClCompile Include="HardwareLayer\MotorBase.cpp" />
+    <ClCompile Include="HardwareLayer\ReagentController.cpp" />
+    <ClCompile Include="HardwareLayer\Rfid.cpp" />
+    <ClCompile Include="HardwareLayer\SignalStatus.cpp" />
+    <ClCompile Include="HardwareLayer\BaseClass\CameraBase.cpp" />
+    <ClCompile Include="HardwareLayer\BaseClass\FocusControllerBase.cpp" />
+    <ClCompile Include="HardwareLayer\BaseClass\LedBase.cpp" />
+    <ClCompile Include="HardwareLayer\BaseClass\RfidBase.cpp" />
+    <ClCompile Include="HardwareLayer\BaseClass\SyringePumpBase.cpp" />
+    <ClCompile Include="HardwareLayer\Simulation\CameraSim.cpp" />
+    <ClCompile Include="HardwareLayer\Simulation\FocusControllerSim.cpp" />
+    <ClCompile Include="HardwareLayer\Simulation\ReagentControllerSim.cpp" />
+    <ClCompile Include="HardwareLayer\Simulation\RfidSim.cpp" />
+    <ClCompile Include="HardwareLayer\Simulation\StageControllerSim.cpp" />
+    <ClCompile Include="HardwareLayer\Simulation\SyringePumpSim.cpp" />
+    <ClCompile Include="HardwareLayer\BaseClass\VoltageMeasurementBase.cpp" />
+    <ClCompile Include="HardwareLayer\StageController.cpp" />
+    <ClCompile Include="HardwareLayer\SyringePump.cpp" />
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="HardwareLayer\VoltageMeasurement.cpp" />
+    <ClCompile Include="HawkeyeCore.cpp" />
+    <ClCompile Include="ResultsData\HawkeyeResultsDataManager.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Core\SystemErrors.cpp" />
+    <ClCompile Include="Core\AsyncCommandHelper.cpp" />
+    <ClCompile Include="Core\UiDllLayerMediator.cpp" />
+    <ClCompile Include="Core\HawkeyeThreadPool.cpp" />
+    <ClCompile Include="Core\HawkeyeThread.cpp" />
+    <ClCompile Include="HardwareLayer\ControllerBoardOperation.cpp" />
+    <ClCompile Include="Core\HawkeyeThread.cpp" />
+    <ClCompile Include="ResultsData\PtreeConversionHelper.cpp" />
+    <ClCompile Include="HardwareLayer\Simulation\VoltageMeasurementSim.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\ReagentLoadWorkflow.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\ReagentUnloadWorkflow.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\TimestampWorkflowOperation.cpp" />
+    <ClCompile Include="DLLLayer\ReagentData.cpp" />
+    <ClCompile Include="Core\HawkeyeDirectory.cpp" />
+    <ClCompile Include="DLLLayer\ImportExportConfiguration.cpp" />
+    <ClCompile Include="HardwareLayer\FirmwareDownload.cpp" />
+    <ClCompile Include="HardwareLayer\OmicronLedControllerBoardCommand.cpp" />
+    <ClCompile Include="HardwareLayer\OmicronLedControllerBoardInterface.cpp" />
+    <ClCompile Include="HardwareLayer\OmicronLed.cpp" />
+    <ClCompile Include="HardwareLayer\BCILed.cpp" />
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_WorkList.cpp" />
+    <ClCompile Include="DLLLayer\ImageProcessing\ImageProcessingUtilities.cpp" />
+    <ClCompile Include="DLLLayer\ImageProcessing\ImageWrapperUtilities.cpp" />
+    <ClCompile Include="DLLLayer\ImageProcessing\LiveScanningUtilities.cpp" />
+    <ClCompile Include="DLLLayer\ImageProcessing\ImageAnalysisUtilities.cpp" />
+    <ClCompile Include="Core\GetAsStrFunctions.cpp" />
+    <ClCompile Include="DLLLayer\CellTypeDLL.cpp" />
+    <ClCompile Include="DLLLayer\CellTypesDLL.cpp" />
+    <ClCompile Include="DLLLayer\AnalysisDefinitionDLL.cpp" />
+    <ClCompile Include="DLLLayer\AnalysisDefinitionsDLL.cpp" />
+    <ClCompile Include="DLLLayer\AuditEventType.cpp" />
+    <ClCompile Include="DLLLayer\ImageProcessing\SaveResults.cpp" />
+    <ClCompile Include="DLLLayer\WorklistDLL.cpp" />
+    <ClCompile Include="DLLLayer\ReagentPack.cpp" />
+    <ClCompile Include="DLLLayer\WorkflowController.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\PurgeReagentLinesWorkflow.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\PrimeReagentLinesWorkflow.cpp" />
+    <ClCompile Include="DLLLayer\Workflow\Helper\LegacyData.cpp" />
+    <ClCompile Include="HardwareLayer\EEPROMController.cpp" />
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_DataTemplates.cpp" />
+    <ClCompile Include="Core\uuid__t.cpp" />
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_Reanalysis.cpp" />
+    <ClCompile Include="DLLLayer\SResultBinStorage.cpp" />
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_TestCode.cpp" />
+    <ClCompile Include="DLLLayer\SResultData.cpp" />
+    <ClCompile Include="DLLLayer\InstrumentConfig.cpp" />
+    <ClCompile Include="ResultsData\AnalysisImagePersistHelper.cpp" />
+    <ClCompile Include="DLLLayer\ActiveDirectoryDLL.cpp" />
+    <ClCompile Include="DLLLayer\SignaturesDLL.cpp" />
+    <ClCompile Include="DLLLayer\QualityControlsDLL.cpp" />
+    <ClCompile Include="DLLLayer\ImageAnalysisParameters.cpp" />
+    <ClCompile Include="DLLLayer\CalibrationHistoryDLL.cpp" />
+    <ClCompile Include="Core\LoggerDB.cpp" />
+    <ClCompile Include="DLLLayer\CameraErrorLog.cpp" />
+    <ClCompile Include="ResultsData\ExportData.cpp" />
+    <ClCompile Include="Core\DLLVersion.cpp" />
+    <ClCompile Include="Core\ExpandedUser.cpp" />
+    <ClCompile Include="ResultsData\ExportUtilities.cpp" />
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_ScheduledExport.cpp" />
+    <ClCompile Include="DLLLayer\ScheduledExportDLL.cpp" />
+    <ClCompile Include="DLLLayer\QualityControlDLL.cpp" />
+    <ClCompile Include="DLLLayer\CellHealthReagents.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="APIImplementation\HawkeyeDirectory.hpp" />
+    <ClInclude Include="Core\ChronoUtilities.hpp" />
+    <ClInclude Include="Core\CompletionHandlerUtilities.hpp" />
+    <ClInclude Include="Core\FileSystemUtilities.hpp" />
+    <ClInclude Include="Core\DeadlineTimerUtilities.hpp" />
+    <ClInclude Include="API\Autofocus.hpp" />
+    <ClInclude Include="API\AutofocusCommon.hpp" />
+    <ClInclude Include="API\Bioprocess.hpp" />
+    <ClInclude Include="API\CalibrationCommon.hpp" />
+    <ClInclude Include="API\Fluidics.hpp" />
+    <ClInclude Include="API\ImageWrapper.hpp" />
+    <ClInclude Include="API\ImageWrapperCommon.hpp" />
+    <ClInclude Include="API\InitializationState.hpp" />
+    <ClInclude Include="API\MotorStatus.hpp" />
+    <ClInclude Include="API\QualityControl.hpp" />
+    <ClInclude Include="API\QualityControlCommon.hpp" />
+    <ClInclude Include="API\Reports.hpp" />
+    <ClInclude Include="API\ReportsCommon.hpp" />
+    <ClInclude Include="API\ResultDefinition.hpp" />
+    <ClInclude Include="API\ResultDefinitionCommon.hpp" />
+    <ClInclude Include="CellCounting\BlobData.h" />
+    <ClInclude Include="CellCounting\BlobLabel.h" />
+    <ClInclude Include="CellCounting\CellCounterFactory.h" />
+    <ClInclude Include="CellCounting\CellCountingOutputParams.h" />
+    <ClInclude Include="CellCounting\ErrorCodes.h" />
+    <ClInclude Include="CellCounting\Headers.h" />
+    <ClInclude Include="CellCounting\ICellCounter.h" />
+    <ClInclude Include="CellCounting\InputConfigurationParams.h" />
+    <ClInclude Include="CellCounting\Typedef.h" />
+    <ClInclude Include="API\AnalysisDefinitionCommon.hpp" />
+    <ClInclude Include="API\AnalysisDefinition.hpp" />
+    <ClInclude Include="API\HawkeyeError.hpp" />
+    <ClInclude Include="API\HawkeyeLogic.hpp" />
+    <ClInclude Include="API\Reagent.hpp" />
+    <ClInclude Include="API\ReagentCommon.hpp" />
+    <ClInclude Include="API\ReagentStatus.hpp" />
+    <ClInclude Include="API\SystemStatusCommon.hpp" />
+    <ClInclude Include="API\UserLevels.hpp" />
+    <ClInclude Include="APIImplementation\HawkeyeLogicImpl.hpp" />
+    <ClInclude Include="Core\AppConfig.hpp" />
+    <ClInclude Include="Core\CommandParser.hpp" />
+    <ClInclude Include="Core\Configuration.hpp" />
+    <ClInclude Include="Core\ErrcHelpers.hpp" />
+    <ClInclude Include="Core\HawkeyeUser.hpp" />
+    <ClInclude Include="Core\LimitsUtils.hpp" />
+    <ClInclude Include="Core\LogEntry.hpp" />
+    <ClInclude Include="Core\Logger.hpp" />
+    <ClInclude Include="Core\LoggerSignature.hpp" />
+    <ClInclude Include="Core\LoggerSignature_Impl.hxx" />
+    <ClInclude Include="Core\Logger_auxiliary.hpp" />
+    <ClInclude Include="Core\Logger_Impl.hxx" />
+    <ClInclude Include="Core\SecurityHelpers.hpp" />
+    <ClInclude Include="Core\UserList.hpp" />
+    <ClInclude Include="DLLLayer\AnalysisDefinitionDLL.hpp" />
+    <ClInclude Include="DLLLayer\AuditLog.hpp" />
+    <ClInclude Include="DLLLayer\AutofocusDLL.hpp" />
+    <ClInclude Include="DLLLayer\BioprocessDLL.hpp" />
+    <ClInclude Include="DLLLayer\CalibrationDLL.hpp" />
+    <ClInclude Include="DLLLayer\CellTypesDLL.hpp" />
+    <ClInclude Include="DLLLayer\ErrorLog.hpp" />
+    <ClInclude Include="DLLLayer\HawkeyeConfig.hpp" />
+    <ClInclude Include="DLLLayer\ImageWrapperDLL.hpp" />
+    <ClInclude Include="DLLLayer\PropertyField.hpp" />
+    <ClInclude Include="DLLLayer\QualityControlDLL.hpp" />
+    <ClInclude Include="DLLLayer\ReagentDLL.hpp" />
+    <ClInclude Include="DLLLayer\ReportsDLL.hpp" />
+    <ClInclude Include="DLLLayer\ResultDefinitionDLL.hpp" />
+    <ClInclude Include="DLLLayer\SampleLog.hpp" />
+    <ClInclude Include="Core\SystemStatus.hpp" />
+    <ClInclude Include="DLLLayer\TemporaryImageAnalysis.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\AppendProcessingWorkflowOperation.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\BrightfieldDustSubtractWorkflow.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\CameraAutofocusWorkflow.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\CameraWorkflowOperation.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\DecontaminateFlowCellWorkflow.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\DrainReagentPackWorkflow.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\FlushFlowCellWorkflow.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\Helper\AdjustBackgroundIntensity.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\Helper\CameraAutofocus.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\LoadNudgeExpelWorkflow.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\PrimeReagentLinesWorkflow.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\ProbeWorkflowOperation.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\SampleWorkflow.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\StateChangeWorkflowOperation.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\FocusWorkflowOperation.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\LedWorkflowOperation.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\ReagentWorkflowOperation.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\SyringeWorkflowOperation.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\WaitStateWorkflowOperation.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\Workflow.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\WorkflowOperation.hpp" />
+    <ClInclude Include="DLLLayer\MotorStatusDLL.hpp" />
+    <ClInclude Include="HardwareLayer\BaseClass\ReagentControllerBase.hpp" />
+    <ClInclude Include="HardwareLayer\BaseClass\StageControllerBase.hpp" />
+    <ClInclude Include="HardwareLayer\BoardStatus.hpp" />
+    <ClInclude Include="HardwareLayer\BeckmanCamera.hpp" />
+    <ClInclude Include="HardwareLayer\Camera_Basler.hpp" />
+    <ClInclude Include="HardwareLayer\Hardware.hpp" />
+    <ClInclude Include="HardwareLayer\ControllerBoardEzPort.hpp" />
+    <ClInclude Include="HardwareLayer\HwConditions.hpp" />
+    <ClInclude Include="HardwareLayer\ControllerBoardInterface.hpp" />
+    <ClInclude Include="HardwareLayer\ErrorCode.hpp" />
+    <ClInclude Include="HardwareLayer\ErrorStatus.hpp" />
+    <ClInclude Include="HardwareLayer\FocusController.hpp" />
+    <ClInclude Include="HardwareLayer\FTDI_Error_To_Boost.hpp" />
+    <ClInclude Include="HardwareLayer\Interfaces\iCamera.hpp" />
+    <ClInclude Include="HardwareLayer\MotorBase.hpp" />
+    <ClInclude Include="HardwareLayer\ReagentController.hpp" />
+    <ClInclude Include="HardwareLayer\ReagentRFIDLayout.hpp" />
+    <ClInclude Include="HardwareLayer\Registers.hpp" />
+    <ClInclude Include="HardwareLayer\Rfid.hpp" />
+    <ClInclude Include="HardwareLayer\SignalStatus.hpp" />
+    <ClInclude Include="HardwareLayer\BaseClass\CameraBase.hpp" />
+    <ClInclude Include="HardwareLayer\BaseClass\FocusControllerBase.hpp" />
+    <ClInclude Include="HardwareLayer\BaseClass\LedBase.hpp" />
+    <ClInclude Include="HardwareLayer\BaseClass\RfidBase.hpp" />
+    <ClInclude Include="HardwareLayer\BaseClass\SyringePumpBase.hpp" />
+    <ClInclude Include="HardwareLayer\Simulation\CameraSim.hpp" />
+    <ClInclude Include="HardwareLayer\Simulation\EnumExecutionExample.hpp" />
+    <ClInclude Include="HardwareLayer\Simulation\FocusControllerSim.hpp" />
+    <ClInclude Include="HardwareLayer\Simulation\ReagentControllerSim.hpp" />
+    <ClInclude Include="HardwareLayer\Simulation\RfidSim.hpp" />
+    <ClInclude Include="HardwareLayer\Simulation\StageControllerSim.hpp" />
+    <ClInclude Include="HardwareLayer\Simulation\SyringePumpSim.hpp" />
+    <ClInclude Include="HardwareLayer\BaseClass\VoltageMeasurementBase.hpp" />
+    <ClInclude Include="HardwareLayer\StageController.hpp" />
+    <ClInclude Include="HardwareLayer\StageDefines.hpp" />
+    <ClInclude Include="HardwareLayer\SyringePump.hpp" />
+    <ClInclude Include="HardwareLayer\SyringePumpPort.hpp" />
+    <ClInclude Include="HardwareLayer\VoltageMeasurement.hpp" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Core\SystemErrorFeeder.hpp" />
+    <ClInclude Include="Core\SystemErrors.hpp" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Core\AsyncCommandHelper.hpp" />
+    <ClInclude Include="Core\UiDllLayerMediator.hpp" />
+    <ClInclude Include="Core\HawkeyeThreadPool.hpp" />
+    <ClInclude Include="Core\HawkeyeThread.hpp" />
+    <ClInclude Include="HardwareLayer\ControllerBoardOperation.hpp" />
+    <ClInclude Include="HardwareLayer\TxRxBuffer.hpp" />
+    <ClInclude Include="Core\HawkeyeServices.hpp" />
+    <ClInclude Include="ResultsData\HawkeyeResultsDataManager.hpp" />
+    <ClInclude Include="ResultsData\PtreeConversionHelper.hpp" />
+    <ClInclude Include="HardwareLayer\Simulation\VoltageMeasurementSim.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\ReagentLoadWorkflow.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\ReagentUnloadWorkflow.hpp" />
+    <ClInclude Include="API\NativeDataType.hpp" />
+    <ClInclude Include="Core\DataConversion.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\TimestampWorkflowOperation.hpp" />
+    <ClInclude Include="DLLLayer\ReagentData.hpp" />
+    <ClInclude Include="DLLLayer\ImportExportConfiguration.hpp" />
+    <ClInclude Include="DLLLayer\LogReaderBase.hpp" />
+    <ClInclude Include="HardwareLayer\FirmwareDownloadCrypto.h" />
+    <ClInclude Include="HardwareLayer\FirmwareDownload.hpp" />
+    <ClInclude Include="HardwareLayer\OmicronLedControllerBoardCommand.hpp" />
+    <ClInclude Include="HardwareLayer\OmicronLedControllerBoardInterface.hpp" />
+    <ClInclude Include="HardwareLayer\OmicronLed.hpp" />
+    <ClInclude Include="HardwareLayer\BCILed.hpp" />
+    <ClInclude Include="DLLLayer\SamplePositionDLL.hpp" />
+    <ClInclude Include="DLLLayer\SampleDefinitionDLL.hpp" />
+    <ClInclude Include="API\SampleDefinition.hpp" />
+    <ClInclude Include="API\SampleParameters.hpp" />
+    <ClInclude Include="DLLLayer\SampleParametersDLL.hpp" />
+    <ClInclude Include="API\uuid__t.hpp" />
+    <ClInclude Include="API\SampleSet.hpp" />
+    <ClInclude Include="DLLLayer\SampleSetDLL.hpp" />
+    <ClInclude Include="DLLLayer\ImageCollection.hpp" />
+    <ClInclude Include="DLLLayer\ImageProcessing\ImageProcessingUtilities.hpp" />
+    <ClInclude Include="DLLLayer\ImageProcessing\ImageWrapperUtilities.hpp" />
+    <ClInclude Include="DLLLayer\ImageProcessing\LiveScanningUtilities.hpp" />
+    <ClInclude Include="DLLLayer\ImageProcessing\ImageAnalysisUtilities.hpp" />
+    <ClInclude Include="HardwareLayer\CBOService.hpp" />
+    <ClInclude Include="Core\GetAsStrFunctions.hpp" />
+    <ClInclude Include="DLLLayer\CellTypeDLL.hpp" />
+    <ClInclude Include="DLLLayer\AnalysisDefinitionsDLL.hpp" />
+    <ClInclude Include="Core\EnumConversion.hpp" />
+    <ClInclude Include="API\CellType.hpp" />
+    <ClInclude Include="DLLLayer\GlobalImageSize.hpp" />
+    <ClInclude Include="DLLLayer\ImageProcessing\SaveResults.h" />
+    <ClInclude Include="API\Worklist.hpp" />
+    <ClInclude Include="DLLLayer\WorklistDLL.hpp" />
+    <ClInclude Include="Core\HawkeyeAssert.hpp" />
+    <ClInclude Include="Core\SetString.hpp" />
+    <ClInclude Include="DLLLayer\ReagentPack.hpp" />
+    <ClInclude Include="Core\SetIndentation.hpp" />
+    <ClInclude Include="DLLLayer\WorklistDLL_p.hpp" />
+    <ClInclude Include="DLLLayer\WorkflowController.hpp" />
+    <ClInclude Include="DLLLayer\ReagentPack_p.hpp" />
+    <ClInclude Include="DLLLayer\ReagentData_p.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\PurgeReagentLinesWorkflow.hpp" />
+    <ClInclude Include="HardwareLayer\EEPROMDataSignatures.hpp" />
+    <ClInclude Include="Core\HawkeyeUUID.hpp" />
+    <ClInclude Include="DLLLayer\Workflow\Helper\LegacyData.hpp" />
+    <ClInclude Include="HardwareLayer\EEPROMController.hpp" />
+    <ClInclude Include="API\SamplePosition.hpp" />
+    <ClInclude Include="API\SampleData.hpp" />
+    <ClInclude Include="DLLLayer\SampleDataDLL.hpp" />
+    <ClInclude Include="DLLLayer\SResultBinStorage.hpp" />
+    <ClInclude Include="Core\ActiveDirectoryGroups.h" />
+    <ClInclude Include="DLLLayer\SResultData.hpp" />
+    <ClInclude Include="API\ColumnSetting.hpp" />
+    <ClInclude Include="API\DBConfig.h" />
+    <ClInclude Include="API\SMTPConfig.h" />
+    <ClInclude Include="API\Signature.hpp" />
+    <ClInclude Include="DLLLayer\SignatureDLL.hpp" />
+    <ClInclude Include="DLLLayer\InstrumentConfig.hpp" />
+    <ClInclude Include="ResultsData\AnalysisImagePersistHelper.hpp" />
+    <ClInclude Include="DLLLayer\ActiveDirectoryDLL.hpp" />
+    <ClInclude Include="API\ActiveDirectory.hpp" />
+    <ClInclude Include="DLLLayer\SignaturesDLL.hpp" />
+    <ClInclude Include="DLLLayer\QualityControlsDLL.hpp" />
+    <ClInclude Include="DLLLayer\ImageAnalysisParameters.hpp" />
+    <ClInclude Include="DLLLayer\CalibrationHistoryDLL.hpp" />
+    <ClInclude Include="API\CalibrationHistory.hpp" />
+    <ClInclude Include="Core\LoggerDB.hpp" />
+    <ClInclude Include="DLLLayer\CameraErrorLog.hpp" />
+    <ClInclude Include="ResultsData\ExportData.hpp" />
+    <ClInclude Include="Core\ExpandedUser.hpp" />
+    <ClInclude Include="ResultsData\ExportUtilities.hpp" />
+    <ClInclude Include="API\AutomationConfig.hpp" />
+    <ClInclude Include="Core\ISecurityPrincipal.hpp" />
+    <ClInclude Include="DLLLayer\ScheduledExportDLL.hpp" />
+    <ClInclude Include="API\ScheduledExport.hpp" />
+    <ClInclude Include="API\UserRecord.hpp" />
+    <ClInclude Include="Core\DLLVersion.hpp" />
+    <ClInclude Include="DLLLayer\CellHealthReagents.hpp" />
+    <ClInclude Include="Core\MemoryStreamBuf.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="API\HawkeyeLogic.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="API\UserLevels.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="APIImplementation\HawkeyeLogicImpl.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\CommandParser.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Configuration.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ErrcHelpers.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\HawkeyeUser.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\LimitsUtils.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Logger.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Logger_auxiliary.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Logger_Impl.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\SecurityHelpers.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\UserList.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HardwareLayer\BoardStatus.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HardwareLayer\Camera_Basler.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HardwareLayer\ControllerBoardInterface.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HardwareLayer\ErrorCode.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HardwareLayer\ErrorStatus.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HardwareLayer\FocusController.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HardwareLayer\FTDI_Error_To_Boost.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HardwareLayer\HwConditions.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HardwareLayer\Interfaces\iCamera.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HardwareLayer\MotorBase.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HardwareLayer\ReagentController.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HardwareLayer\ReagentRFIDLayout.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HardwareLayer\Registers.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HardwareLayer\SignalStatus.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HardwareLayer\SyringePump.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HardwareLayer\ReagentRFIDLayout.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HardwareLayer\BoardStatus.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DLLLayer\CellTypesDLL.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Reagent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="API\ReagentCommon.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DLLLayer\ReagentDLL.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="API\AnalysisDefinition.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="API\AnalysisDefinitionCommon.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DLLLayer\AnalysisDefinitionDLL.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="API\ReagentStatus.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\AppConfig.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DLLLayer\HawkeyeConfig.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="API\ResultDefinition.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Bioprocess.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="API\QualityControl.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HardwareLayer\ControllerBoardEzPort.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="APIImplementation\HawkeyeLogic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_Analysis.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_CellType.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_ReagentPack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_Service.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_SystemStatus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_UserMgmt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\CommandParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Configuration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\HawkeyeUser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\SecurityHelpers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\UserList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HardwareLayer\BoardStatus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HardwareLayer\Camera_Basler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HardwareLayer\ControllerBoardInterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HardwareLayer\ErrorCode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HardwareLayer\ErrorStatus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HardwareLayer\FocusController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HardwareLayer\FTDI_Error_To_Boost.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HardwareLayer\Interfaces\iCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HardwareLayer\MotorBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HardwareLayer\ReagentController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HardwareLayer\SignalStatus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HardwareLayer\SyringePump.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HawkeyeCore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_CellType.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_Analysis.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HardwareLayer\BoardStatus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_SystemStatus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\AppConfig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DLLLayer\HawkeyeConfig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_Results.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_Configuration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_QualityControl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="APIImplementation\HawkeyeLogicImpl_Signatures.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HardwareLayer\ControllerBoardEzPort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DataAndConfigFiles\Analysis.info" />
+    <None Include="DataAndConfigFiles\Bioprocess.info" />
+    <None Include="DataAndConfigFiles\CalibrationHistory.info" />
+    <None Include="DataAndConfigFiles\CellType.info" />
+    <None Include="DataAndConfigFiles\FocusControllerSim.info" />
+    <None Include="DataAndConfigFiles\HawkeyeDynamic.info" />
+    <None Include="DataAndConfigFiles\HawkeyeStatic.info" />
+    <None Include="DataAndConfigFiles\QualityControl.info" />
+    <None Include="DataAndConfigFiles\Reports.info" />
+    <None Include="DataAndConfigFiles\Signatures.info" />
+    <None Include="DataAndConfigFiles\SystemStatus.info" />
+    <None Include="DataAndConfigFiles\UserList.info" />
+    <None Include="DLLLayer\AuditEventType.hpp" />
+    <None Include="DataAndConfigFiles\HawkeyeConfig.info" />
+    <None Include="DataAndConfigFiles\MotorControl.info" />
+    <None Include="DataAndConfigFiles\DataImporter.info" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="$(SolutionDir)\target\properties\HawkeyeCore\HawkeyeCore.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="DataAndConfigFiles\CamBF_0.png" />
+    <Image Include="DataAndConfigFiles\CamBF_1.png" />
+    <Image Include="DataAndConfigFiles\CamBF_2.png" />
+    <Image Include="DataAndConfigFiles\CamBF_3.png" />
+    <Image Include="DataAndConfigFiles\CamBF_4.png" />
+    <Image Include="DataAndConfigFiles\CamBF_5.png" />
+    <Image Include="DataAndConfigFiles\CamBF_6.png" />
+    <Image Include="DataAndConfigFiles\CamBF_7.png" />
+  </ItemGroup>
+</Project>

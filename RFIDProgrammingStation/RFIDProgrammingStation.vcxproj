@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{0D1CC1B8-3487-406C-8082-2E198117BC5F}</ProjectGuid>
+    <RootNamespace>RFIDProgrammingStation</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <Keyword>MFCProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)target\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+    <OutDir>$(SolutionDir)target\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;_WINDOWS;_DEBUG;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)\target\dependencies\include;.;$(SolutionDir)\target\dependencies\boost\;$(SolutionDir)\target\dependencies\crypto\;$(SolutionDir)HawkeyeCore\APIImplementation;$(SolutionDir)HawkeyeCore\API;$(SolutionDir)HawkeyeCore\Core;$(SolutionDir)HawkeyeCore\DLLLayer;$(SolutionDir)HawkeyeCore\HardwareLayer\BaseClass;$(SolutionDir)HawkeyeCore\HardwareLayer;$(SolutionDir)\target\dependencies\ftdi\;$(SolutionDir)GpioControlClr</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <DisableSpecificWarnings>4251; 4065; 4996</DisableSpecificWarnings>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>cryptlib.lib;ftd2xx.lib; winmm.lib</AdditionalDependencies>
+      <AdditionalDependencies>cryptlib.lib;ftd2xx.lib;winmm.lib;GpioControlClr.lib</AdditionalDependencies>
+      <UACExecutionLevel>HighestAvailable</UACExecutionLevel>
+      <AdditionalLibraryDirectories>$(SolutionDir)\target\dependencies\lib;.;$(SolutionDir)\target\dependencies\crypto\x64\Output\$(Configuration);$(SolutionDir)\target\dependencies\boost\\stage\lib;$(SolutionDir)\target\dependencies\opencv\lib;$(SolutionDir)\target\dependencies\basler\\lib\x64;$(SolutionDir)\target\dependencies\ftdi\\amd64;$(SolutionDir)$(Platform)\$(Configuration);$(SolutionDir)\target\Release;$(SolutionDir)HawkeyeCore\CellCounting\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\target\dependencies\include;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>if not exist \Instrument\Software\ goto build_success
+
+if not exist "$(Outdir)$(TargetName)$(TargetExt)" goto  goto no_tgt
+copy /Y "$(Outdir)$(TargetName)$(TargetExt)" \Instrument\Software
+
+:check_pdb
+if not exist "$(Outdir)$(TargetName).pdb" goto  goto no_pdb
+copy /Y "$(Outdir)$(TargetName).pdb" \Instrument\Software
+
+:build_success
+echo BUILD SUCCESS!
+goto done_xit
+
+:no_tgt
+echo BUILD ERROR: output dll file "$(Outdir)$(TargetName)$(TargetExt)" not found!
+goto done_xit
+
+:no_tgt_pdb
+echo BUILD ERROR: output dll pdb file "$(Outdir)$(TargetName).pdb" not found!
+
+:done_xit
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)\target\dependencies\include;.;$(SolutionDir)\target\dependencies\boost\;$(SolutionDir)\target\dependencies\crypto\;$(SolutionDir)HawkeyeCore\APIImplementation\Utilities;$(SolutionDir)HawkeyeCore\APIImplementation;$(SolutionDir)HawkeyeCore\API;$(SolutionDir)HawkeyeCore\Core;$(SolutionDir)HawkeyeCore\DLLLayer;$(SolutionDir)HawkeyeCore\HardwareLayer;$(SolutionDir)HawkeyeCore\HardwareLayer\BaseClass;$(SolutionDir)\target\dependencies\ftdi\;$(SolutionDir)GpioControlClr</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4251; 4065; 4996</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)\target\dependencies\lib;.;$(SolutionDir)\target\dependencies\crypto\x64\Output\$(Configuration);$(SolutionDir)\target\dependencies\boost\\stage\lib;$(SolutionDir)\target\dependencies\opencv\lib;$(SolutionDir)\target\dependencies\basler\\lib\x64;$(SolutionDir)\target\dependencies\ftdi\\amd64;$(SolutionDir)$(Platform)\$(Configuration);$(SolutionDir)\target\Release;$(SolutionDir)HawkeyeCore\CellCounting\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cryptlib.lib;ftd2xx.lib;winmm.lib;GpioControlClr.lib</AdditionalDependencies>
+      <UACExecutionLevel>HighestAvailable</UACExecutionLevel>
+      <UACUIAccess>false</UACUIAccess>
+      <EnableUAC>true</EnableUAC>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\target\dependencies\include;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>if not exist \Instrument\Software\ goto build_success
+
+if not exist "$(Outdir)$(TargetName)$(TargetExt)" goto  goto no_tgt
+copy /Y "$(Outdir)$(TargetName)$(TargetExt)" \Instrument\Software
+
+:build_success
+echo BUILD SUCCESS!
+goto done_xit
+
+:no_tgt
+echo BUILD ERROR: output dll file "$(Outdir)$(TargetName)$(TargetExt)" not found!
+goto done_xit
+
+:done_xit</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\HawkeyeCore\APIImplementation\HawkeyeDirectory.hpp" />
+    <ClInclude Include="..\HawkeyeCore\APIImplementation\HawkeyeLogicImpl.hpp" />
+    <ClInclude Include="..\HawkeyeCore\Core\AsyncCommandHelper.hpp" />
+    <ClInclude Include="..\HawkeyeCore\Core\ChronoUtilities.hpp" />
+    <ClInclude Include="..\HawkeyeCore\Core\CommandParser.hpp" />
+    <ClInclude Include="..\HawkeyeCore\Core\Configuration.hpp" />
+    <ClInclude Include="..\HawkeyeCore\Core\DeadlineTimerUtilities.hpp" />
+    <ClInclude Include="..\HawkeyeCore\Core\Logger.hpp" />
+    <ClInclude Include="..\HawkeyeCore\Core\LoggerGeneric.hpp" />
+    <ClInclude Include="..\HawkeyeCore\Core\LoggerGeneric_Impl.hxx" />
+    <ClInclude Include="..\HawkeyeCore\Core\Logger_auxiliary.hpp" />
+    <ClInclude Include="..\HawkeyeCore\Core\Logger_Impl.hxx" />
+    <ClInclude Include="..\HawkeyeCore\Core\SecurityHelpers.hpp" />
+    <ClInclude Include="..\HawkeyeCore\Core\SystemStatus.hpp" />
+    <ClInclude Include="..\HawkeyeCore\DLLLayer\HawkeyeConfig.hpp" />
+    <ClInclude Include="..\HawkeyeCore\HardwareLayer\BaseClass\RfidBase.hpp" />
+    <ClInclude Include="..\HawkeyeCore\HardwareLayer\BoardStatus.hpp" />
+    <ClInclude Include="..\HawkeyeCore\HardwareLayer\ControllerBoardInterface.hpp" />
+    <ClInclude Include="..\HawkeyeCore\HardwareLayer\Rfid.hpp" />
+    <ClInclude Include="..\HawkeyeCore\SystemErrorFeeder.hpp" />
+    <ClInclude Include="..\HawkeyeCore\SystemErrors.hpp" />
+    <ClInclude Include="FirmwareUpdateProgressDlg.h" />
+    <ClInclude Include="HawkeyeRFIDPayload.hpp" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="RFIDProgrammingStation.h" />
+    <ClInclude Include="RFIDProgrammingStationDlg.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TagVerifyFailureDlg.h" />
+    <ClInclude Include="TagWriteFailureDlg.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Utilities.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\HawkeyeCore\Core\AppConfig.cpp" />
+    <ClCompile Include="..\HawkeyeCore\Core\AsyncCommandHelper.cpp" />
+    <ClCompile Include="..\HawkeyeCore\Core\ChronoUtilities.cpp" />
+    <ClCompile Include="..\HawkeyeCore\Core\CommandParser.cpp" />
+    <ClCompile Include="..\HawkeyeCore\Core\Configuration.cpp" />
+    <ClCompile Include="..\HawkeyeCore\Core\DeadlineTimerUtilities.cpp" />
+    <ClCompile Include="..\HawkeyeCore\Core\FileSystemUtilities.cpp" />
+    <ClCompile Include="..\HawkeyeCore\Core\FirmwareDownload.cpp" />
+    <ClCompile Include="..\HawkeyeCore\Core\HawkeyeThread.cpp" />
+    <ClCompile Include="..\HawkeyeCore\Core\HawkeyeThreadPool.cpp" />
+    <ClCompile Include="..\HawkeyeCore\Core\Logger.cpp" />
+    <ClCompile Include="..\HawkeyeCore\Core\LoggerGeneric.cpp" />
+    <ClCompile Include="..\HawkeyeCore\Core\LoggerSignature.cpp" />
+    <ClCompile Include="..\HawkeyeCore\Core\SecurityHelpers.cpp" />
+    <ClCompile Include="..\HawkeyeCore\Core\SystemErrors.cpp" />
+    <ClCompile Include="..\HawkeyeCore\DLLLayer\HawkeyeConfig.cpp" />
+    <ClCompile Include="..\HawkeyeCore\HardwareLayer\BaseClass\RfidBase.cpp" />
+    <ClCompile Include="..\HawkeyeCore\HardwareLayer\BoardStatus.cpp" />
+    <ClCompile Include="..\HawkeyeCore\HardwareLayer\ControllerBoardCommand.cpp" />
+    <ClCompile Include="..\HawkeyeCore\HardwareLayer\ControllerBoardEzPort.cpp" />
+    <ClCompile Include="..\HawkeyeCore\HardwareLayer\ControllerBoardInterface.cpp" />
+    <ClCompile Include="..\HawkeyeCore\HardwareLayer\ControllerBoardMessage.cpp" />
+    <ClCompile Include="..\HawkeyeCore\HardwareLayer\ControllerBoardOperation.cpp" />
+    <ClCompile Include="..\HawkeyeCore\HardwareLayer\ControllerBoardStatus.cpp" />
+    <ClCompile Include="..\HawkeyeCore\HardwareLayer\ErrorCode.cpp" />
+    <ClCompile Include="..\HawkeyeCore\HardwareLayer\ErrorStatus.cpp" />
+    <ClCompile Include="..\HawkeyeCore\HardwareLayer\Interfaces\iControllerBoardInterace.cpp" />
+    <ClCompile Include="..\HawkeyeCore\HardwareLayer\Rfid.cpp" />
+    <ClCompile Include="..\HawkeyeCore\HardwareLayer\SignalStatus.cpp" />
+    <ClCompile Include="FirmwareUpdateProgressDlg.cpp" />
+    <ClCompile Include="HawkeyeRFIDPayload.cpp" />
+    <ClCompile Include="..\HawkeyeCore\HardwareLayer\FTDI_Error_To_Boost.cpp" />
+    <ClCompile Include="RFIDProgrammingStation.cpp" />
+    <ClCompile Include="RFIDProgrammingStationDlg.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="TagVerifyFailureDlg.cpp" />
+    <ClCompile Include="SystemStatus.cpp" />
+    <ClCompile Include="TagWriteFailureDlg.cpp" />
+    <ClCompile Include="Utilities.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="$(SolutionDir)\target\properties\RFIDProgrammingStation\RFIDProgrammingStation.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource.hm" />
+    <None Include="res\RFIDProgrammingStation.rc2" />
+    <None Include="RFIDProgrammingStation - Release.info" />
+    <None Include="RFIDProgrammingStation.info" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\RFIDProgrammingStation.ico" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="RFIDProgrammingStation.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

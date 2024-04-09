@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6676F0EB-B5F5-4B03-A802-8D835B45424A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>SysExerciser</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>
+    </LinkIncremental>
+    <OutDir>$(SolutionDir)target\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>
+    </LinkIncremental>
+    <OutDir>$(SolutionDir)target\$(Configuration)\</OutDir>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);WIN32_LEAN_AND_MEAN</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>.\;$(SolutionDir)\target\dependencies\include;$(SolutionDir)\target\dependencies\basler\include;$(SolutionDir)\target\dependencies\ftdi\;$(SolutionDir)\target\dependencies\boost\;$(SolutionDir)\target\dependencies\crypto\;$(SolutionDir)\target\dependencies\opencv\include;$(SolutionDir)CellCounting;$(SolutionDir)HawkeyeCore\API;$(SolutionDir)HawkeyeCore\APIImplementation;$(SolutionDir)HawkeyeCore\APIImplementation\Utilities;$(SolutionDir)HawkeyeCore\Core;$(SolutionDir)HawkeyeCore\DLLLayer;$(SolutionDir)HawkeyeCore\DLLLayer\Workflow;$(SolutionDir)HawkeyeCore\HardwareLayer;$(SolutionDir)HawkeyeCore\HardwareLayer\BaseClass;$(SolutionDir)HawkeyeCore\HardwareLayer\Simulation;$(SolutionDir)HawkeyeDataAccess</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\target\dependencies\lib;.;$(SolutionDir)\target\dependencies\crypto\x64\Output\$(Configuration);$(SolutionDir)\target\dependencies\boost\\stage\lib;$(SolutionDir)\target\dependencies\opencv\lib;$(SolutionDir)\target\dependencies\basler\\lib\x64;$(SolutionDir)\target\dependencies\ftdi\\amd64;$(SolutionDir)HawkeyeCore\CellCounting\$(Platform)\$(Configuration);$(SolutionDir)target\$(Configuration);$(SolutionDir)/HawkeyeCore/x64/Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AssemblyLinkResource>
+      </AssemblyLinkResource>
+      <AdditionalDependencies>HawkeyeDataAccess.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>if not exist "$(SolutionDir)BuildOutput" mkdir "$(SolutionDir)BuildOutput"
+if not exist "$(SolutionDir)BuildOutput\$(Platform)" mkdir "$(SolutionDir)BuildOutput\$(Platform)"
+if not exist "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)" mkdir "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(OutDir)\$(TargetName)$(TargetExt)" goto no_tgt
+copy /Y "$(OutDir)\$(TargetName)$(TargetExt)" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(OutDir)\$(TargetName).pdb" goto no_tgt_pdb
+copy /Y "$(OutDir)\$(TargetName).pdb" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(ProjectDir)$(TargetName).info" goto no_info1
+copy /Y "$(ProjectDir)$(TargetName).info" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+echo BUILD SUCCESS!
+goto done_xit
+
+:no_tgt
+echo BUILD ERROR: output target file "$(TargetName)$(TargetExt)" not found!
+goto done_xit
+
+:no_tgt_pdb
+echo BUILD ERROR: output target pdb file "$(TargetName).pdb" not found!
+goto done_xit
+
+:no_info1
+echo BUILD ERROR: output target info file "$(TargetName).info" not found!
+goto done_xit
+
+:done_xit
+
+</Command>
+      <Message>Copying output exe and ancillary DLLs to $(SolutionDir)BuildOutput\$(Platform)\$(Configuration)</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);WIN32_LEAN_AND_MEAN</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>.\;$(SolutionDir)\target\dependencies\include;$(SolutionDir)\target\dependencies\basler\include;$(SolutionDir)\target\dependencies\ftdi\;$(SolutionDir)\target\dependencies\boost\;$(SolutionDir)\target\dependencies\crypto\;$(SolutionDir)\target\dependencies\opencv\include;$(SolutionDir)CellCounting;$(SolutionDir)HawkeyeCore\API;$(SolutionDir)HawkeyeCore\APIImplementation;$(SolutionDir)HawkeyeCore\APIImplementation\Utilities;$(SolutionDir)HawkeyeCore\Core;$(SolutionDir)HawkeyeCore\DLLLayer;$(SolutionDir)HawkeyeCore\DLLLayer\Workflow;$(SolutionDir)HawkeyeCore\HardwareLayer;$(SolutionDir)HawkeyeCore\HardwareLayer\BaseClass;$(SolutionDir)HawkeyeCore\HardwareLayer\Simulation;$(SolutionDir)HawkeyeDataAccess</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>HawkeyeDataAccess.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\target\dependencies\lib;.;$(SolutionDir)\target\dependencies\crypto\x64\Output\$(Configuration);$(SolutionDir)\target\dependencies\boost\\stage\lib;$(SolutionDir)\target\dependencies\opencv\lib;$(SolutionDir)\target\dependencies\basler\\lib\x64;$(SolutionDir)\target\dependencies\ftdi\\amd64;$(SolutionDir)HawkeyeCore\CellCounting\$(Platform)\$(Configuration);$(SolutionDir)target\$(Configuration);$(SolutionDir)HawkeyeCore\x64\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AssemblyLinkResource>
+      </AssemblyLinkResource>
+      <LinkTimeCodeGeneration />
+    </Link>
+    <PostBuildEvent>
+      <Command>if not exist "$(SolutionDir)BuildOutput" mkdir "$(SolutionDir)BuildOutput"
+if not exist "$(SolutionDir)BuildOutput\$(Platform)" mkdir "$(SolutionDir)BuildOutput\$(Platform)"
+if not exist "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)" mkdir "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+copy /Y "$(SolutionDir)\target\dependencies\ftdi\\amd64\*.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+if exist "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)\ftd2xx.dll" del "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)\ftd2xx.dll"
+rename "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)\ftd2xx64.dll" ftd2xx.dll
+
+if not exist "$(OutDir)\$(TargetName)$(TargetExt)" goto no_tgt
+copy /Y "$(OutDir)\$(TargetName)$(TargetExt)" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(OutDir)\$(TargetName).pdb" goto no_pdb2
+copy /Y "$(OutDir)\$(TargetName).pdb" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(ProjectDir)$(TargetName).info" goto no_info1
+copy /Y "$(ProjectDir)$(TargetName).info" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+echo BUILD SUCCESS!
+goto done_xit
+
+:no_tgt
+echo BUILD ERROR: output target file "$(TargetName)$(TargetExt)" not found!
+goto done_xit
+
+:no_pdb2
+echo BUILD ERROR: output target pdb file "$(TargetName).pdb" not found!
+goto done_xit
+
+:no_info1
+echo BUILD ERROR: output target info file "$(TargetName).info" not found!
+goto done_xit
+
+:done_xit
+
+</Command>
+      <Message>Copying output exe and ancillary DLLs to $(SolutionDir)BuildOutput\$(Platform)\$(Configuration)</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\HawkeyeCore\Core\CommandParser.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\Core\Configuration.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\Core\HawkeyeThread.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\Core\HawkeyeThreadPool.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\Core\Logger.hpp" />
+    <ClInclude Include="..\..\HawkeyeDataAccess\HawkeyeDataAccess.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="SysExerciser.hpp" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\HawkeyeCore\Core\CommandParser.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\Configuration.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\HawkeyeThread.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\HawkeyeThreadPool.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\Logger.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="SysExerciser.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SysExerciser.info" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

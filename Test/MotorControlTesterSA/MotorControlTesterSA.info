@@ -1,0 +1,9 @@
+config
+{
+    logger
+    {
+        logfile MotorControlTesterSA.log
+        sensitivity NORM
+        max_size_bytes 5000000
+    }
+}

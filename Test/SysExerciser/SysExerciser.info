@@ -1,0 +1,10 @@
+config
+{
+    logger
+    {
+        logfile SysExerciser.log
+        sensitivity DBG3
+        max_size_bytes 5000000
+    }
+
+}

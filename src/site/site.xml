@@ -1,0 +1,16 @@
+<project>
+  <skin>
+    <groupId>org.apache.maven.skins</groupId>
+    <artifactId>maven-fluido-skin</artifactId>
+    <version>1.9</version>
+  </skin>
+  <body>
+    <menu name="Overview">
+      <item name="Release Notes" href="README.html"/>
+      <item name="Change log" href="changelog.html"/>
+      <item name="Doxygen" href="doxygen/index.html"/>
+      <item name="Project info" href="project-info.html"/>
+      <item name="Developer Setup" href="developer-setup.html"/>
+    </menu>
+  </body>
+</project>

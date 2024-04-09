@@ -1,0 +1,65 @@
+calibration
+{
+	calibration_entry
+	{
+		timestamp 1514764800
+		user_id factory_admin
+		type 99
+		slope 368
+		intercept 0
+		image_count 100
+		queue_id 00000000-0000-0000-0000-000000000000
+		consumable
+		{
+			label "Factory Default"
+			lot_id "n/a"
+			expiration_date 4102444800
+			assay_value 2.0
+		}
+		consumable
+		{
+			label "Factory Default"
+			lot_id "n/a"
+			expiration_date 4102444800
+			assay_value 4.0
+		}
+		consumable
+		{
+			label "Factory Default"
+			lot_id "n/a"
+			expiration_date 4102444800
+			assay_value 10.0
+		}
+	}
+	calibration_entry
+	{
+		timestamp 1514764800
+		user_id factory_admin
+		type 99
+		slope 0.53
+		intercept -5.53
+		image_count 0
+		queue_id 00000000-0000-0000-0000-000000000000
+		consumable
+		{
+			label "Factory Default"
+			lot_id "n/a"
+			expiration_date 4102444800
+			assay_value 2.0
+		}
+		consumable
+		{
+			label "Factory Default"
+			lot_id "n/a"
+			expiration_date 4102444800
+			assay_value 4.0
+		}
+		consumable
+		{
+			label "Factory Default"
+			lot_id "n/a"
+			expiration_date 4102444800
+			assay_value 10.0
+		}
+	}
+}

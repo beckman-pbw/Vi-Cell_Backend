@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3D2942E5-2F5D-4142-AEC0-FBA26F318A32}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>CameraTest</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(Platform)\$(Configuration)\</OutDir>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;_CONSOLE;%(PreprocessorDefinitions);_DEBUG</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)\target\dependencies\include;.;$(SolutionDir)\target\dependencies\boost\;$(SolutionDir)\target\dependencies\opencv\include;$(SolutionDir)\target\dependencies\basler\\include;$(SolutionDir)\target\dependencies\ftdi\;$(SolutionDir)HawkeyeCore\Core;$(SolutionDir)HawkeyeCore\HardwareLayer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\target\dependencies\lib;.;$(SolutionDir)\target\dependencies\boost\stage\lib\;$(SolutionDir)\target\dependencies\opencv\lib;$(SolutionDir)\target\dependencies\basler\\lib\x64;$(SolutionDir)\target\dependencies\ftdi\\amd64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ftd2xx.lib;opencv_core249.lib;opencv_highgui249.lib;GCBase_MD_VC120_v3_0_Basler_pylon_v5_0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>if not exist "$(SolutionDir)BuildOutput" mkdir "$(SolutionDir)BuildOutput"
+if not exist "$(SolutionDir)BuildOutput\$(Platform)" mkdir "$(SolutionDir)BuildOutput\$(Platform)"
+if not exist "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)" mkdir "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+copy /Y "$(SolutionDir)\target\dependencies\basler\\Assemblies\Basler.Pylon\x86\*.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+copy /Y "$(SolutionDir)\target\dependencies\opencv\bin\opencv_core249.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+copy /Y "$(SolutionDir)\target\dependencies\opencv\bin\opencv_highgui249.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+copy /Y "$(SolutionDir)\target\dependencies\ftdi\\i386\*.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+if exist "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)\ftd2xx64.dll" del "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)\ftd2xx64.dll"
+
+if not exist "$(SolutionDir)HawkeyeCore\$(Platform)\$(Configuration)\HawkeyeCore.dll" goto no_core
+copy /Y "$(SolutionDir)HawkeyeCore\$(Platform)\$(Configuration)\HawkeyeCore.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(SolutionDir)HawkeyeCore\$(Platform)\$(Configuration)\HawkeyeCore.pdb" goto no_pdb1
+copy /Y "$(SolutionDir)HawkeyeCore\$(Platform)\$(Configuration)\HawkeyeCore.pdb" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" goto no_tgt
+copy /Y "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName).pdb" goto no_pdb2
+copy /Y "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName).pdb" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+echo BUILD SUCCESS!
+goto done_xit
+
+:no_core
+echo BUILD ERROR: core output dll file not found!
+goto done_xit
+
+:no_pdb1
+echo BUILD ERROR: core output pdb file not found!
+goto done_xit
+
+:no_tgt
+echo BUILD ERROR: output target file "$(TargetName)$(TargetExt)" not found!
+goto done_xit
+
+:no_pdb2
+echo BUILD ERROR: output target pdb file "$(TargetName).pdb" not found!
+
+:done_xit
+</Command>
+      <Message>Copying output exe and ancillary DLLs to $(SolutionDir)BuildOutput\$(Platform)\$(Configuration)</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;_CONSOLE;%(PreprocessorDefinitions);_DEBUG</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)\target\dependencies\include;.;$(SolutionDir)\target\dependencies\boost\;$(SolutionDir)\target\dependencies\opencv\include;$(SolutionDir)\target\dependencies\basler\\include;$(SolutionDir)\target\dependencies\ftdi\;$(SolutionDir)HawkeyeCore\API;$(SolutionDir)HawkeyeCore\Core;$(SolutionDir)HawkeyeCore\HardwareLayer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>ftd2xx.lib;opencv_core249.lib;opencv_highgui249.lib;GCBase_MD_VC120_v3_0_Basler_pylon_v5_0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\target\dependencies\lib;.;$(SolutionDir)\target\dependencies\boost\stage\lib\;$(SolutionDir)\target\dependencies\opencv\lib;$(SolutionDir)\target\dependencies\basler\\lib\x64;$(SolutionDir)\target\dependencies\ftdi\\amd64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>if not exist "$(SolutionDir)BuildOutput" mkdir "$(SolutionDir)BuildOutput"
+if not exist "$(SolutionDir)BuildOutput\$(Platform)" mkdir "$(SolutionDir)BuildOutput\$(Platform)"
+if not exist "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)" mkdir "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+copy /Y "$(SolutionDir)\target\dependencies\basler\\Assemblies\Basler.Pylon\x64\*.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+copy /Y "$(SolutionDir)\target\dependencies\opencv\bin\opencv_core249.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+copy /Y "$(SolutionDir)\target\dependencies\opencv\bin\opencv_highgui249.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+copy /Y "$(SolutionDir)\target\dependencies\ftdi\\amd64\*.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+if exist "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)\ftd2xx.dll" del "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)\ftd2xx.dll"
+rename "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)\ftd2xx64.dll" ftd2xx.dll
+
+if not exist "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" goto no_tgt
+copy /Y "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName).pdb" goto no_pdb2
+copy /Y "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName).pdb" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(ProjectDir)$(TargetName).info" goto no_info
+copy /Y "$(ProjectDir)$(TargetName).info" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+echo BUILD SUCCESS!
+goto done_xit
+
+:no_tgt
+echo BUILD ERROR: output target file "$(TargetName)$(TargetExt)" not found!
+goto done_xit
+
+:no_pdb2
+echo BUILD ERROR: output target pdb file "$(TargetName).pdb" not found!
+goto done_xit
+
+:no_info
+echo BUILD ERROR: output target info file "$(TargetName).info" not found!
+
+:done_xit
+</Command>
+      <Message>Copying output exe and ancillary DLLs to $(SolutionDir)BuildOutput\$(Platform)\$(Configuration)</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;_CONSOLE;%(PreprocessorDefinitions);NDEBUG</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)\target\dependencies\include;.;$(SolutionDir)\target\dependencies\boost\;$(SolutionDir)\target\dependencies\opencv\include;$(SolutionDir)\target\dependencies\basler\\include;$(SolutionDir)\target\dependencies\ftdi\;$(SolutionDir)HawkeyeCore\Core;$(SolutionDir)HawkeyeCore\HardwareLayer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\target\dependencies\lib;.;$(SolutionDir)\target\dependencies\boost\stage\lib\;$(SolutionDir)\target\dependencies\opencv\lib;$(SolutionDir)\target\dependencies\basler\\lib\x64;$(SolutionDir)\target\dependencies\ftdi\\amd64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ftd2xx.lib;opencv_core249.lib;opencv_highgui249.lib;GCBase_MD_VC120_v3_0_Basler_pylon_v5_0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>if not exist "$(SolutionDir)BuildOutput" mkdir "$(SolutionDir)BuildOutput"
+if not exist "$(SolutionDir)BuildOutput\$(Platform)" mkdir "$(SolutionDir)BuildOutput\$(Platform)"
+if not exist "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)" mkdir "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+copy /Y "$(SolutionDir)\target\dependencies\basler\\Assemblies\Basler.Pylon\x86\*.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+copy /Y "$(SolutionDir)\target\dependencies\opencv\bin\opencv_core249.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+copy /Y "$(SolutionDir)\target\dependencies\opencv\bin\opencv_highgui249.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+copy /Y "$(SolutionDir)\target\dependencies\ftdi\\i386\*.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+if exist "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)\ftd2xx64.dll" del "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)\ftd2xx64.dll"
+
+if not exist "$(SolutionDir)HawkeyeCore\$(Platform)\$(Configuration)\HawkeyeCore.dll" goto no_core
+copy /Y "$(SolutionDir)HawkeyeCore\$(Platform)\$(Configuration)\HawkeyeCore.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(SolutionDir)HawkeyeCore\$(Platform)\$(Configuration)\HawkeyeCore.pdb" goto no_pdb1
+copy /Y "$(SolutionDir)HawkeyeCore\$(Platform)\$(Configuration)\HawkeyeCore.pdb" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" goto no_tgt
+copy /Y "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName).pdb" goto no_pdb2
+copy /Y "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName).pdb" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+echo BUILD SUCCESS!
+goto done_xit
+
+:no_core
+echo BUILD ERROR: core output dll file not found!
+goto done_xit
+
+:no_pdb1
+echo BUILD ERROR: core output pdb file not found!
+goto done_xit
+
+:no_tgt
+echo BUILD ERROR: output target file "$(TargetName)$(TargetExt)" not found!
+goto done_xit
+
+:no_pdb2
+echo BUILD ERROR: output target pdb file "$(TargetName).pdb" not found!
+
+:done_xit
+</Command>
+      <Message>Copying output exe and ancillary DLLs to $(SolutionDir)BuildOutput\$(Platform)\$(Configuration)</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;_CONSOLE;%(PreprocessorDefinitions);NDEBUG</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)\target\dependencies\include;.;$(SolutionDir)\target\dependencies\boost\;$(SolutionDir)\target\dependencies\opencv\include;$(SolutionDir)\target\dependencies\basler\\include;$(SolutionDir)\target\dependencies\ftdi\;$(SolutionDir)HawkeyeCore\API;$(SolutionDir)HawkeyeCore\Core;$(SolutionDir)HawkeyeCore\HardwareLayer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>ftd2xx.lib;opencv_core249.lib;opencv_highgui249.lib;GCBase_MD_VC120_v3_0_Basler_pylon_v5_0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\target\dependencies\lib;.;$(SolutionDir)\target\dependencies\boost\stage\lib\;$(SolutionDir)\target\dependencies\opencv\lib;$(SolutionDir)\target\dependencies\basler\\lib\x64;$(SolutionDir)\target\dependencies\ftdi\\amd64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>if not exist "$(SolutionDir)BuildOutput" mkdir "$(SolutionDir)BuildOutput"
+if not exist "$(SolutionDir)BuildOutput\$(Platform)" mkdir "$(SolutionDir)BuildOutput\$(Platform)"
+if not exist "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)" mkdir "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+copy /Y "$(SolutionDir)\target\dependencies\basler\\Assemblies\Basler.Pylon\x64\*.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+copy /Y "$(SolutionDir)\target\dependencies\opencv\bin\opencv_core249.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+copy /Y "$(SolutionDir)\target\dependencies\opencv\bin\opencv_highgui249.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+copy /Y "$(SolutionDir)\target\dependencies\ftdi\\amd64\*.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+if exist "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)\ftd2xx.dll" del "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)\ftd2xx.dll"
+rename "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)\ftd2xx64.dll" ftd2xx.dll
+
+if not exist "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" goto no_tgt
+copy /Y "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName).pdb" goto no_pdb2
+copy /Y "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName).pdb" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(ProjectDir)$(TargetName).info" goto no_info
+copy /Y "$(ProjectDir)$(TargetName).info" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+echo BUILD SUCCESS!
+goto done_xit
+
+:no_tgt
+echo BUILD ERROR: output target file "$(TargetName)$(TargetExt)" not found!
+goto done_xit
+
+:no_pdb2
+echo BUILD ERROR: output target pdb file "$(TargetName).pdb" not found!
+goto done_xit
+
+:no_info
+echo BUILD ERROR: output target info file "$(TargetName).info" not found!
+
+:done_xit
+</Command>
+      <Message>Copying output exe and ancillary DLLs to $(SolutionDir)BuildOutput\$(Platform)\$(Configuration)</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)HawkeyeCore\Core\CommandParser.hpp" />
+    <ClInclude Include="$(SolutionDir)HawkeyeCore\Core\Configuration.hpp" />
+    <ClInclude Include="$(SolutionDir)HawkeyeCore\Core\ErrcHelpers.hpp" />
+    <ClInclude Include="$(SolutionDir)HawkeyeCore\Core\Logger.hpp" />
+    <ClInclude Include="$(SolutionDir)HawkeyeCore\Core\Logger_auxiliary.hpp" />
+    <ClInclude Include="$(SolutionDir)HawkeyeCore\Core\Logger_Impl.hxx" />
+    <ClInclude Include="$(SolutionDir)HawkeyeCore\HardwareLayer\BoardStatus.hpp" />
+    <ClInclude Include="$(SolutionDir)HawkeyeCore\HardwareLayer\Camera_Basler.hpp" />
+    <ClInclude Include="$(SolutionDir)HawkeyeCore\HardwareLayer\Camera.hpp" />
+    <ClInclude Include="$(SolutionDir)HawkeyeCore\HardwareLayer\ControllerBoardCommand.hpp" />
+    <ClInclude Include="$(SolutionDir)HawkeyeCore\HardwareLayer\ControllerBoardInterface.hpp" />
+    <ClInclude Include="$(SolutionDir)HawkeyeCore\HardwareLayer\ControllerBoardMessage.hpp" />
+    <ClInclude Include="$(SolutionDir)HawkeyeCore\HardwareLayer\ControllerBoardStatus.hpp" />
+    <ClInclude Include="$(SolutionDir)HawkeyeCore\HardwareLayer\ErrorCode.hpp" />
+    <ClInclude Include="$(SolutionDir)HawkeyeCore\HardwareLayer\ErrorStatus.hpp" />
+    <ClInclude Include="$(SolutionDir)HawkeyeCore\HardwareLayer\FTDI_Error_To_Boost.hpp" />
+    <ClInclude Include="$(SolutionDir)HawkeyeCore\HardwareLayer\Interfaces\iCamera.hpp" />
+    <ClInclude Include="$(SolutionDir)HawkeyeCore\HardwareLayer\LedControllerBoardCommand.hpp" />
+    <ClInclude Include="$(SolutionDir)HawkeyeCore\HardwareLayer\LedControllerBoardInterface.hpp" />
+    <ClInclude Include="$(SolutionDir)HawkeyeCore\HardwareLayer\Registers.hpp" />
+    <ClInclude Include="CameraTest.hpp" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)HawkeyeCore\HardwareLayer\BoardStatus.cpp" />
+    <ClCompile Include="$(SolutionDir)HawkeyeCore\Core\CommandParser.cpp" />
+    <ClCompile Include="$(SolutionDir)HawkeyeCore\Core\Configuration.cpp" />
+    <ClCompile Include="$(SolutionDir)HawkeyeCore\Core\Logger.cpp" />
+    <ClCompile Include="$(SolutionDir)HawkeyeCore\HardwareLayer\Camera.cpp" />
+    <ClCompile Include="$(SolutionDir)HawkeyeCore\HardwareLayer\Camera_Basler.cpp" />
+    <ClCompile Include="$(SolutionDir)HawkeyeCore\HardwareLayer\ControllerBoardCommand.cpp" />
+    <ClCompile Include="$(SolutionDir)HawkeyeCore\HardwareLayer\ControllerBoardInterface.cpp" />
+    <ClCompile Include="$(SolutionDir)HawkeyeCore\HardwareLayer\ControllerBoardMessage.cpp" />
+    <ClCompile Include="$(SolutionDir)HawkeyeCore\HardwareLayer\ControllerBoardStatus.cpp" />
+    <ClCompile Include="$(SolutionDir)HawkeyeCore\HardwareLayer\ErrorCode.cpp" />
+    <ClCompile Include="$(SolutionDir)HawkeyeCore\HardwareLayer\ErrorStatus.cpp" />
+    <ClCompile Include="$(SolutionDir)HawkeyeCore\HardwareLayer\FTDI_Error_To_Boost.cpp" />
+    <ClCompile Include="$(SolutionDir)HawkeyeCore\HardwareLayer\Interfaces\iCamera.cpp" />
+    <ClCompile Include="$(SolutionDir)HawkeyeCore\HardwareLayer\LedControllerBoardCommand.cpp" />
+    <ClCompile Include="$(SolutionDir)HawkeyeCore\HardwareLayer\LedControllerBoardInterface.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\ControllerBoardEzPort.cpp" />
+    <ClCompile Include="CameraTest.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CameraTest.info" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

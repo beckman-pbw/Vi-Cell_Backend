@@ -1,0 +1,497 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{10B6FD0F-9BE9-4C79-8128-3055EFDAA5FE}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>BusinessObjectTest</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(Platform)\$(Configuration)\</OutDir>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);WIN32_LEAN_AND_MEAN</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)\target\dependencies\include;.\;$(SolutionDir)\target\dependencies\boost\;$(SolutionDir)\target\dependencies\opencv\include;$(SolutionDir)\target\dependencies\ftdi\;$(SolutionDir)\target\dependencies\basler\\include;$(SolutionDir)HawkeyeCore;$(SolutionDir)HawkeyeCore\API;$(SolutionDir)HawkeyeCore\APIImplementation;$(SolutionDir)HawkeyeCore\Core;$(SolutionDir)HawkeyeCore\DLLLayer;$(SolutionDir)HawkeyeCore\DLLLayer\Workflow;$(SolutionDir)HawkeyeCore\HardwareLayer;$(SolutionDir)HawkeyeCore\HardwareLayer\Interfaces;$(SolutionDir)HawkeyeCore\HardwareLayer\BaseClass;$(SolutionDir)HawkeyeCore\CellCounting;$(SolutionDir)HawkeyeCore\DLLLayer\Workflow\Helper;$(SolutionDir)HawkeyeCore\APIImplementation\Utilities;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opencv_core249d.lib;opencv_highgui249d.lib;opencv_imgproc249d.lib;opencv_video249d.lib;GCBase_MD_VC120_v3_0_Basler_pylon_v5_0.lib;ftd2xx.lib;CellCounting_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\target\dependencies\lib;$(SolutionDir)\target\dependencies\boost\stage\lib\;$(SolutionDir)\target\dependencies\opencv\\lib;$(SolutionDir)\target\dependencies\basler\\lib\x64;$(SolutionDir)\target\dependencies\ftdi\\amd64;$(SolutionDir)HawkeyeCore\CellCounting\$(Platform)\$(Configuration);$(SolutionDir)HawkeyeCore\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>if not exist "$(SolutionDir)BuildOutput" mkdir "$(SolutionDir)BuildOutput"
+if not exist "$(SolutionDir)BuildOutput\$(Platform)" mkdir "$(SolutionDir)BuildOutput\$(Platform)"
+if not exist "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)" mkdir "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+copy /Y "$(SolutionDir)\target\dependencies\basler\\Assemblies\Basler.Pylon\x64\*.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+copy /Y "$(SolutionDir)\target\dependencies\opencv\bin\opencv_core249d.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+copy /Y "$(SolutionDir)\target\dependencies\opencv\bin\opencv_highgui249d.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+copy /Y "$(SolutionDir)\target\dependencies\opencv\bin\opencv_imgproc249d.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+copy /Y "$(SolutionDir)\target\dependencies\opencv\bin\opencv_video249d.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+copy /Y "$(SolutionDir)\target\dependencies\ftdi\\amd64\*.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+if exist "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)\ftd2xx.dll" del "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)\ftd2xx.dll"
+rename "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)\ftd2xx64.dll" ftd2xx.dll
+
+if not exist "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" goto no_tgt
+copy /Y "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName).pdb" goto no_pdb2
+copy /Y "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName).pdb" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(ProjectDir)BusinessObjectTest.info" goto no_info1
+copy /Y "$(ProjectDir)BusinessObjectTest.info" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(SolutionDir)HawkeyeCore\HawkeyeDLL.info" goto no_info2
+copy /Y "$(SolutionDir)HawkeyeCore\HawkeyeDLL.info" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(SolutionDir)HawkeyeCore\HardwareLayer\MotorControl.info" goto no_info3
+copy /Y "$(SolutionDir)HawkeyeCore\HardwareLayer\MotorControl.info" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(ProjectDir)SampleRunList.txt" goto no_txt
+copy /Y "$(ProjectDir)SampleRunList.txt" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(ProjectDir)AutoFocus.txt" goto no_autofocus_txt
+copy /Y "$(ProjectDir)AutoFocus.txt" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(ProjectDir)Prime_Workflow.txt" goto no_workflow1
+copy /Y "$(ProjectDir)Prime_Workflow.txt" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(SolutionDir)HawkeyeCore\CellCounting\$(Platform)\$(Configuration)\CellCounting_x64.dll" goto no_cellcounting
+copy /Y "$(SolutionDir)HawkeyeCore\CellCounting\$(Platform)\$(Configuration)\CellCounting_x64.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+
+echo BUILD SUCCESS!
+goto done_xit
+
+:no_tgt
+echo BUILD ERROR: output target file "$(TargetName)$(TargetExt)" not found!
+goto done_xit
+
+:no_pdb2
+echo BUILD ERROR: output target pdb file "$(TargetName).pdb" not found!
+goto done_xit
+
+:no_info1
+echo BUILD ERROR: output target info file "BusinessTestObject.info" not found!
+goto done_xit
+
+:no_info2
+echo BUILD ERROR: output target info file "HawkeyeDLL.info" not found!
+goto done_xit
+
+:no_info3
+echo BUILD ERROR: output target info file "MotorControl.info" not found!
+goto done_xit
+
+:no_txt
+echo BUILD ERROR: output target info file "SampleRunList.txt" not found!
+goto done_xit
+
+:no_autofocus_txt
+echo BUILD ERROR: output target info file "AutoFocus.txt" not found!
+goto done_xit
+
+:no_workflow1
+echo BUILD ERROR: output target info file "Prime_Workflow.txt" not found!
+goto done_xit
+
+:no_cellcounting
+echo BUILD ERROR: output target DLL file "CellCounting_x64.dll" not found!
+goto done_xit
+
+
+:done_xit
+</Command>
+      <Message>Copying output exe and ancillary DLLs to $(SolutionDir)BuildOutput\$(Platform)\$(Configuration)</Message>
+    </PostBuildEvent>
+    <ResourceCompile>
+      <ResourceOutputFileName>$(IntDir)%(Filename).res</ResourceOutputFileName>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);WIN32_LEAN_AND_MEAN</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)\target\dependencies\include;.\;$(SolutionDir)\target\dependencies\boost\;$(SolutionDir)\target\dependencies\opencv\include;$(SolutionDir)\target\dependencies\ftdi\;$(SolutionDir)\target\dependencies\basler\\include;$(SolutionDir)HawkeyeCore;$(SolutionDir)HawkeyeCore\API;$(SolutionDir)HawkeyeCore\APIImplementation;$(SolutionDir)HawkeyeCore\Core;$(SolutionDir)HawkeyeCore\DLLLayer;$(SolutionDir)HawkeyeCore\DLLLayer\Workflow;$(SolutionDir)HawkeyeCore\HardwareLayer;$(SolutionDir)HawkeyeCore\HardwareLayer\Interfaces;$(SolutionDir)HawkeyeCore\HardwareLayer\BaseClass;$(SolutionDir)HawkeyeCore\CellCounting;$(SolutionDir)HawkeyeCore\DLLLayer\Workflow\Helper;$(SolutionDir)HawkeyeCore\APIImplementation\Utilities;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opencv_core249.lib;opencv_highgui249.lib;opencv_imgproc249.lib;opencv_video249.lib;GCBase_MD_VC120_v3_0_Basler_pylon_v5_0.lib;ftd2xx.lib;CellCounting_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\target\dependencies\lib;$(SolutionDir)\target\dependencies\boost\stage\lib\;$(SolutionDir)\target\dependencies\opencv\\lib;..\..\BASLER\lib\x64;..\..\FTDI\amd64;$(SolutionDir)HawkeyeCore\CellCounting\$(Platform)\$(Configuration);$(SolutionDir)target\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>if not exist "$(SolutionDir)BuildOutput" mkdir "$(SolutionDir)BuildOutput"
+if not exist "$(SolutionDir)BuildOutput\$(Platform)" mkdir "$(SolutionDir)BuildOutput\$(Platform)"
+if not exist "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)" mkdir "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+copy /Y "$(SolutionDir)\target\dependencies\basler\\Assemblies\Basler.Pylon\x64\*.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+copy /Y "$(SolutionDir)\target\dependencies\opencv\bin\opencv_core249.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+copy /Y "$(SolutionDir)\target\dependencies\opencv\bin\opencv_highgui249.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+copy /Y "$(SolutionDir)\target\dependencies\opencv\bin\opencv_imgproc249.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+copy /Y "$(SolutionDir)\target\dependencies\opencv\bin\opencv_video249.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+copy /Y "$(SolutionDir)\target\dependencies\ftdi\\amd64\*.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+if exist "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)\ftd2xx.dll" del "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)\ftd2xx.dll"
+rename "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)\ftd2xx64.dll" ftd2xx.dll
+
+if not exist "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" goto no_tgt
+copy /Y "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName).pdb" goto no_pdb2
+copy /Y "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName).pdb" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(ProjectDir)BusinessObjectTest.info" goto no_info1
+copy /Y "$(ProjectDir)BusinessObjectTest.info" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(SolutionDir)HawkeyeCore\HawkeyeDLL.info" goto no_info2
+copy /Y "$(SolutionDir)HawkeyeCore\HawkeyeDLL.info" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(SolutionDir)HawkeyeCore\HardwareLayer\MotorControl.info" goto no_info3
+copy /Y "$(SolutionDir)HawkeyeCore\HardwareLayer\MotorControl.info" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(ProjectDir)SampleRunList.txt" goto no_txt
+copy /Y "$(ProjectDir)SampleRunList.txt" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(ProjectDir)AutoFocus.txt" goto no_autofocus_txt
+copy /Y "$(ProjectDir)AutoFocus.txt" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(ProjectDir)Prime_Workflow.txt" goto no_workflow1
+copy /Y "$(ProjectDir)Prime_Workflow.txt" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+if not exist "$(SolutionDir)HawkeyeCore\CellCounting\$(Platform)\$(Configuration)\CellCounting_x64.dll" goto no_cellcounting
+copy /Y "$(SolutionDir)HawkeyeCore\CellCounting\$(Platform)\$(Configuration)\CellCounting_x64.dll" "$(SolutionDir)BuildOutput\$(Platform)\$(Configuration)"
+
+echo BUILD SUCCESS!
+goto done_xit
+
+:no_tgt
+echo BUILD ERROR: output target file "$(TargetName)$(TargetExt)" not found!
+goto done_xit
+
+:no_pdb2
+echo BUILD ERROR: output target pdb file "$(TargetName).pdb" not found!
+goto done_xit
+
+:no_info1
+echo BUILD ERROR: output target info file "BusinessTestObject.info" not found!
+goto done_xit
+
+:no_info2
+echo BUILD ERROR: output target info file "HawkeyeDLL.info" not found!
+goto done_xit
+
+:no_info3
+echo BUILD ERROR: output target info file "MotorControl.info" not found!
+goto done_xit
+
+:no_txt
+echo BUILD ERROR: output target info file "SampleRunList.txt" not found!
+goto done_xit
+
+:no_autofocus_txt
+echo BUILD ERROR: output target info file "AutoFocus.txt" not found!
+goto done_xit
+
+:no_workflow1
+echo BUILD ERROR: output target info file "Prime_Workflow.txt" not found!
+goto done_xit
+
+no_cellcounting
+echo BUILD ERROR: output target DLL file "CellCounting_x64.dll" not found!
+goto done_xit
+
+
+:done_xit
+</Command>
+      <Message>Copying output exe and ancillary DLLs to $(SolutionDir)BuildOutput\$(Platform)\$(Configuration)</Message>
+    </PostBuildEvent>
+    <ResourceCompile>
+      <ResourceOutputFileName>$(IntDir)%(Filename).res</ResourceOutputFileName>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="IncludeScriptTest.txt" />
+    <Text Include="ReadMe.txt" />
+    <Text Include="SampleRunList.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\HawkeyeCore\API\HawkeyeError.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\API\MotorStatus.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\CellCounting\BlobData.h" />
+    <ClInclude Include="..\..\HawkeyeCore\CellCounting\BlobLabel.h" />
+    <ClInclude Include="..\..\HawkeyeCore\CellCounting\CellCounter.h" />
+    <ClInclude Include="..\..\HawkeyeCore\CellCounting\CellCounterFactory.h" />
+    <ClInclude Include="..\..\HawkeyeCore\CellCounting\CellCountingOutputParams.h" />
+    <ClInclude Include="..\..\HawkeyeCore\CellCounting\ConfigFileIO.h" />
+    <ClInclude Include="..\..\HawkeyeCore\CellCounting\ErrorCodes.h" />
+    <ClInclude Include="..\..\HawkeyeCore\CellCounting\Headers.h" />
+    <ClInclude Include="..\..\HawkeyeCore\CellCounting\ICellCounter.h" />
+    <ClInclude Include="..\..\HawkeyeCore\CellCounting\ImageFileIO.h" />
+    <ClInclude Include="..\..\HawkeyeCore\CellCounting\InputConfigurationParams.h" />
+    <ClInclude Include="..\..\HawkeyeCore\CellCounting\Parameters.h" />
+    <ClInclude Include="..\..\HawkeyeCore\CellCounting\SaveResults.h" />
+    <ClInclude Include="..\..\HawkeyeCore\CellCounting\Typedef.h" />
+    <ClInclude Include="..\..\HawkeyeCore\Core\AppConfig.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\DLLLayer\HawkeyeConfig.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\DLLLayer\ImageProcessing.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\DLLLayer\Workflow\CameraWorkflowOperation.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\DLLLayer\Workflow\CarrierMotionWorkflowOperation.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\DLLLayer\Workflow\FocusWorkflowOperation.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\DLLLayer\Workflow\LedWorkflowOperation.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\DLLLayer\Workflow\PrimeWorkflow.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\DLLLayer\Workflow\ReagentWorkflowOperation.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\DLLLayer\Workflow\SampleWorkflow.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\DLLLayer\Workflow\SyringeWorkflowOperation.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\DLLLayer\Workflow\TubeWorkflowOperation.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\DLLLayer\Workflow\Workflow.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\DLLLayer\Workflow\WorkflowEngine.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\DLLLayer\Workflow\WorkflowOperation.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\BoardStatus.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\Camera.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\Camera_Basler.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\CarouselController.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\ControllerBoardCommand.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\ControllerBoardInterface.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\ControllerBoardMessage.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\ControllerBoardStatus.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\ErrorCode.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\ErrorStatus.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\FocusController.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\FTDI_Error_To_Boost.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\HwConditions.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\Interfaces\iCamera.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\Led.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\LedControllerBoardCommand.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\LedControllerBoardInterface.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\MotorBase.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\PhotoDiode.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\PlateController.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\ProbeController.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\ReagentController.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\ReagentRFIDLayout.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\Registers.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\Rfid.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\SignalStatus.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\BaseClass\CameraBase.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\BaseClass\FocusControllerBase.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\BaseClass\LedBase.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\BaseClass\RfidBase.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\BaseClass\SyringePumpBase.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\Simulation\RfidSim.hpp" />
+    <ClInclude Include="..\..\HawkeyeCore\HardwareLayer\SyringePump.hpp" />
+    <ClInclude Include="BusinessObjectTest.hpp" />
+    <ClInclude Include="CellCounting\ConfigFileIO.h" />
+    <ClInclude Include="CellCounting\ImageFileIO.h" />
+    <ClInclude Include="CellCounting\SaveResults.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="SampleRunList.hpp" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\HawkeyeCore\APIImplementation\Utilities\DeadlineTimerUtilities.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\APIImplementation\Utilities\FileHandlingUtilities.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\CellCounting\ConfigFileIO.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\CellCounting\ImageFileIO.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\CellCounting\Parameters.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\CellCounting\SaveResults.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\AppConfig.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\CommandParser.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\Configuration.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\Logger.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\HawkeyeConfig.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\ImageProcessing.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\Workflow\AppendProcessingWorkflowOperation.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\Workflow\CameraWorkflowOperation.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\Workflow\FocusWorkflowOperation.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\Workflow\Helper\AdjustBackgroundIntensity.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\Workflow\Helper\CameraAutofocus.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\Workflow\Helper\WorkqueueHelper.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\Workflow\LedWorkflowOperation.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\Workflow\ProbeWorkflowOperation.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\Workflow\ReagentWorkflowOperation.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\Workflow\StateChangeWorkflowOperation.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\Workflow\SyringeWorkflowOperation.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\Workflow\TubeWorkflowOperation.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\Workflow\WaitStateWorkflowOperation.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\Workflow\Workflow.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\Workflow\WorkflowOperation.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\BoardStatus.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\Camera.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\Camera_Basler.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\CarouselController.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\ControllerBoardCommand.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\ControllerBoardEzPort.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\ControllerBoardInterface.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\ControllerBoardMessage.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\ControllerBoardStatus.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\ErrorCode.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\ErrorStatus.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\FocusController.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\FTDI_Error_To_Boost.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\Interfaces\iCamera.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\Led.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\LedControllerBoardCommand.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\LedControllerBoardInterface.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\MotorBase.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\MotorStatus.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\PhotoDiode.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\PlateController.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\ProbeController.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\ReagentController.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\Rfid.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\SignalStatus.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\BaseClass\CameraBase.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\BaseClass\FocusControllerBase.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\BaseClass\LedBase.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\BaseClass\RfidBase.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\BaseClass\SyringePumpBase.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\Simulation\RfidSim.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\HardwareLayer\SyringePump.cpp" />
+    <ClCompile Include="BusinessObjectTest.cpp" />
+    <ClCompile Include="SampleRunList.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\HawkeyeCore\Analysis.info" />
+    <None Include="..\..\HawkeyeCore\CellType.info" />
+    <None Include="..\..\HawkeyeCore\HawkeyeDLL.info" />
+    <None Include="..\ServiceAPIsTest\ServiceAPIsTest.vcxproj" />
+    <None Include="BusinessObjectTest.info" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

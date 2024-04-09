@@ -1,0 +1,57 @@
+! command list:
+! leading alpha-numeric tokens designate the commands;
+! parameters are marker as ?1, ?2, etc
+!
+! I             // initialize: home both theta and radius motors
+! Ht            // home the Theta motor
+! Zt            // Set the current position as the Theta zero point
+! Hr            // home the Radius motor
+! Zr            // Set the current position as the Radius zero point
+! Pa            // move the Theta and Radius motors to the A1 position
+! Ph            // move the Theta and Radius motors to the H12 position
+! Mt, ?1        // move the Theta motor to the specified location
+! Mr, ?1        // move the Radius motor to the specified location
+! C1t, ?1       // move the Theta motor to the cal1 position
+! C1r, ?1       // move the Radius motor to the cal1 position
+! C2t, ?1       // move the Theta motor to the cal2 position
+! C2r, ?1       // move the Radius motor to the cal2 position
+! Ax, ?1, ?2    // move plate to absolute theta, radius position
+! Rx, ?1, ?2    // move plate to relative theta, radius position change values
+! K             // wait for a keypress.
+! S  ?1         // insert a delay of '?1' milliseconds into the command stream processing
+! E             // stop processing the run list and exit the program.
+!
+! all units are in user-units (0.1 degrees for theta, 0.1 microns for radius)
+! ?1 or ?2 indicate required parameter values
+
+
+!I
+
+Ht
+
+S, 500
+
+Hr
+
+S, 500
+
+Mt, 600
+
+S, 500
+
+Mr, 625000
+
+S, 500
+
+Ax, 7200, 650000
+
+K
+
+Zr
+
+Ax, 7400, 50000
+
+S, 500
+
+E
+

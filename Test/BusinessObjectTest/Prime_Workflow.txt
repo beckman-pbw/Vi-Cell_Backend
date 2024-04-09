@@ -1,0 +1,108 @@
+D, C:\Jabba\Jabba-Viability Beads\Jabba-0% Viable\1
+
+I
+
+
+G, 0
+!Was intially 0
+
+E, 50
+
+P, 74
+!Was initally 20
+
+! Move to TrypanBlue (port 4), CW
+V, 4, 0
+
+! Aspirate 1000ul.
+S, 1000, 300
+
+! Move to Waste (port 1), CW
+V, 1, 0
+
+! Empty syringe.
+S, 0, 300
+
+! Move to TrypanBlue (port 4), CW
+V, 4, 0
+
+! Aspirate 500ul.
+S, 500, 300
+
+! Move to Waste (port 1), CW
+V, 1, 0
+
+! Empty syringe.
+S, 0, 300
+
+! Move to Coulter Cleanse (port 5), CW
+V, 5, 0
+
+! Aspirate 1000ul.
+S, 1000, 300
+
+! Move to Waste (port 1), CW
+V, 1, 0
+
+! Empty syringe.
+S, 0, 300
+
+! Move to Coulter Cleanse (port 5), CW
+V, 5, 0
+
+! Aspirate 500ul.
+S, 500, 300
+
+! Move to Waste (port 1), CW
+V, 1, 0
+
+! Empty syringe.
+S, 0, 300
+
+! Move to Disinfectant (port 6), CW
+V, 6, 0
+
+! Aspirate 1000ul.
+S, 1000, 300
+
+! Move to Waste (port 1), CW
+V, 1, 0
+
+! Empty syringe.
+S, 0, 300
+
+! Move to Disinfectant (port 6), CW
+V, 6, 0
+
+! Aspirate 500ul.
+S, 500, 300
+
+! Move to Waste (port 1), CW
+V, 1, 0
+
+! Empty syringe.
+S, 0, 300
+
+! Move to Buffer (port 7), CW
+V, 7, 0
+
+! Aspirate 1000ul.
+S, 1000, 300
+
+! Move to Waste (port 1), CW
+V, 1, 0
+
+! Empty syringe.
+S, 0, 300
+
+! Move to Buffer (port 7), CW
+V, 7, 0
+
+! Aspirate 500ul.
+S, 500, 300
+
+! Move to Waste (port 1), CW
+V, 1, 0
+
+! Empty syringe.
+S, 0, 300

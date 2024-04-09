@@ -1,0 +1,148 @@
+config
+{
+	logger
+	{
+		logfile HawkeyeDLL.log
+		sensitivity NORM
+		max_size_bytes 25000000
+		max_log_rolls 100
+	}
+	
+	auditlogger
+	{
+		logfile Audit.log
+		max_size_bytes 1000000
+	}
+
+	errorlogger
+	{
+		logfile Error.log
+		max_size_bytes 1000000
+	}
+
+	samplelogger
+	{
+		logfile Sample.log
+		max_size_bytes 1000000
+	}
+
+	cameraerrorlogger
+	{
+		logfile CameraErrorLogger.log
+		max_size_bytes 1000000
+	}
+
+	storageerrorlogger
+	{
+		logfile StorageErrorLogger.log
+		max_size_bytes 1000000
+	}
+
+	DLL
+	{
+		instrument_type 1
+		save_image 1
+		auto_focus_coarse_starting_position 50000
+		auto_focus_coarse_step 300
+		auto_focus_fine_range 2000
+		auto_focus_fine_step 20
+		auto_focus_sharpness_low_threshold 0
+		abi_max_image_count 10
+		manual_sample_nudge_volume 5
+		manual_sample_nudge_speed 3
+		flowcelldepth_experimental_constant 83.0
+		rfid_tag_simulation_set_valid_tagdata 0
+		rfid_tag_simulation_total_tags 1
+		rfid_tag_simulation_file_main_bay C06019_ViCell_BLU_Reagent_Pak.bin
+		rfid_tag_simulation_file_right_door C06001_ViCell_FLR_Reagent_Pak.bin
+		rfid_tag_simulation_file_left_door C06002_ViCell_FLR_Reagent_Pak.bin
+		generate_legacy_cellcounting_data 0
+		is_carousel_simulator 1
+		nightly_clean_minutes_from_midnight 120
+
+		cell_counting
+		{
+			algorithm_mode 1
+			background_intensity_tolerance 8
+			bubble_minimum_spot_area_percentage 5
+			bubble_minimum_spot_average_brightness 30
+			bubble_mode 1
+			bubble_rejection_image_area_percentage 30
+			cell_spot_brightness_exclusion_threshold 1
+			center_spot_minimum_intensity_limit 50
+			concentration_image_control_count 100
+			decluster_accumulator_threshold_low 20
+			decluster_minimum_distance_threshold_low 22
+			decluster_accumulator_threshold_medium 16
+			decluster_minimum_distance_threshold_medium 18
+			decluster_accumulator_threshold_high 12
+			decluster_minimum_distance_threshold_high 15
+			fov_depth_mm 0.086
+			hot_pixel_elimination_mode 0
+			nominal_background_level 53
+			peak_intensity_selection_area_limit 50
+			pixel_fov_mm 0.00048
+			roi_x_coordinate 60
+			roi_y_coordinate 60
+			small_particle_sizing_correction 19
+			subpeak_analysis_mode 0
+		}
+
+		LED_BrightField
+		{
+			name BrightField
+			wavelength 999
+			emission 0
+			percent_power 50
+			simmer_current_voltage 0
+			ltcd 100
+			ctld 100
+			feedback_photodiode 1
+		}
+		LED_1T
+		{
+			name UV
+			wavelength 379
+			emission 460
+			percent_power 5
+			simmer_current_voltage 0
+			ltcd 100
+			ctld 100
+			feedback_photodiode 1
+		}
+		LED_1B
+		{
+			name BLUE
+			wavelength 466
+			emission 540
+			percent_power 5
+			simmer_current_voltage 0
+			ltcd 100
+			ctld 100
+			feedback_photodiode 1
+		}
+		LED_2T
+		{
+			name GREEN
+			wavelength 525
+			emission 630
+			percent_power 5
+			simmer_current_voltage 0
+			ltcd 100
+			ctld 100
+			feedback_photodiode 1
+		}
+		LED_2B
+		{
+			name RED
+			wavelength 628
+			emission 708
+			percent_power 5
+			simmer_current_voltage 0
+			ltcd 100
+			ctld 100
+			feedback_photodiode 1
+		}
+	}
+}
+

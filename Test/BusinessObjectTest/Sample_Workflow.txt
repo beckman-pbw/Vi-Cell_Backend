@@ -1,0 +1,141 @@
+
+!-----Initialization-----
+
+D, D:\Jabba-ChoCarryover-HHSwish67s\30
+
+S, I
+
+G, 5
+!Was intially 0
+
+E, 50
+
+P, 78
+!Was initally 20
+
+
+!-----Introduce Trypan Blue & Mix-----
+! SampleStatus: aspirating
+SS 1
+
+! Move to TrypanBlue (port 4), CW
+S, V, 4, 0
+
+! Aspirate 200ul.
+S, M, 200, 700
+
+! SampleStatus: mixing
+SS 2
+
+! Move to SampleProbe (port 2), CCW
+S, M, V, 2, 1
+
+! Empty syringe.
+S, M, 0, 700
+
+! Aspirate 300ul.
+S, M, 450, 700
+
+! Empty syringe.
+S, M, 0, 700
+
+! Aspirate 300ul.
+S, M, 450, 700
+
+! Empty syringe.
+S, M, 0, 700
+
+! Aspirate 200ul.
+S, M, 200, 700
+
+!-----Sample Interrogation-----
+! SampleStatus: image acquisition
+SS 3
+
+! Move to FlowCell (port 3), CW
+S, V, 3, 0
+
+! Dispense 125uL, leaving 75ul.
+S, M, 75, 25
+
+! params: 1: empty syringe, 2: syringe rate, 3: # images to take
+C, 0, 4, 50
+
+!-----Cleaning and Disinfecting-----
+! SampleStatus: cleaning
+SS 4
+
+!-----Removal of any residual sample left in cup
+
+! Move to port 2, CCW
+S, V, 2, 1
+
+! Aspirate 600uL.
+S, M, 400, 700
+S, M, 550, 150
+
+! Move to port 1, CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 700
+
+!-----Cleanse Cycle 500
+
+! Move to port 5, CW
+S, V, 5, 0
+
+! Aspirate 500ul.
+S, M, 600, 700
+
+! Move to port 3, CCW
+S, V, 3, 1
+
+! Dispense to 300 uL
+S, M, 300, 250
+
+! Move to port 2, CCW
+S, V, 2, 1
+
+! Empty syringe.
+S, M, 0, 700
+
+! Aspirate 500ul.
+S, M, 500, 700
+S, M, 650, 150
+
+! Move Valve to Waste (Port 1), CCW
+S, V, 1, 1
+
+! Empty Syringe.
+S, M, 0, 700
+
+!-----Buffer Cycle 500
+
+! Move to port 7, CW
+S, V, 7, 0
+
+! Aspirate 600ul.
+S, M, 600, 700
+
+! Move to port 2, CCW
+S, V, 2, 1
+
+! Empty syringe.
+S, M, 0, 700
+
+! Aspirate 100ul.
+S, M, 600, 700
+S, M, 750, 150
+
+! Move to port 3, CW
+S, V, 3, 0
+
+! Dispense 200 syringe.
+S, M, 400, 250
+
+! Move to Port 1, CCW
+S, V, 1, 1
+
+!Empty Syringe
+S, M, 0, 700

@@ -1,0 +1,73 @@
+T, Z, 1
+P, D
+
+T, Z, 2
+P, D
+
+T, Z, 3
+P, D
+
+T, Z, 4
+P, D
+
+T, Z, 5
+P, D
+
+T, Z, 6
+P, D
+
+T, Z, 7
+P, D
+
+T, Z, 8
+P, D
+
+T, Z, 9
+P, D
+
+T, Z, 10
+P, D
+
+T, Z, 11
+P, D
+
+T, Z, 12
+P, D
+
+T, Z, 13
+P, D
+
+T, Z, 14
+P, D
+
+T, Z, 15
+P, D
+
+T, Z, 16
+P, D
+
+T, Z, 17
+P, D
+
+T, Z, 18
+P, D
+
+T, Z, 19
+P, D
+
+T, Z, 20
+P, D
+
+T, Z, 21
+P, D
+
+T, Z, 22
+P, D
+
+T, Z, 23
+P, D
+
+T, Z, 24
+P, D
+
+P, 0

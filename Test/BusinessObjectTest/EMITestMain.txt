@@ -1,0 +1,41 @@
+S, I
+
+C, G, 0
+!Was intially 0
+
+C, E, 30
+
+L, 1, P, 30
+
+!C, ABI, 1, 180, 5
+
+
+D, ./EMITest1
+N, ./EMITestRun.txt
+
+D, ./EMITest2
+N, ./EMITestRun.txt
+
+D, ./EMITest3
+N, ./EMITestRun.txt
+
+D, ./EMITest4
+N, ./EMITestRun.txt
+
+D, ./EMITest5
+N, ./EMITestRun.txt
+
+D, ./EMITest6
+N, ./EMITestRun.txt
+
+D, ./EMITest7
+N, ./EMITestRun.txt
+
+D, ./EMITest8
+N, ./EMITestRun.txt
+
+D, ./EMITest9
+N, ./EMITestRun.txt
+
+D, ./EMITest10
+N, ./EMITestRun.txt

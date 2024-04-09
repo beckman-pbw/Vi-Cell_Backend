@@ -1,0 +1,3 @@
+* text=auto
+*.info text eol=crlf
+*.bin -crlf -diff -merge

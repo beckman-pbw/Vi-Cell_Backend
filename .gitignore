@@ -1,0 +1,94 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+target/
+x64/
+bin/
+ModelDll/
+*.vcxproj.user
+.vs/
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+#*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.aps
+#*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# VS
+*.ipch
+*.suo
+*.sdf
+*.vc.db
+*.opendb
+#Debug/
+#Release/
+obj/
+*.cache
+*.config
+*.exp
+*.idb
+*.ilk
+*.iobj
+*.ipdb
+*.lastbuildstate
+*.log*
+*.pch
+*.pdb
+*.tlog
+*.tlb
+
+# BASLER
+BASLER/Samples/
+BASLER/Redist/
+!BASLER/lib/**
+!BASLER/Assemblies/**
+
+# FTDI
+!FTDI/**
+/HawkeyeWin_Encrypt/HawkeyeWin_Encrypt_i.c
+/HawkeyeWin_Encrypt/HawkeyeWin_Encrypt_h.h
+
+# Hawkeye
+BuildOutput/
+/GpioControlClr/x64/Debug
+/HawkeyeCore/x64/Debug
+/HawkeyeCore/DataAndConfigFiles/*.e*
+/HawkeyeCore/DataAndConfigFiles/*.bin
+/HawkeyeWin_Encrypt
+/RFIDMemoryMapGenerator/bin/Debug
+/RFIDProgrammingStation/x64/Debug
+/RFIDProgrammingStation/RFIDProgrammingStationDlg.h~RF5e8351f.TMP
+/RFIDProgrammingStation/RFIDProgrammingStationDlg.cpp~RF4b239a7.TMP
+/RFIDProgrammingStation/RFIDProgrammingStationDlg.cpp~RF9b8f835.TMP
+/ServiceAccountAccess/x64/Debug
+/GpioControl/GpioControl/bin
+/GpioControl/GpioController.sln
+/GpioControl/CsharpControllerTest
+/GpioControl/bin
+/GpioControlUnmanaged
+/GpioControl_sln
+/Test/MotorControl/x64/Debug/MotorControl.res
+/Test/MotorControlSA/x64/Debug/MotorControl.res
+/Test/MotorSysTest/x64/Debug/MotorSysTest.res
+/Test/SamplerSysTest/x64/Debug/SamplerSysTest.res
+/TestRfidController
+/x64/Debug
+
+# Hawkeye in-place encrypted versions
+*.etxt
+*.einfo
+*.epng
+

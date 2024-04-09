@@ -1,0 +1,91 @@
+D, ./focustest4
+
+!I
+
+L, 1, P, 30
+
+C, E, 30
+
+C, G, 3
+
+F, H
+C, ABI, 1, 135, 5
+F, R
+
+F, H
+C, ABI, 1, 135, 5
+F, R
+
+F, H
+C, ABI, 1, 135, 5
+F, R
+
+F, H
+C, ABI, 1, 135, 5
+F, R
+
+F, H
+C, ABI, 1, 135, 5
+F, R
+
+F, H
+C, ABI, 1, 135, 5
+F, R
+
+F, H
+C, ABI, 1, 135, 5
+F, R
+
+F, H
+C, ABI, 1, 135, 5
+F, R
+
+F, H
+C, ABI, 1, 135, 5
+F, R
+
+F, H
+C, ABI, 1, 135, 5
+F, R
+
+F, H
+C, ABI, 1, 135, 5
+F, R
+
+F, H
+C, ABI, 1, 135, 5
+F, R
+
+F, H
+C, ABI, 1, 135, 5
+F, R
+
+F, H
+C, ABI, 1, 135, 5
+F, R
+
+F, H
+C, ABI, 1, 135, 5
+F, R
+
+F, H
+C, ABI, 1, 135, 5
+F, R
+
+F, H
+C, ABI, 1, 135, 5
+F, R
+
+F, H
+C, ABI, 1, 135, 5
+F, R
+
+F, H
+C, ABI, 1, 135, 5
+F, R
+
+F, H
+C, ABI, 1, 135, 5
+F, R
+
+X

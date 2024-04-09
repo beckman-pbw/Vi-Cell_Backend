@@ -1,0 +1,143 @@
+config
+{
+	logger
+	{
+		logfile HawkeyeDLL.log
+		sensitivity DBG1
+		max_size_bytes 5000000
+	}
+	signed_userlogger
+	{
+		logfile UserSigned.log
+		sensitivity DBG1
+		max_size_bytes 5000000
+	}
+	signed_worklogger
+	{
+		logfile WorkSigned.log
+		sensitivity DBG1
+		max_size_bytes 500000
+	}
+	DLL
+	{
+		instrument_type 1
+		init_timeout 15
+		display_image 1
+		save_image 1
+		generate_histogram 0
+		generate_colorized_image 0
+		enable_carousel_controller 1
+			
+		enable_led_driver_sim 0
+		enable_reagentpack_sim 1
+		enable_workqueue_sim 1
+		
+		LEDS
+		{
+			LED_BF
+			{
+				name BrightField
+				wavelength 999
+				percent_power 50
+				simmer_current_voltage 0
+				ltcd 100
+				ctld 100
+				feedback_photodiode 1
+				enable_boost_current_monitoring 1
+			}
+			LED_1T
+			{
+				name UV
+				wavelength 365
+				percent_power 5
+				simmer_current_voltage 0
+				ltcd 100
+				ctld 100
+				feedback_photodiode 1
+			}
+			LED_1B
+			{
+				name BLUE
+				wavelength 460
+				percent_power 5
+				simmer_current_voltage 0
+				ltcd 100
+				ctld 100
+				feedback_photodiode 1
+			}
+			LED_2T
+			{
+				name GREEN
+				wavelength 530
+				percent_power 5
+				simmer_current_voltage 0
+				ltcd 100
+				ctld 100
+				feedback_photodiode 1
+			}
+			LED_2B
+			{
+				name RED
+				wavelength 650
+				percent_power 5
+				simmer_current_voltage 0
+				ltcd 100
+				ctld 100
+				feedback_photodiode 1
+			}
+		}
+
+		camera
+		{
+			exposure_time 25
+			exposure_flux 0
+		}
+		
+		workflows
+		{
+			workflow1
+			{
+				id 100000
+				name Initialize
+				filename Initialize_Workflow.info
+			}
+			workflow2
+			{
+				id 100001
+				name Prime
+				filename Prime_Workflow.info
+			}
+			workflow3
+			{
+				id 100002
+				name Clean
+				filename Clean_Workflow.info
+			}
+			workflow4
+			{
+				id 100003
+				name Disinfect
+				filename Disinfect_Workflow.info
+			}
+			workflow5
+			{
+				id 100004
+				name Sample
+				filename Sample_Workflow.info
+			}
+		}
+				
+	}
+
+	controller
+	{
+		k70_firmware_update
+		{
+			enable_update 0
+			bin_srecord_path .
+			bin_srecord_file prj_299.bin
+			bin_srecord_hashkey D4786FAA1C10C29414AE2FAEB8778AE9
+		}
+	}
+
+}

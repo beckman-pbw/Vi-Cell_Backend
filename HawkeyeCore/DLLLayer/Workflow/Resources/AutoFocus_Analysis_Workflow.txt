@@ -1,0 +1,18 @@
+!********************************************************************************************************
+! Version CHMDev005
+! Version changes: same as CHMDev003
+!********************************************************************************************************
+
+L, U, BRIGHTFIELD
+
+C, E, 50
+
+C, G, 0
+
+F, H
+
+! CameraCmd, ABICmd, SyringeVolume, SyringeRate, CameraExposure, LedType, Target_Intensity, Target_Intensity_Offset
+C, ABI, 55, 0, 50, 1, 180, 2
+C, ABI, 55, 0, 50, 1, 180, 2
+
+F, A, 1, 50

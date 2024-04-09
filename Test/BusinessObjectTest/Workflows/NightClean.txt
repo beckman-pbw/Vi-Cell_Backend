@@ -1,0 +1,108 @@
+D, C:\TEMP
+
+I
+
+
+G, 0
+!Was intially 0
+
+E, 50
+
+P, 74
+!Was initally 20
+
+! Move to Coulter Cleanse (port 5), CW
+V, 5, 0
+
+! Aspirate 600ul.
+S, 600, 300
+
+! Move to Flow Cell (port 3), CCW
+V, 3, 1
+
+! Dispense 300uL syringe.
+S, 300, 50
+
+!Wait for 60 seconds
+W, 120000
+
+! Aspirate 600ul.
+S, 600, 300
+
+!Wait for 5 seconds
+W, 5000
+
+! Empty syringe.
+S, 0, 250
+
+! Move to Buffer (port 7), CW
+V, 7, 0
+
+! Aspirate 600ul.
+S, 600, 300
+
+! Move to Flow Cell (port 3), CCW
+V, 3, 1
+
+! Dispense 300uL syringe.
+S, 300, 50
+
+!Wait for 120 seconds
+W, 120000
+
+! Aspirate 600ul.
+S, 600, 300
+
+!Wait for 5 seconds
+W, 5000
+
+! Empty syringe.
+S, 0, 250
+
+! Move to Disinfectant (port 6), CW
+V, 6, 0
+
+! Aspirate 600ul.
+S, 600, 300
+
+! Move to Flow Cell (port 3), CCW
+V, 3, 1
+
+! Dispense 300uL syringe.
+S, 300, 50
+
+!Wait for 120 seconds
+W, 120000
+
+! Aspirate 600ul.
+S, 600, 300
+
+!Wait for 5 seconds
+W, 5000
+
+! Empty syringe.
+S, 0, 100
+
+! Move to Buffer (port 7), CW
+V, 7, 0
+
+! Aspirate 600ul.
+S, 300, 300
+
+! Move to Waste (port 1), CCW
+V, 1, 1
+
+! Empty syringe.
+S, 0, 300
+
+! Move to Air (Port 2), CCW
+V, 2, 1
+
+ ! Aspirate 600ul.
+S, 600, 300
+
+! Move to Flow Cell (port 3), CCW
+V, 3, 1
+
+! Empty syringe.
+S, 0, 250

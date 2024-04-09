@@ -1,0 +1,96 @@
+Application software is specific to the Scout or Hunter models. However, the same OS image is used by both
+the instrument models.  The OS has common installation components that search for target installation
+packages in the two expected part numbers.
+
+For security and malware protection, execution from external media is prohibited by OS configuration.
+
+The OS installation component copies the application installer into the system, renames it to a generic
+name, and invokes the application installer.
+
+********************************************************************************
+The application installer is where model-specific actions must be performed!!!
+********************************************************************************
+
+Multiple application installer batch files exist:
+
+    InstallViCellBLU.bat        (for Scout)
+    InstallViCellFL.bat         (for Hunter)
+
+Other install batch scripts may exist for as-yet undefined instrument targets.
+    InstallViCellEX.bat         (example for Explorer)
+
+Note that the installation batch script file names may differ for instrument models beyond the Scout/Hunter series.
+
+The installer batch files are named differently ONLY in the repository.  The standardized build operation assembles
+all the components required, configures them as expected by the installer, and names the installer according to the
+part number target.  The assembled package contents are then added to a self-extracting zip file built as a standard
+Windows executable (i.e. with a '.exe' extension).  The created self-extracting file has a base file name matching
+the part number for the application software (e.g. C90104.exe for the CellHealth module).  File names are allowed
+to contain a revision designation (e.g. C90104-v0.10.100.150.exe), as long as the base filename component is the
+target software part number.  Addition of versioning information does not affect the installation process.
+
+When modifications to the application-set installer are required, follow the instructions for modifying the installer
+batch script carefully!  Do not make changes to the installation flow without thorough understanding of the process!
+
+A set of common OS-level installer-loader scripts are included in the common OS base image loaded to the instrument
+hard drives.  The common installer-loaders search externally connected drives for files in the drive root which
+have the expected part numbers as the leading component of the file name.  Currently, the OS installer-loader scripts
+know the part numbers for only two target instruments, CellHealth (P/N C90104) and ViCELL FL (P/N C08369).  As noted
+previously, the file names may contain a revision designation (e.g. C90104-v0.10.100.150.exe) without affecting the
+file search.  The OS installer loader expects a defined and limited set of names and installation artifacts to be
+present in the installation package.
+
+The instrument-specific application-set installer must leave the installed UI component named as the expected common
+name to allow invocation by the common OS application startup link.  The expected common UI executable name is
+'ViCellUI.exe', and should be the same between the different models of the instrument.  The original UI executable
+(currently ViCellBLU_UI.exe for Scout/ViCELL-BLU) is copied to the expected common name, and the original UI executable
+is renamed to "xxxxx.ex~", where 'xxxx' represents the base-name of the original executable.  This file is left to
+provide trace history that a previous installation has been performed.  For the UI component, the '.msi'
+installation file is preserved in the "C:\Instrument" folder to allow removal of previous versions.  Note that
+the contents of the instrument installation folders are examined to ensure consistency, thus manual copying of
+application components may not result in a correct configuration.
+
+The instrument-specific application-set installer should check for information which may need to be preserved,
+and copy that information (in files or otherwise) to the new installation set.  This is important for existing
+instruments which have been calibrated for correct use.
+
+The application installer should remove any files or content no longer required by the current software version.
+
+
+1)  All install packages and software builds are handled by a Jenkins process which configures a build environment,
+    retrieves the application build artifacts and performs the required build steps for the target output.
+
+2)  There are multiple separate build processes for the application software components:
+        -the build for the User Interface
+        -the build for the instrument control logic, built as a DLL file used by the User Interface
+        NOTE: this build also produces the data encryption dll used to protect user data from unapproved modifications
+        -the build for the analysis algorithm dll
+        -the build for the controller board firmware
+
+3)  There is a separate build process to produce the installation package containing all software components, the
+    corresponding controller board firmware binary file, and other system dependencies (e.g. language resource files,
+    default or test data files).
+
+4)  If required, modify the application-set installer scripts and commit them to the source repository PRIOR to
+    initiating the installation package build operation.
+
+5)  Any other required files which may be common to all versions (e.g. splash-screen images; carousel icon, etc.) may
+    also be placed into the the repository in the appropriate 'Installer" sub-folder, prior to the build.
+
+6)  Initiate the installer package build through the Jenkins server.
+
+7)  The output of a successful build of the installation package build is delivered in a zip file, and must be
+    extracted from that file.
+   
+8)  Take a blank USB stick with adequate capacity to contain the self-extractor and format it to ensure no extraneous
+    items are present.  Formatting will typically use FAT32 as the default for USB sticks.  When formatting, make the
+    volume label 'C10358' (for ViCell BLU) or C10360' (for ViCell FL).  The volume label reflects the part number of
+    the update installation USB part, not the software part number which is the content of the USB stick.  Currently,
+    volume labels are not used by the installer, but provided as a reference to ensure the USB being used matches the
+    expected part number.  Note that volume labels under the FAT32 file-system are typically limited to 11 characters,
+    and have limitations as to the characters which may be used in the volume label (shown in the example note below).
+
+9)  Copy the self-extracting zip file created in steps 6 & 7 to the USB stick.
+
+
+The application software installation process is described in document C08356.doc.

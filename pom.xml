@@ -1,0 +1,727 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<name>Shepherd Viability Science Module Backend</name>
+	<description>Build and deploy</description>
+
+	<groupId>com.beckman.particle.shepherd.viability</groupId>
+	<artifactId>backend</artifactId>
+	<version>1.1.64-SNAPSHOT</version>
+	
+
+	<packaging>pom</packaging>
+	<modelVersion>4.0.0</modelVersion>
+
+	<scm>
+		<connection>scm:git:git@github.com:BeclsParticle/sciencemodule_ApplicationSource.git</connection>
+		<developerConnection>scm:git:git@github.com:BeclsParticle/sciencemodule_ApplicationSource.git</developerConnection>
+		<url>https://github.com/BeclsParticle/sciencemodule_ApplicationSource.git</url>				
+	</scm>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>repo.beckman</id>
+			<url>s3://beckman-build-artifacts/m2/snapshot</url>
+		</snapshotRepository>
+		<repository>
+			<id>repo.beckman</id>
+			<url>s3://beckman-build-artifacts/m2/release</url>
+		</repository>
+		<site>
+			<id>repo.beckman</id>
+			<url>s3://beckman-build-artifacts/docs/${project.groupId}/${project.artifactId}/${project.version}</url>
+		</site>
+
+	</distributionManagement>
+
+	<repositories>
+		<repository>
+			<id>repo.beckman</id>
+			<url>https://s3-us-west-2.amazonaws.com/beckman-build-artifacts/m2/release</url>
+		</repository>
+		<repository>
+			<id>repo.beckman.snapshot</id>
+			<url>https://s3-us-west-2.amazonaws.com/beckman-build-artifacts/m2/snapshot</url>
+		</repository>
+	</repositories>
+
+  <!-- ****************************************************************-->
+  <!-- *********            properties         ************************-->
+  <!-- ****************************************************************-->
+  <properties>
+    <project.build.sourceEncoding>iso-8859-1</project.build.sourceEncoding>
+		<nullsoft.builder>c:\Program Files (x86)\NSIS\makensis.exe</nullsoft.builder>
+		<visualstudio.devenv>C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Current\Bin\msbuild.exe</visualstudio.devenv>
+		<mstest>"C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Current\Bin\msbuild.exe"</mstest>
+		<timestamp>${maven.build.timestamp}</timestamp>
+		<maven.build.timestamp.format>ssSS</maven.build.timestamp.format>
+	</properties>
+
+  <!-- ****************************************************************-->
+  <!-- *********            dependencies         **********************-->
+  <!-- ****************************************************************-->
+  <dependencies>
+    <!-- ****************************************************************-->
+    <!-- *****            com.beckman              **********************-->
+    <!-- ****************************************************************-->
+    <dependency>
+	<groupId>com.beckman.particle.hawkeye</groupId>
+	<artifactId>algorithm</artifactId>
+	<version>4.3.8</version>
+	<classifier>installer</classifier>
+	<type>zip</type>
+    </dependency>
+    <dependency>
+      <!-- NOTE: If you change versions, be sure to update the .lib and header files in the project -->
+      <!-- I was not able to get the Jenkins build to create the library from the DLL -->
+      <groupId>com.beckman.particle.commonmodules</groupId>
+      <artifactId>ActiveDirectoryGroups</artifactId>
+      <version>1.0.9</version>
+      <classifier>Windows</classifier>
+      <type>zip</type>
+    </dependency>
+    
+    <!-- ****************************************************************-->
+    <!-- **********           org.boost           ***********************-->
+    <!-- ****************************************************************-->
+    <dependency>
+			<groupId>org.boost</groupId>
+			<artifactId>include</artifactId>
+			<version>1.70.0</version>
+			<type>zip</type>
+		</dependency>
+    <dependency>
+			<groupId>org.boost</groupId>
+			<artifactId>chrono</artifactId>
+			<version>1.70.0</version>
+			<type>zip</type>
+		</dependency>
+    <dependency>
+			<groupId>org.boost</groupId>
+			<artifactId>system</artifactId>
+			<version>1.70.0</version>
+			<type>zip</type>
+		</dependency>
+		<dependency>
+			<groupId>org.boost</groupId>
+			<artifactId>thread</artifactId>
+			<version>1.70.0</version>
+			<type>zip</type>
+		</dependency>
+		<dependency>
+			<groupId>org.boost</groupId>
+			<artifactId>filesystem</artifactId>
+			<version>1.70.0</version>
+			<type>zip</type>
+		</dependency>
+		<dependency>
+			<groupId>org.boost</groupId>
+			<artifactId>program-options</artifactId>
+			<version>1.70.0</version>
+			<type>zip</type>
+		</dependency>
+		<dependency>
+			<groupId>org.boost</groupId>
+			<artifactId>datetime</artifactId>
+			<version>1.70.0</version>
+			<type>zip</type>
+		</dependency>
+		<dependency>
+			<groupId>org.boost</groupId>
+			<artifactId>regex</artifactId>
+			<version>1.70.0</version>
+			<type>zip</type>
+		</dependency>
+		<dependency>
+			<groupId>org.boost</groupId>
+			<artifactId>crypto</artifactId>
+			<version>5.6.5</version>
+			<type>zip</type>
+		</dependency>
+    <!-- ................................................................-->
+    <dependency>
+			<groupId>com.ftdi</groupId>
+			<artifactId>ftdi</artifactId>
+			<version>2.12.24.1</version>
+			<type>zip</type>
+		</dependency>
+    <!-- ................................................................-->
+    <dependency>
+			<groupId>org.opencv</groupId>
+			<artifactId>opencv</artifactId>
+			<version>2.4.9</version>
+			<type>zip</type>
+		</dependency>
+    <!-- ................................................................-->
+    <dependency>
+			<groupId>com.basler</groupId>
+			<artifactId>pylon</artifactId>
+			<version>5.0.5.8999.1</version>
+			<type>zip</type>
+		</dependency>
+    <!-- ................................................................-->
+    <dependency>
+			<groupId>com.microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn</groupId>
+			<artifactId>googletest</artifactId>
+			<version>1.8.1</version>  
+			<type>zip</type>
+		</dependency>
+	</dependencies>
+
+	<reporting>
+		<outputDirectory>${basedir}/target/site</outputDirectory>
+		<plugins>
+			<plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-changelog-plugin</artifactId>
+			  <version>2.3</version>
+			</plugin>
+			<!-- <plugin> -->
+				<!-- <groupId>com.soebes.maven.plugins</groupId> -->
+				<!-- <artifactId>doxygen-maven-plugin</artifactId> -->
+				<!-- <version>1.1.0</version> -->
+				<!-- <configuration> -->
+					<!-- <reportOutputDirectory>${project.reporting.outputDirectory}/doxygen</reportOutputDirectory> -->
+					<!-- <executable>c:/Program Files/doxygen/bin/doxygen.exe</executable> -->
+					<!-- <haveDot>true</haveDot> -->
+					<!-- <dotPath>C:/Program Files/Graphviz 2.44.1/bin</dotPath> -->
+					<!-- <configurationFile>${basedir}/ApplicationSource.doxygen</configurationFile> -->
+					<!-- <quiet>false</quiet> -->
+					<!-- <projectName>${project.description}</projectName> -->
+				<!-- </configuration> -->
+			<!-- </plugin> -->
+		</plugins>
+	</reporting>
+
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.kuali.maven.wagons</groupId>
+				<artifactId>maven-s3-wagon</artifactId>
+				<version>1.2.1</version>
+			</extension>
+		</extensions>
+
+		<plugins>
+			<!--<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>wagon-maven-plugin</artifactId>
+				<version>2.0.0</version>
+				<executions>
+					<execution>
+						<id>upload-doxygen-html</id>
+						<phase>site-deploy</phase>
+						<goals>
+							<goal>upload</goal>
+						</goals>
+						<configuration>
+							<fromDir>${project.reporting.outputDirectory}/doxygen/html</fromDir>
+							<includes>*</includes>
+							<url>s3://beckman-build-artifacts/docs/</url>
+							<toDir>com.beckman.particle.shepherd.viability/backend/Current/html</toDir>
+						</configuration>
+					</execution>
+					<execution>
+						<id>upload-doxygen-tagfile</id>
+						<phase>site-deploy</phase>
+						<goals>
+							<goal>upload-single</goal>
+						</goals>
+						<configuration>
+							<fromFile>${project.outputDirectory}/doxygen/ApplicationSource.tag</fromFile>
+							<url>s3://beckman-build-artifacts/docs/com.beckman.particle.shepherd.viability/backend/Current/tagfiles</url>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>-->
+
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<filesets>
+						<fileset><directory>BuildOutput/x64</directory><includes><include>**/*</include></includes> </fileset>
+						<fileset><directory>DBif/x64</directory><includes><include>**/*</include></includes></fileset>
+						<fileset><directory>EEPROMTestThroughAPI/x64</directory><includes><include>**/*</include></includes> </fileset>
+						<fileset><directory>FT2232H EEPROM Modify/x64</directory><includes><include>**/*</include></includes> </fileset>
+						<fileset><directory>HawkeyeCore/x64</directory><includes><include>**/*</include></includes> </fileset>
+						<fileset><directory>HawkeyeDataAccess/x64</directory><includes><include>**/*</include></includes> </fileset>
+						<fileset><directory>HawkeyeWin_Encrypt/x64</directory><includes><include>**/*</include></includes> </fileset>
+						<fileset><directory>RFIDProgrammingStation/x64</directory><includes><include>**/*</include></includes> </fileset>
+						<fileset><directory>RFIDMemoryMapGenerator/x64</directory><includes><include>**/*</include></includes></fileset>
+						<fileset><directory>ServiceAccountAccess/x64</directory><includes><include>**/*</include></includes> </fileset>
+						<fileset><directory>Utilities/crc_prj/crc_prj/x64</directory><includes><include>**/*</include></includes></fileset>
+						<fileset><directory>Utilities/DataImporter/x64</directory><includes><include>**/*</include></includes></fileset>
+						<fileset><directory>Test/BackgroundUniformityCriteria/BackgroundUniformityCriteria/obj/x64</directory><includes><include>**/*</include></includes> </fileset>
+						<fileset><directory>Test/BackgroundUniformityCriteria/BackgroundUniformityCriteriaModel/x64</directory><includes><include>**/*</include></includes> </fileset>
+						<fileset><directory>Test/BackgroundUniformityCriteria/ModelDll</directory><includes><include>**/*</include></includes> </fileset>
+						<fileset><directory>Test/ControllerBoardTest/x64</directory><includes><include>**/*</include></includes></fileset>
+						<fileset><directory>Test/DataEncryptDecrypt/obj/x64</directory><includes><include>**/*</include></includes></fileset>
+						<fileset><directory>Test/HawkeyeLogicInterfaceCLI/x64</directory><includes><include>**/*</include></includes></fileset>
+						<fileset><directory>Test/DataEncryptDecrypt/x64</directory><includes><include>**/*</include></includes></fileset>
+						<fileset><directory>Test/ScoutXTest/x64</directory><includes><include>**/*</include></includes> </fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+      <!-- ****************************************************************-->
+      <!-- ****************************************************************-->
+      <plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+          <execution>
+            <id>OpenCV-resources</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/target/Release/</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${basedir}/target/dependencies/opencv/bin/</directory>
+                  <includes>
+                    <include>opencv_core249.dll</include>
+                    <include>opencv_highgui249.dll</include>
+                    <include>opencv_imgproc249.dll</include>
+                    <include>opencv_video249.dll</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+					<execution>
+						<id>ControllerBoardTest-resources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/properties/ControllerBoardTest</outputDirectory>
+							<resources>
+								<resource>
+									<directory>Test/ControllerBoardTest/Properties/</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>ExportImportConfig-resources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/properties/ExportImportConfig</outputDirectory>
+							<resources>
+								<resource>
+									<directory>Test/ExportImportConfig/Properties/</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>ScoutXTest-resources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/properties/ScoutXTest</outputDirectory>
+							<resources>
+								<resource>
+									<directory>Test/ScoutXTest/Properties/</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>DataImporter-resources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/properties/DataImporter</outputDirectory>
+							<resources>
+								<resource>
+									<directory>Utilities/DataImporter/Properties/</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>UnitTests-resources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/properties/UnitTests</outputDirectory>
+							<resources>
+								<resource>
+									<directory>Test/UnitTests/Properties/</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>ServiceAccountAccess-resources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/properties/ServiceAccountAccess</outputDirectory>
+							<resources>
+								<resource>
+									<directory>ServiceAccountAccess/Properties/</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>HawkeyeWin_Encrypt-resources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/properties/HawkeyeWin_Encrypt</outputDirectory>
+							<resources>
+								<resource>
+									<directory>HawkeyeWin_Encrypt/Properties/</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>HawkeyeFTDIEEPROMWriter-resources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/properties/HawkeyeFTDIEEPROMWriter</outputDirectory>
+							<resources>
+								<resource>
+									<directory>FT2232H EEPROM Modify/Properties/</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>RFIDProgrammingStation-resources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/properties/RFIDProgrammingStation</outputDirectory>
+							<resources>
+								<resource>
+									<directory>RFIDProgrammingStation/Properties/</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>RFIDMemoryMapGenerator-resources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/properties/RFIDMemoryMapGenerator</outputDirectory>
+							<resources>
+								<resource>
+									<directory>RFIDMemoryMapGenerator/My Project/Properties/</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>HawkeyeCore-resources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/properties/HawkeyeCore</outputDirectory>
+							<resources>
+								<resource>
+									<directory>HawkeyeCore/Properties</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>BackgroundUniformityCriteria-resources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/properties/BackgroundUniformityCriteria</outputDirectory>
+							<resources>
+								<resource>
+									<directory>Test/BackgroundUniformityCriteria/BackgroundUniformityCriteria/Properties</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>BackgroundUniformityCriteriaModel-resources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/properties/BackgroundUniformityCriteriaModel</outputDirectory>
+							<resources>
+								<resource>
+									<directory>Test/BackgroundUniformityCriteria/BackgroundUniformityCriteriaModel/Properties</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>DataImport-resources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.basedir}/target/Release</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}</directory>
+									<Includes>
+										<Include>import_data.bat</Include>
+									</Includes>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.12</version>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<id>parse-version</id>
+						<goals>
+							<goal>parse-version</goal>
+						</goals>
+					</execution>
+					<execution>
+						<phase>initialize</phase>
+						<id>timestamp-property</id>
+						<goals>
+							<goal>timestamp-property</goal>
+						</goals>
+						<configuration>
+							<name>current.year</name>
+							<pattern>yyyy</pattern>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>2.1</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-scm-plugin</artifactId>
+				<version>1.9.5</version>
+				<configuration>
+					<tag>${project.artifactId}-${project.version}</tag>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5.3</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.10</version>
+				<executions>
+					<execution>
+						<id>unroll-dependencies</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<overWrite>true</overWrite>
+							<outputDirectory>target/dependencies</outputDirectory>
+							<excludeTransitive>true</excludeTransitive>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>deploy-assembly</id>
+						<phase>package</phase>
+						<configuration>
+							<outputDirectory>target/</outputDirectory>
+							<descriptors>
+								<value>src/main/assembly/installer-assembly.xml</value>
+							</descriptors>
+						</configuration>
+						<goals>
+							<goal>attached</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>deploy-titerprogrammer</id>
+						<phase>package</phase>
+						<configuration>
+							<outputDirectory>target/</outputDirectory>
+							<descriptors>
+								<value>src/main/assembly/titerprogrammer-assembly.xml</value>
+							</descriptors>
+						</configuration>
+						<goals>
+							<goal>attached</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>     
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.5.0</version>
+				<executions>
+					<execution>
+						<id>compile-release</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<workingDirectory>${project.basedir}</workingDirectory>
+							<executable>${visualstudio.devenv}</executable>
+							<arguments>
+								<argument>Hawkeye.sln</argument>                
+                <!-- 
+                ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++                
+                Do NOT set the OutDir property. 
+                The project files have hard coded relative paths
+                argument>/p:OutDir=${project.build.directory}\Release\</argument
+                ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+								The projects use the SolutionDir which is only set in the IDE. 
+                By setting it here, we ensure the maven build output is the same as 
+                when building in the IDE. Note: The trailing '\' is important.
+                ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                -->
+                <argument>/p:SolutionDir=${basedir}\</argument>
+                <!--argument>/t:MotorControlTester:ReBuild</argument-->
+								<!--argument>/t:BackgroundUniformityCriteriaModel:ReBuild</argument-->
+								<argument>/t:Build</argument>
+								<argument>/p:Configuration=Release</argument>
+								<argument>/p:Platform=x64</argument>
+								<argument>/m</argument>
+							</arguments>
+							<successCodes>
+								<successCode>0</successCode>
+							</successCodes>
+						</configuration>
+					</execution>
+					<execution>
+						<id>encrypt-info-txt-png-cfg-files</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<workingDirectory>${project.basedir}/target/Release</workingDirectory>
+							<executable>DataEncryptDecrypt.exe</executable>
+							<arguments>
+								<argument>-E</argument>
+								<argument>"${project.basedir}\HawkeyeCore\DataAndConfigFiles\DataImporter.info"</argument>
+								<argument>"${project.basedir}\HawkeyeCore\DataAndConfigFiles\MotorControl.info"</argument>
+								<argument>"${project.basedir}\HawkeyeCore\DataAndConfigFiles\*.png"</argument>
+								<argument>"${project.basedir}\HawkeyeCore\DLLLayer\Workflow\Resources\*.txt"</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>compile-crc-release</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<workingDirectory>${project.basedir}/Utilities/crc_prj</workingDirectory>
+							<executable>${visualstudio.devenv}</executable>
+							<arguments>
+								<argument>crc_prj.sln</argument>
+                <!-- 
+                ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++                
+                Do NOT set the OutDir property. 
+                The project files have hard coded relative paths
+                argument>/p:OutDir=${project.build.directory}\Release\</argument
+                ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+								The projects use the SolutionDir which is only set in the IDE. 
+                By setting it here, we ensure the maven build output is the same as 
+                when building in the IDE. Note: The trailing '\' is important.
+                ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                -->                
+                <argument>/p:SolutionDir=${basedir}/</argument>
+                <!--argument>/t:ReBuild</argument-->
+                <argument>/t:Build</argument>
+								<argument>/p:Configuration=Release</argument>
+								<argument>/p:Platform=x64</argument>
+								<argument>/m</argument>
+							</arguments>
+							<successCodes>
+								<successCode>0</successCode>
+							</successCodes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>    
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.9.0</version>
+				<dependencies>
+					<dependency>
+					<groupId>org.apache.maven.doxia</groupId>
+					<artifactId>doxia-module-markdown</artifactId>
+					<version>1.9.1</version>
+						</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>3.1.1</version>
+			</plugin>
+		</plugins>
+	</build>
+</project>
+

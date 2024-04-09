@@ -1,0 +1,20 @@
+config
+{
+	app
+	{
+		user_confirmation 0
+		payload_lookuptable_file HawkeyePlatformReagentPayload.txt
+	}
+	logger
+	{
+		logfile Logger.log
+		sensitivity NORM
+		max_size_bytes 5000000
+	}
+	signed_worklogger
+	{
+		logfile WorkSigned.log
+		sensitivity NORM
+		max_size_bytes 500000
+	}
+}

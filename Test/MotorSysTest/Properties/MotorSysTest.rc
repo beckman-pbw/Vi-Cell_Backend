@@ -1,0 +1,378 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+#include "verrsrc.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "#include ""verrsrc.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#include ""res\\MotorSysTest.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""      // Standard components\r\n"
+    "#if !defined(_AFXDLL)\r\n"
+    "#include ""afxribbon.rc""   // MFC ribbon and control bar resources\r\n"
+    "#endif\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\MotorSysTest.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0,0,220,74
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About MotorSysTest"
+FONT 8,"MS Shell Dlg",0,0,0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,21,20
+    LTEXT           "MotorSysTest, Version ${parsedVersion.majorVersion},${parsedVersion.minorVersion},${parsedVersion.incrementalVersion},${timestamp}",IDC_STATIC,42,14,160,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) ${current.year} Beckman Coulter Life Sciences.",IDC_STATIC,42,26,160,8
+    LTEXT           "All rights reserved.",IDC_STATIC,42,38,114,8
+    DEFPUSHBUTTON   "OK",IDOK,160,54,50,14,WS_GROUP
+END
+
+IDD_MOTOR_SYS_TEST_DIALOG DIALOGEX 0,0,714,408
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "MotorSysTest"
+FONT 8,"MS Shell Dlg",0,0,0x1
+BEGIN
+    EDITTEXT        IDC_SCRIPT_EDIT,8,6,362,360,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_NOHIDESEL | ES_READONLY | ES_WANTRETURN | WS_VSCROLL | WS_HSCROLL
+    CTEXT           "Reagent Arm",IDC_REAGENT_ARM_LBL,408,2,48,8
+    PUSHBUTTON      "Arm\rUp",IDC_REAGENT_ARM_UP_BTN,374,12,36,20,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    PUSHBUTTON      "Arm\rDown",IDC_REAGENT_ARM_DN_BTN,414,12,36,20,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    PUSHBUTTON      "Purge\rPosition",IDC_REAGENT_ARM_PURGE_BTN,454,12,36,20,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    CHECKBOX        "Door Closed",IDC_REAGENT_DOOR_CLOSED_CHK,374,36,50,10,BS_VCENTER | WS_DISABLED
+    PUSHBUTTON      "Unlatch Door",IDC_UNLOCK_DOOR_BTN,440,36,50,14
+    CHECKBOX        "Pack Installed",IDC_REAGENT_PACK_DETECTED_CHK,374,48,56,10,BS_VCENTER | WS_DISABLED
+    CHECKBOX        "Home Sensor",IDC_REAGENT_HOME_CHK,374,60,54,10,BS_VCENTER | WS_DISABLED
+    CHECKBOX        "Limit Sensor",IDC_REAGENT_LIMIT_CHK,440,60,54,10,BS_VCENTER | WS_DISABLED
+    CTEXT           "Current Positions",IDC_CURRENT_LBL,556,2,56,8
+    RTEXT           "Theta Pos",IDC_THETA_POS_LBL,526,18,36,10
+    EDITTEXT        IDC_THETA_POS_CURRENT_DISP,564,16,40,14,ES_RIGHT | ES_READONLY
+    EDITTEXT        IDC_THETA_POS_EDIT,608,16,40,14,ES_RIGHT
+    PUSHBUTTON      "Goto Theta",IDC_THETA_GOTO_POS_BTN,652,16,56,14
+    CHECKBOX        "Home Sensor",IDC_THETA_HOME_CHK,594,34,54,10,BS_LEFTTEXT | BS_VCENTER | WS_DISABLED,WS_EX_RIGHT
+    PUSHBUTTON      "Home Theta",IDC_THETA_HOME_BTN,652,32,56,14
+    RTEXT           "Radius Pos",IDC_RADIUS_POS_LBL,526,50,36,10
+    EDITTEXT        IDC_RADIUS_POS_CURRENT_DISP,564,48,40,14,ES_RIGHT | ES_READONLY
+    EDITTEXT        IDC_RADIUS_POS_EDIT,608,48,40,14,ES_RIGHT
+    PUSHBUTTON      "Goto Radius",IDC_RADIUS_GOTO_POS_BTN,652,48,56,14
+    CHECKBOX        "Home Sensor",IDC_RADIUS_HOME_CHK,594,66,54,10,BS_LEFTTEXT | BS_VCENTER | WS_DISABLED,WS_EX_RIGHT
+    PUSHBUTTON      "Home Radius",IDC_RADIUS_HOME_BTN,652,64,56,14
+    PUSHBUTTON      "Goto R-Theta",IDC_GOTO_RTHETA_POS_BTN,652,80,56,14
+    CTEXT           "Sample Probe",IDC_SAMPLE_PROBE_LBL,408,72,48,8,SS_CENTERIMAGE
+    PUSHBUTTON      "Probe Up",IDC_PROBE_UP_BTN,374,84,56,14
+    PUSHBUTTON      "Probe Down",IDC_PROBE_DOWN_BTN,434,84,56,14
+    PUSHBUTTON      "Init Probe",IDC_PROBE_INIT_BTN,374,102,56,14
+    PUSHBUTTON      "Home Probe",IDC_PROBE_HOME_BTN,434,102,56,14
+    CHECKBOX        "Home Sensor",IDC_PROBE_HOME_CHK,494,104,54,10,BS_VCENTER | WS_DISABLED
+    RTEXT           "Probe Pos",IDC_PROBE_POS_LBL,526,86,36,10
+    EDITTEXT        IDC_PROBE_POS_CURRENT_DISP,564,84,40,14,ES_RIGHT | ES_READONLY
+    CONTROL         "Relative Move",IDC_RELATIVE_MOVE_CHK,"Button",BS_AUTOCHECKBOX | BS_VCENTER | WS_TABSTOP,652,106,56,10
+    CTEXT           "Fine Focus",IDC_FINE_FOCUS_LBL,374,120,56,8
+    PUSHBUTTON      "Up",IDC_FINE_FOCUS_UP_BTN,374,130,56,14,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    PUSHBUTTON      "Down",IDC_FINE_FOCUS_DN_BTN,374,146,56,14,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    CTEXT           "Coarse Focus",IDC_COARSE_FOCUS_LBL,434,120,56,8
+    PUSHBUTTON      "Up",IDC_COARSE_FOCUS_UP_BTN,434,130,56,14,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    PUSHBUTTON      "Down",IDC_COARSE_FOCUS_DN_BTN,434,146,56,14,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    RTEXT           "Focus Pos",IDC_FOCUS_POS_LBL,526,132,36,10
+    EDITTEXT        IDC_FOCUS_POS_CURRENT_DISP,564,130,40,14,ES_RIGHT | ES_READONLY
+    EDITTEXT        IDC_FOCUS_POS_EDIT,616,130,32,14,ES_RIGHT
+    PUSHBUTTON      "Goto Focus",IDC_FOCUS_GOTO_POS_BTN,652,130,56,14,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    CHECKBOX        "Home Sensor",IDC_FOCUS_HOME_CHK,594,148,54,10,BS_LEFTTEXT | BS_VCENTER | WS_DISABLED,WS_EX_RIGHT
+    PUSHBUTTON      "Home Focus",IDC_FOCUS_HOME_BTN,652,146,56,14,BS_MULTILINE
+    PUSHBUTTON      "Center Focus",IDC_FOCUS_GOTO_CENTER_BTN,652,162,56,14,BS_CENTER | BS_VCENTER | BS_MULTILINE
+    CONTROL         "Hunter Instrument",IDC_INST_TYPE_CHK,"Button",BS_AUTO3STATE | BS_VCENTER | WS_TABSTOP,375,169,75,10
+    CTEXT           "LED Rack 1",IDC_LED_RACK1_LBL,372,184,36,10
+    EDITTEXT        IDC_LED_RACK1_PATH_DISP,412,182,28,14,ES_CENTER | ES_READONLY
+    PUSHBUTTON      "Top",IDC_LED_RACK1_GOTO_TOP_BTN,374,198,32,14
+    PUSHBUTTON      "Set Cal",IDC_LED_RACK1_CAL_TOP_BTN,410,198,32,14
+    PUSHBUTTON      "Ctr",IDC_LED_RACK1_GOTO_CTR_BTN,374,214,32,14
+    PUSHBUTTON      "Set Cal",IDC_LED_RACK1_CAL_CTR_BTN,410,214,32,14
+    PUSHBUTTON      "Bot",IDC_LED_RACK1_GOTO_BOT_BTN,374,230,32,14
+    PUSHBUTTON      "Set Cal",IDC_LED_RACK1_CAL_BOT_BTN,410,230,32,14
+    PUSHBUTTON      "Home",IDC_LED_RACK1_HOME_BTN,374,246,32,14,BS_MULTILINE
+    CHECKBOX        "Home",IDC_RACK1_HOME_CHK,410,248,30,10,BS_VCENTER | WS_DISABLED
+    CTEXT           "LED Rack 2",IDC_LED_RACK2_LBL,448,184,36,10
+    EDITTEXT        IDC_LED_RACK2_PATH_DISP,488,182,28,14,ES_CENTER | ES_READONLY
+    PUSHBUTTON      "Top",IDC_LED_RACK2_GOTO_TOP_BTN,450,198,32,14
+    PUSHBUTTON      "Set Cal",IDC_LED_RACK2_CAL_TOP_BTN,486,198,32,14
+    PUSHBUTTON      "Ctr",IDC_LED_RACK2_GOTO_CTR_BTN,450,214,32,14
+    PUSHBUTTON      "Set Cal",IDC_LED_RACK2_CAL_CTR_BTN,486,214,32,14
+    PUSHBUTTON      "Bot",IDC_LED_RACK2_GOTO_BOT_BTN,450,230,32,14
+    PUSHBUTTON      "Set Cal",IDC_LED_RACK2_CAL_BOT_BTN,486,230,32,14
+    PUSHBUTTON      "Home",IDC_LED_RACK2_HOME_BTN,450,246,32,14,BS_MULTILINE
+    CHECKBOX        "Home",IDC_RACK2_HOME_CHK,486,248,30,10,BS_VCENTER | WS_DISABLED
+    RTEXT           "Row",IDC_ROW_LBL,526,184,36,10
+    EDITTEXT        IDC_ROW_CURRENT_DISP,564,182,40,14,ES_CENTER | ES_READONLY
+    EDITTEXT        IDC_ROW_EDIT,616,182,32,14,ES_CENTER | ES_UPPERCASE
+    PUSHBUTTON      "Goto Row/Col",IDC_ROW_COL_GOTO_BTN,652,182,56,14
+    RTEXT           "Col",IDC_COL_LBL,526,202,36,10
+    EDITTEXT        IDC_COL_CURRENT_DISP,564,198,40,14,ES_CENTER | ES_READONLY | ES_NUMBER
+    EDITTEXT        IDC_COL_EDIT,616,198,32,14,ES_CENTER
+    PUSHBUTTON      "Next Row/Col",IDC_ROW_COL_NEXT_BTN,652,198,56,14
+    RTEXT           "Tube",IDC_TUBE_LBL,526,220,36,10
+    EDITTEXT        IDC_TUBE_NUM_CURRENT_DISP,564,218,40,14,ES_CENTER | ES_READONLY | ES_NUMBER
+    EDITTEXT        IDC_TUBE_NUM_EDIT,616,218,32,14,ES_CENTER
+    PUSHBUTTON      "Goto Tube",IDC_TUBE_GOTO_BTN,652,218,56,14
+    CHECKBOX        "Tube Present",IDC_TUBE_DETECTED_CHK,564,236,54,10,BS_VCENTER | WS_DISABLED
+    PUSHBUTTON      "Next Tube",IDC_TUBE_NEXT_BTN,652,234,56,14
+    PUSHBUTTON      "Find Tube",IDC_TUBE_FIND_BTN,652,250,56,14
+    PUSHBUTTON      "Update",IDC_UPDATE_CURRENT_BTN,564,250,40,14
+    RADIOBUTTON     "Plate",IDC_RADIO_PLATE_SELECT,374,268,32,10,BS_VCENTER
+    CHECKBOX        "Init Error",IDC_PLATE_INIT_ERROR_CHK,412,268,40,10,BS_VCENTER | WS_DISABLED
+    CHECKBOX        "Plate Detected",IDC_PLATE_DETECTED_CHK,460,268,58,10,BS_VCENTER | WS_DISABLED
+    PUSHBUTTON      "Calibrate Plate",IDC_PLATE_CAL_BTN,374,282,66,14
+    PUSHBUTTON      "Eject Plate",IDC_PLATE_EJECT_BTN,374,300,66,14
+    PUSHBUTTON      "Load Plate",IDC_PLATE_LOAD_BTN,374,318,66,14
+    PUSHBUTTON      "Init Plate",IDC_PLATE_INIT_BTN,374,336,66,14
+    PUSHBUTTON      "Detect Plate",IDC_PLATE_DETECT_BTN,374,354,66,14
+    PUSHBUTTON      "Theta\r\nAdjust\r\nLeft",IDC_PLATE_THETA_ADJUST_LEFT_BTN,448,282,32,32,BS_MULTILINE
+    PUSHBUTTON      "Theta\r\nAdjust\r\nRight",IDC_PLATE_THETA_ADJUST_RIGHT_BTN,484,282,32,32,BS_MULTILINE
+    PUSHBUTTON      "Radius\r\nAdjust\rIn",IDC_PLATE_RADIUS_ADJUST_IN_BTN,448,318,32,32,BS_MULTILINE
+    PUSHBUTTON      "Radius\r\nAdjust\rOut",IDC_PLATE_RADIUS_ADJUST_OUT_BTN,484,318,32,32,BS_MULTILINE
+    EDITTEXT        IDC_PLATE_RADIUS_BACKLASH_EDIT,374,372,40,14,ES_RIGHT
+    LTEXT           "Radius Backlash",IDC_PLATE_RADIUS_BACKLASH_LBL,418,374,52,10
+    PUSHBUTTON      "Set",IDC_PLATE_RADIUS_BACKLASH_SET_BTN,484,372,32,14
+    EDITTEXT        IDC_PLATE_THETA_BACKLASH_EDIT,374,390,40,14,ES_RIGHT
+    LTEXT           "Theta Backlash",IDC_PLATE_THETA_BACKLASH_LBL,418,392,52,10
+    PUSHBUTTON      "Set",IDC_PLATE_THETA_BACKLASH_SET_BTN,484,390,32,14
+    RADIOBUTTON     "Carousel",IDC_RADIO_CAROUSEL_SELECT,554,268,40,10,BS_VCENTER
+    CHECKBOX        "Init Error",IDC_CAROUSEL_INIT_ERROR_CHK,600,268,40,10,BS_VCENTER | WS_DISABLED
+    CHECKBOX        "Carousel Found",IDC_CAROUSEL_DETECTED_CHK,648,268,62,10,BS_VCENTER | WS_DISABLED
+    PUSHBUTTON      "Calibrate Carousel",IDC_CAROUSEL_CAL_BTN,554,282,66,14
+    PUSHBUTTON      "Eject Carousel",IDC_CAROUSEL_EJECT_BTN,554,300,66,14
+    PUSHBUTTON      "Load Carousel",IDC_CAROUSEL_LOAD_BTN,554,318,66,14
+    PUSHBUTTON      "Init Carousel",IDC_CAROUSEL_INIT_BTN,554,336,66,14
+    PUSHBUTTON      "Theta\r\nAdjust\r\nLeft",IDC_CAROUSEL_THETA_ADJUST_LEFT_BTN,628,282,32,32,BS_MULTILINE
+    PUSHBUTTON      "Theta\r\nAdjust\r\nRight",IDC_CAROUSEL_THETA_ADJUST_RIGHT_BTN,664,282,32,32,BS_MULTILINE
+    PUSHBUTTON      "Radius\r\nAdjust\rIn",IDC_CAROUSEL_RADIUS_ADJUST_IN_BTN,628,318,32,32,BS_MULTILINE
+    PUSHBUTTON      "Radius\r\nAdjust\rOut",IDC_CAROUSEL_RADIUS_ADJUST_OUT_BTN,664,318,32,32,BS_MULTILINE
+    EDITTEXT        IDC_CAROUSEL_THETA_BACKLASH_EDIT,554,370,40,14,ES_RIGHT
+    LTEXT           "Theta Backlash",IDC_CAROUSEL_THETA_BACKLASH_LBL,598,372,52,10
+    PUSHBUTTON      "Set",IDC_CAROUSEL_THETA_BACKLASH_SET_BTN,664,370,32,14
+    PUSHBUTTON      "Run",IDC_RUN_SCRIPT_BTN,8,370,34,14
+    EDITTEXT        IDC_STEP_NUM_DISP,46,370,38,14,ES_RIGHT | ES_AUTOHSCROLL | ES_READONLY
+    CONTROL         "",IDC_STEP_NUM_SPIN,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,83,370,10,14
+    LTEXT           "Script line",IDC_SCRIPT_LINE_LBL,94,372,32,10,SS_CENTERIMAGE
+    RTEXT           "Errors",IDC_ERROR_CNT_LBL,204,372,20,10,SS_CENTERIMAGE
+    EDITTEXT        IDC_ERROR_CNT_DISP,228,370,28,14,ES_RIGHT | ES_READONLY
+    PUSHBUTTON      "Pause",IDC_PAUSE_SCRIPT_BTN,260,370,34,14,WS_DISABLED
+    PUSHBUTTON      "Stop",IDC_STOP_SCRIPT_BTN,298,370,34,14,WS_DISABLED
+    EDITTEXT        IDC_SCRIPT_PATH_EDIT,8,390,248,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Load",IDC_LOAD_SCRIPT_BTN,260,390,34,14
+    PUSHBUTTON      "Clear",IDC_CLEAR_SCRIPT_BTN,298,390,34,14
+    PUSHBUTTON      "Save",IDC_SAVE_SCRIPT_BTN,336,390,34,14,NOT WS_VISIBLE | WS_DISABLED
+    DEFPUSHBUTTON   "Exit",IDOK,658,390,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION ${parsedVersion.majorVersion},${parsedVersion.minorVersion},${parsedVersion.incrementalVersion},${timestamp}
+ PRODUCTVERSION ${parsedVersion.majorVersion},${parsedVersion.minorVersion},${parsedVersion.incrementalVersion},${timestamp}
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "Beckman Coulter Life Sciences"
+            VALUE "FileDescription", "MotorSysTest: motor testing utility"
+            VALUE "FileVersion", "${parsedVersion.majorVersion},${parsedVersion.minorVersion},${parsedVersion.incrementalVersion},${timestamp}"
+            VALUE "InternalName", "MotorSysTest.exe"
+            VALUE "LegalCopyright", "Copyright (C) ${current.year} Beckman Coulter Life Sciences. All rights reserved"
+            VALUE "LegalTrademarks", "Beckman Coulter, the stylized logo, and the Beckman Coulter product and service marks mentioned herein are trademarks or registered trademarks of Beckman Coulter, Inc. in the United States and other countries."
+            VALUE "OriginalFilename", "MotorSysTest.exe"
+            VALUE "ProductName", "MotorSysTest"
+            VALUE "ProductVersion", "${parsedVersion.majorVersion},${parsedVersion.minorVersion},${parsedVersion.incrementalVersion},${timestamp}"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation",0x409,1200
+    END
+END
+
+IDR_VERSION2 VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "Beckman Coulter Life Sciences"
+            VALUE "FileDescription", "MotorSysTest: motor testing utility"
+            VALUE "FileVersion", "${parsedVersion.majorVersion},${parsedVersion.minorVersion},${parsedVersion.incrementalVersion},${timestamp}"
+            VALUE "InternalName", "MotorSysTest.exe"
+            VALUE "LegalCopyright", "Copyright (C) ${current.year} Beckman Coulter Life Sciences. All rights reserved"
+            VALUE "OriginalFilename", "MotorSysTest.exe"
+            VALUE "ProductName", "MotorSysTest"
+            VALUE "ProductVersion", "${parsedVersion.majorVersion},${parsedVersion.minorVersion},${parsedVersion.incrementalVersion},${timestamp}"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation",0x409,1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 163
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 55
+    END
+
+    IDD_MOTOR_SYS_TEST_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 707
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 401
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_MOTOR_SYS_TEST_DIALOG AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_ABOUTBOX            "&About MotorSysTest..."
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#include "res\MotorSysTest.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"      // Standard components
+#if !defined(_AFXDLL)
+#include "afxribbon.rc"   // MFC ribbon and control bar resources
+#endif
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

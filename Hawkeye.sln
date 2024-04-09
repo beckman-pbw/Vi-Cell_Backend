@@ -1,0 +1,224 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ControllerBoardTest", "Test\ControllerBoardTest\ControllerBoardTest.vcxproj", "{41C639ED-172F-4C31-83AC-8D94A1C1E7E6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HawkeyeCore", "HawkeyeCore\HawkeyeCore.vcxproj", "{E044DA4F-EC8B-4B5B-BE51-D333642B3DB2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{39340E0B-E775-4E8E-B893-EAAD3280F75A} = {39340E0B-E775-4E8E-B893-EAAD3280F75A}
+		{A2C713C8-8CED-408E-94CA-6F2EDA1AD9E3} = {A2C713C8-8CED-408E-94CA-6F2EDA1AD9E3}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HawkeyeFTDIEEPROMWriter", "FT2232H EEPROM Modify\FT2232H EEPROM Modify.vcxproj", "{941EE319-6DB7-4EBF-8984-0BB1DB506EC7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HawkeyeWin_Encrypt", "HawkeyeWin_Encrypt\HawkeyeWin_Encrypt.vcxproj", "{A2F34DF7-CD6E-4BA2-A8EE-3533303FADCB}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "RFIDMemoryMapGenerator", "RFIDMemoryMapGenerator\RFIDMemoryMapGenerator.vbproj", "{4EBCE728-F384-41E0-9CAD-0A0D238AD3CB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ServiceAccountAccess", "ServiceAccountAccess\ServiceAccountAccess.vcxproj", "{30321834-F095-4200-A65A-0F5A725ADA8A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UserTest", "Test\UserTest\UserTest.vcxproj", "{9E678FEB-FA41-4E5B-A7EF-D45227458DB9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RFIDProgrammingStation", "RFIDProgrammingStation\RFIDProgrammingStation.vcxproj", "{0D1CC1B8-3487-406C-8082-2E198117BC5F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{38B32015-E233-4480-993A-BEEC4CDD9028} = {38B32015-E233-4480-993A-BEEC4CDD9028}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ServiceAPIsTest", "Test\ServiceAPIsTest\ServiceAPIsTest.vcxproj", "{668D2287-E87E-435B-BF20-A39E53730767}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E044DA4F-EC8B-4B5B-BE51-D333642B3DB2} = {E044DA4F-EC8B-4B5B-BE51-D333642B3DB2}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExportImportConfig", "Test\ExportImportConfig\ExportImportConfig.vcxproj", "{0C28F6A7-334E-4BF0-B0E8-F576DFA3FB49}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BackgroundUniformityCriteriaModel", "Test\BackgroundUniformityCriteria\BackgroundUniformityCriteriaModel\BackgroundUniformityCriteriaModel.vcxproj", "{D4D721A0-6BD5-4CA3-9B24-F98525B38404}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundUniformityCriteria", "Test\BackgroundUniformityCriteria\BackgroundUniformityCriteria\BackgroundUniformityCriteria.csproj", "{345A8E6B-9ED3-4DD1-AF3D-EF9DF42FEF19}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D4D721A0-6BD5-4CA3-9B24-F98525B38404} = {D4D721A0-6BD5-4CA3-9B24-F98525B38404}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GpioControlClr", "GpioControlClr\GpioControlClr.vcxproj", "{38B32015-E233-4480-993A-BEEC4CDD9028}"
+	ProjectSection(ProjectDependencies) = postProject
+		{486327E8-BA0A-490F-8E7E-620A00AFF954} = {486327E8-BA0A-490F-8E7E-620A00AFF954}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GpioControl", "GpioControl\GpioControl.csproj", "{486327E8-BA0A-490F-8E7E-620A00AFF954}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HawkeyeDataAccess", "HawkeyeDataAccess\HawkeyeDataAccess.vcxproj", "{39340E0B-E775-4E8E-B893-EAAD3280F75A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SysExerciser", "Test\SysExerciser\SysExerciser.vcxproj", "{6676F0EB-B5F5-4B03-A802-8D835B45424A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{39340E0B-E775-4E8E-B893-EAAD3280F75A} = {39340E0B-E775-4E8E-B893-EAAD3280F75A}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEncryptDecrypt", "Test\DataEncryptDecrypt\DataEncryptDecrypt.csproj", "{75D18768-33A0-4C4E-9A17-A155599AB570}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EncryptResultBinaries", "Test\EncryptResultBinaries\EncryptResultBinaries.vcxproj", "{882AE7B6-6E9B-4D9C-97A1-2D9B9C8D0DE1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{39340E0B-E775-4E8E-B893-EAAD3280F75A} = {39340E0B-E775-4E8E-B893-EAAD3280F75A}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test Applications", "Test Applications", "{EE82BC56-3CB0-4089-B6E6-9047577E9D65}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit Tests", "Unit Tests", "{571CFBB3-61EA-4EC0-BB7C-43A15DCBE5A8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Example-Test", "UnitTests\Example-Test\Example-Test.vcxproj", "{4C474BF4-B275-4CB6-9873-4D3D5C3E9456}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ScoutXTest", "Test\ScoutXTest\ScoutXTest.vcxproj", "{E1D65EDF-C39C-49F6-A597-46B6C7FF10BB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{39340E0B-E775-4E8E-B893-EAAD3280F75A} = {39340E0B-E775-4E8E-B893-EAAD3280F75A}
+		{E044DA4F-EC8B-4B5B-BE51-D333642B3DB2} = {E044DA4F-EC8B-4B5B-BE51-D333642B3DB2}
+		{A2C713C8-8CED-408E-94CA-6F2EDA1AD9E3} = {A2C713C8-8CED-408E-94CA-6F2EDA1AD9E3}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "crc_prj", "Utilities\crc_prj\crc_prj\crc_prj.vcxproj", "{19072EFB-4D06-46C4-98CB-43372E1E7CCB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DBif", "DBif\DBif.vcxproj", "{A2C713C8-8CED-408E-94CA-6F2EDA1AD9E3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{39340E0B-E775-4E8E-B893-EAAD3280F75A} = {39340E0B-E775-4E8E-B893-EAAD3280F75A}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{FA5613D9-3F98-4F99-8BCB-07B889607EA7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DataImporter", "Utilities\DataImporter\DataImporter.vcxproj", "{296625B5-E965-42A2-8947-B4F50C5ED032}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A2C713C8-8CED-408E-94CA-6F2EDA1AD9E3} = {A2C713C8-8CED-408E-94CA-6F2EDA1AD9E3}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0DCA26AC-BA2F-447E-99DE-CC2A64D465E5}"
+	ProjectSection(SolutionItems) = preProject
+		ApplicationSource.doxygen = ApplicationSource.doxygen
+		tools\doxygen\beckman-footer.html = tools\doxygen\beckman-footer.html
+		pom.xml = pom.xml
+		README.md = README.md
+		src\site\site.xml = src\site\site.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{59F0AC9C-7B1A-4B4B-974E-20D28C9661B2}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\API guide for Hawkeye Business Logic layer.md = Documentation\API guide for Hawkeye Business Logic layer.md
+		Documentation\ApplicationSource.markdown = Documentation\ApplicationSource.markdown
+		Documentation\DataAndConfigurationExport.md = Documentation\DataAndConfigurationExport.md
+		Documentation\Reagent_RFID_Test_Plan.md = Documentation\Reagent_RFID_Test_Plan.md
+		Documentation\SystemErrorCode_ResourceList.md = Documentation\SystemErrorCode_ResourceList.md
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TiterControllerBoardProgrammer", "TiterControllerBoardProgrammer\ControllerBoardProgrammer.vcxproj", "{7727874D-DF0B-4740-8DA7-C75CD0B49872}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{41C639ED-172F-4C31-83AC-8D94A1C1E7E6}.Debug|x64.ActiveCfg = Debug|x64
+		{41C639ED-172F-4C31-83AC-8D94A1C1E7E6}.Release|x64.ActiveCfg = Release|x64
+		{E044DA4F-EC8B-4B5B-BE51-D333642B3DB2}.Debug|x64.ActiveCfg = Debug|x64
+		{E044DA4F-EC8B-4B5B-BE51-D333642B3DB2}.Debug|x64.Build.0 = Debug|x64
+		{E044DA4F-EC8B-4B5B-BE51-D333642B3DB2}.Release|x64.ActiveCfg = Release|x64
+		{E044DA4F-EC8B-4B5B-BE51-D333642B3DB2}.Release|x64.Build.0 = Release|x64
+		{941EE319-6DB7-4EBF-8984-0BB1DB506EC7}.Debug|x64.ActiveCfg = Debug|x64
+		{941EE319-6DB7-4EBF-8984-0BB1DB506EC7}.Debug|x64.Build.0 = Debug|x64
+		{941EE319-6DB7-4EBF-8984-0BB1DB506EC7}.Release|x64.ActiveCfg = Release|x64
+		{941EE319-6DB7-4EBF-8984-0BB1DB506EC7}.Release|x64.Build.0 = Release|x64
+		{A2F34DF7-CD6E-4BA2-A8EE-3533303FADCB}.Debug|x64.ActiveCfg = Debug|x64
+		{A2F34DF7-CD6E-4BA2-A8EE-3533303FADCB}.Debug|x64.Build.0 = Debug|x64
+		{A2F34DF7-CD6E-4BA2-A8EE-3533303FADCB}.Release|x64.ActiveCfg = Release|x64
+		{A2F34DF7-CD6E-4BA2-A8EE-3533303FADCB}.Release|x64.Build.0 = Release|x64
+		{4EBCE728-F384-41E0-9CAD-0A0D238AD3CB}.Debug|x64.ActiveCfg = Debug|x64
+		{4EBCE728-F384-41E0-9CAD-0A0D238AD3CB}.Release|x64.ActiveCfg = Release|x64
+		{30321834-F095-4200-A65A-0F5A725ADA8A}.Debug|x64.ActiveCfg = Debug|x64
+		{30321834-F095-4200-A65A-0F5A725ADA8A}.Debug|x64.Build.0 = Debug|x64
+		{30321834-F095-4200-A65A-0F5A725ADA8A}.Release|x64.ActiveCfg = Release|x64
+		{30321834-F095-4200-A65A-0F5A725ADA8A}.Release|x64.Build.0 = Release|x64
+		{9E678FEB-FA41-4E5B-A7EF-D45227458DB9}.Debug|x64.ActiveCfg = Debug|x64
+		{9E678FEB-FA41-4E5B-A7EF-D45227458DB9}.Release|x64.ActiveCfg = Release|x64
+		{0D1CC1B8-3487-406C-8082-2E198117BC5F}.Debug|x64.ActiveCfg = Debug|x64
+		{0D1CC1B8-3487-406C-8082-2E198117BC5F}.Release|x64.ActiveCfg = Release|x64
+		{668D2287-E87E-435B-BF20-A39E53730767}.Debug|x64.ActiveCfg = Debug|x64
+		{668D2287-E87E-435B-BF20-A39E53730767}.Release|x64.ActiveCfg = Release|x64
+		{0C28F6A7-334E-4BF0-B0E8-F576DFA3FB49}.Debug|x64.ActiveCfg = Debug|x64
+		{0C28F6A7-334E-4BF0-B0E8-F576DFA3FB49}.Release|x64.ActiveCfg = Release|x64
+		{D4D721A0-6BD5-4CA3-9B24-F98525B38404}.Debug|x64.ActiveCfg = Debug|x64
+		{D4D721A0-6BD5-4CA3-9B24-F98525B38404}.Debug|x64.Build.0 = Debug|x64
+		{D4D721A0-6BD5-4CA3-9B24-F98525B38404}.Release|x64.ActiveCfg = Release|x64
+		{D4D721A0-6BD5-4CA3-9B24-F98525B38404}.Release|x64.Build.0 = Release|x64
+		{345A8E6B-9ED3-4DD1-AF3D-EF9DF42FEF19}.Debug|x64.ActiveCfg = Debug|x64
+		{345A8E6B-9ED3-4DD1-AF3D-EF9DF42FEF19}.Debug|x64.Build.0 = Debug|x64
+		{345A8E6B-9ED3-4DD1-AF3D-EF9DF42FEF19}.Release|x64.ActiveCfg = Release|x64
+		{345A8E6B-9ED3-4DD1-AF3D-EF9DF42FEF19}.Release|x64.Build.0 = Release|x64
+		{38B32015-E233-4480-993A-BEEC4CDD9028}.Debug|x64.ActiveCfg = Debug|x64
+		{38B32015-E233-4480-993A-BEEC4CDD9028}.Release|x64.ActiveCfg = Release|x64
+		{486327E8-BA0A-490F-8E7E-620A00AFF954}.Debug|x64.ActiveCfg = Debug|x64
+		{486327E8-BA0A-490F-8E7E-620A00AFF954}.Release|x64.ActiveCfg = Release|x64
+		{39340E0B-E775-4E8E-B893-EAAD3280F75A}.Debug|x64.ActiveCfg = Debug|x64
+		{39340E0B-E775-4E8E-B893-EAAD3280F75A}.Debug|x64.Build.0 = Debug|x64
+		{39340E0B-E775-4E8E-B893-EAAD3280F75A}.Release|x64.ActiveCfg = Release|x64
+		{39340E0B-E775-4E8E-B893-EAAD3280F75A}.Release|x64.Build.0 = Release|x64
+		{6676F0EB-B5F5-4B03-A802-8D835B45424A}.Debug|x64.ActiveCfg = Debug|x64
+		{6676F0EB-B5F5-4B03-A802-8D835B45424A}.Debug|x64.Build.0 = Debug|x64
+		{6676F0EB-B5F5-4B03-A802-8D835B45424A}.Release|x64.ActiveCfg = Release|x64
+		{6676F0EB-B5F5-4B03-A802-8D835B45424A}.Release|x64.Build.0 = Release|x64
+		{75D18768-33A0-4C4E-9A17-A155599AB570}.Debug|x64.ActiveCfg = Debug|x64
+		{75D18768-33A0-4C4E-9A17-A155599AB570}.Debug|x64.Build.0 = Debug|x64
+		{75D18768-33A0-4C4E-9A17-A155599AB570}.Release|x64.ActiveCfg = Release|x64
+		{75D18768-33A0-4C4E-9A17-A155599AB570}.Release|x64.Build.0 = Release|x64
+		{882AE7B6-6E9B-4D9C-97A1-2D9B9C8D0DE1}.Debug|x64.ActiveCfg = Debug|x64
+		{882AE7B6-6E9B-4D9C-97A1-2D9B9C8D0DE1}.Debug|x64.Build.0 = Debug|x64
+		{882AE7B6-6E9B-4D9C-97A1-2D9B9C8D0DE1}.Release|x64.ActiveCfg = Release|x64
+		{882AE7B6-6E9B-4D9C-97A1-2D9B9C8D0DE1}.Release|x64.Build.0 = Release|x64
+		{4C474BF4-B275-4CB6-9873-4D3D5C3E9456}.Debug|x64.ActiveCfg = Debug|x64
+		{4C474BF4-B275-4CB6-9873-4D3D5C3E9456}.Debug|x64.Build.0 = Debug|x64
+		{4C474BF4-B275-4CB6-9873-4D3D5C3E9456}.Release|x64.ActiveCfg = Release|x64
+		{4C474BF4-B275-4CB6-9873-4D3D5C3E9456}.Release|x64.Build.0 = Release|x64
+		{E1D65EDF-C39C-49F6-A597-46B6C7FF10BB}.Debug|x64.ActiveCfg = Debug|x64
+		{E1D65EDF-C39C-49F6-A597-46B6C7FF10BB}.Debug|x64.Build.0 = Debug|x64
+		{E1D65EDF-C39C-49F6-A597-46B6C7FF10BB}.Release|x64.ActiveCfg = Release|x64
+		{E1D65EDF-C39C-49F6-A597-46B6C7FF10BB}.Release|x64.Build.0 = Release|x64
+		{19072EFB-4D06-46C4-98CB-43372E1E7CCB}.Debug|x64.ActiveCfg = Debug|x64
+		{19072EFB-4D06-46C4-98CB-43372E1E7CCB}.Debug|x64.Build.0 = Debug|x64
+		{19072EFB-4D06-46C4-98CB-43372E1E7CCB}.Release|x64.ActiveCfg = Release|x64
+		{19072EFB-4D06-46C4-98CB-43372E1E7CCB}.Release|x64.Build.0 = Release|x64
+		{A2C713C8-8CED-408E-94CA-6F2EDA1AD9E3}.Debug|x64.ActiveCfg = Debug|x64
+		{A2C713C8-8CED-408E-94CA-6F2EDA1AD9E3}.Debug|x64.Build.0 = Debug|x64
+		{A2C713C8-8CED-408E-94CA-6F2EDA1AD9E3}.Release|x64.ActiveCfg = Release|x64
+		{A2C713C8-8CED-408E-94CA-6F2EDA1AD9E3}.Release|x64.Build.0 = Release|x64
+		{296625B5-E965-42A2-8947-B4F50C5ED032}.Debug|x64.ActiveCfg = Debug|x64
+		{296625B5-E965-42A2-8947-B4F50C5ED032}.Debug|x64.Build.0 = Debug|x64
+		{296625B5-E965-42A2-8947-B4F50C5ED032}.Release|x64.ActiveCfg = Release|x64
+		{296625B5-E965-42A2-8947-B4F50C5ED032}.Release|x64.Build.0 = Release|x64
+		{7727874D-DF0B-4740-8DA7-C75CD0B49872}.Debug|x64.ActiveCfg = Debug|x64
+		{7727874D-DF0B-4740-8DA7-C75CD0B49872}.Debug|x64.Build.0 = Debug|x64
+		{7727874D-DF0B-4740-8DA7-C75CD0B49872}.Release|x64.ActiveCfg = Release|x64
+		{7727874D-DF0B-4740-8DA7-C75CD0B49872}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{41C639ED-172F-4C31-83AC-8D94A1C1E7E6} = {EE82BC56-3CB0-4089-B6E6-9047577E9D65}
+		{941EE319-6DB7-4EBF-8984-0BB1DB506EC7} = {FA5613D9-3F98-4F99-8BCB-07B889607EA7}
+		{A2F34DF7-CD6E-4BA2-A8EE-3533303FADCB} = {FA5613D9-3F98-4F99-8BCB-07B889607EA7}
+		{4EBCE728-F384-41E0-9CAD-0A0D238AD3CB} = {FA5613D9-3F98-4F99-8BCB-07B889607EA7}
+		{30321834-F095-4200-A65A-0F5A725ADA8A} = {FA5613D9-3F98-4F99-8BCB-07B889607EA7}
+		{9E678FEB-FA41-4E5B-A7EF-D45227458DB9} = {EE82BC56-3CB0-4089-B6E6-9047577E9D65}
+		{0D1CC1B8-3487-406C-8082-2E198117BC5F} = {FA5613D9-3F98-4F99-8BCB-07B889607EA7}
+		{668D2287-E87E-435B-BF20-A39E53730767} = {EE82BC56-3CB0-4089-B6E6-9047577E9D65}
+		{0C28F6A7-334E-4BF0-B0E8-F576DFA3FB49} = {FA5613D9-3F98-4F99-8BCB-07B889607EA7}
+		{345A8E6B-9ED3-4DD1-AF3D-EF9DF42FEF19} = {EE82BC56-3CB0-4089-B6E6-9047577E9D65}
+		{6676F0EB-B5F5-4B03-A802-8D835B45424A} = {EE82BC56-3CB0-4089-B6E6-9047577E9D65}
+		{75D18768-33A0-4C4E-9A17-A155599AB570} = {FA5613D9-3F98-4F99-8BCB-07B889607EA7}
+		{882AE7B6-6E9B-4D9C-97A1-2D9B9C8D0DE1} = {EE82BC56-3CB0-4089-B6E6-9047577E9D65}
+		{4C474BF4-B275-4CB6-9873-4D3D5C3E9456} = {571CFBB3-61EA-4EC0-BB7C-43A15DCBE5A8}
+		{E1D65EDF-C39C-49F6-A597-46B6C7FF10BB} = {EE82BC56-3CB0-4089-B6E6-9047577E9D65}
+		{19072EFB-4D06-46C4-98CB-43372E1E7CCB} = {FA5613D9-3F98-4F99-8BCB-07B889607EA7}
+		{296625B5-E965-42A2-8947-B4F50C5ED032} = {FA5613D9-3F98-4F99-8BCB-07B889607EA7}
+		{59F0AC9C-7B1A-4B4B-974E-20D28C9661B2} = {0DCA26AC-BA2F-447E-99DE-CC2A64D465E5}
+		{7727874D-DF0B-4740-8DA7-C75CD0B49872} = {FA5613D9-3F98-4F99-8BCB-07B889607EA7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A73DA5D3-CAEA-407D-AEDB-0FBAD118CAD0}
+	EndGlobalSection
+EndGlobal

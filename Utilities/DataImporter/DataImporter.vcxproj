@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{296625B5-E965-42A2-8947-B4F50C5ED032}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>DataImporter</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>DataImporter</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)target\$(Configuration)\</OutDir>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)target\$(Configuration)\</OutDir>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>DATAIMPORTER;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);WIN32_LEAN_AND_MEAN</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)\target\dependencies\opencv\include;$(SolutionDir)\target\dependencies\include;$(SolutionDir)\target\dependencies\crypto;$(SolutionDir)target\dependencies\boost;$(SolutionDir)HawkeyeCore\DLLLayer;$(SolutionDir)HawkeyeCore\DLLLayer\ImageProcessing;$(SolutionDir)HawkeyeCore\DLLLayer\Workflow;$(SolutionDir)HawkeyeCore\API;$(SolutionDir)HawkeyeCore\APIImplementation;$(SolutionDir)HawkeyeCore\APIImplementation\Utilities;$(SolutionDir)HawkeyeCore;$(SolutionDir)\target\dependencies\basler\\include;$(solutionDir)HawkeyeCore\HardwareLayer;$(SolutionDir)HawkeyeCore\Core;$(SolutionDir)HawkeyeDataAccess;$(SolutionDir)HawkeyeCore\ResultsData;$(SolutionDir)HawkeyeCore\DLLLayer\Workflow\Helper;$(SolutionDir)DBif;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4251; 4065; 4996</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>cryptlib.lib;CellCounting_x64.lib;DBif.lib;HawkeyeDataAccess.lib;version.lib;opencv_core249d.lib;opencv_highgui249d.lib;opencv_imgproc249d.lib;opencv_video249d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <!--
+      <AdditionalLibraryDirectories>.;$(SolutionDir)target\dependencies\crypto\x64\Output\$(Configuration);$(SolutionDir)target\dependencies\boost\stage\lib;$(SolutionDir)target\dependencies\opencv\lib;$(SolutionDir)target\Debug;$(SolutionDIr)target\dependencies\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+-->
+      <AdditionalLibraryDirectories>.\;$(SolutionDir)target\dependencies\lib;$(SolutionDir)target\dependencies\crypto\x64\Output\$(Configuration);$(SolutionDir)target\dependencies\boost\stage\lib;$(SolutionDir)target\dependencies\opencv\lib;$(SolutionDir)target\dependencies\basler\lib\x64;$(SolutionDir)target\dependencies\ftdi\amd64;$(SolutionDir)target\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>if not exist \Instrument\Software\ goto build_success
+
+if not exist "$(Outdir)$(TargetName)$(TargetExt)" goto  goto no_tgt
+copy /Y "$(Outdir)$(TargetName)$(TargetExt)" \Instrument\Software
+
+:check_pdb
+if not exist "$(Outdir)$(TargetName).pdb" goto  goto no_pdb
+copy /Y "$(Outdir)$(TargetName).pdb" \Instrument\Software
+
+:build_success
+echo BUILD SUCCESS!
+goto done_xit
+
+:no_tgt
+echo BUILD ERROR: output file "$(Outdir)$(TargetName)$(TargetExt)" not found!
+goto done_xit
+
+:no_tgt_pdb
+echo BUILD ERROR: output pdb file "$(Outdir)$(TargetName).pdb" not found!
+
+:done_xit
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>DATAIMPORTER;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);WIN32_LEAN_AND_MEAN</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\target\dependencies\opencv\include;$(SolutionDir)\target\dependencies\include;$(SolutionDir)\target\dependencies\crypto;$(SolutionDir)target\dependencies\boost;$(SolutionDir)HawkeyeCore\DLLLayer;$(SolutionDir)HawkeyeCore\DLLLayer\ImageProcessing;$(SolutionDir)HawkeyeCore\DLLLayer\Workflow;$(SolutionDir)HawkeyeCore\API;$(SolutionDir)HawkeyeCore\APIImplementation;$(SolutionDir)HawkeyeCore\APIImplementation\Utilities;$(SolutionDir)HawkeyeCore;$(SolutionDir)\target\dependencies\basler\\include;$(solutionDir)HawkeyeCore\HardwareLayer;$(SolutionDir)HawkeyeCore\Core;$(SolutionDir)HawkeyeDataAccess;$(SolutionDir)HawkeyeCore\ResultsData;$(SolutionDir)HawkeyeCore\DLLLayer\Workflow\Helper;$(SolutionDir)DBif;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4251; 4065; 4996</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>.;$(SolutionDir)HawkeyeCore\x64\$(Configuration);$(SolutionDir)target\dependencies\boost\stage\lib;$(SolutionDir)target\dependencies\opencv\lib;$(SolutionDir)target\dependencies\basler\\lib\x64;$(SolutionDir)target\dependencies\ftdi\\amd64;$(SolutionDIr)\target\dependencies\lib;$(SolutionDir)target\dependencies\crypto\x64\Output\$(Configuration);$(SolutionDir)target\$(Configuration);$(SolutionDir)target\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cryptlib.lib;CellCounting_x64.lib;DBif.lib;HawkeyeDataAccess.lib;version.lib;opencv_core249.lib;opencv_highgui249.lib;opencv_imgproc249.lib;opencv_video249.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>if not exist \Instrument\Software\ goto build_success
+
+if not exist "$(Outdir)$(TargetName)$(TargetExt)" goto  goto no_tgt
+copy /Y "$(Outdir)$(TargetName)$(TargetExt)" \Instrument\Software
+
+:build_success
+echo BUILD SUCCESS!
+goto done_xit
+
+:no_tgt
+echo BUILD ERROR: output dll file "$(Outdir)$(TargetName)$(TargetExt)" not found!
+goto done_xit
+
+:done_xit</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\HawkeyeCore\APIImplementation\HawkeyeError.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\AppConfig.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\ChronoUtilities.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\CommandParser.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\Configuration.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\DLLVersion.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\ExpandedUser.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\FileSystemUtilities.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\HawkeyeDirectory.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\HawkeyeThread.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\HawkeyeThreadPool.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\HawkeyeUser.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\Logger.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\LoggerDB.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\SecurityHelpers.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\UserList.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\Core\uuid__t.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\ActiveDirectoryDLL.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\AnalysisDefinitionDLL.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\AnalysisDefinitionsDLL.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\AuditEventType.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\AuditLog.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\CalibrationHistoryDLL.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\CellTypeDLL.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\CellTypesDLL.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\HawkeyeConfig.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\ImageAnalysisParameters.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\ImageProcessing\ImageAnalysisUtilities.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\ImportExportConfiguration.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\InstrumentConfig.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\QualityControlDLL.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\QualityControlsDLL.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\ReagentPack.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\SignaturesDLL.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\SResultBinStorage.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\SResultData.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\ResultsData\AnalysisImagePersistHelper.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\ResultsData\HawkeyeResultsDataManager.cpp" />
+    <ClCompile Include="..\..\HawkeyeCore\ResultsData\PtreeConversionHelper.cpp" />
+    <ClCompile Include="DataImporter.cpp" />
+    <ClCompile Include="DataIntegrityChecks.cpp" />
+    <ClCompile Include="ImportConfiguration.cpp" />
+    <ClCompile Include="ImportData.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Stubs.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DataImporter.hpp" />
+    <ClInclude Include="DataIntegrityChecks.hpp" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,11 @@
+config
+{
+    logger
+    {
+        logfile MyLog.txt
+        logpath ./logs/
+        sensitivity NORM
+        max_size_bytes 5000000
+        max_log_rolls 50
+    }
+}

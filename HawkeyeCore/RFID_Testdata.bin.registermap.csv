@@ -1,0 +1,41 @@
+﻿,(0) Pack Part Number,ASCII "BCI001"
+,(1) Pack Expiration,UINT32 - Expiration date of the pack as days since 1970-01-01 per MFG data
+,(2) Service Life,UINT16 - 100
+,(3) In Service Date,UINT32 - 0
+,(4) Pack Lot Number,UINT32 - Lot Number per MFG data
+,(5) Number of Cleaners,UINT8 - 3
+,(6) Fluid Index,UINT16 - 1
+,(7) Total Uses,UINT16 - 100
+,(8) Remaining Uses,UINT16 - 100
+,(9) Fluid Part Number,ASCII "BCI101"
+,(10) Fluid Index,UINT16 - 2
+,(11) Total Uses,UINT16 - 102
+,(12) Remaining Uses,UINT16 - 102
+,(13) Fluid Part Number,ASCII "BCI102"
+,(14) Fluid Index,UINT16 - 3
+,(15) Total Uses,UINT16 - 103
+,(16) Remaining Uses,UINT16 - 103
+,(17) Fluid Part Number,ASCII "BCI103"
+,(18) Has Reagent,UINT8 - 1
+,(19) Fluid Index,UINT16 - 1
+,(20) Fluid Description,ASCII "Trypan Blue"
+,(21) Mixing Cycles,UINT8 - 3
+,(22) Total Uses,UINT16 - 42
+,(23) Remaining Uses,UINT16 - 42
+,(24) Fluid Part Number,ASCII "BCI400"
+,(25) Number of Analyses,UINT8 - 1
+,(26) Analysis Index,UINT16 - 1
+,(27) Analysis Description,ASCII "Analysis #1"
+,(28) Number of Analysis Reagents,UINT8 - 1
+,(29) Analysis Reagent Index,UINT16 - 1
+,(30) Number of Analysis Illuminators,UINT8 - 0
+,(31) Parameter Key,UINT16 - 65535
+,(32) Number of Analysis Parameters,UINT8 - 2
+,(33) Parameter Key,UINT16 - 1
+,(34) Parameter Subkey,UINT16 - 1
+,(35) Parameter Threshold,FLOAT32 - 1
+,(36) Parameter Polarity,UINT8 - True
+,(37) Parameter Key,UINT16 - 2
+,(38) Parameter Subkey,UINT16 - 2
+,(39) Parameter Threshold,FLOAT32 - 2
+,(40) Parameter Polarity,UINT8 - True

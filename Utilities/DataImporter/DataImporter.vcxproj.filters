@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\AnalysisDefinitionDLL.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\AnalysisDefinitionsDLL.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\AppConfig.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\CellTypeDLL.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\ChronoUtilities.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\CommandParser.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\Configuration.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="DataImporter.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\HawkeyeConfig.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\HawkeyeDirectory.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\APIImplementation\HawkeyeError.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\HawkeyeUser.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\Logger.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\SecurityHelpers.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\SResultData.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\uuid__t.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\ResultsData\HawkeyeResultsDataManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\FileSystemUtilities.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\ImageProcessing\ImageAnalysisUtilities.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\SResultBinStorage.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\CellTypesDLL.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\UserList.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\InstrumentConfig.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\ResultsData\AnalysisImagePersistHelper.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Stubs.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\AuditLog.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\HawkeyeThread.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\HawkeyeThreadPool.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\ActiveDirectoryDLL.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\SignaturesDLL.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\QualityControlsDLL.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ImportData.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ImportConfiguration.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\ImageAnalysisParameters.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\CalibrationHistoryDLL.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\ResultsData\PtreeConversionHelper.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\DLLVersion.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\ImportExportConfiguration.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\ExpandedUser.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\Core\LoggerDB.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\ReagentPack.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\AuditEventType.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="DataIntegrityChecks.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HawkeyeCore\DLLLayer\QualityControlDLL.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DataImporter.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="DataIntegrityChecks.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{1b1057a1-293b-47ce-83f5-463c4415afb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{b479c62d-963d-49f5-8e39-a48cc193ee4f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

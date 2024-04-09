@@ -1,0 +1,88 @@
+!****************************************************************************************
+! Version CHMDev008
+! Mixes Sample with TrypaBlue and diluent and loads it to the flow cell
+! Nominal smaple volume 43uL
+!****************************************************************************************
+
+!-----Re-Suspension and Sample Dosing-----
+
+!--- Buffer prime step
+
+! SampleStatus: aspirating
+SC, 1	
+					  
+! Move to Buffer (Port 7), CCW
+S, V, 7, 1
+
+! Aspirate 150uL at 600uL/s
+S, M, 150, 600
+
+! Move to Waste (port 1), CW
+S, V, 1, 0
+
+! Empty syringe.
+S, M, 0, 600
+
+!-----Introduce Trypan Blue-----  
+
+! SampleStatus: mixing ---- 
+! SC, 2
+
+! Move to TrypanBlue (port 4), CW
+S, V, 4, 0
+
+! Aspirate 150ul of Trypan Blue at 300uL/s
+S, M, 150, 300
+
+!-----Introduce Diluent -----
+
+!Move to Diluent (Port 8), CCW 
+S, V, 8, 1
+
+! Aspirate 129ul of Diluent
+S, M, 279, 300
+
+! Move to ACup (port 2), CW   
+S, V, 2, 0
+
+! SampleStatus: mixing ----Mix Sample, Diluent and Trypan Blue
+SC, 2
+
+! Set flow rate to 200uL/s (jet can occur at high speed) and empty Trypan Blue + diluent to ACup
+! Set flow rate to 300uL/s and aspirate to 600uL (aspirate more than sample volume to insure proper mixing in syringe - volume was previously 420uL, increased to 600uL to address occasional occurances of Trypan and sample remaining separated by air gap in the ACup)
+! Combined commands to save time  (Vx sets flow rate to x/6 uL/s, Ax sets volume to x/24 uL)
+S, VC, V1200A0V1800A14400
+
+!Empty syringe to 80uL. *** Dispense to 80uL and not 0uL to avoid killing cells
+S, M, 80, 200
+
+! Repeat Mixing Cycle twice
+REPEAT, 1, 2
+
+! Set flow rate to 300uL/s aspirate to 250uL
+! Set flow rate to 200uL/s (jet can occur at high speed) and empty to 80uL
+! Combined commands to save time  (Vx sets flow rate to x/6 uL/s, Ax sets volume to x/24 uL)
+S, VC, V1800A6000V1200A1920
+
+!---- end of mix cycles ----
+
+! Aspirate 300ul at 100uL/s - 100ul/s is a compromise between speed and residual fluid left in tubing
+! fluid wetting the tubing may be less concentrated in cells
+S, M, 300, 100
+
+!-----Sample Interrogation-----
+
+! SampleStatus: image acquisition
+SC, 3
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Dispense to 225 uL 
+S, M, 225, 600
+
+! Move to FlowCell (port 3), CW
+S, V, 3, 0
+
+! Boost to 59 uL @ 25uL/s. 
+S, M, 59, 25

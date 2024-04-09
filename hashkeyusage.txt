@@ -1,0 +1,16 @@
+The output of the generator produces an xml file containing the filename tested and the hask key attributes for that file.
+The utility can remove the path to the target file from the information included in the xml file.  That is the condition used
+currently, so that the target file may be checked regardless of the location by moving to the target file location.
+
+See the FcivReadMe.txt file for supported modes and options.
+
+Here are the usage conditions currently employed for the key generator:
+
+create:
+fciv.exe -add <path-to-target-file>\<target-file-name> -wp -both -xml <path-to-target-file>\hash.xml
+: after generating the has keys, list them from the key file...
+fciv.exe -list -both -xml <path-to-target-file>\hash.xml > <path-to-target-file>\hash.txt
+
+verify: this command structure assumes the file name is read from the xml file containing the has key information:
+fciv.exe -v -both -xml <path-to-target-file>\hash.xml
+

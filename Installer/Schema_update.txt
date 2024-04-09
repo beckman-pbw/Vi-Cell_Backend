@@ -1,0 +1,36 @@
+This update process assumes that the installation target has already had the PostgreSQL application,
+ODBC driver, and any other system components required by the database installed.  This would include
+installation of an earlier version of the database with its earlier version of the schema.  This
+updater WILL NOT install the complete database schema!
+
+If the changes to be applied to the schema contain incompatibilities in data type conversions (e.g. float to integer)
+the schema MUST be recreated fully and any contained data erased.  Full schema installation is handled by the full
+database schema installer batch process, contained in a separate installer batch script.  That script is 
+available through the <backend-repository-root>\Installer folder and will bnot be detailed here.
+
+
+update scenario: PostgreSQL already installed, and an instrument database containing data which needs
+		 to be preserved is already installed but obsolete;
+
+	1) Copy the 'SchemaUpdater.bat' file from the HawkeyteApplicationSource\Installer repository folder
+	   to a known location on the target system for later execution.
+	2) Copy the 'AlterSchema.sql' file from the HawkeyteApplicationSource\Installer repository folder
+	   to the same location on the target system as the updater script.
+	3) Open an administrative command prompt and change to the location of the updater batch and sql files.
+	4) Run the 'SchemaUpdater.bat' file.  It is configured to check for the presence of an existing
+	   instrument database and configure usernames and passwords appropriately. Under some circumstances
+	   it MAY prompt for the username to be used (BCIViCellAdmin is recommended), and once entered will
+	   prompt for the password for that user when required.
+	   
+			- ALTERNATIVELY, the copy of the updater script can be modified to replace the PGUSER and PGPASSWORD
+			  environment variable 'set' statements with the name and password to be used during the database
+			  schema creation (again, this should be BCIViCellAdmin).
+
+			- NEVER modify the SchemaUpdater.bat file in the repository folder if making custom mods for your
+			  particular installation scenario.  Make a working copy of the file in a different working folder!
+
+	The AlterSchema.sql script run by the SchemaUpdater.bat script adds those elements to the schema which were
+	not present in the last released database schema.  If the updater has been previously applied, error may be
+	noted during sql script processing relating to the elements previously updated in the schema.  While these
+	errors should be noted and examined, it is highly likely that they are not significant.
+

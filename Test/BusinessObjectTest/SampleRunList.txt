@@ -1,0 +1,483 @@
+!D, /DEV/Hawkeye/ApplicationSource/Test/BusinessObjectTest/
+
+!D, ./dirtest
+
+!I
+
+!L, 50
+
+!E, 50
+
+!G, 3
+
+!C, 0, 0, 5
+
+!X
+
+
+
+!Z, 1
+
+!G, -1
+
+!C, 0, 0, 5
+
+!G, -2.222
+
+!X
+
+
+U, IncludeScriptTest.txt
+
+
+T, H
+
+!T, C
+
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+P, 1
+T, Z, 0
+
+X
+
+T, Z, 0
+
+T, Z, 0
+
+T, Z, 0
+
+!T, Z, 0
+
+!T, Z, 0
+
+!T, Z, 0
+
+!T, Z, 0
+
+!T, Z, 24
+
+!T, Z, 0
+
+!T, Z, 0
+
+X
+
+
+
+G, 3
+
+E, 50
+
+L, 20
+
+! Aspirate 250ul.
+S, 250, 300
+
+! Dispense 200uL, leaving 50ul.
+S, 50, 15
+
+! params: 1: empty syringe, 2: syringe rate, 3: # images to take
+C, 0, 5, 50
+
+V, 1, 1
+
+S, 0, 200
+
+X
+
+
+
+S, 1000, 600
+
+S, 500, 600
+
+S, 1000, 600
+
+S, 0, 5
+
+
+X
+
+
+! Move to TrypanBlue (port 4), CW
+!V, 4, 0
+
+! Aspirate 200ul.
+S, 200, 300
+
+! Move to SampleProbe (port 2), CW
+V, 2, 0
+
+! Empty syringe.
+S, 0, 300
+
+! Aspirate 300ul.
+S, 300, 300
+
+! Empty syringe.
+S, 0, 300
+
+! Aspirate 300ul.
+S, 300, 300
+
+! Empty syringe.
+S, 0, 300
+
+! Aspirate 250ul.
+S, 250, 300
+
+! Move to FlowCell (port 3), CW
+V, 3, 0
+
+! Dispense 200uL, leaving 50ul.
+S, 50, 15
+
+
+! params: 1: empty syringe, 2: syringe rate, 3: # images to take
+C, 0, 5, 50
+
+X
+
+
+! Move to port 1, CCW
+V, 1, 1
+
+! Empty syringe.
+S, 0, 200
+
+! Move to port 3, CCW
+V, 3, 1
+
+! Aspirate 300uL.
+S, 300, 50
+
+! Move to port 1, CCW
+V, 1, 1
+
+! Empty syringe.
+S, 0, 400
+
+! Move to port 5, CW
+V, 5, 0
+
+! Aspirate 1000ul.
+S, 1000, 600
+
+! Move to port 2, CCW
+V, 2, 1
+
+! Empty syringe.
+S, 0, 300
+
+! Aspirate 1000ul.
+S, 1000, 600
+
+! Move to port 3, CW
+V, 3, 0
+
+! Empty syringe.
+S, 0, 200
+
+! Move to port 6, CW
+V, 6, 0
+
+! Aspirate 1000ul.
+S, 1000, 600
+
+! Move to port 2, CCW
+V, 2, 1
+
+! Empty syringe.
+S, 0, 300
+
+! Aspirate 1000ul.
+S, 1000, 600
+
+! Move to port 3, CW
+V, 3, 0
+
+! Empty syringe.
+S, 0, 50
+
+! Move to port 7, CW
+V, 7, 0
+
+! Aspirate 1000ul.
+S, 1000, 600
+
+! Move to port 2, CCW
+V, 2, 1
+
+! Empty syringe.
+S, 0, 300
+
+! Aspirate 1000ul.
+S, 1000, 600
+
+! Move to port 3, CW
+V, 3, 0
+
+! Empty syringe.
+S, 0, 200
+
+! Move to port 2, CCW
+V, 2, 1
+
+! Aspirate 1000ul.
+S, 1000, 600
+
+! Move to port 3, CW
+V, 3, 0
+
+! Empty syringe.
+S, 0, 300
+
+
+
+X
+
+
+
+
+
+
+
+
+
+
+
+! For debugging...
+! Aspirate 1000ul.
+!S, 1000, 600
+
+! Empty syringe.
+!S, 0, 600
+
+!X
+
+G, 0
+
+E, 50
+
+L, 20
+
+! params: 1: empty syringe, 2: syringe rate, 3: # images to take
+!C, 0, 300, 20
+
+! For debugging...
+! Aspirate 1000ul.
+!S, 1000, 600
+
+! Empty syringe.
+!S, 0, 600
+
+! params: 1: empty syringe, 2: syringe rate, 3: # images to take
+C, 0, 0, 0
+
+X
+
+
+
+
+
+! Move to port 1, CCW
+V, 1, 1
+
+! Empty syringe.
+S, 0, 200
+
+! Move to port 2, CW
+V, 2, 0
+
+! Aspirate 1000ul.
+S, 1000, 300
+
+! Empty syringe.
+S, 0, 100
+
+! Aspirate 1000ul.
+S, 1000, 300
+
+! Empty syringe.
+S, 0, 100
+
+! Aspirate 1000ul.
+S, 1000, 300
+
+! Move to port 1, CCW
+V, 1, 1
+
+! Dispense syringe to 125uL.
+S, 125, 400
+
+! Move to port 4, CW
+V, 4, 0
+
+! Aspirate additional 125uL.
+S, 250, 400
+
+! Move to port 2, CCW
+V, 2, 1
+
+! Empty syringe.
+S, 0, 200
+
+! Aspirate 250uL.
+S, 250, 200
+
+! Empty syringe.
+S, 0, 200
+
+! Aspirate 250uL slowly.
+S, 250, 50
+
+! Move to port 3, CW
+V, 3, 0
+
+! Dispense 200uL.
+S, 50, 15
+
+! Push to flow cell syringe.
+!S, 0, 5
+
+! Take 20 images.
+! params: 1: empty syringe, 2: syringe rate, 3: # images to take
+C, 0, 5, 20
+
+! Move to port 1, CCW
+V, 1, 1
+
+! Empty syringe.
+S, 0, 200
+
+! Move to port 3, CCW
+V, 3, 1
+
+! Aspirate 300uL.
+S, 300, 50
+
+! Move to port 1, CCW
+V, 1, 1
+
+! Empty syringe.
+S, 0, 400
+
+! Move to port 5, CW
+V, 5, 0
+
+! Aspirate 1000ul.
+S, 1000, 600
+
+! Move to port 2, CCW
+V, 2, 1
+
+! Empty syringe.
+S, 0, 300
+
+! Aspirate 1000ul.
+S, 1000, 600
+
+! Move to port 3, CW
+V, 3, 0
+
+! Empty syringe.
+S, 0, 200
+
+! Move to port 6, CW
+V, 6, 0
+
+! Aspirate 1000ul.
+S, 1000, 600
+
+! Move to port 2, CCW
+V, 2, 1
+
+! Empty syringe.
+S, 0, 300
+
+! Aspirate 1000ul.
+S, 1000, 600
+
+! Move to port 3, CW
+V, 3, 0
+
+! Empty syringe.
+S, 0, 50
+
+! Move to port 7, CW
+V, 7, 0
+
+! Aspirate 1000ul.
+S, 1000, 600
+
+! Move to port 2, CCW
+V, 2, 1
+
+! Empty syringe.
+S, 0, 300
+
+! Aspirate 1000ul.
+S, 1000, 600
+
+! Move to port 3, CW
+V, 3, 0
+
+! Empty syringe.
+S, 0, 200
+
+! Move to port 2, CCW
+V, 2, 1
+
+! Aspirate 1000ul.
+S, 1000, 600
+
+! Move to port 3, CW
+V, 3, 0
+
+! Empty syringe.
+S, 0, 300

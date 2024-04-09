@@ -1,0 +1,5 @@
+# Generated build properties file, see wiki:Admin20Spec
+version:${project.version}
+groupId:${project.groupId}
+artifactId:${project.artifactId}
+build-filename:${project.build.finalName}

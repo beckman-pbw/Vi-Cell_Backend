@@ -1,0 +1,14 @@
+D, ./focusanalysis
+
+!I
+
+L, 1, P, 30
+
+C, E, 30
+
+C, G, 3
+
+F, H
+F, RA
+
+X

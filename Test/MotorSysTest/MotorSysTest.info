@@ -1,0 +1,11 @@
+config
+{
+    logger
+    {
+        logfile MotorSysTest.log
+        sensitivity DBG1
+        max_size_bytes 50000000
+    }
+	EditMode 0
+	ShowInitErrors 0
+}
