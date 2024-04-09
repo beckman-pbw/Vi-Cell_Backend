@@ -242,11 +242,8 @@ goto done_xit
       </Command>
     </PreBuildEvent>
     <PreLinkEvent>
-      <Command>copy /Y "$(SolutionDir)target\dependencies\ActiveDirectoryGroups\activeDirectoryGroups.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)BuildInput\activeDirectoryGroups.lib" "$(OutDir)"
-
-:build_lib_done
-echo BUILD AD LIB DONE!</Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
