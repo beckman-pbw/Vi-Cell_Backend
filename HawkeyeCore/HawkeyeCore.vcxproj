@@ -158,11 +158,8 @@ goto done_xit
       </Command>
     </PreBuildEvent>
     <PreLinkEvent>
-      <Command>copy /Y "$(SolutionDir)target\dependencies\ActiveDirectoryGroups\activeDirectoryGroups.dll" "$(OutDir)"
-rem copy /Y "$(SolutionDir)BuildInput\activeDirectoryGroups.lib" "$(OutDir)"
-
-:build_lib_done
-echo BUILD AD LIB DONE!</Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
