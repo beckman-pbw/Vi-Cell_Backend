@@ -1,19 +1,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<name>Shepherd Viability Science Module Backend</name>
+	<name>Vi-Cell Backend</name>
 	<description>Build and deploy</description>
 
-	<groupId>com.beckman.particle.shepherd.viability</groupId>
+	<groupId>com.beckman.particle.vi-cell</groupId>
 	<artifactId>backend</artifactId>
-	<version>1.1.64-SNAPSHOT</version>
 	
-
+	<version>0.0.1-SNAPSHOT</version>
+	
 	<packaging>pom</packaging>
 	<modelVersion>4.0.0</modelVersion>
 
 	<scm>
-		<connection>scm:git:git@github.com:BeclsParticle/sciencemodule_ApplicationSource.git</connection>
-		<developerConnection>scm:git:git@github.com:BeclsParticle/sciencemodule_ApplicationSource.git</developerConnection>
-		<url>https://github.com/BeclsParticle/sciencemodule_ApplicationSource.git</url>				
+		<connection>scm:git:git@github.com/beckman-pbw/Vi-Cell_Backend.git</connection>
+		<developerConnection>scm:git:github.com/beckman-pbw/Vi-Cell_Backend.git</developerConnection>
+		<url>https://github.com/beckman-pbw/Vi-Cell_Backend.git</url>				
 	</scm>
 
 	<distributionManagement>
@@ -63,7 +63,7 @@
     <!-- *****            com.beckman              **********************-->
     <!-- ****************************************************************-->
     <dependency>
-	<groupId>com.beckman.particle.hawkeye</groupId>
+	<groupId>com.beckman.particle.vi-cell</groupId>
 	<artifactId>algorithm</artifactId>
 	<version>4.3.8</version>
 	<classifier>installer</classifier>
@@ -216,7 +216,7 @@
 							<fromDir>${project.reporting.outputDirectory}/doxygen/html</fromDir>
 							<includes>*</includes>
 							<url>s3://beckman-build-artifacts/docs/</url>
-							<toDir>com.beckman.particle.shepherd.viability/backend/Current/html</toDir>
+							<toDir>com.beckman.particle.vi-cell/backend/Current/html</toDir>
 						</configuration>
 					</execution>
 					<execution>
@@ -227,7 +227,7 @@
 						</goals>
 						<configuration>
 							<fromFile>${project.outputDirectory}/doxygen/ApplicationSource.tag</fromFile>
-							<url>s3://beckman-build-artifacts/docs/com.beckman.particle.shepherd.viability/backend/Current/tagfiles</url>
+							<url>s3://beckman-build-artifacts/docs/com.beckman.particle.vi-cell/backend/Current/tagfiles</url>
 						</configuration>
 					</execution>
 				</executions>
@@ -589,19 +589,6 @@
 							<outputDirectory>target/</outputDirectory>
 							<descriptors>
 								<value>src/main/assembly/installer-assembly.xml</value>
-							</descriptors>
-						</configuration>
-						<goals>
-							<goal>attached</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>deploy-titerprogrammer</id>
-						<phase>package</phase>
-						<configuration>
-							<outputDirectory>target/</outputDirectory>
-							<descriptors>
-								<value>src/main/assembly/titerprogrammer-assembly.xml</value>
 							</descriptors>
 						</configuration>
 						<goals>
