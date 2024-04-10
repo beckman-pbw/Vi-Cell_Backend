@@ -158,7 +158,7 @@ goto done_xit
       </Command>
     </PreBuildEvent>
     <PreLinkEvent>
-      <Command>
+<Command>copy /Y "$(SolutionDir)BuildInput\activeDirectoryGroups.lib" "$(OutDir)"
       </Command>
     </PreLinkEvent>
   </ItemDefinitionGroup>
