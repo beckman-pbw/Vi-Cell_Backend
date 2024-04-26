@@ -103,6 +103,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		Documentation\SystemErrorCode_ResourceList.md = Documentation\SystemErrorCode_ResourceList.md
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TiterControllerBoardProgrammer", "TiterControllerBoardProgrammer\ControllerBoardProgrammer.vcxproj", "{7727874D-DF0B-4740-8DA7-C75CD0B49872}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -181,6 +183,10 @@ Global
 		{296625B5-E965-42A2-8947-B4F50C5ED032}.Debug|x64.Build.0 = Debug|x64
 		{296625B5-E965-42A2-8947-B4F50C5ED032}.Release|x64.ActiveCfg = Release|x64
 		{296625B5-E965-42A2-8947-B4F50C5ED032}.Release|x64.Build.0 = Release|x64
+		{7727874D-DF0B-4740-8DA7-C75CD0B49872}.Debug|x64.ActiveCfg = Debug|x64
+		{7727874D-DF0B-4740-8DA7-C75CD0B49872}.Debug|x64.Build.0 = Debug|x64
+		{7727874D-DF0B-4740-8DA7-C75CD0B49872}.Release|x64.ActiveCfg = Release|x64
+		{7727874D-DF0B-4740-8DA7-C75CD0B49872}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -203,6 +209,7 @@ Global
 		{19072EFB-4D06-46C4-98CB-43372E1E7CCB} = {FA5613D9-3F98-4F99-8BCB-07B889607EA7}
 		{296625B5-E965-42A2-8947-B4F50C5ED032} = {FA5613D9-3F98-4F99-8BCB-07B889607EA7}
 		{59F0AC9C-7B1A-4B4B-974E-20D28C9661B2} = {0DCA26AC-BA2F-447E-99DE-CC2A64D465E5}
+		{7727874D-DF0B-4740-8DA7-C75CD0B49872} = {FA5613D9-3F98-4F99-8BCB-07B889607EA7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A73DA5D3-CAEA-407D-AEDB-0FBAD118CAD0}
