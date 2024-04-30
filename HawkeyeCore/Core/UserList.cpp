@@ -142,9 +142,10 @@ HawkeyeError UserList::Initialize (bool isImporting)
 			startidnum);
 	}
 
+	bool automationUserInDB = false;
 	bool serviceUserInDB = false;
 	bool silentAdminInDB = false;
-	bool automationUserInDB = false;
+	bool tempAdminInDB = false;
 
 	eSECURITYTYPE secType = GetSystemSecurityType();
 	if (isImporting)
@@ -175,34 +176,40 @@ HawkeyeError UserList::Initialize (bool isImporting)
 
 		EU.FromDbStyle (dbUser);
 
-		if (EU.userCore.UserName() == SILENTADMIN_USER)
+		if ( BuiltInAccount( EU.userCore.UserName() ) )
 		{
 			userList.push_back (EU);
 
 			std::list<ExpandedUser>::iterator lastIter = userList.end();
-			silentAdministrator = --lastIter;
-			silentAdminInDB = true;
-		}
-		else if (EU.userCore.UserName() == SERVICE_USER)
-		{
-			// Service user password is arbitrary; it needs to be checked against a programatically generated HMAC key.
-			// The password is valid for one calendar year.
-			userList.push_back (EU);
 
-			std::list<ExpandedUser>::iterator lastIter = userList.end();
-			serviceUser = --lastIter;
-			serviceUserInDB = true;
-		}
-		else if (HawkeyeConfig::Instance().get().instrumentType == HawkeyeConfig::CellHealth_ScienceModule &&
-			EU.userCore.UserName() == AUTOMATION_USER)
-		{
-			// Service user password is arbitrary; it needs to be checked against a programatically generated HMAC key.
-			// The password is valid for one calendar year.
-			userList.push_back (EU);
+			if ( EU.userCore.UserName() == SILENTADMIN_USER )
+			{
+				silentAdministrator = --lastIter;
+				silentAdminInDB = true;
+			}
+			else if ( EU.userCore.UserName() == SERVICE_USER )
+			{
+				// Service user password is arbitrary; it needs to be checked against a programatically generated HMAC key.
+				// The password is valid for one calendar year.
 
-			std::list<ExpandedUser>::iterator lastIter = userList.end();
-			automationUser = --lastIter;
-			automationUserInDB = true;
+				serviceUser = --lastIter;
+				serviceUserInDB = true;
+			}
+			else if ( EU.userCore.UserName() == AUTOMATION_USER )
+			{
+				// Ambr Automation connector user password is arbitrary; it needs to be checked against a programatically generated HMAC key.
+				// The password is valid for a 4 hour span.
+				automationUser = --lastIter;
+				automationUserInDB = true;
+			}
+			//// leave for future reference or use
+			//else if ( EU.userCore.UserName() == TEMPADMIN_USER )
+			//{
+			//	// temp admin user password is arbitrary; it needs to be checked against a programatically generated HMAC key.
+			//	// The password is valid for 1 calendar day.
+			//	tempAdministrator = --lastIter;
+			//	tempAdminInDB = true;
+			//}
 		}
 		else
 		{
@@ -271,6 +278,16 @@ HawkeyeError UserList::Initialize (bool isImporting)
 		silentAdministrator = --lastIter;
 	}
 
+	//if ( !tempAdminInDB )
+	//{
+	//	// temp admin is not in the DB so add it
+	//	ExpandedUser EU = create_temp_administrator();
+	//	WriteUserToDatabase( EU );			// also adds new user to the end of the userlist
+
+	//	std::list<ExpandedUser>::iterator lastIter = userList.end();
+	//	tempAdministrator = --lastIter;
+	//}
+
 	if (!serviceUserInDB)
 	{
 		// Service user is not in the DB so add it
@@ -281,20 +298,16 @@ HawkeyeError UserList::Initialize (bool isImporting)
 		serviceUser = --lastIter;
 	}
 
-	if (HawkeyeConfig::Instance().get().instrumentType == HawkeyeConfig::CellHealth_ScienceModule)
+	if (!automationUserInDB)
 	{
-		if (!automationUserInDB)
-		{
-			// Service user is not in the DB so add it
-			ExpandedUser EU = create_automation_user();
-			WriteUserToDatabase (EU);			// also adds new user to the end of the userlist
+		// Ambr connector automation user is not in the DB so add it
+		ExpandedUser EU = create_automation_user();
+		WriteUserToDatabase (EU);			// also adds new user to the end of the userlist
 
-			std::list<ExpandedUser>::iterator lastIter = userList.end();
-			automationUser = --lastIter;
-		}
-
+		std::list<ExpandedUser>::iterator lastIter = userList.end();
+		automationUser = --lastIter;
 	}
-	
+
 	if (s_dbUserList.size() == 0)
 	{
 		AddFactoryAdminUser();				// also adds new user to the end of the userlist
@@ -309,6 +322,9 @@ HawkeyeError UserList::Initialize (bool isImporting)
 	{
 		assert(automationUser->userCore.UserName() == AUTOMATION_USER);
 	}
+
+	// Leave for future reference or use
+	//assert(tempAdministrator->userCore.UserName() == TEMPADMIN_USER);
 
 	isInitialized = true;
 
@@ -413,20 +429,27 @@ HawkeyeError UserList::LoginUser (const std::string& uName, const std::string& u
 	// This is because even when security id OFF we still need to validate  
 	// that a user is an admin user in order to turn security ON. 
 	// Remote automation users ALWAYS need to login!
-	if ((GetSystemSecurityType() != eSECURITYTYPE::eActiveDirectory) || (uName == SERVICE_USER) || (uName == SILENTADMIN_USER))
+	if ((GetSystemSecurityType() != eSECURITYTYPE::eActiveDirectory) ||
+	    (uName == SERVICE_USER) ||
+		(uName == SILENTADMIN_USER) ||
+		//// LEAVE FOR FUTURE REFERENCE OR USE
+		//(uName == TEMPADMIN_USER) ||
+		( uName == AUTOMATION_USER ))
 	{
 		std::function<bool(const std::string& password)> PasswordValidator = nullptr;
 
 		// In local security mode or no security mode
 		// OR
-		// The username is SERVICE_USER or SILENTADMIN_USER
+		// The username is SERVICE_USER, SILENTADMIN_USER, AUTOMATION_USER, or TEMPADMIN_USER (future use)
 		for (std::list<ExpandedUser>::iterator user = userList.begin(); user != userList.end(); ++user)
 		{
 			if (user->userCore.UserName() != uName)
 				continue;
 
 			if (!user->userCore.IsValid())
+			{
 				return HawkeyeError::eEntryInvalid;
+			}
 
 			if (user == silentAdministrator)
 			{
@@ -435,13 +458,28 @@ HawkeyeError UserList::LoginUser (const std::string& uName, const std::string& u
 					return ValidateHostPassword(password);
 				};
 			}
-			else if (user == serviceUser || user == automationUser)
+			else if (user == serviceUser)
 			{
 				PasswordValidator = [this](const std::string& password) -> bool
 				{
 					return ValidateServicePassword(password);
 				};
 			}
+			else if (user == automationUser)
+			{
+				PasswordValidator = [this](const std::string& password) -> bool
+				{
+					return ValidateAutomationPassword(password);
+				};
+			}
+			//// Leave for future reference or use
+			//else if (user == tempAdministrator)
+			//{
+			//	PasswordValidator = [ this ](const std::string& password) -> bool
+			//	{
+			//		return ValidateTempPassword(password);
+			//	};
+			//}
 
 			if (validateOnly)
 			{
@@ -460,7 +498,10 @@ HawkeyeError UserList::LoginUser (const std::string& uName, const std::string& u
 				}
 			}
 
-			if (HawkeyeError::eSuccess != user->AttemptLogin(uPW, true, PasswordValidator))
+			// attempt login using the given credentials; these should match those from the database, or the special passwords
+			HawkeyeError loginSuccess = user->AttemptLogin(uPW, true, PasswordValidator);
+
+			if (HawkeyeError::eSuccess != loginSuccess)
 			{
 				WriteUserToDatabase(*user);
 
@@ -496,7 +537,7 @@ HawkeyeError UserList::LoginUser (const std::string& uName, const std::string& u
 	// ----------------------------------------------------------------------
 	// AD security mode 
 	// and
-	// Not FACTORY_ADMIN Nor SERVICE_USER Nor SILENTADMIN_USER
+	// Not SERVICE_USER, AUTOMATION_USER, SILENTADMIN_USER, or TEMPADMIN_USER (future use)
 	// ----------------------------------------------------------------------
 
 	// Attempt to validate the given credentials using the AD server
@@ -616,6 +657,18 @@ ExpandedUser UserList::create_service_user()
 }
 
 // **************************************************************************
+ExpandedUser UserList::create_automation_user()
+{
+	// Password is arbitrary; it needs to be checked against an programatically generated HMAC key.
+	// Automation connector client is allowed hour tolerance to handle origin from separate computer systems.
+	// Automation clients must be admin-level users...
+	ExpandedUser EU (AUTOMATION_USER, "bci_12345", AUTOMATION_USER_DN, eAdministrator);
+	EU.allowFastMode = true;
+	EU.userCore.SetActivation(true);
+	return EU;
+}
+
+// **************************************************************************
 ExpandedUser UserList::create_silent_administrator()
 {
 	// Password is arbitrary; it needs to be checked against a programatically generated HMAC key.
@@ -626,19 +679,17 @@ ExpandedUser UserList::create_silent_administrator()
 	return EU;
 }
 
-// **************************************************************************
-ExpandedUser UserList::create_automation_user()
-{
-	//if (HawkeyeConfig::Instance().get().instrumentType == HawkeyeConfig::CellHealth_ScienceModule)
-	{
-		// Password is arbitrary; it needs to be checked against an programatically generated HMAC key.
-		// Service teams want 1 year passwords.
-		ExpandedUser EU (AUTOMATION_USER, "bci_12345", AUTOMATION_USER_DN, eAdministrator);
-		EU.allowFastMode = true;
-		EU.userCore.SetActivation (true);
-		return EU;
-	}
-}
+// Leave for future reference or use
+//// **************************************************************************
+//ExpandedUser UserList::create_temp_administrator()
+//{
+//	// Password is arbitrary; it needs to be checked against a programatically generated HMAC key.
+//	// This one should be on DAYS with low tolerance.
+//	ExpandedUser EU (TEMPADMIN_USER, "bci_12345", TEMPADMIN_USER_DN, eAdministrator);
+//	EU.allowFastMode = true;
+//	EU.userCore.SetActivation(true);
+//	return EU;
+//}
 
 // **************************************************************************
 HawkeyeError UserList::LogoutUser()
@@ -652,11 +703,15 @@ HawkeyeError UserList::LogoutUser()
 // **************************************************************************
 HawkeyeError UserList::LoginRemoteUser(const std::string& username, const std::string& password)
 {
-	// Count the number of entries this remote user has
-	int count = RemoteUserLoginCount(username);
+	if ( username.empty() || password.empty() )
+	{
+		Logger::L().Log( MODULENAME, severity_level::error, "LoginRemoteUser: <exit, invalid args>" );
+		return HawkeyeError::eInvalidArgs;
+	}
 
-	auto ret = ValidateUserCredentials(username, password);
-	if (ret != HawkeyeError::eSuccess)
+//TODO: take a look at this...
+	HawkeyeError he = UserList::Instance().LoginUser( username, password, true );
+	if (he != HawkeyeError::eSuccess)
 	{
 		Logger::L().Log(MODULENAME, severity_level::error,
 			std::string("LoginRemoteUser: <exit, Failed to validate user \"" + username + "\">"));
@@ -666,6 +721,8 @@ HawkeyeError UserList::LoginRemoteUser(const std::string& username, const std::s
 		return HawkeyeError::eValidationFailed;
 	}
 
+	// Count the number of entries this remote user has
+	int count = RemoteUserLoginCount( username );
 	m_currentRemoteUsers[username] = ++count;
 	g_currentSysErrorUsername = username;
 	
@@ -681,10 +738,11 @@ void UserList::LogoutRemoteUser(const std::string& username)
 {
 	// Count the number of entries this remote user has
 	int count = RemoteUserLoginCount(username);
-	auto remote = m_currentRemoteUsers.find(username);
 
+	auto remote = m_currentRemoteUsers.find(username);
 	if (remote == m_currentRemoteUsers.end())
 	{
+//TODO: review this code again...
 		AuditLogger::L().Log(generateAuditWriteData(username, audit_event_type::evt_logout,
 		                     std::string("Remote logout - " + username + " not found in list")));
 		return;
@@ -696,12 +754,15 @@ void UserList::LogoutRemoteUser(const std::string& username)
 	{
 		m_currentRemoteUsers.erase(remote);
 		AuditLogger::L().Log(generateAuditWriteData(username, audit_event_type::evt_logout,
-		                     std::string("Remote logout - " + username + " removed from list")));
+			std::string("Remote logout - " + username + " still has - " + std::to_string(count) + " active remote login(s)")));
+		return;
+//					AuditLogger::L().Log(generateAuditWriteData(username, audit_event_type::evt_logout,
+//						std::string("Remote logout - " + username + " removed from list")));
 	}
 	else
 	{
 		AuditLogger::L().Log(generateAuditWriteData(username, audit_event_type::evt_logout,
-		                     std::string("Remote logout - " + username + " still has - " + std::to_string(remote->second) + " active remote login(s)")));
+			std::string("Remote logout - " + username + " still has - " + std::to_string(remote->second) + " active remote login(s)")));
 	}
 
 
@@ -766,13 +827,19 @@ HawkeyeError UserList::ValidateUserCredentials(const std::string& username, cons
  * \return eNotPermittedAtThisTime if the given admin credentials are valid but they are locked themselves
  * \return eSoftwareFault if the write of the enabled user account fails
  */
-HawkeyeError UserList::AdministrativeEnable (const std::string& admin_uname, const std::string& admin_pwd, const std::string& uName)
+HawkeyeError UserList::AdministrativeUnlock (const std::string& admin_uname, const std::string& admin_pwd, const std::string& uName)
 {
-	// Cannot enable nor disable the service user
-	if (uName == SERVICE_USER)
+	if ( admin_uname.empty() || admin_pwd.empty() || uName.empty() )
+	{
+		Logger::L().Log( MODULENAME, severity_level::error, "AdministrativeUnlock : <exit, invalid args>" );
+		return HawkeyeError::eInvalidArgs;
+	}
+
+	// Cannot unlock the automation user; the user is not permitted to perform console login.
+	if (uName == AUTOMATION_USER || admin_uname == AUTOMATION_USER )
 		return HawkeyeError::eNotSupported;
 
-	// Find target user, they must be in the current list.
+	// Find target locked-out user, they must be in the current list.
 	std::list<ExpandedUser>::iterator user = userList.end();
 	for (user = userList.begin(); user != userList.end(); ++user)
 	{
@@ -784,7 +851,7 @@ HawkeyeError UserList::AdministrativeEnable (const std::string& admin_uname, con
 	if (user == userList.end())
 		return HawkeyeError::eEntryNotFound;
 
-	UserPermissionLevel permissionLevel;
+	UserPermissionLevel adminPermissionLevel;
 	UserPermissionLevel expectedRole = UserPermissionLevel::eAdministrator;
 	if (admin_uname == SERVICE_USER)
 		expectedRole = UserPermissionLevel::eService;
@@ -795,13 +862,53 @@ HawkeyeError UserList::AdministrativeEnable (const std::string& admin_uname, con
 		return he;
 	}
 	
-	he = GetUserRole (uName, permissionLevel);	
-	if ((he != HawkeyeError::eSuccess) || (expectedRole != permissionLevel))
+	he = GetUserRole (admin_uname, adminPermissionLevel);	
+	if ((he != HawkeyeError::eSuccess) || (expectedRole != adminPermissionLevel))
 	{
 		if ((he == HawkeyeError::eNotPermittedByUser) || (he == HawkeyeError::eNotPermittedAtThisTime))
 			return he;
 		return HawkeyeError::eValidationFailed;
 	}
+
+// **************************************************************************
+// **************************************************************************
+#if(0)		// This functioality came from original method to handle user unlock after password entry lockout; leaving as a reference if needed in future	
+	// We have a real user, an active and validated administrator or service user
+	// Now, let's check to see if we actually need to make a change
+	// Store the original values so we know if these changed
+	bool enabledAccnt = !user->userCore.IsActive();
+	int originalCount = user->attemptCount;
+	// 
+	user->userCore.SetActivation(true);
+	user->attemptCount = 0; // Ensure the user starts out with MAX login attempts
+
+	if (WriteUserToDatabase(*user) != HawkeyeError::eSuccess)
+	{
+		Logger::L().Log(MODULENAME, severity_level::error, std::string("AdministrativeUnlock <exit, WriteUserToDatabase - storage fault>"));
+		return HawkeyeError::eStorageFault;
+	}
+
+	std::string logStr = std::string("\"") + admin_uname + "\" unlocked account \"" + uName + "\"\n";
+	if ((enabledAccnt || (originalCount > 0)))
+	{
+		// @todo v1.4 - move the write to DB here - I didn't wan't to change functionality this close to project close
+		//              today we always write to the DB even if we didn't change anything
+		//
+		// We are changing one or both variables
+		// add this information with the audit log entry
+		if (enabledAccnt)
+			logStr += "\t\"" + uName + "\" account enabled\n";
+		if (originalCount > 0)
+			logStr += "\t\"" + uName + "\" login attempt count reset from: " + std::to_string(originalCount);
+	}
+	
+	AuditLogger::L().Log (generateAuditWriteData(
+		UserList::Instance().GetConsoleUsername(),
+		audit_event_type::evt_accountlockout,
+		logStr));
+#endif
+// **************************************************************************
+// **************************************************************************
 
 	return HawkeyeError::eSuccess;
 }
@@ -809,7 +916,15 @@ HawkeyeError UserList::AdministrativeEnable (const std::string& admin_uname, con
 // **************************************************************************
 std::string UserList::GenerateHostPassword(const std::string& keyval)
 {
-	return SecurityHelpers::GenerateHMACPasscode(ChronoUtilities::CurrentTime(), 0, SecurityHelpers::HMAC_SECS, keyval);
+	TIME_ZONE_INFORMATION TimeZoneInfo;
+	GetTimeZoneInformation( &TimeZoneInfo );
+	// correcting 'now' to local timezone for consistency
+	static int tzOffset = -( static_cast<int>( ( TimeZoneInfo.Bias ) / 60 ) );
+
+	std::chrono::system_clock::time_point now( std::chrono::system_clock::now() );
+	now -= std::chrono::hours( tzOffset );
+
+	return SecurityHelpers::GenerateHMACPasscode(now, 0, SecurityHelpers::HMAC_SECS, keyval);
 }
 
 // **************************************************************************
@@ -894,7 +1009,7 @@ HawkeyeError UserList::RemoveUser (const std::string& uName)
 		if (user->userCore.UserName() != uName)
 			continue;
 
-		// If service user or silent admin, find user record amongst all users in database.
+		// If service user, silent admin, or automation user, find user record amongst all users in database.
 		DBApi::eUserType userType = {};
 		if (ExpandedUser::IsReservedName(uName))
 			userType = DBApi::eUserType::AllUsers;
@@ -998,7 +1113,7 @@ HawkeyeError UserList::EnableUser(const std::string& uName, bool uEnabled)
 }
 
 // **************************************************************************
-HawkeyeError UserList::ChangeUserPassword(const std::string& uName, const std::string& password)
+HawkeyeError UserList::ChangeUserPassword(const std::string& uName, const std::string& password, bool resetPwd)
 {	
 	if (GetSystemSecurityType() == eSECURITYTYPE::eActiveDirectory)
 	{
@@ -1019,15 +1134,16 @@ HawkeyeError UserList::ChangeUserPassword(const std::string& uName, const std::s
 		
 	std::string loggedInUsername = GetConsoleUsername();
 
-	// If you want to change the PW of the current user, use ChangeCurrentUserPassword(...)
-	if ( uName == loggedInUsername)
+	// for reset of user password, allow change to current user; this should be specific to security mode transitions or deliberate 'ResetUserPassword' access;.
+	// Otherwise, if you want to change the PW of the current user, use ChangeCurrentUserPassword(...)
+	if ((uName == loggedInUsername) && (!resetPwd))
 		return HawkeyeError::eNotPermittedAtThisTime;
 
 	// New password cannot be empty
 	if (password.empty())
 		return HawkeyeError::eInvalidArgs;
 
-	// Since this is a password reset by  another admin/service account, so set the password change date property to empty string
+	// Since this is a password change, or a password reset reset by another admin/service account, set the password change date property to empty string
 	// This will force user to change the password on login
 
 	for (std::list<ExpandedUser>::iterator user = userList.begin(); user != userList.end(); ++user)
@@ -1035,7 +1151,7 @@ HawkeyeError UserList::ChangeUserPassword(const std::string& uName, const std::s
 		if (user->userCore.UserName() != uName)
 			continue;
 
-		if (!user->userCore.IsValid() || !user->userCore.SetPassword(password))
+		if (!user->userCore.IsValid() || !user->userCore.SetPassword(password, resetPwd))
 		{
 			// TODO: Log user password reset by admin failure
 			return HawkeyeError::eValidationFailed;
@@ -1293,7 +1409,10 @@ std::vector<std::string> UserList::GetUserNames(bool onlyEnabled, bool onlyValid
 			continue;
 
 		if (user != serviceUser &&
-			user != silentAdministrator)
+			user != silentAdministrator &&
+			//// leave for future reference or use
+			//user != tempAdministrator &&
+			user != automationUser)
 			userNames.push_back(user->userCore.UserName());
 	}
 		
@@ -1484,16 +1603,24 @@ HawkeyeError UserList::ValidateConsoleUser(const std::string& uPW)
 		if (ValidateServicePassword(uPW))
 			return HawkeyeError::eSuccess;
 	}
+#ifdef _DEBUG		// the automation user is not allowed to login at the console, normally...
+	else if (currentUser == automationUser)
+	{
+		if (ValidateAutomationPassword(uPW))
+			return HawkeyeError::eSuccess;
+	}
+#endif
 	else if (currentUser == silentAdministrator)
 	{
 		if (ValidateHostPassword(uPW))
 			return HawkeyeError::eSuccess;
 	}
-	else if (currentUser == automationUser)
-	{ // Automation user uses the same password authentication mechanism as BCI service user.
-		if (ValidateServicePassword(uPW))
-			return HawkeyeError::eSuccess;
-	}
+	//// leave for future reference or use
+	//else if (currentUser == tempAdministrator)
+	//{
+	//	if (ValidateTempPassword(uPW) )
+	//		return HawkeyeError::eSuccess;
+	//}
 	else
 	{
 		if (currentUser->userCore.ValidatePassword(uPW))
@@ -1545,7 +1672,7 @@ HawkeyeError UserList::LoginADUser (const std::string& uName, const std::string&
 	// We use this to determine the user's Role (permissions) 
 
 	std::vector<std::string> adGroups = {};
-	ValidateADUser ( adGroups, uName, uPW, adConfig );
+	LoginADUser( adGroups, uName, uPW, adConfig );
 
 	// The method below works because of the ordering of the UserPermissionLevel enum
 	// This is the current ordering in terms of integer values: User < Elevated < Admin 
@@ -1574,7 +1701,7 @@ HawkeyeError UserList::LoginADUser (const std::string& uName, const std::string&
 				break;
 			}
 		}
-		
+
 		// Stop once we've got the highest role allowed
 		if (myRole >= UserPermissionLevel::eAdministrator)
 			break;
@@ -1594,7 +1721,7 @@ HawkeyeError UserList::LoginADUser (const std::string& uName, const std::string&
 }
 
 // ********************************************************************
-void UserList::ValidateADUser (std::vector<std::string>& adgrouplist, const std::string uname, const std::string upw, const ActiveDirectoryConfigDLL adcfg)
+void UserList::LoginADUser(std::vector<std::string>& adgrouplist, const std::string uname, const std::string upw, const ActiveDirectoryConfigDLL adcfg)
 {
 	// This is where the attempt is made to verify the user credentials with the AD server
 	// The returned array of strings contains, among other things, the groups the user belongs to.
@@ -1620,7 +1747,7 @@ void UserList::ValidateADUser (std::vector<std::string>& adgrouplist, const std:
 			break;
 	}
 
-	std::string logStr = "LoginAdUser:\r\n\tdomain: ";
+	std::string logStr = "LoginADUser:\r\n\tdomain: ";
 	if ( adcfg.domain.length() > 0 )
 	{
 		logStr.append( adcfg.domain );
@@ -1655,7 +1782,7 @@ void UserList::ValidateADUser (std::vector<std::string>& adgrouplist, const std:
 	std::vector<std::string> adGroups = ActiveDirectoryGroupDLL::Get( adcfg.domain, adcfg.server, uname, upw, tlsFlag, unsafeFlag );
 
 #ifdef _DEBUG
-	std::string configStr = "LoginAdUser: ActiveDirectoryGroupDLL::Get returned:\r\n\t";
+	std::string configStr = "LoginADUser: ActiveDirectoryGroupDLL::Get returned:\r\n\t";
 #endif
 	std::string grpStr = "";
 	size_t vecSize = adGroups.size();
@@ -1675,7 +1802,7 @@ void UserList::ValidateADUser (std::vector<std::string>& adgrouplist, const std:
 	Logger::L().Log( MODULENAME, severity_level::debug1, configStr );
 #endif
 
-	Logger::L().Log( MODULENAME, severity_level::debug1, "LoginAdUser: <exit>" );
+	Logger::L().Log( MODULENAME, severity_level::debug1, "LoginADUser: <exit>" );
 }
 
 /**
@@ -1692,6 +1819,15 @@ void UserList::ValidateADUser (std::vector<std::string>& adgrouplist, const std:
  */
 HawkeyeError UserList::ValidateLocalAdminAccount (const std::string& uname, const std::string& password)
 {
+	//// Leave for future reference or use
+	//if ( uname == TEMPADMIN_USER )
+	//{
+	//	if ( ValidateTempPassword( password ) )
+	//		return HawkeyeError::eSuccess;
+	//	else
+	//		return HawkeyeError::eValidationFailed;
+	//}
+
 	DBApi::eQueryResult qResult = DBApi::eQueryResult::BadQuery;
 	DBApi::DB_UserRecord dbUser = {};
 	
@@ -1706,7 +1842,10 @@ HawkeyeError UserList::ValidateLocalAdminAccount (const std::string& uname, cons
 
 		if (!EU.userCore.ValidatePassword(password))
 		{
-			return HawkeyeError::eValidationFailed;
+			if ( !EU.ValidateResetPassword( uname, password ) )
+			{
+				return HawkeyeError::eValidationFailed;
+			}
 		}
 
 		// We have a valid username and password
@@ -1737,8 +1876,28 @@ bool UserList::ValidateHostPassword(const std::string& pw)
 bool UserList::ValidateServicePassword(const std::string& pw)
 {
 	// Service password is in yearly chunks.
-	return SecurityHelpers::ValidateHMACPasscode(pw, SecurityHelpers::HMAC_YEARS);
+//	return SecurityHelpers::ValidateHMACPasscode(pw, SecurityHelpers::HMAC_YEARS);
+	return SecurityHelpers::ValidateServicePasscode( pw, SecurityHelpers::HMAC_YEARS );
 }
+
+// **************************************************************************
+bool UserList::ValidateAutomationPassword(const std::string& pw)
+{
+	// Automation connector user password is in 1 hour resolution with a 4 hour tolerance (-2, -1, 0, +1) to allow for plate completion...
+	return SecurityHelpers::ValidateHMACPasscode(pw, SecurityHelpers::HMAC_HOURS, 2, 1);
+}
+
+//// Leave for future reference or use
+//// **************************************************************************
+//bool UserList::ValidateTempPassword(const std::string& pw)
+//{
+//	// temporary admin user password is in 1 day resolution.
+//	std::string instSN = HawkeyeConfig::Instance().get().instrumentSerialNumber;
+//
+//	boost::to_upper( instSN );
+//
+//	return SecurityHelpers::ValidateInstrumentHMACPasscode(pw, SecurityHelpers::HMAC_DAYS, instSN);
+//}
 
 // **************************************************************************
 HawkeyeError UserList::ChangeCurrentUserPassword (const std::string& currentPW, const std::string& newPW)
@@ -2442,6 +2601,15 @@ HawkeyeError UserList::IsPasswordExpired(const std::string& uName, bool& expired
 		return HawkeyeError::eSuccess;
 	}
 
+	int pwdExpirationDays = HawkeyeConfig::Instance().get().passwordExpiration;
+	if ( pwdExpirationDays <= NO_PWD_EXPIRATION )
+	{
+		// User has configured the system for NO password expiration...
+		// report as not expired
+		expired = false;
+		return HawkeyeError::eSuccess;
+	}
+
 	for (auto& user : userList)
 	{
 		if (user.userCore.UserName() != uName)
@@ -2454,7 +2622,7 @@ HawkeyeError UserList::IsPasswordExpired(const std::string& uName, bool& expired
 
 		auto now = ChronoUtilities::CurrentTime();
 		auto elapsed = std::chrono::duration_cast<std::chrono::minutes>(now - user.pwdChangeDate);
-		if (static_cast<uint32_t>(elapsed.count()) < (HawkeyeConfig::Instance().get().passwordExpiration * (MIN_PER_DAY))) // comparing minutes 
+		if (static_cast<uint32_t>(elapsed.count()) < (pwdExpirationDays * (MIN_PER_DAY))) // comparing minutes 
 		{
 			expired = false;
 		}
@@ -2476,9 +2644,8 @@ HawkeyeError UserList::AddFactoryAdminUser()
 {
 	// The factory admin account is just an "initial" admin account
 	// 
-	// Only create local constants to discourage use elsewhere
-	std::string cleanName = "factory_admin";
-	std::string cleanDisplay = "Factory Admin";
+	std::string cleanName = FACTORY_ADMIN_USER ;
+	std::string cleanDisplay = FACTORY_ADMIN_USER_DN;
 
 	// Check for duplication in existing user list.
 	for (auto& user : userList)
@@ -2497,7 +2664,12 @@ HawkeyeError UserList::AddFactoryAdminUser()
 		}
 	}
 
-	ExpandedUser newUser (cleanName, "Vi-CELL#0", cleanDisplay, UserPermissionLevel::eAdministrator);
+	std::string faPwd = SILENTADMIN_USER;
+	faPwd.append( "#0" );
+
+	ExpandedUser newUser (cleanName, faPwd, cleanDisplay, UserPermissionLevel::eAdministrator);
+
+	faPwd.clear();
 
 	return WriteUserToDatabase (newUser);
 }

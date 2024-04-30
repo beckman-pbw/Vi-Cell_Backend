@@ -129,6 +129,7 @@ void HawkeyeLogicImpl::executeNightCleanCycle()
 	Logger::L().Log (MODULENAME, severity_level::debug1, "executeNightCleanCycle: <enter>");
 
 	std::string loggedInUsername = UserList::Instance().GetAttributableUserName();
+//TODO:	std::string loggedInUsername = UserList::Instance().GetLoggedInUsername();
 
 	if (WorkflowController::Instance().isWorkflowBusy())
 	{

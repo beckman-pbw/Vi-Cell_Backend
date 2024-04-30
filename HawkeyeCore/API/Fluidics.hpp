@@ -35,7 +35,7 @@ enum ePrimeReagentLinesState : uint16_t
 	prl_PrimingCleaner2,
 	prl_PrimingCleaner3,
 	prl_PrimingReagent1,
-	prl_PrimingDiluent,
+	prl_PrimingDiluent,	// May be skipped if not present
 	prl_Completed,
 	prl_Failed
 };
@@ -48,7 +48,7 @@ enum ePurgeReagentLinesState : uint16_t
 	dprl_PurgeCleaner2,
 	dprl_PurgeCleaner3,
 	dprl_PurgeReagent1,
-	dprl_PurgeDiluent,
+	dprl_PurgeDiluent,	// May be skipped if not present
 	dprl_Completed,
 	dprl_Failed
 };

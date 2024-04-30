@@ -391,7 +391,7 @@ Returns
   - eNotPermittedAtThisTime – specified user is already logged in and cannot be disabled at this time.
   - eStorageFault - Failed to update the configuration
   
-## `HawkeyeError AdministrativeUserEnable(const char* administrator_account, const char* administrator_password, const char* user_account)`
+## `HawkeyeError AdministrativeUserUnlock(const char* administrator_account, const char* administrator_password, const char* user_account)`
 
 Allows the Host program to enable a user without an administrative
 account being logged in. This is intended for use when an user 
@@ -1875,8 +1875,6 @@ only be cleared (not archived) prior to a given date.
 
 ## `HawkeyeError RetrieveAuditTrailLog(uint32_t& num_entries, audit_log_entry*& log_entries)`
 
-## `HawkeyeError RetrieveAuditTrailLogRange(uint64_t starttime, uint64_t endtime, uint32_t& num_entries, audit_log_entry*& log_entries)`
-
 ## `HawkeyeError RetrieveInstrumentErrorLog(uint32_t& num_entries, error_log_entry*& log_entries)`
 
 ## `HawkeyeError RetrieveInstrumentErrorLogRange(uint64_t starttime, uint64_t endtime, uint32_t& num_entries, error_log_entry*& log_entries)`
@@ -3133,7 +3131,6 @@ Returns
       - AcceptDustReference
       - CancelBrightfieldDustSubtract
       - RetrieveAuditTrailLog
-      - RetrieveAuditTrailLogRange
       - ArchiveAuditTrailLog
       - ReadArchivedAuditTrailLog
       - RetrieveInstrumentErrorLog
@@ -3664,7 +3661,7 @@ API
 # Sprint 22
 
  Added a new API to enable user without administrator log in
- `HawkeyeError AdministrativeUserEnable(const char* administrator_account, const char* administrator_password, const char* user_account)`
+ `HawkeyeError AdministrativeUseUnlock(const char* administrator_account, const char* administrator_password, const char* user_account)`
  
  Removed the API
  `HawkeyeError  ClearSelectedSampleData(uint32_t n_samples, uuid__t* sample_list, bool clear_images_only)`
@@ -3695,7 +3692,7 @@ API
 | `LogoutUser`                                     | none             |                         |
 | `SwapUser`                                       | none             |                         |
 | `GenerateHostPassword`                           | none             |                         |
-| `AdministrativeUserDisable`                      | none             |                         |
+| `AdministrativeUseUnlock`                        | none             |                         |
 | `GetSystemSecurityFeaturesState`                 | none             |                         |
 | `GetUserInactivityTimeout`                       | none             |                         |
 | `GetUserInactivityTimeout_Setting`               | none             |                         |
@@ -3805,7 +3802,6 @@ API
 | `AcceptDustReference`                            | elevated         |                         |
 | `CancelBrightfieldDustSubtract`                  | elevated         |                         |
 | `RetrieveAuditTrailLog`                          | elevated         |                         |
-| `RetrieveAuditTrailLogRange`                     | elevated         |                         |
 | `ArchiveAuditTrailLog`                           | elevated         |                         |
 | `ReadArchivedAuditTrailLog`                      | elevated         |                         |
 | `RetrieveInstrumentErrorLog`                     | elevated         |                         |

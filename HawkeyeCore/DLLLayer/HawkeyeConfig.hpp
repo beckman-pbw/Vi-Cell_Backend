@@ -19,6 +19,7 @@ enum class OpticalHardwareConfig
 	UNKNOWN = 0,
 	OMICRON_BASLER = 1,
 	BECKMAN_BASLER = 2,
+	BECKMAN_ALLIED = 3
 };
 
 class HawkeyeConfig
@@ -47,6 +48,7 @@ public:
 	{
 		UnknownCamera = 0,
 		Basler = 1,
+		Allied = 2
 	} CameraType;
 
 	typedef enum {
@@ -70,7 +72,7 @@ public:
 	{
 		{OpticalHardwareConfig::OMICRON_BASLER, {Basler,Omicron}},
 		{OpticalHardwareConfig::BECKMAN_BASLER, {Basler, BCI}},
-
+		{OpticalHardwareConfig::BECKMAN_ALLIED, {Allied, BCI}}
 	};
 
 	//Old Basler cameras' exposure time was set by trigger width, yet the exposure isn't
@@ -630,7 +632,8 @@ public:
 	bool Initialize();
 	void SetDatabaseConfig (DatabaseConfig_t& dbConfig);
 	HawkeyeConfig_t& get();
-	void setHardwareForShepherd();
+	void setHardwareForCHM();
+	void setHardwareForViCell();
 	void setHardwareForSimulation();
 	static bool ConfigFileExists();
 	bool isValidInstrumentType();

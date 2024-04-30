@@ -26,11 +26,7 @@ static const int TwoAmps = 1000000;
 template <typename T>
 static bool onValueChange (const PropertyField<T>& value)
 {
-#ifndef TITERCONTROLLERBOARDPROGRAMMER
-	
 	InstrumentConfig::Instance().Set();
-
-#endif
 	
 	return true;
 }
@@ -62,8 +58,6 @@ HawkeyeConfig::LedConfig_t& HawkeyeConfig::getLedConfigByPositionName (std::stri
 //*****************************************************************************
 bool HawkeyeConfig::Initialize()
 {
-#ifndef TITERCONTROLLERBOARDPROGRAMMER
-
 	if (isLoaded_) {
 		Logger::L().Log (MODULENAME, severity_level::debug2, "Hawkeye configuration is already loaded.");
 		return isLoaded_;
@@ -126,9 +120,6 @@ bool HawkeyeConfig::Initialize()
 	config_.cameraTriggerTimeout_ms.init (&cameraTriggerTimeout_ms_);
 	config_.cameraImageCaptureTimeout_ms.init (&cameraImageCaptureTimeout_ms_);
 
-#endif
-	
-#ifndef TITERCONTROLLERBOARDPROGRAMMER
 	{
 		if (!ImageAnalysisParameters::Instance().Initialize())
 		{
@@ -308,7 +299,6 @@ bool HawkeyeConfig::Initialize()
 	// BCI LED 500000uV -> 1Amp, max current is 2A which is 1000000uV
 	maxBCILedVoltage_uv_ = TwoAmps;
 	config_.leds.maxBCILedVoltage_uv.init (&maxBCILedVoltage_uv_);
-#endif
 
 	Logger::L().Log (MODULENAME, severity_level::normal, "initialize: " + config_.ToStr());
 
@@ -324,7 +314,7 @@ HawkeyeConfig::HawkeyeConfig_t& HawkeyeConfig::get() {
 }
 
 //*****************************************************************************
-void HawkeyeConfig::setHardwareForShepherd()
+void HawkeyeConfig::setHardwareForCHM()
 {
 	config_.hardwareConfig.camera = true;
 	config_.hardwareConfig.eePromController = true;
@@ -336,6 +326,21 @@ void HawkeyeConfig::setHardwareForShepherd()
 	config_.hardwareConfig.voltageMeasurement = true;
 	config_.hardwareConfig.controllerBoard = true;
 	config_.hardwareConfig.discardTray = false;
+}
+
+//*****************************************************************************
+void HawkeyeConfig::setHardwareForViCell()
+{
+	config_.hardwareConfig.camera = true;
+	config_.hardwareConfig.eePromController = true;
+	config_.hardwareConfig.focusController = true;
+	config_.hardwareConfig.led = true;
+	config_.hardwareConfig.syringePump = true;
+	config_.hardwareConfig.reagentController = true;
+	config_.hardwareConfig.stageController = true;
+	config_.hardwareConfig.voltageMeasurement = true;
+	config_.hardwareConfig.controllerBoard = true;
+	config_.hardwareConfig.discardTray = true;
 }
 
 //*****************************************************************************
@@ -356,8 +361,6 @@ void HawkeyeConfig::setHardwareForSimulation()
 //*****************************************************************************
 bool HawkeyeConfig::ConfigFileExists()
 {
-#ifndef TITERCONTROLLERBOARDPROGRAMMER
-
 	std::string encryptedFileName;
 	bool isValidFilename = HDA_GetEncryptedFileName (HawkeyeDirectory::Instance().getFilePath(HawkeyeDirectory::FileType::HawkeyeConfig), encryptedFileName);
 	if (isValidFilename && FileSystemUtilities::FileExists(encryptedFileName))
@@ -368,9 +371,6 @@ bool HawkeyeConfig::ConfigFileExists()
 	{
 		return false;
 	}
-#else
-	return true;
-#endif
 }
 
 //*****************************************************************************
@@ -434,8 +434,6 @@ bool HawkeyeConfig::LoadDeveloperConfigFile (DatabaseConfig_t& dbConfig)
 //*****************************************************************************
 void HawkeyeConfig::ImportControllerCalInfoFile (boost::property_tree::ptree& ptConfig)
 {
-#ifndef TITERCONTROLLERBOARDPROGRAMMER
-
 	DBApi::DB_InstrumentConfigRecord& instConfig = InstrumentConfig::Instance().Get();
 
 	try
@@ -458,8 +456,6 @@ void HawkeyeConfig::ImportControllerCalInfoFile (boost::property_tree::ptree& pt
 	}
 
 	InstrumentConfig::Instance().Set();
-
-#endif
 }
 
 //*****************************************************************************
@@ -467,8 +463,6 @@ void HawkeyeConfig::ImportControllerCalInfoFile (boost::property_tree::ptree& pt
 //*****************************************************************************
 void HawkeyeConfig::ImportHawkeyeDynamicInfoFile (boost::property_tree::ptree& ptConfig, bool setSerNo)
 {
-#ifndef TITERCONTROLLERBOARDPROGRAMMER
-
 	DBApi::DB_InstrumentConfigRecord& instConfig = InstrumentConfig::Instance().Get();
 	if (setSerNo)
 		instConfig.InstrumentSNStr = ptConfig.get<std::string>("instrument_serial_number");
@@ -485,8 +479,6 @@ void HawkeyeConfig::ImportHawkeyeDynamicInfoFile (boost::property_tree::ptree& p
 	instConfig.NormalShutdown = ptConfig.get<bool>("normal_shutdown");
 	
 	InstrumentConfig::Instance().Set();
-
-#endif
 }
 
 //*****************************************************************************
@@ -494,8 +486,6 @@ void HawkeyeConfig::ImportHawkeyeDynamicInfoFile (boost::property_tree::ptree& p
 //*****************************************************************************
 void HawkeyeConfig::ImportHawkeyeStaticInfoFile (boost::property_tree::ptree& ptConfig)
 {
-#ifndef TITERCONTROLLERBOARDPROGRAMMER
-
 	DBApi::DB_InstrumentConfigRecord& instConfig = InstrumentConfig::Instance().Get();
 
 	instConfig.InstrumentType = ptConfig.get<int16_t>("instrument_type");
@@ -557,6 +547,4 @@ void HawkeyeConfig::ImportHawkeyeStaticInfoFile (boost::property_tree::ptree& pt
 	iapRecord.SmallParticleSizingCorrection = ptConfig2.get<double>("small_particle_sizing_correction");
 
 	ImageAnalysisParameters::Instance().Set();
-
-#endif
 }

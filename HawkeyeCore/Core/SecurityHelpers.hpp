@@ -91,6 +91,7 @@ namespace SecurityHelpers
 	}
 
 	extern const timepoint_to_epoch_converter_t HMAC_YEARS;
+	extern const timepoint_to_epoch_converter_t HMAC_DAYS;
 	extern const timepoint_to_epoch_converter_t HMAC_HOURS;
 	extern const timepoint_to_epoch_converter_t HMAC_MINS;
 	extern const timepoint_to_epoch_converter_t HMAC_SECS;
@@ -98,12 +99,15 @@ namespace SecurityHelpers
 	std::string GenerateHMACPasscode(timepoint_to_epoch_converter_t scale);
 	std::string GenerateHMACPasscode(int8_t epochoffset, timepoint_to_epoch_converter_t scale);
 	std::string GenerateHMACPasscode(std::chrono::system_clock::time_point timepoint, timepoint_to_epoch_converter_t scale);
+	std::string GenerateHMACPasscode(std::chrono::system_clock::time_point timepoint, timepoint_to_epoch_converter_t scale, const std::string& instrument_key );
 	std::string GenerateHMACPasscode(std::chrono::system_clock::time_point timepoint, int8_t epochoffset, timepoint_to_epoch_converter_t scale);
-	std::string GenerateHMACPasscode(std::chrono::system_clock::time_point timepoint, int8_t epochoffset, timepoint_to_epoch_converter_t scale, const std::string& key);
+	std::string GenerateHMACPasscode(std::chrono::system_clock::time_point timepoint, int8_t epochoffset, timepoint_to_epoch_converter_t scale, const std::string& keyval );
 
 
-	bool ValidateHMACPasscode(const std::string& passcode, timepoint_to_epoch_converter_t scale, uint8_t unitsbefore = 0, uint8_t unitsafter = 0);
-	
+	bool ValidateHMACPasscode( const std::string& passcode, timepoint_to_epoch_converter_t scale, uint8_t unitsbefore = 0, uint8_t unitsafter = 0 );
+	bool ValidateServicePasscode( const std::string& passcode, timepoint_to_epoch_converter_t scale );
+	bool ValidateResetPasscode( const std::string& passcode, timepoint_to_epoch_converter_t scale, const std::string instkey );
+
 	bool SecurityEncryptFile(std::ifstream &in_file, std::ostream & out_stream, const std::string & iv_string, std::string salt, std::string & keyout);
 	bool SecurityDecryptFile(std::ifstream &in_file, std::ostream & out_stream, const std::string & iv_string, const std::string& keyin);
 	bool SecurityEncryptString(std::string &in_str, std::string & out_str, const std::string& ivIn, const std::string& keyin);

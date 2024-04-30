@@ -380,11 +380,11 @@ extern "C"
 	}
 
 
-	DLL_CLASS HawkeyeError AdministrativeUserEnable(const char* administrator_account, const char* administrator_password, const char* user_account)
+	DLL_CLASS HawkeyeError AdministrativeUserUnlock(const char* administrator_account, const char* administrator_password, const char* user_account)
 	{
 		return impl_.getUiDllInstance().entryPoint<HawkeyeError>([administrator_account, administrator_password, user_account]() -> auto
 		{
-			return impl_.AdministrativeUserEnable(administrator_account, administrator_password, user_account);
+			return impl_.AdministrativeUserUnlock(administrator_account, administrator_password, user_account);
 		}, __func__);
 	}
 
@@ -456,8 +456,16 @@ extern "C"
 	{
 		return impl_.getUiDllInstance().entryPoint<HawkeyeError>([name, password]() -> auto
 		{
-			return impl_.ChangeUserPassword(name, password);
+			return impl_.ChangeUserPassword(name, password, false);
 		}, __func__);
+	}
+
+	DLL_CLASS HawkeyeError ResetUserPassword( const char* name )
+	{
+		return impl_.getUiDllInstance().entryPoint<HawkeyeError>( [name]() -> auto
+		{
+			return impl_.ChangeUserPassword( name, "", true );
+		}, __func__ );
 	}
 
 	DLL_CLASS HawkeyeError IsPasswordExpired(const char* name, bool& expired)
@@ -1503,6 +1511,16 @@ extern "C"
 		}, __func__);
 	}
 
+	//Deprecated
+	DLL_CLASS HawkeyeError GetBrightfieldDustSubtractState(BrightfieldDustSubtractWorkflow::eBrightfieldDustSubtractionState& state)
+	{
+		return HawkeyeError::eDeprecated;
+		//return impl_.getUiDllInstance().entryPoint<HawkeyeError>([&state]() -> auto
+		//{
+		//	return impl_.GetBrightfieldDustSubtractState(state);
+		//}, __func__);
+	}
+
 	DLL_CLASS HawkeyeError AcceptDustReference(bool accepted)
 	{
 		return impl_.getUiDllInstance().entryPoint<HawkeyeError>([accepted](HawkeyeErrorCallback callback) -> auto
@@ -1535,12 +1553,14 @@ extern "C"
 		}, __func__);
 	}
 
+	//Deprecated
 	DLL_CLASS HawkeyeError RetrieveAuditTrailLogRange(uint64_t starttime, uint64_t endtime, uint32_t& num_entries, audit_log_entry*& log_entries)
 	{
-		return impl_.getUiDllInstance().entryPoint<HawkeyeError>([starttime, endtime, &num_entries, &log_entries](HawkeyeErrorCallback callback) -> auto
-		{
-			return impl_.RetrieveAuditTrailLogRange(starttime, endtime, num_entries, log_entries, callback);
-		}, __func__);
+		return HawkeyeError::eDeprecated;
+		//return impl_.getUiDllInstance().entryPoint<HawkeyeError>([starttime, endtime, &num_entries, &log_entries](HawkeyeErrorCallback callback) -> auto
+		//{
+		//	return impl_.RetrieveAuditTrailLogRange(starttime, endtime, num_entries, log_entries, callback);
+		//}, __func__);
 	}
 
 	//Deprecated

@@ -5,6 +5,7 @@
 #include "AuditLog.hpp"
 #include "ChronoUtilities.hpp"
 #include "DataConversion.hpp"
+#include "ExpandedUsers.hpp"
 #include "GetAsStrFunctions.hpp"
 #include "HawkeyeLogicImpl.hpp"
 #include "Logger.hpp"
@@ -71,7 +72,7 @@ HawkeyeError HawkeyeLogicImpl::GetUserPermissionLevel(const char* name, UserPerm
 }
 
 // **************************************************************************
-HawkeyeError HawkeyeLogicImpl::LoginConsoleUser (const char* name, const char* password)
+HawkeyeError HawkeyeLogicImpl::LoginConsoleUser (const char* username, const char* password)
 {
 	if (UserList::Instance().IsConsoleUserLoggedIn())
 	{
@@ -79,7 +80,12 @@ HawkeyeError HawkeyeLogicImpl::LoginConsoleUser (const char* name, const char* p
 		return HawkeyeError::eNotPermittedAtThisTime;
 	}
 
-	HawkeyeError he = UserList::Instance().LoginUser(name, password, false);
+	std::string pwd = password;
+	std::string name = username;
+	if (name == AUTOMATION_USER)
+		return HawkeyeError::eNotSupported;
+
+	HawkeyeError he = UserList::Instance().LoginUser(name, pwd, false);
 	if (he != HawkeyeError::eSuccess)
 	{
 		return he;
@@ -108,7 +114,14 @@ void HawkeyeLogicImpl::LogoutConsoleUser()
 // **************************************************************************
 HawkeyeError HawkeyeLogicImpl::LoginRemoteUser(const char* username, const char* password)
 {
-	auto he = UserList::Instance().LoginRemoteUser(username, password);
+	std::string pwd = password;
+	std::string name = username;
+
+	// leave for future reference or use
+	//if (name == TEMPADMIN_USER)
+	//	return HawkeyeError::eNotSupported;
+
+	auto he = UserList::Instance().LoginRemoteUser(name, pwd);
 	if (he != HawkeyeError::eSuccess)
 	{
 		return HawkeyeError::eValidationFailed;
@@ -126,6 +139,9 @@ void HawkeyeLogicImpl::LogoutRemoteUser(const char* username)
 // **************************************************************************
 HawkeyeError HawkeyeLogicImpl::SwapUser(const char* newusername, const char* password, SwapUserRole swapRole)
 {
+	if ( newusername == AUTOMATION_USER )
+		return HawkeyeError::eNotSupported;
+
 	HawkeyeError he = UserList::Instance().LoginUser (newusername, password, true);
 	if (he != HawkeyeError::eSuccess)
 	{
@@ -162,13 +178,13 @@ HawkeyeError HawkeyeLogicImpl::SwapUser(const char* newusername, const char* pas
 }
 
 // **************************************************************************
-HawkeyeError HawkeyeLogicImpl::AdministrativeUserEnable(const char* administrator_account, const char* administrator_password, const char* user_account)
+HawkeyeError HawkeyeLogicImpl::AdministrativeUserUnlock(const char* administrator_account, const char* administrator_password, const char* user_account)
 {
 	if ( nullptr == administrator_account || nullptr == administrator_password || nullptr == user_account )
 	{
 		std::string logStr = "";
 
-		logStr = boost::str( boost::format( "AdministrativeUserEnable : Unable to enable user with missing components: administrator_account : '%s', user_account : '%s'" ) % administrator_account % user_account );
+		logStr = boost::str( boost::format( "AdministrativeUserUnlock : Unable to enable user with missing components: administrator_account : '%s', user_account : '%s'" ) % administrator_account % user_account );
 		if ( nullptr == administrator_password )
 		{
 			logStr.append( ", empty administrator_password" );
@@ -178,10 +194,10 @@ HawkeyeError HawkeyeLogicImpl::AdministrativeUserEnable(const char* administrato
 		return HawkeyeError::eInvalidArgs;
 	}
 
-	auto he = UserList::Instance().AdministrativeEnable( administrator_account, administrator_password, user_account );
+	auto he = UserList::Instance().AdministrativeUnlock( administrator_account, administrator_password, user_account );
 	if ( he != HawkeyeError::eSuccess )
 	{
-		Logger::L().Log( MODULENAME, severity_level::error, "AdministrativeUserEnable: Failed to administrative enable user \"" + std::string( user_account ) + "\"" );
+		Logger::L().Log( MODULENAME, severity_level::error, "AdministrativeUserUnlock: Failed to administrative enable user \"" + std::string( user_account ) + "\"" );
 	}
 	return he;
 }
@@ -213,7 +229,10 @@ void HawkeyeLogicImpl::GetUserInactivityTimeout(uint16_t& minutes)
 // **************************************************************************
 void HawkeyeLogicImpl::GetUserPasswordExpiration(uint16_t& days)
 {
-	days = HawkeyeConfig::Instance().get().passwordExpiration;
+	int16_t expDays = HawkeyeConfig::Instance().get().passwordExpiration;
+	if ( expDays < NO_PWD_EXPIRATION )
+		expDays = NO_PWD_EXPIRATION;
+	days = expDays;
 }
 
 // **************************************************************************
@@ -316,12 +335,24 @@ HawkeyeError HawkeyeLogicImpl::AddUser(const char* name, const char* displayname
 {
 	std::string consoleUsername = UserList::Instance().GetConsoleUsername();
 
-	if ( nullptr == name || nullptr == displayname || nullptr == password )
+	std::string nameStr( name );
+	std::string pwdStr( password );
+	std::string displayNameStr( displayname );
+
+	// FUTURE: allow empty password to set to default user password; possibly ALL new users get the default password
+//	if ( pwdStr.empty() )
+//	{
+//		pwdStr = SILENTADMIN_USER;
+//		pwdStr.append( "#0" );
+//	}
+
+	// Currently, new users MUST have a password entered;
+	if ( nameStr.empty() || displayNameStr.empty() || pwdStr.empty() )
 	{
 		std::string logStr = "";
 
-		logStr = boost::str( boost::format( "AddUser : Unable to add user with missing components: name : '%s', display_name : '%s'" ) % name % displayname );
-		if ( nullptr == password )
+		logStr = boost::str( boost::format( "AddUser : Unable to add user with missing components: name : '%s', display_name : '%s'" ) % nameStr % displayNameStr );
+		if ( pwdStr.empty() )
 		{
 			logStr.append( ", empty password" );
 		}
@@ -329,10 +360,6 @@ HawkeyeError HawkeyeLogicImpl::AddUser(const char* name, const char* displayname
 		Logger::L().Log( MODULENAME, severity_level::error, logStr);
 		return HawkeyeError::eInvalidArgs;
 	}
-
-	std::string nameStr( name );
-	std::string pwdStr( password );
-	std::string displayNameStr(displayname);
 
 	// limited to local logins only
 	if (!UserList::Instance().IsConsoleUserPermissionAtLeastAndNotService(UserPermissionLevel::eAdministrator))
@@ -482,7 +509,7 @@ HawkeyeError HawkeyeLogicImpl::EnableUser(const char* name, bool enabled)
 }
 
 // **************************************************************************
-HawkeyeError HawkeyeLogicImpl::ChangeUserPassword (const char* name, const char* password)
+HawkeyeError HawkeyeLogicImpl::ChangeUserPassword (const char* name, const char* password, bool resetPwd)
 {
 	std::string loggedInUsername = UserList::Instance().GetConsoleUsername();
 
@@ -491,7 +518,7 @@ HawkeyeError HawkeyeLogicImpl::ChangeUserPassword (const char* name, const char*
 		std::string logStr = "";
 
 		logStr = boost::str( boost::format( "ChangeUserPassword : Unable to add user with missing components: name : '%s'" ) );
-		if ( nullptr == password )
+		if ( nullptr == password && !resetPwd )
 		{
 			logStr.append( ", empty password" );
 		}
@@ -523,8 +550,15 @@ HawkeyeError HawkeyeLogicImpl::ChangeUserPassword (const char* name, const char*
 		return status;
 	}
 
-	HawkeyeError he = UserList::Instance().ChangeUserPassword(nameStr, pwdStr);
+	if ( resetPwd )						// reset to known default password
+	{
+		pwdStr = SILENTADMIN_USER;		// -> "Vi-CELL"
+		pwdStr.append( "#0" );			// -> "Vi-CELL#0"
+	}
+
+	HawkeyeError he = UserList::Instance().ChangeUserPassword(nameStr, pwdStr, resetPwd);
 	pwdStr.clear();
+
 	if (he == HawkeyeError::eSuccess)
 	{
 		AuditLogger::L().Log (generateAuditWriteData(

@@ -431,6 +431,7 @@ void SyringePump::setPosition (std::function<void(bool)> callback, uint32_t targ
 			status = true;
 			cur_volume_uL_ = target_volume_uL;
 
+//TODO: check for Vi-Cell.
 			// Update the CellHealth reagent volumes in the database.
 			UpdateReagentVolume (curPhysicalPort_, volume_being_moved);
 

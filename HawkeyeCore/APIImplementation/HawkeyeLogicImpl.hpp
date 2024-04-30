@@ -163,7 +163,7 @@ public:
 
 	HawkeyeError SwapUser(const char* newusername, const char* password, SwapUserRole swapRole);
 
-	HawkeyeError AdministrativeUserEnable(const char* administrator_account, const char* administrator_password, const char* user_account);
+	HawkeyeError AdministrativeUserUnlock(const char* administrator_account, const char* administrator_password, const char* user_account);
 	char*        GenerateHostPassword(const char* securitykey);
 	void         GetUserInactivityTimeout(uint16_t& minutes);
 	void         GetUserPasswordExpiration(uint16_t& days);
@@ -172,7 +172,7 @@ public:
 	HawkeyeError AddUser(const char* username, const char* displayname, const char* password, UserPermissionLevel permissions);
 	HawkeyeError RemoveUser(const char* username);
 	HawkeyeError EnableUser(const char* username, bool enabled);
-	HawkeyeError ChangeUserPassword(const char* username, const char* password);
+	HawkeyeError ChangeUserPassword(const char* username, const char* password, bool resetPwd = false);
 	HawkeyeError ChangeUserDisplayName(const char* username, const char* displayname);
 	HawkeyeError ChangeUserPermissions(const char* username, UserPermissionLevel permissions);
 
@@ -582,6 +582,7 @@ private:
 	static void destroyNightlyClean();
 	void nightCleanCycleRoutine(const boost::system::error_code& ec);
 	void executeNightCleanCycle();
+	void ExecuteNightlyClean (uint8_t workflowSubType, HawkeyeErrorCallback callback);
 	void updateNightlyCleanStatus(eNightlyCleanStatus ncs, HawkeyeError he);
 
 	/// Quality Control

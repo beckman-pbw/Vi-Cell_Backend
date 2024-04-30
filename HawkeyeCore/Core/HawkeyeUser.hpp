@@ -47,9 +47,10 @@ public:
 
 	/*
 	 * Modifications: You CANNOT alter a HawkeyeUser that has failed validation. That instance is DEAD
-	 * Cannot re-use current or previous 3 passwords.
+	 * Cannot re-use current or previous 10 passwords for normal password change.
+	 * Password Reset clears the list and resets to a known default password (the default for factory_admin)
 	 */
-	bool SetPassword(const std::string& newPassword, bool isAdUser = false);
+	bool SetPassword(const std::string& newPassword, bool isPwdReset = false, bool isOverride = false);
 	bool SetUserLevel(UserPermissionLevel newPL);
 	bool SetActivation(bool active);
 

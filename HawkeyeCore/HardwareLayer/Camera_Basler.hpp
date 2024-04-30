@@ -4,12 +4,11 @@
 #ifdef PYLON_WIN_BUILD
 #include <pylon/PylonGUI.h>
 #endif
-#include <pylon/usb/BaslerUsbInstantCamera.h>
+#include <pylon/BaslerUniversalInstantCamera.h>
 
 #include "Interfaces/iCamera.hpp"
 #include "CameraErrorLog.hpp"
 
-using namespace Basler_UsbCameraParams;
 using namespace Pylon;
 using namespace std;
 
@@ -25,12 +24,12 @@ enum Camera_BaslerEvents {
 //*************************************************************************
 // Example handler for camera events.
 //*************************************************************************
-class Camera_BaslerCameraEventHandler : public CBaslerUsbCameraEventHandler
+class Camera_BaslerCameraEventHandler : public CBaslerUniversalCameraEventHandler
 {
 public:
 	// Only very short processing tasks should be performed by this method. Otherwise, the event notification will block the
 	// processing of images.
-	virtual void OnCameraEvent (CBaslerUsbInstantCamera& camera, intptr_t userProvidedId, GenApi::INode* /* pNode */) override
+	virtual void OnCameraEvent (CBaslerUniversalInstantCamera& camera, intptr_t userProvidedId, GenApi::INode* /* pNode */) override
 	{
 		std::stringstream ss;
 
@@ -202,6 +201,7 @@ private:
 };
 
 class Camera_Basler : public iCamera {
+	
 public:
 	Camera_Basler ();
 	virtual ~Camera_Basler();
@@ -233,7 +233,7 @@ private:
 	// This MUST be the first private variable!!!
 	PylonAutoInitTerm autoInitTerm;
 
-	std::shared_ptr<CBaslerUsbInstantCamera> camera_;
+	std::shared_ptr<CBaslerUniversalInstantCamera > camera_;
 	CGrabResultPtr pGrabResult_;
 	Camera_BaslerCameraEventHandler* pCameraEventHandler_;
 	Camera_BaslerEventWriter* pCameraEventWriter_;
@@ -254,7 +254,7 @@ private:
 
 
 	bool RunProtectedSection(const std::string& sectionname, std::function<void()> code);
-	std::shared_ptr<CBaslerUsbInstantCamera> GetCamera();
+	std::shared_ptr<CBaslerUniversalInstantCamera> GetCamera();
 
 };
 

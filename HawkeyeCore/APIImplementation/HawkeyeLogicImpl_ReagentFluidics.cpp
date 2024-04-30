@@ -37,6 +37,7 @@ void HawkeyeLogicImpl::StartFlushFlowCell(
 		{
 			AuditLogger::L().Log (generateAuditWriteData(
 				UserList::Instance().GetAttributableUserName(),
+//TODO: 				UserList::Instance().GetLoggedInUsername(),				
 				audit_event_type::evt_fluidicsflush, 
 				"Completed"));
 		}
@@ -120,7 +121,7 @@ void HawkeyeLogicImpl::StartDecontaminateFlowCell(
 
 		if (!Hardware::Instance().getStageController()->IsStageCalibrated(type))
 		{
-			Logger::L().Log (MODULENAME, severity_level::debug1, "StartBrightfieldDustSubtract: <exit, Stage is not registered");
+			Logger::L().Log (MODULENAME, severity_level::debug1, "StartDecontaminateFlowCell: <exit, Stage is not registered");
 			pHawkeyeServices_->enqueueExternal (callback, HawkeyeError::eStageNotRegistered);
 			return;
 		}
@@ -141,6 +142,7 @@ void HawkeyeLogicImpl::StartDecontaminateFlowCell(
 		{
 			AuditLogger::L().Log (generateAuditWriteData(
 				UserList::Instance().GetAttributableUserName(),
+//TODO:				UserList::Instance().GetLoggedInUsername(),				
 				audit_event_type::evt_fluidicsdecontaminate, 
 				"Completed"));
 		}
@@ -223,6 +225,7 @@ void HawkeyeLogicImpl::StartPrimeReagentLines(
 		{
 			AuditLogger::L().Log (generateAuditWriteData(
 				UserList::Instance().GetAttributableUserName(),
+//TODO:				UserList::Instance().GetLoggedInUsername(),				
 				audit_event_type::evt_fluidicsprime, 
 				"Completed"));
 		}
@@ -236,6 +239,10 @@ void HawkeyeLogicImpl::StartPrimeReagentLines(
 HawkeyeError HawkeyeLogicImpl::CancelPrimeReagentLines()
 {
 	Logger::L().Log (MODULENAME, severity_level::debug1, "CancelPrimeReagentLines: <enter>");
+
+	// This must be done by any logged-in  User.
+	// limited to local logins only
+//TODO: should this only be allowed for CHM ???
 
 	if (!WorkflowController::Instance().isOfType(Workflow::Type::PrimeReagentLines))
 	{

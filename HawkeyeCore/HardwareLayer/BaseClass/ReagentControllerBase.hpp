@@ -77,7 +77,7 @@ public:
 	static ReagentPackFluids convertToReagentFluid(const SyringePumpPort::Port& port);
 	static ReagentPackFluids convertToReagentFluid(const PhysicalPort& port);
 	static SyringePumpPort::Port convertToSyringePort(const ReagentPackFluids& reagentPackFluid);
-	static uint32_t ConvertFluidVolumetoUsageCount(SyringePumpPort::Port port, uint32_t volume, bool calculateremaininguses = false);
+	static uint16_t ConvertFluidVolumetoUsageCount(SyringePumpPort::Port port, uint32_t volume, bool calculateremaininguses = false);
 	
 	static ReagentPackFluids GetReagentPosition(const RfidTag_t& rfidTag, uint8_t index, bool checkClearner);
 	static ReagentPosition GetReagentContainerPosition(const RfidTag_t& rfidTag);

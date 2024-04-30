@@ -3,6 +3,7 @@
 #include <atomic>
 #include "CameraBase.hpp"
 #include "Camera_Basler.hpp"
+#include "Camera_Allied.hpp"
 #include "LedBase.hpp"
 
 class BeckmanCamera : public CameraBase

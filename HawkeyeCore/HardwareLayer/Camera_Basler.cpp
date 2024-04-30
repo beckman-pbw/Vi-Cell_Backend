@@ -93,7 +93,7 @@ bool Camera_Basler::isPresent()
 	return GetCamera() != nullptr;
 }
 
-std::shared_ptr<CBaslerUsbInstantCamera> Camera_Basler::GetCamera()
+std::shared_ptr<CBaslerUniversalInstantCamera> Camera_Basler::GetCamera()
 {
 	// Only look for USB camera.
 	CDeviceInfo info;
@@ -118,7 +118,7 @@ std::shared_ptr<CBaslerUsbInstantCamera> Camera_Basler::GetCamera()
 		return nullptr;
 	}
 
-	return std::make_shared<CBaslerUsbInstantCamera>(tlFactory.CreateFirstDevice(info));
+	return std::make_shared<CBaslerUniversalInstantCamera>(tlFactory.CreateFirstDevice(info));
 }
 
 
@@ -312,7 +312,7 @@ bool Camera_Basler::initialize() {
 	// Disable Frame Burst mode.
 	if (!RunProtectedSection("Initialization->DisableFrameBurstMode", [this]() {
 		if (isCameraConnected()) {
-			camera_->TriggerSelector.SetValue(Basler_UsbCameraParams::TriggerSelector_FrameBurstStart);
+			camera_->TriggerSelector.SetValue(Basler_UniversalCameraParams::TriggerSelector_FrameBurstStart);
 		}
 		else
 		{
@@ -320,7 +320,7 @@ bool Camera_Basler::initialize() {
 		}
 		if (isCameraConnected())
 		{
-			camera_->TriggerMode.SetValue(Basler_UsbCameraParams::TriggerMode_Off);
+			camera_->TriggerMode.SetValue(Basler_UniversalCameraParams::TriggerMode_Off);
 		}
 		else
 		{
@@ -333,7 +333,7 @@ bool Camera_Basler::initialize() {
 	if (!RunProtectedSection("Initialization->EnableFrameMode", [this]() {
 		if (isCameraConnected())
 		{
-			camera_->TriggerSelector.SetValue(Basler_UsbCameraParams::TriggerSelector_FrameStart);
+			camera_->TriggerSelector.SetValue(Basler_UniversalCameraParams::TriggerSelector_FrameStart);
 		}
 		else
 		{
@@ -343,26 +343,27 @@ bool Camera_Basler::initialize() {
 		return false;
 
 	if (!RunProtectedSection("Initialization->SetTriggerandExposure", [this]() {
-		if (isCameraConnected()) {
-			camera_->TriggerMode.SetValue (Basler_UsbCameraParams::TriggerMode_On);
-		} else {
-			CameraNotConnected();
+		if (isCameraConnected())
+		{
+			bool isa2A2448 = model_ == a2A2448_75umBAS;
+			auto triggerSource = isa2A2448 ? Basler_UniversalCameraParams::TriggerSource_Line3 : Basler_UniversalCameraParams::TriggerSource_Line1;
+
+			camera_->TriggerMode.SetValue(Basler_UniversalCameraParams::TriggerMode_On);
+			camera_->TriggerSource.SetValue(triggerSource);
+			camera_->TriggerActivation.SetValue(Basler_UniversalCameraParams::TriggerActivation_RisingEdge);
+
+			if(isa2A2448)
+			{
+				camera_->ExposureMode.SetValue(Basler_UniversalCameraParams::ExposureMode_Timed);
+				camera_->ExposureTime.SetValue(DEFAULT_EXPOSURE);
+			}
+			else
+			{
+				camera_->ExposureMode.SetValue(Basler_UniversalCameraParams::ExposureMode_TriggerWidth);
+			}
 		}
-		
-		if (isCameraConnected()) {
-			camera_->TriggerSource.SetValue (Basler_UsbCameraParams::TriggerSource_Line1);			
-		} else {
-			CameraNotConnected();
-		}
-		
-		if (isCameraConnected()) {
-			camera_->TriggerActivation.SetValue (Basler_UsbCameraParams::TriggerActivation_RisingEdge);
-		} else {
-			CameraNotConnected();
-		}
-		if (isCameraConnected()) {
-			camera_->ExposureMode.SetValue (ExposureMode_TriggerWidth);			
-		} else {
+		else
+		{
 			CameraNotConnected();
 		}
 
@@ -419,6 +420,14 @@ void setCameraConnectedState (bool state) {
 //*****************************************************************************
 bool Camera_Basler::setOnTriggerCallback (CompletionCallback_t onCameraTriggerCompletion)
 {
+	if (isOnTriggerCallbackRegistered_)
+	{
+		if (!RunProtectedSection("SetTriggerCallback", [this]() {
+			camera_->DeregisterImageEventHandler(imageEventHandler_);
+			}))
+		return false;
+	}
+
 	// Register camera trigger event handler.
 	if (isCameraConnected())
 	{
@@ -460,7 +469,7 @@ bool Camera_Basler::setGain (double gain) {
 	return RunProtectedSection("setGain", [this, gain]() {
 		Logger::L().Log (MODULENAME, severity_level::debug1, boost::str (boost::format("Setting camera gain to %8.5f") % gain));
 		if (isCameraConnected()) {
-			camera_->GainSelector.SetValue(GainSelector_All); 
+			camera_->GainSelector.SetValue(Basler_UniversalCameraParams::GainSelector_All); 
 		} else {
 			CameraNotConnected();
 		}
@@ -508,7 +517,7 @@ bool Camera_Basler::setGainLimitsState (bool state) {
 
 	if (!RunProtectedSection("setGainLimitsState", [this, state]() {
 		if (isCameraConnected()) {
-			camera_->RemoveParameterLimitSelector.SetValue (RemoveParameterLimitSelector_Gain);
+			camera_->RemoveParameterLimitSelector.SetValue (Basler_UniversalCameraParams::RemoveParameterLimitSelector_Gain);
 		} else {
 			CameraNotConnected();
 		}
@@ -534,6 +543,22 @@ bool Camera_Basler::armTrigger (unsigned int triggerReadyTimeout, unsigned int e
 
 	if (!camera_ || !camera_->IsOpen()) {
 		return false;
+	}
+
+	if (model_ == a2A2448_75umBAS)
+	{
+		auto desiredExposure = HawkeyeConfig::ExposureOffset + exposureTimeInMicroseconds;
+		camera_->ExposureTime.SetValue(desiredExposure);
+
+		// Ace2 cameras might have a slightly different exposure based on clock rate, etc, versus what we set.
+		// Figure out this difference and account for it.
+		auto actualExposure = camera_->BslEffectiveExposureTime.GetValue();
+		auto difference = actualExposure - desiredExposure; //The extra bit it tacked on the end.
+		auto newExposure = desiredExposure - difference;
+		if (newExposure > 0)
+		{
+			camera_->ExposureTime.SetValue(newExposure);
+		}
 	}
 
 	// Start the grabbing of one image.

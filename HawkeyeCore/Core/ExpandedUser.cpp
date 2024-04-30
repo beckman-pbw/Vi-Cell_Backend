@@ -8,9 +8,11 @@
 #include "CellTypesDLL.hpp"
 #include "ChronoUtilities.hpp"
 #include "ExpandedUser.hpp"
+#include "HawkeyeConfig.hpp"
 #include "HawkeyeDirectory.hpp"
 #include "Logger.hpp"
 #include "UserLevels.hpp"
+#include "UserList.hpp"
 
 static const char MODULENAME[] = "ExpandedUser";
 
@@ -40,7 +42,11 @@ ExpandedUser::ExpandedUser (const std::string& username, const std::string& pass
 // **************************************************************************
 bool ExpandedUser::IsReservedName(const std::string& uName)
 {
-	if ((uName == SERVICE_USER) || (uName == SILENTADMIN_USER))
+	if ((uName == SERVICE_USER) ||
+		(uName == SILENTADMIN_USER) ||
+		//// leave for future reference or use
+		//( uName == TEMPADMIN_USER ) ||
+		(uName == AUTOMATION_USER))
 		return true;
 	else
 		return false;
@@ -70,82 +76,140 @@ HawkeyeError ExpandedUser::AttemptLogin (
 	bool silentSuccess,
 	std::function<bool(const std::string& password)> PasswordValidator)
 {
-	if (this->ADUser) // We don't validate passwords nor track login attempts for AD users
+	if (this->ADUser) // We don't validate passwords or track login attempts for AD users
 	{
 		Logger::L().Log(MODULENAME, severity_level::error, std::string("ExpandedUser::AttemptLogin <exit, attempt to login an AD user>"));
 		return HawkeyeError::eSoftwareFault;
 	}
 
+	// Log failure appropriately.
+	auto PasswordValidationFailed = [ this, password, PasswordValidator ]( const std::string& username ) -> void
+	{
+		if ( !IsReservedName( username ) )		// don't allow built-in account to lockout...
+		{
+			attemptCount++;
+		}
+
+		if ( attemptCount >= MAX_LOGIN_ATTEMPTS )
+		{
+			AuditLogger::L().Log( generateAuditWriteData(
+				username,
+				audit_event_type::evt_accountlockout,
+				"User account \"" + username + "\" lockout: too many failed login attempts." ) );
+
+			// Cannot disable built-in accounts
+			if ( !IsReservedName( username ) )
+			{
+				userCore.SetActivation( false );
+			}
+
+			return;
+		}
+
+		AuditLogger::L().Log( generateAuditWriteData(
+			username,
+			audit_event_type::evt_loginfailure,
+			"Failed login attempt for user \"" + username + "\"" ) );
+	};
+
 	auto now = ChronoUtilities::CurrentTime();
 	auto elapsed = std::chrono::duration_cast<std::chrono::minutes>(now - lastLogin);
 	lastLogin = ChronoUtilities::CurrentTime();
 	std::string uname = userCore.UserName();
+	bool isValid = false;
 
-	if (!userCore.IsActive()) // The user has been disabled
+	if ( !userCore.IsActive() ||												// The user has been disabled, either due to failed logins or manually by an admin
+		 ( IsReservedName( uname ) && attemptCount >= MAX_LOGIN_ATTEMPTS ) )	// an internal account has hit the failed login lockout count
 	{
 		// Note: IsActive() is used to both administratively disable an account 
 		// and to temporarily lockout an account for too many attempted login failures. 
 		// 
-		// Only attempt to auto unlock (activate) a user if they are inactive due to failed password attempts
+		// Only attempt to auto unlock (re-activate) a user if they have been disabled due to failed password attempts
 		// If they are locked out by an admin we should not auto unlock after 30 minutes.
 		// So, don't update the attempt count here. 
-		if (attemptCount >= MAX_LOGIN_ATTEMPTS)
+		if ( attemptCount < MAX_LOGIN_ATTEMPTS )
 		{
-			if (elapsed.count() < LOCKOUT_TIME)
+			// This account has been disabled by an administrator
+			return HawkeyeError::eNotPermittedByUser;
+		}
+
+		if ( elapsed.count() < LOCKOUT_TIME )
+		{
+			if ( IsReservedName( uname ) && attemptCount >= MAX_LOGIN_ATTEMPTS && PasswordValidator != nullptr )
+			{
+				isValid = PasswordValidator( password );
+			}
+
+			if ( !isValid )
+			{
+				isValid = ValidateResetPassword( uname, password );
+
+				if ( isValid )
+				{
+					if ( !silentSuccess )
+					{
+						AuditLogger::L().Log( generateAuditWriteData(
+							uname,
+							audit_event_type::evt_login,
+							"Console login override: " + uname ) );
+					}
+
+					attemptCount = 0;
+					userCore.SetActivation( true );
+
+					return HawkeyeError::eSuccess;
+				}
+			}
+
+			if ( !isValid )
 			{
 				// This was another attempted login.
 				// The caller resets the lockout timer by writing the user record to the DB with the updated lastLogin time.
 				return HawkeyeError::eTimedout;
 			}
+		}
 
-			AuditLogger::L().Log (generateAuditWriteData(
+		if ( !isValid )
+		{
+			AuditLogger::L().Log( generateAuditWriteData(
 				uname,
 				audit_event_type::evt_userenable,
-				"User " + uname + " lockout timeout expired."));
-			userCore.SetActivation (true);
+				"User " + uname + " lockout timeout expired." ) );
+			userCore.SetActivation( true );
 			attemptCount = 0;
+		}
+	}
+
+	if ( !isValid )
+	{
+		if ( PasswordValidator == nullptr )
+		{
+			isValid = userCore.ValidatePassword( password );
+			if ( isValid )
+			{
+				std::string faPwd = SILENTADMIN_USER;				// -> "Vi-CELL"
+				faPwd.append( "#0" );								// -> "Vi-CELL#0"
+
+				// check if this is the reuse of a 'reset' password or other otherwise invalid password other than the factory_admin default value
+				if ( password.size() < MINPWDLEN && password != faPwd )
+					isValid = false;
+			}
+
+			if ( !isValid )
+			{
+				isValid = ValidateResetPassword( uname, password );
+			}
 		}
 		else
 		{
-			// This account has been disabled by an administrator
-			return HawkeyeError::eNotPermittedByUser;
+			isValid = PasswordValidator( password );
 		}
-	}
 
-	// Log failure appropriately.
-	auto PasswordValidationFailed = [this](const std::string & username) -> void
-	{
-		attemptCount++;
-		if (attemptCount >= MAX_LOGIN_ATTEMPTS)
+		if ( !isValid )
 		{
-			AuditLogger::L().Log (generateAuditWriteData(
-				username,
-				audit_event_type::evt_accountlockout,
-				"Too many failed login attempts for user \"" + username + "\", account locked out"));
-			userCore.SetActivation(false);
-			return;
+			PasswordValidationFailed( uname );
+			return HawkeyeError::eValidationFailed;
 		}
-
-		AuditLogger::L().Log (generateAuditWriteData(
-			username,
-			audit_event_type::evt_loginfailure,
-			"Failed login attempt for user \"" + username + "\""));
-	};
-
-	bool isValid;
-	if (PasswordValidator == nullptr)
-	{
-		isValid = userCore.ValidatePassword(password);
-	}
-	else
-	{
-		isValid = PasswordValidator(password);
-	}
-	
-	if (!isValid)
-	{
-		PasswordValidationFailed (uname);
-		return HawkeyeError::eValidationFailed;
 	}
 
 	if (!silentSuccess)
@@ -159,6 +223,41 @@ HawkeyeError ExpandedUser::AttemptLogin (
 	attemptCount = 0;
 	return HawkeyeError::eSuccess;
 }
+
+// Reset password checking logic
+bool ExpandedUser::ValidateResetPassword( const std::string& username, const std::string& password )
+{
+	bool isValid = false;
+	if ( !IsReservedName( username ) )
+	{
+		// temporary user password is in 1 day resolution.
+		std::string instSN = HawkeyeConfig::Instance().get().instrumentSerialNumber;
+		std::string keystr = userCore.UserName();
+
+		boost::to_upper( instSN );
+		keystr.append( instSN );
+
+		isValid = SecurityHelpers::ValidateResetPasscode( password, SecurityHelpers::HMAC_DAYS, keystr );
+		if ( isValid )
+		{
+			if ( userCore.SetPassword( password, false, true ) )
+			{
+				// TODO: Log password chance success
+				// Since this is a password reset by user himself, so set the password change date property to current time as seconds from epoch UTC
+				// Create password change date property with empty string
+				// Set the current time as seconds from epoch UTC as password change date property value
+				pwdChangeDate = ChronoUtilities::CurrentTime();
+
+				HawkeyeError he = UserList::Instance().WriteUserToDatabase( *this );
+				if ( HawkeyeError::eSuccess != he )
+				{
+					isValid = false;
+				}
+			}
+		}
+	}
+	return isValid;
+};
 
 //**************************************************************************
 void ExpandedUser::RemoveInvalidCellTypes()

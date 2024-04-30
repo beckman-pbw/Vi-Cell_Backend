@@ -17,12 +17,15 @@
 #include <pwdbased.h>
 
 #include <files.h>
- #include <filters.h>
+#include <filters.h>
 #include <hex.h>
 
 static const char MODULENAME[] = "SecurityHelpers";
 
-const SecurityHelpers::timepoint_to_epoch_converter_t SecurityHelpers::HMAC_YEARS = std::bind(&SecurityHelpers::UnitsSinceEpoch<std::chrono::duration<int, std::ratio<31557600 >>>, std::placeholders::_1);// "julian" years - 365.25 days @ 86400 seconds/day.  A good enough "year" as anything...
+static const std::string base_key_str = "\"Phil, Dennis and Perry are pretty neat guys\"";
+
+const SecurityHelpers::timepoint_to_epoch_converter_t SecurityHelpers::HMAC_YEARS = std::bind(&SecurityHelpers::UnitsSinceEpoch<std::chrono::duration<int, std::ratio<31557600 >>>, std::placeholders::_1);		// "julian" years - 365.25 days @ 86400 seconds/day.  A good enough "year" as anything...
+const SecurityHelpers::timepoint_to_epoch_converter_t SecurityHelpers::HMAC_DAYS = std::bind( &SecurityHelpers::UnitsSinceEpoch<std::chrono::duration<int, std::ratio<86400 >>>, std::placeholders::_1 );		// 86400 seconds/day
 const SecurityHelpers::timepoint_to_epoch_converter_t SecurityHelpers::HMAC_HOURS = std::bind(&SecurityHelpers::UnitsSinceEpoch<std::chrono::hours>, std::placeholders::_1);
 const SecurityHelpers::timepoint_to_epoch_converter_t SecurityHelpers::HMAC_MINS = std::bind(&SecurityHelpers::UnitsSinceEpoch<std::chrono::minutes>, std::placeholders::_1);
 const SecurityHelpers::timepoint_to_epoch_converter_t SecurityHelpers::HMAC_SECS = std::bind(&SecurityHelpers::UnitsSinceEpoch<std::chrono::seconds>, std::placeholders::_1);
@@ -194,28 +197,27 @@ namespace SecurityHelpers
 		return DataToText(digest);
 	}
 
-	std::string GenerateHMACPasscode(timepoint_to_epoch_converter_t scale)
-	{
-		return GenerateHMACPasscode(ChronoUtilities::CurrentTime(), 0, scale);
-	}
-	
-	std::string GenerateHMACPasscode(int8_t epochoffset, timepoint_to_epoch_converter_t scale)
-	{
-		return GenerateHMACPasscode(ChronoUtilities::CurrentTime(), epochoffset, scale);
-	}
-	
-	std::string GenerateHMACPasscode(std::chrono::system_clock::time_point timepoint, timepoint_to_epoch_converter_t scale)
-	{
-		return GenerateHMACPasscode(timepoint, 0, scale);
-	}
+	std::string DoHMACPasscodeGeneration( std::chrono::system_clock::time_point timepoint, int8_t epochoffset, timepoint_to_epoch_converter_t scale, const std::string& basekey, const std::string& instrumentkey );
 
-	std::string GenerateHMACPasscode(std::chrono::system_clock::time_point timepoint, int8_t epochoffset, timepoint_to_epoch_converter_t scale, const std::string& keyval)
+	std::string DoHMACPasscodeGeneration( std::chrono::system_clock::time_point timepoint, int8_t epochoffset, timepoint_to_epoch_converter_t scale, const std::string& base_key, const std::string& instrument_key )
 	{
+		// Shared key base_key_str "Phil, Dennis and Perry are pretty neat guys"
+		// Message: UNITS since Epoch (determined by "scale")
+		// Crypto: SHA256
+		// 
+		// Generate HMAC hash H of C+K
+		// Offset O = H & 0x0F
+		// Integer I = 4 bytes of H beginning at O bytes, & 0x8FFF
+		// Token = lowest  6 digits of I (expressed in base 10) padded with leading zeroes.
+
 		uint64_t UNITS;
 		{
-			UNITS = scale(timepoint);
+			UNITS = scale( timepoint );
 		}
 		UNITS += epochoffset;
+
+		std::string keyval = base_key;
+		keyval.append (instrument_key);
 
 		std::vector<unsigned char> encoded;
 		{
@@ -271,52 +273,210 @@ namespace SecurityHelpers
 		}
 		return passcode;
 	}
-	std::string GenerateHMACPasscode(std::chrono::system_clock::time_point timepoint, int8_t epochoffset, timepoint_to_epoch_converter_t scale)
+	std::string GenerateHMACPasscode(timepoint_to_epoch_converter_t scale)
 	{
-
-		return GenerateHMACPasscode(timepoint, epochoffset, scale, "\"Phil, Dennis and Perry are pretty neat guys\"");
-		// Shared key "Phil, Dennis and Perry are pretty neat guys"
-		// Message: UNITS since Epoch (determined by "scale")
-		// Crypto: SHA256
-		// 
-		// Generate HMAC hash H of C+K
-		// Offset O = H & 0x0F
-		// Integer I = 4 bytes of H beginning at O bytes, & 0x8FFF
-		// Token = lowest  6 digits of I (expressed in base 10) padded with leading zeroes.
+		return GenerateHMACPasscode(ChronoUtilities::CurrentTime(), 0, scale);
+	}
+	
+	std::string GenerateHMACPasscode(int8_t epochoffset, timepoint_to_epoch_converter_t scale)
+	{
+		return GenerateHMACPasscode(ChronoUtilities::CurrentTime(), epochoffset, scale);
+	}
+	
+	std::string GenerateHMACPasscode(std::chrono::system_clock::time_point timepoint, timepoint_to_epoch_converter_t scale)
+	{
+		return GenerateHMACPasscode(timepoint, 0, scale);
 	}
 
-	//HMAC passcode based on with a +/- grace period.
-	bool ValidateHMACPasscode(const std::string& passcode, timepoint_to_epoch_converter_t scale, uint8_t UNITSbefore, uint8_t UNITSafter)
+	std::string GenerateHMACPasscode(std::chrono::system_clock::time_point timepoint, timepoint_to_epoch_converter_t scale, const std::string& instrument_key )
 	{
-//NOTE: leaving the commented out logging statements here in case they are needed later.	
-//		Logger::L().Log (MODULENAME, severity_level::debug1,
-//			boost::str (boost::format ("ValidateHMACPasscode: <enter, passcode: %s, before: %d, after: %d>") 
-//			% passcode
-//			% (int)UNITSbefore
-//			% (int)UNITSafter));
+		return DoHMACPasscodeGeneration( timepoint, 0, scale, base_key_str, instrument_key );
+	}
 
-		for (uint8_t i = UNITSbefore; i > 0; i--)
+	std::string GenerateHMACPasscode( std::chrono::system_clock::time_point timepoint, int8_t epochoffset, timepoint_to_epoch_converter_t scale )
+	{
+		return DoHMACPasscodeGeneration( timepoint, epochoffset, scale, base_key_str, "" );
+	}
+
+	std::string GenerateHMACPasscode( std::chrono::system_clock::time_point timepoint, int8_t epochoffset, timepoint_to_epoch_converter_t scale, const std::string& key_str )
+	{
+		return DoHMACPasscodeGeneration( timepoint, epochoffset, scale, key_str, "" );
+	}
+
+
+	// local prototype to keep this method 'private' and force validation through the formatting feeder methods.
+	bool DoHMACPasscodeValidation( std::chrono::system_clock::time_point now, const std::string& passcode, timepoint_to_epoch_converter_t scale, uint8_t unitsbefore = 0, uint8_t unitsafter = 0 );
+
+	// Keep this method 'private' and force validation through the formatting feeder methods.
+	// Perform HMAC passcode validation optionally using a +/- grace period.
+	// Does not manipulate the given time-point.
+	bool DoHMACPasscodeValidation( std::chrono::system_clock::time_point now, const std::string& passcode, timepoint_to_epoch_converter_t scale, uint8_t UNITSbefore, uint8_t UNITSafter )
+	{
+		//NOTE: leaving the commented out logging statements here in case they are needed later.	
+		//Logger::L().Log (MODULENAME, severity_level::debug1,
+		//	boost::str (boost::format ("ValidateHMACPasscode: <enter, timepoint: now, passcode: %s, scale: -, before: %d, after: %d>") 
+		//	% passcode
+		//	% (int)UNITSbefore
+		//	% (int)UNITSafter));
+
+		for ( int8_t i = UNITSbefore; i > 0; i-- )
 		{
-			std::string genCode = GenerateHMACPasscode(-1 * i, scale);
-//			Logger::L().Log (MODULENAME, severity_level::debug1, boost::str (boost::format ("ValidateHMACPasscode: <UNITSbefore, genCode: %s>") % genCode));
-			if (passcode == genCode)
+			std::string genCode = GenerateHMACPasscode( now, -1 * i, scale );
+			//Logger::L().Log (MODULENAME, severity_level::debug1, boost::str (boost::format ("ValidateHMACPasscode: <UNITSbefore, genCode: %s>") % genCode));
+			if ( passcode == genCode )
 				return true;
 		}
 
-		std::string genCode2 = GenerateHMACPasscode(scale);
-//		Logger::L().Log (MODULENAME, severity_level::debug1, boost::str (boost::format ("ValidateHMACPasscode: <genCode2: %s>") % genCode2));
-		if (passcode == genCode2)
+		std::string genCode2 = GenerateHMACPasscode( now, 0, scale );
+		//Logger::L().Log (MODULENAME, severity_level::debug1, boost::str (boost::format ("ValidateHMACPasscode: <genCode2: %s>") % genCode2));
+		if ( passcode == genCode2 )
 			return true;
-		
-		for (uint8_t i = 1; i <= UNITSafter; i++)
+
+		for ( int8_t i = 1; i <= UNITSafter; i++ )
 		{
-			std::string genCode3 = GenerateHMACPasscode(i, scale);
-//			Logger::L().Log (MODULENAME, severity_level::debug1, boost::str (boost::format ("ValidateHMACPasscode: <UNITSafter, genCode: %s>") % genCode3));
-			if (passcode == genCode3)
+			std::string genCode3 = GenerateHMACPasscode( now, i, scale );
+			//Logger::L().Log (MODULENAME, severity_level::debug1, boost::str (boost::format ("ValidateHMACPasscode: <UNITSafter, genCode: %s>") % genCode3));
+			if ( passcode == genCode3 )
 				return true;
 		}
-		
+
 		return false;
+	}
+
+	// Prepare an HMAC passcode validation using an optional +/- grace period and timezone compensation.
+	bool ValidateHMACPasscode( const std::string& passcode, timepoint_to_epoch_converter_t scale, uint8_t UNITSbefore, uint8_t UNITSafter )
+	{
+		//NOTE: leaving the commented out logging statements here in case they are needed later.	
+		//Logger::L().Log (MODULENAME, severity_level::debug1,
+		//	boost::str (boost::format ("ValidateHMACPasscode: <enter, passcode: %s, scale: -, before: %d, after: %d>") 
+		//	% passcode
+		//	% (int)UNITSbefore
+		//	% (int)UNITSafter));
+		std::chrono::system_clock::time_point now( std::chrono::system_clock::now() );
+
+		TIME_ZONE_INFORMATION TimeZoneInfo;
+		GetTimeZoneInformation( &TimeZoneInfo );
+		int tzOffset = -( static_cast<int>( TimeZoneInfo.Bias ) );
+		now -= std::chrono::minutes( tzOffset );
+
+		return DoHMACPasscodeValidation( now, passcode, scale, UNITSbefore, UNITSafter );
+	}
+
+	// Prepare an HMAC passcode validation based on a single time epoch compensated for year epoch leap year variability and no +/- grace periods.
+	// This is for future use, as the current service passcode uses the timezone compensation of the 'ValidateHMACPasscode' method, above.
+	bool ValidateServicePasscode( const std::string& passcode, timepoint_to_epoch_converter_t scale )
+	{
+		//NOTE: leaving the commented out logging statements here in case they are needed later.	
+		//Logger::L().Log (MODULENAME, severity_level::debug1,
+		//	boost::str (boost::format ("ValidateServicePasscode: <enter, passcode: %s, scale: years>") 
+		//	% passcode));
+		std::chrono::system_clock::time_point tpNow( std::chrono::system_clock::now() );
+		
+		TIME_ZONE_INFORMATION tzi;
+		GetTimeZoneInformation( &tzi );
+
+		int tzBias = -( static_cast<int>( tzi.Bias ) );
+		tpNow -= std::chrono::minutes( tzBias );
+
+		time_t ttNow = {};
+		tm tmSys = {};
+
+		time( &ttNow );
+
+		if ( 0 == gmtime_s( &tmSys, &ttNow ) )
+		{
+			// NOTE: the 'YEAR' epoch has inherent variability based on the 1/4 day compensation
+			// for a leap-year.  the logic below corrects for the year-to-year epoch drift.
+			const int leap_year_hour_offset = -12;
+			const int leap_year_offset_step = 6;
+
+			int yrOffsetMinutes = 0;
+			int yrHourOffset = leap_year_hour_offset;
+
+			if ( ( tmSys.tm_year % 4 ) == 0 )
+			{
+				if ( tmSys.tm_mon >= 2 )
+				{
+					tpNow -= std::chrono::minutes( 3 * leap_year_offset_step * 60 );
+				}
+			}
+			else
+			{
+				yrHourOffset += ( ( 4 - ( tmSys.tm_year % 4 ) ) * leap_year_offset_step );
+			}
+			yrOffsetMinutes = yrHourOffset * 60;
+			tpNow -= std::chrono::minutes( yrOffsetMinutes );
+		}
+
+		return DoHMACPasscodeValidation( tpNow, passcode, scale );
+	}
+
+	// local prototype to keep this method 'private' and force validation through the formatting feeder methods.
+	bool DoKeyedHMACPasscodeValidation( std::chrono::system_clock::time_point now, const std::string& passcode, timepoint_to_epoch_converter_t scale, uint8_t unitsbefore = 0, uint8_t unitsafter = 0, const std::string instkey = "" );
+
+	// Keep this method 'private' and force validation through the formatting feeder methods.
+	// Perform HMAC passcode validation optionally using a +/- grace period and an additional instrument/user specific hash-key string, and optional +/- grace periods
+	bool DoKeyedHMACPasscodeValidation( std::chrono::system_clock::time_point now, const std::string& passcode, timepoint_to_epoch_converter_t scale, uint8_t UNITSbefore, uint8_t UNITSafter, const std::string instkey )
+	{
+		//NOTE: leaving the commented out logging statements here in case they are needed later.	
+		//Logger::L().Log (MODULENAME, severity_level::debug1,
+		//	boost::str (boost::format ("ValidateHMACPasscode: <enter, timepoinnt: now, passcode: %s, scale: -, before: %d, after: %d, instkey: %s>") 
+		//	% passcode
+		//	% (int)UNITSbefore
+		//	% (int)UNITSafter
+		//  % instkey));
+
+		for ( int8_t i = UNITSbefore; i > 0; i-- )
+		{
+			std::string genCode = DoHMACPasscodeGeneration( now, -1 * i, scale, base_key_str, instkey );
+			//Logger::L().Log (MODULENAME, severity_level::debug1, boost::str (boost::format ("ValidateHMACPasscode: <UNITSbefore, genCode: %s>") % genCode));
+			if ( passcode == genCode )
+				return true;
+		}
+
+		std::string genCode2 = DoHMACPasscodeGeneration( now, 0, scale, base_key_str, instkey );
+		//Logger::L().Log (MODULENAME, severity_level::debug1, boost::str (boost::format ("ValidateHMACPasscode: <genCode2: %s>") % genCode2));
+		if ( passcode == genCode2 )
+			return true;
+
+		for ( int8_t i = 1; i <= UNITSafter; i++ )
+		{
+			std::string genCode3 = DoHMACPasscodeGeneration( now, i, scale, base_key_str, instkey );
+			//Logger::L().Log (MODULENAME, severity_level::debug1, boost::str (boost::format ("ValidateHMACPasscode: <UNITSafter, genCode: %s>") % genCode3));
+			if ( passcode == genCode3 )
+				return true;
+		}
+
+		return false;
+	}
+
+	// Prepare an HMAC passcode validation using an an additional instrument/user specific hash-key string; no +/- grace periods
+	// This passcode is based on the date supplied to the password generator, and should ONLY be valid during that timepoint, which should be 'now' when executed.
+	bool ValidateResetPasscode( const std::string& passcode, timepoint_to_epoch_converter_t scale, const std::string instkey )
+	{
+		// NOTE: The reset password is always effectively using local time.
+		//       The generator always converts the time to the local day epoch
+		//       before generating the passcode..
+		std::chrono::system_clock::time_point tpNow( std::chrono::system_clock::now() );
+
+		time_t ttNow = {};
+		tm tmSys = {};
+
+		time( &ttNow );
+
+		if ( 0 == localtime_s( &tmSys, &ttNow ) )
+		{
+			if ( tmSys.tm_isdst > 0 )
+			{
+				TIME_ZONE_INFORMATION tzi;
+				GetTimeZoneInformation( &tzi );
+
+				int daylightBias = -( static_cast<int>( tzi.DaylightBias ) );		// Convert to expected offset signed value (standard offset covnersions are negated, as here, for the bias offsets)
+				tpNow += std::chrono::minutes( daylightBias );						// Use the opposite signed operation for daylight bias values (timezone bias is subtracted, thus daylight bias is added)
+			}
+		}
+
+		return DoKeyedHMACPasscodeValidation( tpNow, passcode, scale, 0, 0, instkey );
 	}
 
 	bool SecurityEncryptFile(std::ifstream &in_file, std::ostream & out_stream, const std::string & iv_string, const std::string  salt, std::string & keyout)// , const std::string& iv)

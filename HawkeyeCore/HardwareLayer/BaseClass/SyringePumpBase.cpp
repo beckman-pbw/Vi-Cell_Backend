@@ -19,13 +19,21 @@ SyringePumpBase::SyringePumpBase (std::shared_ptr<CBOService> pCBOService)
 	, cur_volume_uL_(0)
 {
 	portMap_[SyringePumpPort::Waste]     = PhysicalPort::PortF;
-	portMap_[SyringePumpPort::ACup]      = PhysicalPort::PortG;
 	portMap_[SyringePumpPort::FlowCell]  = PhysicalPort::PortH;
 	portMap_[SyringePumpPort::Reagent_1] = PhysicalPort::PortA;
 	portMap_[SyringePumpPort::Cleaner_1] = PhysicalPort::PortB;
 	portMap_[SyringePumpPort::Cleaner_2] = PhysicalPort::PortC;
 	portMap_[SyringePumpPort::Cleaner_3] = PhysicalPort::PortD;
+
+#ifdef CELLhEALTH_MODULE
+	portMap_[SyringePumpPort::ACup]      = PhysicalPort::PortG;
 	portMap_[SyringePumpPort::Diluent]   = PhysicalPort::PortE;
+#endif
+#ifdef VICELL_BLU
+	portMap_[SyringePumpPort::Sample]    = PhysicalPort::PortG;
+	portMap_[SyringePumpPort::Sample_2]  = PhysicalPort::PortE;	// Vi-Cell_BLU ACup
+#endif
+//TODO: is something miss from the above ???
 
 	// Set default syringe pump valve position.
 	curPhysicalPort_ = SyringePumpPort::ToPhysicalPort (SyringePumpPort::Waste);
@@ -102,7 +110,12 @@ SyringePumpPort SyringePumpBase::paramToPort (uint32_t param) {
 		case 1:
 			return SyringePumpPort(SyringePumpPort::Waste);
 		case 2:
+#ifdef CELLhEALTH_MODULE
 			return SyringePumpPort(SyringePumpPort::ACup);
+#endif
+#ifdef VICELL_BLU
+			return SyringePumpPort(SyringePumpPort::Sample);
+#endif
 		case 3:
 			return SyringePumpPort(SyringePumpPort::FlowCell);
 		case 4:
@@ -114,7 +127,12 @@ SyringePumpPort SyringePumpBase::paramToPort (uint32_t param) {
 		case 7:
 			return SyringePumpPort(SyringePumpPort::Cleaner_3);
 		case 8:
+#ifdef CELLhEALTH_MODULE
 			return SyringePumpPort(SyringePumpPort::Diluent);
+#endif
+#ifdef VICELL_BLU
+			return SyringePumpPort(SyringePumpPort::Sample_2);
+#endif
 		default:
 			Logger::L().Log (MODULENAME, severity_level::critical, "paramToPort: invalid port: " + std::to_string(param));
 			return SyringePumpPort(SyringePumpPort::InvalidPort);
@@ -145,8 +163,14 @@ std::string SyringePumpPort::getAsString() {
 	switch (port_) {
 		case Waste:
 			return "Waste";
+#ifdef CELLhEALTH_MODULE
 		case ACup:
 			return "ACup";
+#endif
+#ifdef VICELL_BLU
+		case Sample:
+			return "Sample";
+#endif
 		case FlowCell:
 			return "FlowCell";
 		case Reagent_1:
@@ -157,8 +181,14 @@ std::string SyringePumpPort::getAsString() {
 			return "Cleaner_2";
 		case Cleaner_3:
 			return "Cleaner_3";
+#ifdef CELLhEALTH_MODULE
 		case Diluent:
 			return "Diluent";
+#endif
+#ifdef VICELL_BLU
+		case Sample_2:
+			return "Sample_2";	//TODO: should this also return A-Cup ?
+#endif
 		default:
 			return "InvalidPort";
 	}
@@ -249,12 +279,20 @@ bool SyringePumpBase::isAspirationAllowed (PhysicalPort_t physicalPort)
 //*****************************************************************************
 bool SyringePumpBase::isDisPenseAllowed (PhysicalPort_t physicalPort)
 {
-	// Allow dispensing to these valve positions "ACup - E", "Waste - F" and "FlowCell - H"
+
 	switch (physicalPort)
 	{
+#ifdef CELLhEALTH_MODULE
 		case PhysicalPort::PortF:	// Waste
 		case PhysicalPort::PortG:	// ACup
 		case PhysicalPort::PortH:	// FlowCell
+#endif
+#ifdef VICELL_BLU
+		case PhysicalPort::PortE:	//TODO: label these ...
+		case PhysicalPort::PortF:
+		case PhysicalPort::PortG:
+		case PhysicalPort::PortH:
+#endif
 			return true;
 		default:
 			return false;

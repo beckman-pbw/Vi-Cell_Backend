@@ -161,6 +161,23 @@ void BeckmanCamera::initializeAsync(std::function<void(bool)> callback)
 			Logger::L().Log (MODULENAME, severity_level::critical, "Camera not connected");
 		}
 	}
+	else if (HawkeyeConfig::Instance().get().cameraType == HawkeyeConfig::CameraType::Allied)
+	{
+		if (dynamic_cast<Camera_Allied*>(pCamera_.get()))
+		{
+			pCBOService_->enqueueInternal(callback, true);
+			Logger::L().Log(MODULENAME, severity_level::debug1, "initialize: <exit, success>");
+			return;
+		}
+		else
+		{
+			ReportSystemError::Instance().ReportError(BuildErrorInstance(
+				instrument_error::imaging_camera_connection,
+				instrument_error::severity_level::error));
+			CameraErrorLog::Log("Camera_initializeAsync::Camera not connected");
+			Logger::L().Log(MODULENAME, severity_level::critical, "Camera not connected");
+		}
+	}
 	else
 	{
 		ReportSystemError::Instance().ReportError (BuildErrorInstance(
@@ -495,6 +512,13 @@ void BeckmanCamera::takeMultiplePicturesInternal(
 	HAWKEYE_ASSERT (MODULENAME, params.perImageCallback);
 	HAWKEYE_ASSERT (MODULENAME, completionCallback);
 	HAWKEYE_ASSERT (MODULENAME, minimumTimePerImageMillisec > 0);
+
+	// Trigger completion callback when no frames left to capture
+	if (framesLeftToCapture == 0)
+	{
+		pCBOService_->enqueueInternal(completionCallback, true);
+		return;
+	}
 
 	auto onTakePictureComplete = [=](bool status)
 	{

@@ -5,6 +5,7 @@
 #include "ActiveDirectoryDLL.hpp"
 #include "AppConfig.hpp"
 #include "AuditLog.hpp"
+#include "ExpandedUsers.hpp"
 #include "FileSystemUtilities.hpp"
 #include "HawkeyeConfig.hpp"
 #include "HawkeyeDataAccess.h"
@@ -30,6 +31,48 @@ HawkeyeError HawkeyeLogicImpl::SetSystemSecurityType (eSECURITYTYPE secType, con
 			audit_event_type::evt_notAuthorized, 
 			"SetSystemSecurityType"));
 		return HawkeyeError::eNotPermittedByUser;
+	}
+
+	eSECURITYTYPE oldSecType = UserList::GetSystemSecurityType();
+	int16_t expDays = HawkeyeConfig::Instance().get().passwordExpiration;
+	std::string unameStr = uname;
+
+	// changing to local security mode; check to re-enable password expiration
+	if ( eSECURITYTYPE::eLocalSecurity == secType )
+	{
+		if ( expDays < NO_PWD_EXPIRATION )
+		{
+			HawkeyeConfig::Instance().get().passwordExpiration = -( expDays );		// restore the password expiration days value
+		}
+	}
+	else if ( eSECURITYTYPE::eLocalSecurity == oldSecType )		// going to No-Security mode or AD mode; disable password expiration on local security 
+	{
+		if ( expDays > NO_PWD_EXPIRATION )
+		{
+			HawkeyeConfig::Instance().get().passwordExpiration = -( expDays );		// preserve the password expiration days value as a negative, below the level detected for NO_PWD_EXPIRATION
+		}
+
+		std::string factoryAdmin = FACTORY_ADMIN_USER;
+		std::string faPwd = SILENTADMIN_USER;				// -> "Vi-CELL"
+		faPwd.append( "#0" );								// -> "Vi-CELL#0"
+
+		HawkeyeError he = UserList::Instance().ChangeUserPassword( factoryAdmin, faPwd, true );
+		faPwd.clear();
+
+		if ( he == HawkeyeError::eSuccess )
+		{
+			AuditLogger::L().Log( generateAuditWriteData(
+				unameStr,
+				audit_event_type::evt_passwordreset,
+				"Password reset\n\tUser: \"" + factoryAdmin + "\"" ) );
+		}
+		else
+		{
+			Logger::L().Log( MODULENAME, severity_level::notification, boost::str(
+				boost::format( "SetsecurityType : Unable to reset password for user <with name : %s> from logged in User : %s" )
+				% factoryAdmin
+				% unameStr ) );
+		}
 	}
 
 	HawkeyeConfig::Instance().get().securityType = secType;
@@ -262,7 +305,7 @@ HawkeyeError HawkeyeLogicImpl::ValidateActiveDirConfig (ActiveDirectoryConfig cf
 	// Log in to the server and if OK we get a list of strings including all the groups the user belongs to 
 	std::vector<std::string> adGroups = {};
 	ActiveDirectoryConfigDLL adConfig( cfg );
-	UserList::Instance().ValidateADUser (adGroups, uName, password, adConfig);
+	UserList::Instance().LoginADUser( adGroups, uName, password, adConfig );
 
 	for (const auto& group : adGroups)
 	{

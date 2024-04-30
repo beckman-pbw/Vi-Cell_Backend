@@ -318,6 +318,11 @@ std::shared_ptr<LedBase> Hardware::createBrightFieldLed(int16_t led, std::shared
 
 std::shared_ptr<iCamera> Hardware::createCamera(int16_t camera)
 {
+	if (camera == HawkeyeConfig::CameraType::Allied)
+	{
+		return std::make_shared<Camera_Allied>();
+	}
+
 	return std::make_shared<Camera_Basler>(); //By default make a Basler camera. If it's not basler, it'll later fail initializaiton.
 }
 

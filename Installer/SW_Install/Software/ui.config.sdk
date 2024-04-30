@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!-- NOTE: This file MUST be kept synchronized with the UI version of this file at HawkeyeUserInterface\ScoutUtilities\UIConfiguration\ui.config -->
+<!--       Any additions or deletions to the UI version of this file MUST be mirrored in this file! -->
+
 <configuration>
   <configSections>
     <section name="uiConfiguration" type="ScoutUtilities.UIConfiguration.UIConfigurationSettings, ScoutUtilities" allowLocation="true" allowDefinition="Everywhere" />
@@ -31,5 +34,6 @@
     maximumRecentMessages="1000"
     useWindowedMode="True"
     overrideEssVcrControls="True"
+    useCarouselSimulation="False"
   />
 </configuration>

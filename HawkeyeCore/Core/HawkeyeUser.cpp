@@ -241,7 +241,7 @@ std::string HawkeyeUser::ToStorageString()
 }
 
 //*****************************************************************************
-bool HawkeyeUser::SetPassword(const std::string& newPassword, bool isAdUser)
+bool HawkeyeUser::SetPassword(const std::string& newPassword, bool isPwdReset, bool isOverride )
 {
 	if (!IsValid())
 		return false;
@@ -249,15 +249,20 @@ bool HawkeyeUser::SetPassword(const std::string& newPassword, bool isAdUser)
 	std::vector<unsigned char> message(newPassword.begin(), newPassword.end());
 	std::string temphash = SecurityHelpers::CalculateHash(message, pwSalt, REPETITIONS);
 
-	if (isAdUser)
+	if (isPwdReset)
 	{
-		// AD users need to have just the current password in the list
+		// AD users or password resets need to have just the current password in the list
 		pwHash.clear();
 		pwHash.push_back(temphash);
 		return true;
 	}
 
-	// Can't repeat current or prior passwords
+	// Can't repeat current or prior passwords unless using the override password
+	if ( isOverride )
+	{
+		pwHash.remove( temphash );
+	}
+
 	for (auto pwh : pwHash)
 	{
 		if (temphash == pwh)

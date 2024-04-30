@@ -175,7 +175,7 @@ extern "C"
 	///                eInvalidArgs - Failed to locate user account or user does not exist
 	///                eValidationFailed - Failed to validate administrator_account or administrator_account lacks correct privileges
 	///                eStorageFault - Failed to update the configuration
-	DLL_CLASS HawkeyeError AdministrativeUserEnable(const char* administrator_account, const char* administrator_password, const char* user_account);
+	DLL_CLASS HawkeyeError AdministrativeUserUnlock(const char* administrator_account, const char* administrator_password, const char* user_account);
 
 	/// Returns the Security state- enabled /disabled
 	DLL_CLASS HawkeyeError GetSystemSecurityType(eSECURITYTYPE& secType);
@@ -225,7 +225,7 @@ extern "C"
 	DLL_CLASS HawkeyeError GetSampleColumns(const char* username, ColumnSetting*& recs, uint32_t& retrieved_count);
 	DLL_CLASS HawkeyeError SetSampleColumns(const char* username, ColumnSetting* recs, uint32_t count);
 	DLL_CLASS void FreeSampleColumns(ColumnSetting* recs, uint32_t count);
-	
+
 	//
 	// User record access
 	//
@@ -647,6 +647,13 @@ extern "C"
 	///                eStorageFault -  Failed to update the configuration file.
 	DLL_CLASS HawkeyeError ChangeUserPassword (const char* name, const char* password);
 
+	/// Return values: eSuccess
+	///                eNotPermittedByUser - Logged in user lacks sufficient permissions
+	///                eNotPermittedAtThisTime - Cannot change PW of current user through this API
+	///                eInvalidArgs - Invalid password/username does not exist/ Built in account
+	///                eStorageFault -  Failed to update the configuration file.
+	DLL_CLASS HawkeyeError ResetUserPassword( const char* name );
+
 	/// Return values: eSuccess - expired parameter is valid 
 	DLL_CLASS HawkeyeError IsPasswordExpired (const char* name, bool& expired);
 
@@ -925,6 +932,19 @@ extern "C"
 	//Deprecated
 	DLL_CLASS HawkeyeError SetSizeCalibration(double slope, double intercept, uuid__t queue_id, uint16_t num_consumables, calibration_consumable* consumables);
 
+	/// Create the dust subtraction reference image for the bright field optics.
+	/// This feature acquires images of an "empty" flow cell while moving the buffer reagent through it.
+	/// The business logic then identifies the static features common in the images and will exclude those features from processing in the future.
+	/// Operation can only be done when the system is idle.
+	/// Host will provide a callback function that will be used to inform the Host of state change in the sequence
+	/// and of the final reference images which must then be approved or cancelled.
+	///
+	/// Return values: eSuccess
+	///                eNotPermittedByUser - Logged in user lacks sufficient permissions / no user presently logged in
+	///                eNotPermittedAtThisTime - Not running Bright Field Dust Subtract workflow
+	//Deprecated
+	DLL_CLASS HawkeyeError GetBrightfieldDustSubtractState (BrightfieldDustSubtractWorkflow::eBrightfieldDustSubtractionState& state);
+
 	/// Return values: eSuccess
 	///                eNotPermittedByUser - Logged in user lacks sufficient permissions
 	///                eBusy - cannot start the operation unless the system is idle
@@ -952,9 +972,6 @@ extern "C"
 	///                eNotPermittedByUser - logged in user lacks sufficient permissions
 	///                eStorageFault - Failed to read log
 	DLL_CLASS HawkeyeError RetrieveAuditTrailLog (uint32_t& num_entries, audit_log_entry*& log_entries);
-
-	//Deprecated
-	DLL_CLASS HawkeyeError RetrieveAuditTrailLogRange (uint64_t starttime, uint64_t endtime, uint32_t& num_entries, audit_log_entry*& log_entries);
 
 	DLL_CLASS void WriteToAuditLog (const char* username, audit_event_type type, char* resource);
 	
@@ -1535,6 +1552,7 @@ extern "C"
 	DLL_CLASS HawkeyeError GetScheduledExports(eScheduledExportType export_type, ScheduledExport*& scheduled_exports, uint32_t& count);
 	DLL_CLASS HawkeyeError FreeListOfScheduledExports(ScheduledExport* scheduled_exports, uint32_t count);
 
+	DLL_CLASS void UseCarouselSimulation (bool state);
 	DLL_CLASS void ShutdownOrReboot (ShutdownOrRebootEnum operation);
 	DLL_CLASS HawkeyeError DeleteCampaignData();
 	DLL_CLASS HawkeyeError SetOpticalHardwareConfig(OpticalHardwareConfig type);

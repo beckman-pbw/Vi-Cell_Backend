@@ -332,8 +332,14 @@ void HawkeyeLogicImpl::Initialize (bool withHardware)
 	// all of the code simply by *get*ting the HawkeyeConfig_t.
 	if (withHardware)
 	{		
+#ifdef CELLhEALTH_MODULE
+		HawkeyeConfig::Instance().setHardwareForCHM();
+#endif
+#ifdef VICELL_BLU
 		HawkeyeConfig::Instance().setHardwareForShepherd();
+#endif
 	}
+			
 	else
 	{
 		HawkeyeConfig::Instance().setHardwareForSimulation();
@@ -724,6 +730,7 @@ void HawkeyeLogicImpl::internalInitializationProcess (std::function<void( bool )
 
 		case InitializationSequence::ReagentPack:
 		{
+		//TODO: check for s/w variant type.
 			// Read the current reagent volumes from the database.
 			CellHealthReagents::Initialize();
 
@@ -774,7 +781,7 @@ void HawkeyeLogicImpl::internalInitializationProcess (std::function<void( bool )
 		case InitializationSequence::NightlyClean:
 		{
 			// Nightly clean is unnecessary if we are not in "real hardware" mode.
-			if (!HawkeyeConfig::Instance().get().hardwareConfig.syringePump || initializeNightlyClean())
+			if (!HawkeyeConfig::Instance().get().withHardware || initializeNightlyClean())
 			{
 				setNextInitializationSequence (callback, InitializationSequence::Validation);
 			}
@@ -894,7 +901,7 @@ void HawkeyeLogicImpl::internalShutdown()
 	auto wt = std::make_shared<boost::asio::deadline_timer>(pHawkeyeServices_->getInternalIosRef());
 
 	auto timeout = boost::posix_time::seconds(25);
-	if (!HawkeyeConfig::Instance().get().hardwareConfig.controllerBoard)
+	if (!HawkeyeConfig::Instance().get().withHardware)
 	{
 		timeout = boost::posix_time::seconds(1);
 	}
@@ -909,6 +916,7 @@ void HawkeyeLogicImpl::internalShutdown()
 			destroyNightlyClean();
 
 			pReanalysisImgProcUtilities_.reset();
+			pUiDllLayerMediator_.reset();
 
 			pHawkeyeServices_->enqueueExternal ([this]()->void
 				{
@@ -983,7 +991,7 @@ void HawkeyeLogicImpl::RotateCarousel(std::function<void(HawkeyeError, SamplePos
 		return;
 	}
 
-	if (HawkeyeConfig::Instance().get().hardwareConfig.stageController) // Check tube present only for hardware, not for simulator.
+	if (HawkeyeConfig::Instance().get().withHardware) // Check tube present only for hardware, not for simulator.
 	{
 		if (pStageController->IsTubePresent())
 		{
@@ -1207,8 +1215,8 @@ void HawkeyeLogicImpl::SystemErrorCodeToExpandedStrings (
 	// Remove "severity" and "instance" fields to allow matching the error code in
 	// "cellHealthErrorCodes" since the values in "cellHealthErrorCodes" do not contain
 	// the instance value.
-	system_error_code &= ~instrument_error::SEVERITY_MASK;
-	system_error_code &= ~instrument_error::INSTANCE_MASK;
+	system_error_code &= ~instrument_error::ERR_SEVERITY_MASK;
+	system_error_code &= ~instrument_error::ERR_INSTANCE_MASK;
 
 	std::string chmErrorCode = cellHealthErrorCodes[system_error_code];
 	if (chmErrorCode.empty())
@@ -1247,8 +1255,8 @@ void HawkeyeLogicImpl::SystemErrorCodeToExpandedResourceStrings(
 	// Remove "severity" and "instance" fields to allow matching the error code in
 	// "cellHealthErrorCodes" since the values in "cellHealthErrorCodes" do not contain
 	// the instance value.
-	system_error_code &= ~instrument_error::SEVERITY_MASK;
-	system_error_code &= ~instrument_error::INSTANCE_MASK;
+	system_error_code &= ~instrument_error::ERR_SEVERITY_MASK;
+	system_error_code &= ~instrument_error::ERR_INSTANCE_MASK;
 
 	std::string chmErrorCode = cellHealthErrorCodes[system_error_code];
 	if (chmErrorCode.empty())

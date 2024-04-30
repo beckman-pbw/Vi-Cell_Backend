@@ -21,13 +21,15 @@ public:
 	//                  Instrument  ControllerBoard  Syringe Pump
 	//   Description       Port          Port            Port
 	//      Waste            1             6               F
-	//      A-Cup            2             7               G
+	//      A-Cup            2             7               G		Shepherd CellHealth
+	//      Sample           2             7               G		Vi-Cell_BLU
 	//     FlowCell          3             8               H
 	//    TrypanBlue         4             1               A
 	//     Cleaner_1         5             2               B
 	//     Cleaner_2         6             3               C
 	//     Cleaner_3         7             4               D
-	//      Diluent          8             5               E
+	//      Diluent          8             5               E		Shepherd CellHealth
+	//      A-Cup            8             5               E		Vi-Cell_BLU	
 	//
 	// The Instrument Port is from the user perspective.  These were arbitrarily 
 	// assigned during the feasibility study using LabView.

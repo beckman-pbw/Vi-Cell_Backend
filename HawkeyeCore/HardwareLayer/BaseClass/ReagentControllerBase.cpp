@@ -22,7 +22,7 @@ ReagentControllerBase::~ReagentControllerBase() {
 //*****************************************************************************
 // "calculateremaininguses" will tell you how many complete uses can be done with this volume (floor)
 // Otherwise it'll tell you how many complete uses this volume will TAKE (ceiling)
- uint32_t ReagentControllerBase::ConvertFluidVolumetoUsageCount (SyringePumpPort::Port port, uint32_t volume, bool calculateremaininguses)
+ uint16_t ReagentControllerBase::ConvertFluidVolumetoUsageCount (SyringePumpPort::Port port, uint32_t volume, bool calculateremaininguses)
 {
 	double usage_count;
 
@@ -42,7 +42,7 @@ ReagentControllerBase::~ReagentControllerBase() {
 
 	// If we're using this function to calculate remaining uses, partial uses don't count, so we round DOWN.
 	// If we're using this function to calcualte how many uses a volume will consume, we round UP (partial uses count as a whole)
-	return calculateremaininguses ? (uint32_t)std::floor(usage_count) : (uint32_t)std::ceil(usage_count); 
+	return calculateremaininguses ? (uint16_t)std::floor(usage_count) : (uint32_t)std::ceil(usage_count); 
 }
 
 

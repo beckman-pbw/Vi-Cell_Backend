@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ExpandedUsers.hpp"
 #include "HawkeyeError.hpp"
 #include "HawkeyeUser.hpp"
 #include "SecurityHelpers.hpp"
@@ -11,15 +12,6 @@ const uint32_t LOCKOUT_TIME = 30;
 const uint32_t MIN_DISPLAY_DIGITS = 2;
 const uint32_t MAX_DISPLAY_DIGITS = 4;
 
-#define SERVICE_USER "bci_service"
-#define SERVICE_USER_DN "Beckman Coulter Service"
-/*#define SILENTADMIN_USER "Vi-CELL"
-#define SILENTADMIN_USER_DN "Vi-CELL"
-*/
-#define SILENTADMIN_USER "Cydem"
-#define SILENTADMIN_USER_DN "Cydem"
-#define AUTOMATION_USER "automation"
-#define AUTOMATION_USER_DN "Beckman Coulter Automation"
 
 class ExpandedUser
 {
@@ -34,6 +26,7 @@ public:
 		const std::string& password,
 		bool silentSuccess,
 		std::function<bool(const std::string& password)> PasswordValidator);
+	bool ValidateResetPassword( const std::string& username, const std::string& password );
 	static bool IsReservedName(const std::string& uName);
 
 	HawkeyeUser userCore = {};

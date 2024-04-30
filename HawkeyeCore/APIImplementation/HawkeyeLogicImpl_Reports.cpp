@@ -106,6 +106,7 @@ void HawkeyeLogicImpl::RetrieveSampleActivityLogRange(
 	num_entries = 0;
 	log_entries = nullptr;
 
+//TODO: should thhe Vi-Cell code be used ???
 	auto pSampleLog = std::make_shared<SampleLog>(pHawkeyeServices_);
 	pSampleLog->readAsync(
 		starttime, endtime, [this, pSampleLog, callback, &num_entries, &log_entries](

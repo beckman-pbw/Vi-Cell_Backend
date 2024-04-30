@@ -34,28 +34,31 @@ namespace instrument_error
 	*
 	*/
 
-	constexpr uint32_t SEVERITY_MASK = 0xC0000000;
-	constexpr uint32_t INSTANCE_MASK = 0x0000FF00;
+	constexpr uint32_t ERR_SEVERITY_MASK  = 0xC0000000;
+	constexpr uint32_t ERR_SYSTEM_MASK    = 0x3F000000;
+	constexpr uint32_t ERR_SUBSYSTEM_MASK = 0x00FF0000;
+	constexpr uint32_t ERR_INSTANCE_MASK  = 0x0000FF00;
+	constexpr uint32_t ERR_FAILURE_MASK   = 0x000000FF;
 
 	inline uint8_t getSeverity_8 (uint32_t errorVal)
 	{
-		return (errorVal & 0xC0000000) >> 30;
+		return (errorVal & ERR_SEVERITY_MASK) >> 30;
 	}
 	inline uint8_t getSystem_8 (uint32_t errorVal)
 	{
-		return (errorVal & 0x3F000000) >> 24;
+		return (errorVal & ERR_SYSTEM_MASK) >> 24;
 	}
 	inline uint8_t getSubsystem_8 (uint32_t errorVal)
 	{
-		return (errorVal & 0x00FF0000) >> 16;
+		return (errorVal & ERR_SUBSYSTEM_MASK) >> 16;
 	}
 	inline uint8_t getInstance_8 (uint32_t errorVal)
 	{
-		return (errorVal & INSTANCE_MASK) >> 8;
+		return (errorVal & ERR_INSTANCE_MASK) >> 8;
 	}
 	inline uint8_t getFailure_8 (uint32_t errorVal)
 	{
-		return (errorVal & 0x000000FF) >> 0;
+		return (errorVal & ERR_FAILURE_MASK) >> 0;
 	}
 	
 	enum struct severity_level : uint8_t

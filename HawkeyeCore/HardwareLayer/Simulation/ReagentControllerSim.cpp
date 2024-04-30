@@ -1,7 +1,7 @@
 #include "stdafx.h"
+#include "CellHealthReagents.hpp"
 #include "HawkeyeConfig.hpp"
 #include "ReagentControllerSim.hpp"
-#include "CellHealthReagents.hpp"
 
 static const char MODULENAME[] = "ReagentControllerSim";
 
@@ -281,17 +281,18 @@ bool ReagentControllerSim::isFluidAvailableInternal(std::shared_ptr<std::vector<
 		Logger::L().Log(MODULENAME, severity_level::debug1, "isFluidAvailableInternal: <exit, no volume tracked>");
 		return true;
 	}
+
 	auto fl2 = ConvertToCHReagentsFluid(fluid);
 
-	int remainingVolume = 0;
+	int remainingVolume = 0;	// This "may" be < 0.
 	if (CellHealthReagents::GetVolume(fl2, remainingVolume) != HawkeyeError::eSuccess)
 	{
 		Logger::L().Log(MODULENAME, severity_level::error, "isFluidAvailableInternal- <Exit - Fluid is not available - Unable to retrieve volume> ");
 		return false;
 	}
 
-	std::string outs = boost::str(boost::format("\Port %d / Fluid %d: %d uL required; %d uL remaining") % port % (uint16_t) fluid % volume % remainingVolume);
+	std::string outs = boost::str(boost::format("Port %d / Fluid %d: %d uL required; %d uL remaining") % port % (uint16_t) fluid % volume % remainingVolume);
 	Logger::L().Log(MODULENAME, severity_level::debug1, outs);
 
-	return remainingVolume >= volume;
+	return remainingVolume >= static_cast<uint32_t>(volume);
 }

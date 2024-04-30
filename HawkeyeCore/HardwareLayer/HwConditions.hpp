@@ -33,6 +33,3 @@
 
 #define CNTLR_SN_A_STR			"A"
 #define CNTLR_SN_B_STR			"B"
-
-#define TITER_EZPORT_ID_STR		"B"		//Titer board uses port B of the FTDI chip for EzPort
-#define TITER_SERIAL_ID_STR		"C"		//Titer board uses port C of the FTDI chip for serial UART

@@ -18,19 +18,35 @@ typedef enum PhysicalPort : uint8_t
 class SyringePumpPort
 {
 public:
-
+#ifdef CELLhEALTH_MODULE
 	enum Port : uint8_t
 	{
 		InvalidPort = 0,
-		Waste,
-		ACup,
-		FlowCell,
-		Reagent_1,	// Trypan Blue
-		Cleaner_1,	// Cleaning Agent
-		Cleaner_2,	// Conditioning Solution
-		Cleaner_3,	// Buffer
-		Diluent,	// DI Water
+		Waste       = 1,
+		ACup        = 2,
+		FlowCell    = 3,
+		Reagent_1   = 4,	// Trypan Blue
+		Cleaner_1   = 5,	// Cleaning Agent
+		Cleaner_2   = 6,	// Conditioning Solution
+		Cleaner_3   = 7,	// Buffer
+		Diluent     = 8,	// DI Water
 	};
+#endif
+
+#ifdef VICELL_BLU
+	enum Port : uint8_t
+	{
+		InvalidPort = 0,
+		Waste       = 1,
+		Sample      = 2,
+		FlowCell    = 3,
+		Reagent_1   = 4,	// Trypan Blue
+		Cleaner_1   = 5,	// Cleaning Agent
+		Cleaner_2   = 6,	// Conditioning Solution
+		Cleaner_3   = 7,	// Buffer
+		Sample_2    = 8,	// ACup
+	};
+#endif
 
 	SyringePumpPort() { port_ = InvalidPort; }
 	SyringePumpPort(Port port) { port_ = port; }

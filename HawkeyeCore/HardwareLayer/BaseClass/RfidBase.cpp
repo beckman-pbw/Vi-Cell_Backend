@@ -401,6 +401,7 @@ void RfidBase::parseTag (size_t tagNum, RfAppdataRegisters& rfidData, RfidTag_t&
 		}
 	}
 
+//TODO: for Vi-Cell
 // No need to log this for CellHealth since there is no real reagent pack.
 	//if (last_parse_content != ss.str())
 	//{

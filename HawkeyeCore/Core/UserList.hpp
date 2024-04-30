@@ -11,6 +11,7 @@
 #include "Configuration.hpp"
 #include "DBif_Api.h"
 #include "ExpandedUser.hpp"
+#include "ExpandedUsers.hpp"
 #include "HawkeyeUser.hpp"
 #include "HawkeyeError.hpp"
 #include "SecurityHelpers.hpp"
@@ -58,14 +59,14 @@ public:
 	HawkeyeError LoginRemoteUser (const std::string& username, const std::string& password);
 	void         LogoutRemoteUser (const std::string& username);
 	HawkeyeError ValidateUserCredentials (const std::string& username, const std::string& password);
-	void         ValidateADUser( std::vector<std::string>& adgrouplist, const std::string uname, const std::string upw, const ActiveDirectoryConfigDLL adcfg );
-	HawkeyeError AdministrativeEnable(const std::string& admin_uname, const std::string& admin_pwd, const std::string& uName);
+	void         LoginADUser (std::vector<std::string>& adgrouplist, const std::string uname, const std::string upw, const ActiveDirectoryConfigDLL adcfg);
+	HawkeyeError AdministrativeUnlock(const std::string& admin_uname, const std::string& admin_pwd, const std::string& uName);
 	std::string  GenerateHostPassword(const std::string& keyval);
 
 	HawkeyeError AddFactoryAdminUser();
 	HawkeyeError RemoveUser(const std::string& uName);
 	HawkeyeError EnableUser(const std::string& uName, bool uEnabled);
-	HawkeyeError ChangeUserPassword(const std::string& uName, const std::string& password);
+	HawkeyeError ChangeUserPassword(const std::string& uName, const std::string& password, bool resetPwd = false);
 	HawkeyeError GetUserPermissionLevel(const std::string& uName, UserPermissionLevel& permissions);
 	HawkeyeError ChangeUserPermissions(const std::string& uName, UserPermissionLevel permissions);
 	HawkeyeError SetUserFolder(const std::string& uName, const std::string& folder);
@@ -109,7 +110,6 @@ public:
 	std::string GetLoggedInUsername();
 	std::string GetRemoteUsername();
 	std::string GetAttributableUserName(); // LH6531-6576 - Add a method to allow us to correctly attribute auditable tasks.
-
 
 	HawkeyeError GetLoggedInUserDisplayName(std::string& uDName);
 	HawkeyeError GetLoggedInUserPermissions(UserPermissionLevel& permissions);
@@ -165,25 +165,42 @@ protected:
 	std::list<ExpandedUser>::iterator serviceUser;
 	ExpandedUser create_service_user();
 
+	// An Ambr automation connector client is baked into the list with a dynamic password and CANNOT be modified or removed.
+	std::list<ExpandedUser>::iterator automationUser;
+	ExpandedUser create_automation_user();
+
 	// The Silent Administrator is the account to be used when the instrument is in a "security disabled"
 	//  state.  This user is under the control of the host UI and uses a dynamic password for access.
 	//  Unlike the service user, changes to the Silent Administrator must track to the long-term storage.
 	std::list<ExpandedUser>::iterator silentAdministrator;
 	ExpandedUser create_silent_administrator();
 
-	// The automation user is used in the Shepherd CellHealth module.  It acts the same as the bci_service
-	// user except that it is an Admin user that can perform all module operations.
-	std::list<ExpandedUser>::iterator automationUser;
-	ExpandedUser UserList::create_automation_user();
+	//// Leave for future reference or use
+	//// The temporary Administrator is the account intended to be used by customer service when the customer has
+	//// forgotten his password.  It uses an automatically generated password with a 1-day expiration.
+	////  Like the service user, changes to the temporary Administrator do not track to the long-term storage.
+	//std::list<ExpandedUser>::iterator tempAdministrator;
+	//ExpandedUser create_temp_administrator();
 
-	// Host password uses the HMAC protocol with a +/- 2second window.
+	// Host password uses the HMAC protocol with a +/- 2 second window.
 	bool ValidateHostPassword(const std::string& pw);
 	// Service password uses HMAC protocol in years with zero window.
 	bool ValidateServicePassword(const std::string& pw);
+	
+	// Ambr automatiion connector client password uses HMAC protocol in hours with +/- 1 hour window.
+	// NOTE that this is not a standard automation user using a local or AD login.
+	bool ValidateAutomationPassword( const std::string& pw );
+	
+	//// Leave for future reference or use
+	//// Temporary admin password for service desk use; password uses HMAC protocol in days with 1 day window.
+	//// This is an emergency admin user using a local or AD login.
+	////bool ValidateTempPassword( const std::string& pw );
 
 	static bool BuiltInAccount(const std::string& uName)
 	{
-		return uName == SERVICE_USER || uName == SILENTADMIN_USER || uName == AUTOMATION_USER;
+		// Leave for future reference or use
+//		return ( uName == SERVICE_USER ) || ( uName == SILENTADMIN_USER ) || ( uName == AUTOMATION_USER ) || ( uName == TEMPADMIN_USER );
+		return ( uName == SERVICE_USER ) || ( uName == SILENTADMIN_USER ) || ( uName == AUTOMATION_USER );
 	}
 
 private:

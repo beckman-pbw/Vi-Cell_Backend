@@ -152,12 +152,18 @@
 		</dependency>
     <!-- ................................................................-->
     <dependency>
-			<groupId>com.basler</groupId>
-			<artifactId>pylon</artifactId>
-			<version>5.0.5.8999.1</version>
-			<type>zip</type>
-		</dependency>
+    	<groupId>com.basler</groupId>
+	<artifactId>pylon</artifactId>
+        <version>6.3.0.18933</version>
+	<type>zip</type>
+    </dependency>
     <!-- ................................................................-->
+        <dependency>
+            <groupId>com.alliedvision</groupId>
+            <artifactId>vimba_sdk</artifactId>
+            <version>6.0</version>
+            <type>zip</type>
+        </dependency>
     <dependency>
 			<groupId>com.microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn</groupId>
 			<artifactId>googletest</artifactId>
@@ -238,6 +244,7 @@
 				<version>3.0.0</version>
 				<configuration>
 					<filesets>
+                        <fileset><directory>AutomationUser/x64</directory><includes><include>**/*</include></includes> </fileset>
 						<fileset><directory>BuildOutput/x64</directory><includes><include>**/*</include></includes> </fileset>
 						<fileset><directory>DBif/x64</directory><includes><include>**/*</include></includes></fileset>
 						<fileset><directory>EEPROMTestThroughAPI/x64</directory><includes><include>**/*</include></includes> </fileset>
@@ -249,7 +256,7 @@
 						<fileset><directory>RFIDMemoryMapGenerator/x64</directory><includes><include>**/*</include></includes></fileset>
 						<fileset><directory>ServiceAccountAccess/x64</directory><includes><include>**/*</include></includes> </fileset>
 						<fileset><directory>Utilities/crc_prj/crc_prj/x64</directory><includes><include>**/*</include></includes></fileset>
-						<fileset><directory>Utilities/DataImporter/x64</directory><includes><include>**/*</include></includes></fileset>
+                        <fileset><directory>ResetPasswordGenerator/x64</directory><includes><include>**/*</include></includes> </fileset>
 						<fileset><directory>Test/BackgroundUniformityCriteria/BackgroundUniformityCriteria/obj/x64</directory><includes><include>**/*</include></includes> </fileset>
 						<fileset><directory>Test/BackgroundUniformityCriteria/BackgroundUniformityCriteriaModel/x64</directory><includes><include>**/*</include></includes> </fileset>
 						<fileset><directory>Test/BackgroundUniformityCriteria/ModelDll</directory><includes><include>**/*</include></includes> </fileset>
@@ -258,6 +265,8 @@
 						<fileset><directory>Test/HawkeyeLogicInterfaceCLI/x64</directory><includes><include>**/*</include></includes></fileset>
 						<fileset><directory>Test/DataEncryptDecrypt/x64</directory><includes><include>**/*</include></includes></fileset>
 						<fileset><directory>Test/ScoutXTest/x64</directory><includes><include>**/*</include></includes> </fileset>
+                        <fileset><directory>Utilities/crc_prj/crc_prj/x64</directory><includes><include>**/*</include></includes></fileset>
+                        <fileset><directory>Utilities/DataImporter/x64</directory><includes><include>**/*</include></includes></fileset>
 					</filesets>
 				</configuration>
 			</plugin>
@@ -379,6 +388,22 @@
 							<resources>
 								<resource>
 									<directory>ServiceAccountAccess/Properties/</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>ResetPasswordGenerator-resources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/properties/ResetPasswordGenerator</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>ResetPasswordGenerator/Properties/</directory>
 									<filtering>true</filtering>
 								</resource>
 							</resources>
@@ -449,6 +474,22 @@
 						</configuration>
 					</execution>
 					<execution>
+                        <id>AutomationUser-resources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/properties/AutomationUser</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>AutomationUser/Properties</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
 						<id>HawkeyeCore-resources</id>
 						<phase>generate-sources</phase>
 						<goals>
@@ -459,6 +500,22 @@
 							<resources>
 								<resource>
 									<directory>HawkeyeCore/Properties</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>DBif-resources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/properties/DBif</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>DBif/Properties</directory>
 									<filtering>true</filtering>
 								</resource>
 							</resources>
