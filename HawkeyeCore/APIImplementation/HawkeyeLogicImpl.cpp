@@ -336,7 +336,7 @@ void HawkeyeLogicImpl::Initialize (bool withHardware)
 		HawkeyeConfig::Instance().setHardwareForCHM();
 #endif
 #ifdef VICELL_BLU
-		HawkeyeConfig::Instance().setHardwareForShepherd();
+		HawkeyeConfig::Instance().setHardwareForViCell();
 #endif
 	}
 			
