@@ -18,7 +18,7 @@ typedef enum PhysicalPort : uint8_t
 class SyringePumpPort
 {
 public:
-#ifdef CELLhEALTH_MODULE
+#ifdef CELLHEALTH_MODULE
 	enum Port : uint8_t
 	{
 		InvalidPort = 0,

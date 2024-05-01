@@ -25,7 +25,7 @@ SyringePumpBase::SyringePumpBase (std::shared_ptr<CBOService> pCBOService)
 	portMap_[SyringePumpPort::Cleaner_2] = PhysicalPort::PortC;
 	portMap_[SyringePumpPort::Cleaner_3] = PhysicalPort::PortD;
 
-#ifdef CELLhEALTH_MODULE
+#ifdef CELLHEALTH_MODULE
 	portMap_[SyringePumpPort::ACup]      = PhysicalPort::PortG;
 	portMap_[SyringePumpPort::Diluent]   = PhysicalPort::PortE;
 #endif
@@ -110,7 +110,7 @@ SyringePumpPort SyringePumpBase::paramToPort (uint32_t param) {
 		case 1:
 			return SyringePumpPort(SyringePumpPort::Waste);
 		case 2:
-#ifdef CELLhEALTH_MODULE
+#ifdef CELLHEALTH_MODULE
 			return SyringePumpPort(SyringePumpPort::ACup);
 #endif
 #ifdef VICELL_BLU
@@ -127,7 +127,7 @@ SyringePumpPort SyringePumpBase::paramToPort (uint32_t param) {
 		case 7:
 			return SyringePumpPort(SyringePumpPort::Cleaner_3);
 		case 8:
-#ifdef CELLhEALTH_MODULE
+#ifdef CELLHEALTH_MODULE
 			return SyringePumpPort(SyringePumpPort::Diluent);
 #endif
 #ifdef VICELL_BLU
@@ -163,7 +163,7 @@ std::string SyringePumpPort::getAsString() {
 	switch (port_) {
 		case Waste:
 			return "Waste";
-#ifdef CELLhEALTH_MODULE
+#ifdef CELLHEALTH_MODULE
 		case ACup:
 			return "ACup";
 #endif
@@ -181,7 +181,7 @@ std::string SyringePumpPort::getAsString() {
 			return "Cleaner_2";
 		case Cleaner_3:
 			return "Cleaner_3";
-#ifdef CELLhEALTH_MODULE
+#ifdef CELLHEALTH_MODULE
 		case Diluent:
 			return "Diluent";
 #endif
@@ -282,7 +282,7 @@ bool SyringePumpBase::isDisPenseAllowed (PhysicalPort_t physicalPort)
 
 	switch (physicalPort)
 	{
-#ifdef CELLhEALTH_MODULE
+#ifdef CELLHEALTH_MODULE
 		case PhysicalPort::PortF:	// Waste
 		case PhysicalPort::PortG:	// ACup
 		case PhysicalPort::PortH:	// FlowCell

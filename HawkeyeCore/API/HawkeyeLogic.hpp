@@ -973,6 +973,9 @@ extern "C"
 	///                eStorageFault - Failed to read log
 	DLL_CLASS HawkeyeError RetrieveAuditTrailLog (uint32_t& num_entries, audit_log_entry*& log_entries);
 
+	//Deprecated
+	DLL_CLASS HawkeyeError RetrieveAuditTrailLogRange (uint64_t starttime, uint64_t endtime, uint32_t& num_entries, audit_log_entry*& log_entries);
+
 	DLL_CLASS void WriteToAuditLog (const char* username, audit_event_type type, char* resource);
 	
 	DLL_CLASS HawkeyeError RetrieveInstrumentErrorLog (uint32_t& num_entries, error_log_entry*& log_entries);

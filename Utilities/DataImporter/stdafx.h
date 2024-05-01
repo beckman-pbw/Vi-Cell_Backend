@@ -14,15 +14,6 @@
 
 #include "targetver.h"
 
+#include "..\VariantToBuild.hpp"
+
 #define DLL_CLASS //          __declspec(dllimport)
-
-//#define ASYNC_MOTOR_WAIT
-
-//#ifdef ASYNC_MOTOR_WAIT
-
-//#define STANDALONE_MOTOR_WAIT
-
-//#endif // ASYNC_MOTOR_WAIT
-
-// Windows Header Files:
-//#include <windows.h>

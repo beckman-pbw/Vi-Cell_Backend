@@ -331,8 +331,9 @@ void HawkeyeLogicImpl::Initialize (bool withHardware)
 	// Set the availability of hardware in the HawkeyeConfig so it can be accessed by
 	// all of the code simply by *get*ting the HawkeyeConfig_t.
 	if (withHardware)
-	{		
-#ifdef CELLhEALTH_MODULE
+	{
+//TODO: can the h/w be set up after getting the Insrument configuration ???
+#ifdef CELLHEALTH_MODULE
 		HawkeyeConfig::Instance().setHardwareForCHM();
 #endif
 #ifdef VICELL_BLU

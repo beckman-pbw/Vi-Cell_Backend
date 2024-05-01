@@ -20,7 +20,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>false</UseOfMfc>
     <CLRSupport>false</CLRSupport>
@@ -28,7 +28,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>false</UseOfMfc>
@@ -64,7 +64,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>CELLhEALTH_MODULE;WIN32_LEAN_AND_MEAN;_WINDOWS;HAWKEYECORE_EXPORTS;%(PreprocessorDefinitions);_DEBUG</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;_WINDOWS;HAWKEYECORE_EXPORTS;%(PreprocessorDefinitions);_DEBUG</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>.\;$(SolutionDir)\target\dependencies\include;$(SolutionDir)\target\dependencies\boost\;$(SolutionDir)\target\dependencies\opencv\include;$(SolutionDir)\target\dependencies\Vimba_6.0\;$(SolutionDir)\target\dependencies\crypto\;$(SolutionDir)\target\dependencies\basler\include;$(SolutionDir)\target\dependencies\ftdi\;$(ProjectDir)API;$(ProjectDir)APIImplementation;$(ProjectDir)APIImplementation\Simulation;$(ProjectDir)APIImplementation\Utilities;$(ProjectDir)CellCounting;$(ProjectDir)Core;$(ProjectDir)DLLLayer;$(ProjectDir)DLLLayer\ImageProcessing;$(ProjectDir)DLLLayer\Workflow;$(ProjectDir)DLLLayer\Workflow\Helper;$(ProjectDir)HardwareLayer;$(ProjectDir)HardwareLayer\BaseClass;$(ProjectDir)HardwareLayer\Simulation;$(ProjectDir)ResultsData;$(SolutionDir)HawkeyeDataAccess;$(SolutionDir)DBif;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4251; 4065; 4996</DisableSpecificWarnings>
@@ -172,7 +172,7 @@ echo BUILD AD LIB DONE!</Command>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>CELLhEALTH_MODULE;WIN32_LEAN_AND_MEAN;_WINDOWS;_USRDLL;HAWKEYECORE_EXPORTS;%(PreprocessorDefinitions);NDEBUG</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;_WINDOWS;_USRDLL;HAWKEYECORE_EXPORTS;%(PreprocessorDefinitions);NDEBUG</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>.\;$(SolutionDir)\target\dependencies\include;$(SolutionDir)\target\dependencies\Vimba_6.0\;$(SolutionDir)\target\dependencies\boost\;$(SolutionDir)\target\dependencies\opencv\include;$(SolutionDir)\target\dependencies\crypto\;$(SolutionDir)\target\dependencies\basler\include;$(SolutionDir)\target\dependencies\ftdi\;$(ProjectDir)API;$(ProjectDir)APIImplementation;$(ProjectDir)APIImplementation\Simulation;$(ProjectDir)APIImplementation\Utilities;$(ProjectDir)CellCounting;$(ProjectDir)Core;$(ProjectDir)DLLLayer;$(ProjectDir)DLLLayer\ImageProcessing;$(ProjectDir)DLLLayer\Workflow;$(ProjectDir)DLLLayer\Workflow\Helper;$(ProjectDir)HardwareLayer;$(ProjectDir)HardwareLayer\BaseClass;$(ProjectDir)HardwareLayer\Simulation;$(ProjectDir)ResultsData;$(SolutionDir)HawkeyeDataAccess;$(SolutionDir)DBif;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4251; 4065; 4996</DisableSpecificWarnings>
