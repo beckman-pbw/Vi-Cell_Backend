@@ -93,6 +93,15 @@
       </excludes>
     </fileSet>
     <fileSet>
+      <directory>target/dependencies/Vimba_6.0/VimbaCPP/Bin/Win64</directory>
+      <lineEnding>keep</lineEnding>
+      <outputDirectory>Hawkeye</outputDirectory>
+      <fileMode>0755</fileMode>
+      <excludes>
+        <exclude>VimbaCPPd.dll</exclude>
+      </excludes>
+    </fileSet>
+    <fileSet>
       <directory>target/dependencies/ftdi/amd64</directory>
       <lineEnding>keep</lineEnding>
       <outputDirectory>Hawkeye</outputDirectory>
