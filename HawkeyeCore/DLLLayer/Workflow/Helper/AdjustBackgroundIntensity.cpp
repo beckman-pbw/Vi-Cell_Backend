@@ -75,7 +75,6 @@ void AdjustBackgroundIntensity::execute(std::function<void(bool)> onCompleteCall
 			fclose(fptr);
 		}
 
-
 		// LH6531-5303 : Post warning if ABI finished with final power above 80% of maximum
 		{
 			const uint32_t LED_INTENSITY_WARNING_LEVEL = 80;
@@ -88,6 +87,7 @@ void AdjustBackgroundIntensity::execute(std::function<void(bool)> onCompleteCall
 				Logger::L().Log(MODULENAME, severity_level::warning, "Background adjustment completed near top of power range");
 			}
 		}
+		
 		imageCnt_ = 0;
 		isBusy_ = false;
 

@@ -68,8 +68,7 @@ HawkeyeError CameraAutofocusWorkflow::execute()
 
 	currentState_ = eAutofocusState::af_FindingTube;
 
-	int16_t instrumentType = HawkeyeConfig::Instance().get().instrumentType;
-	if (instrumentType == HawkeyeConfig::CellHealth_ScienceModule)
+	if (HawkeyeConfig::Instance().get().instrumentType == HawkeyeConfig::CellHealth_ScienceModule)
 	{
 		// set the cleaning cycle parameters
 		setCleaningCycleIndices();

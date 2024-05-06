@@ -262,19 +262,21 @@ void WorklistDLL::processSample (SampleDefinitionDLL& sample, sample_completion_
 		Logger::L().Log(MODULENAME, severity_level::warning, boost::str(boost::format("Less than %d %% disk capacity remaining") % (uint32_t)MIN_FREE_PERCENT));
 	}
 
-// Removed for CellHealth since there carousel is not supported.
-	//// Pause queue and report "fluidics_general_traycapacity" error if sample discard tray is full.
-	//if (Hardware::Instance().getStageController()->IsCarouselPresent() &&
-	//	SystemStatus::Instance().getData().sample_tube_disposal_remaining_capacity == 0)
-	//{
-	//	Logger::L().Log (MODULENAME, severity_level::error, "processSample: <exit,  sample discard tray is full>");
-	//	ReportSystemError::Instance().ReportError (BuildErrorInstance(
-	//		instrument_error::instrument_precondition_notmet, 
-	//		instrument_error::instrument_precondition_instance::wastetubetray_capacity,
-	//		instrument_error::severity_level::warning));
-	//	impl->pHawkeyeServices->enqueueInternal ([triggerPauseProcessing]() { triggerPauseProcessing(); });
-	//	return;
-	//}
+	if (HawkeyeConfig::Instance().get().instrumentType == HawkeyeConfig::ViCELL_BLU_Instrument)
+	{
+		// Pause queue and report "fluidics_general_traycapacity" error if sample discard tray is full.
+		if (Hardware::Instance().getStageController()->IsCarouselPresent() &&
+			SystemStatus::Instance().getData().sample_tube_disposal_remaining_capacity == 0)
+		{
+			Logger::L().Log (MODULENAME, severity_level::error, "processSample: <exit,  sample discard tray is full>");
+			ReportSystemError::Instance().ReportError (BuildErrorInstance(
+				instrument_error::instrument_precondition_notmet, 
+				instrument_error::instrument_precondition_instance::wastetubetray_capacity,
+				instrument_error::severity_level::warning));
+			impl->pHawkeyeServices->enqueueInternal ([triggerPauseProcessing]() { triggerPauseProcessing(); });
+			return;
+		}
+	}
 
 	int remainUses = SystemStatus::Instance().getData().remainingReagentPackUses;
 	if (remainUses == 0)

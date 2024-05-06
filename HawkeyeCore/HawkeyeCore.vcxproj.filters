@@ -157,6 +157,7 @@
     <ClCompile Include="ResultsData\PtreeConversionHelper.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Core\SystemErrors.cpp" />
+    <ClCompile Include="HardwareLayer\SyringePumpPort.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="APIImplementation\HawkeyeDirectory.hpp" />

@@ -6,8 +6,8 @@
 #include "ReagentData_p.hpp"
 #include "ReagentData.hpp"
 
-
 #include "CellHealthReagents.hpp"
+#include "HawkeyeConfig.hpp"
 #include "ReagentControllerBase.hpp"
 #include "SystemErrors.hpp"
 
@@ -329,27 +329,31 @@ THIS FUNCTION MAY NOT BE IMPLEMENTED RIGHT FOR HUNTER
 
 	ReagentContainerStateDLL rcs = {};
 	rcs.status = ReagentContainerStatus::eInvalid;
-	rcs.events_remaining = CellHealthReagents::GetRemainingReagentUses();
 
 	//NOTE: Since for CellHealth there is no reagent pack always consider it okay..
 	// The "events_remaining" will ensure that no samples are run w/o reagents.
-	//if (rcs.events_remaining == 0)
-	//{
-	//	auto reagent_pack_instance = getReagentPackInstance(rcs.position);
-	//	ReportSystemError::Instance().ReportError (BuildErrorInstance(
-	//		instrument_error::reagent_pack_empty,
-	//		reagent_pack_instance,
-	//		instrument_error::severity_level::warning));
-	//	Logger::L().Log (MODULENAME, severity_level::warning, "isEmpty: Reagent pack is empty");
+	if (HawkeyeConfig::Instance().get().instrumentType == HawkeyeConfig::CellHealth_ScienceModule)
+	{
+		rcs.events_remaining = CellHealthReagents::GetRemainingReagentUses();
+	}
+	else
+	{
+		if (rcs.events_remaining == 0)
+		{
+			auto reagent_pack_instance = getReagentPackInstance(rcs.position);
+			ReportSystemError::Instance().ReportError (BuildErrorInstance(
+				instrument_error::reagent_pack_empty,
+				reagent_pack_instance,
+				instrument_error::severity_level::warning));
+			Logger::L().Log (MODULENAME, severity_level::warning, "isEmpty: Reagent pack is empty");
 
-	//	impl->isEmpty = true;
-	//}
-	//else
-	//{
-	//	impl->isEmpty = false;
-	//}
-
-	impl->isEmpty = false;
+			impl->isEmpty = true;
+		}
+		else
+		{
+			impl->isEmpty = false;
+		}
+	}
 
 	// Populate the reagent pack definitions from the RFID tag data.
 	memcpy(rcs.identifier, rfidTag.tagSN, sizeof(rfidTag.tagSN));

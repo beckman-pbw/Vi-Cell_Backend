@@ -519,6 +519,7 @@ echo BUILD AD LIB DONE!</Command>
     <ClCompile Include="DLLLayer\QualityControlDLL.cpp" />
     <ClCompile Include="DLLLayer\ScheduledExportDLL.cpp" />
     <ClCompile Include="HardwareLayer\Camera_Allied.cpp" />
+    <ClCompile Include="HardwareLayer\SyringePumpPort.cpp" />
     <ClCompile Include="ResultsData\ExportData.cpp" />
     <ClCompile Include="DLLLayer\ImageAnalysisParameters.cpp" />
     <ClCompile Include="DLLLayer\CalibrationHistoryDLL.cpp" />

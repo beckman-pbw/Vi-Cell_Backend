@@ -336,8 +336,8 @@ bool Workflow::doLoad (std::string cmd, std::vector<std::string> strParams)
 		}
 		else if (strParams[0] == Workflow::SyringeParamValve)
 		{
-			SyringePumpPort port = SyringePumpBase::paramToPort(std::stoul(strParams[1]));
-			SyringePumpDirection direction = SyringePumpBase::paramToDirection(std::stoul(strParams[2]));
+			SyringePumpPort port = SyringePumpPort::ParamToPort(std::stoul(strParams[1]));
+			SyringePumpDirection direction = SyringePumpBase::ParamToDirection(std::stoul(strParams[2]));
 			wfOp = SyringeWorkflowOperation::BuildSetValveCommand (port, direction);
 		}
 		else if (strParams[0] == Workflow::SyringeParamMove)
@@ -346,7 +346,7 @@ bool Workflow::doLoad (std::string cmd, std::vector<std::string> strParams)
 		}
 		else if (strParams[0] == Workflow::SyringeParamRotateValve)
 		{
-			SyringePumpDirection direction = SyringePumpBase::paramToDirection(std::stoul(strParams[2]));
+			SyringePumpDirection direction = SyringePumpBase::ParamToDirection(std::stoul(strParams[2]));
 			wfOp = SyringeWorkflowOperation::BuildRotateValveCommand (std::stoul(strParams[1]), direction);
 		}
 		else if (boost::to_upper_copy(strParams[0]) == Workflow::SyringeParamValveCommand)
@@ -799,7 +799,7 @@ void Workflow::getTotalFluidVolumeUsageInternal (size_t startIndex, size_t endIn
 
 		if (wfOp->getOperation() == static_cast<uint8_t>(SyringeWorkflowOperation::SyringeOperation::SetValve))
 		{
-			auto port = ((SyringeWorkflowOperation*)wfOp.get())->getPort().get();
+			auto port = ((SyringeWorkflowOperation*)wfOp.get())->getPort().Get();
 			currentPort.reset(port);
 			if (syringeVolumeMap.find(*currentPort) == syringeVolumeMap.end())
 			{
@@ -976,8 +976,15 @@ bool Workflow::executeCleaningCycleOnTermination (size_t currentWfOpIndex, size_
 
 	// Clear sample tube fluid
 	{
+		
+//TODO: is this code CHM specific ???
 		// Add workflow operation : Move syringe to waste
-		auto setCmd = SyringeWorkflowOperation::BuildSetValveCommand (SyringePumpPort::Port::ACup, SyringePumpDirection::Direction::Clockwise);
+		auto setCmd = SyringeWorkflowOperation::BuildSetValveCommand (SyringePumpPort::Port::CHM_ACup, SyringePumpDirection::Direction::Clockwise);
+
+//TODO: this is from Vi-Cell codebase:
+//		auto setCmd = SyringeWorkflowOperation::BuildSetValveCommand(SyringePumpPort::Port::Sample, SyringePumpDirection::Direction::Clockwise);
+
+
 		workflowOperations_.insert(workflowOperations_.begin() + indexToInsert, std::move(setCmd));
 
 		// increment to add after the current index

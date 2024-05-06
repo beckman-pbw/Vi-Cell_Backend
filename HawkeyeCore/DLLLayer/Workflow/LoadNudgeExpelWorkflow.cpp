@@ -64,8 +64,7 @@ HawkeyeError LoadNudgeExpelWorkflow::execute()
 
 void LoadNudgeExpelWorkflow::checkPreconditionBeforeExecute(std::function<void(bool)> callback)
 {
-	int16_t instrumentType = HawkeyeConfig::Instance().get().instrumentType;
-	if (instrumentType == HawkeyeConfig::CellHealth_ScienceModule)
+	if (HawkeyeConfig::Instance().get().instrumentType == HawkeyeConfig::CellHealth_ScienceModule)
 	{
 		Logger::L().Log(MODULENAME, severity_level::normal, "Preconditions skipped - Cell Health module");
 		pServices_->enqueueInternal(callback, true);
@@ -82,16 +81,17 @@ void LoadNudgeExpelWorkflow::checkPreconditionBeforeExecute(std::function<void(b
 
 	// For Load : Move the stage to default position (A1 for plate, First tube found for carousel)
 	Hardware::Instance().getStageController()->moveToDefaultStagePosition([this, callback](bool status) -> void
+	{
+		if (!status)
 		{
-			if (!status)
-			{
-				Logger::L().Log(MODULENAME, severity_level::error, "Failed to move to default carrier position");
-				pServices_->enqueueInternal(callback, false);
-				return;
-			}
+			Logger::L().Log (MODULENAME, severity_level::error, "Failed to move to default carrier position");
+			pServices_->enqueueInternal(callback, false);
+			return;
+		}
 
-			Hardware::Instance().getStageController()->ProbeDown(callback);
-		});
+		Hardware::Instance().getStageController()->ProbeDown(callback);
+	});
+	
 }
 
 std::string LoadNudgeExpelWorkflow::getWorkFlowScriptFile (uint8_t workflowSubType)

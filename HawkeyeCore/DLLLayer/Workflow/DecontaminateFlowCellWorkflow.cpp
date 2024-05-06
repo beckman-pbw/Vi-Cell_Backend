@@ -49,8 +49,7 @@ HawkeyeError DecontaminateFlowCellWorkflow::execute()
 
 	currentState_ = eDecontaminateFlowCellState::dfc_FindingTube;
 
-	int16_t instrumentType = HawkeyeConfig::Instance().get().instrumentType;
-	if (instrumentType == HawkeyeConfig::CellHealth_ScienceModule)
+	if (HawkeyeConfig::Instance().get().instrumentType == HawkeyeConfig::CellHealth_ScienceModule)
 	{
 		HawkeyeError he = Workflow::execute();
 		if (he != HawkeyeError::eSuccess)

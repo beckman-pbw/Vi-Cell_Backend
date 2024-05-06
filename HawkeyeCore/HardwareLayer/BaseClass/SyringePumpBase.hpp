@@ -52,8 +52,7 @@ public:
 	virtual void setPhysicalValve (std::function<void(bool)> callback, char port, SyringePumpDirection direction);
 	virtual bool isAspirating(uint32_t target_volume_uL);
 
-	static SyringePumpPort paramToPort (uint32_t param);
-	static SyringePumpDirection paramToDirection (uint32_t param);
+	static SyringePumpDirection ParamToDirection (uint32_t param);
 
 	static char MinPhysicalValvePosition;
 	static char MaxPhysicalValvePosition;
@@ -66,10 +65,10 @@ public:
 	static bool UpdateReagentVolume (PhysicalPort_t physicalPort, uint32_t volume);
 
 protected:	
-	std::shared_ptr<CBOService> pCBOService_;
-	const HawkeyeConfig::HawkeyeConfig_t* config_;
-	uint32_t cur_volume_uL_;
-	PhysicalPort_t curPhysicalPort_;
-	std::string version_;
-	SyringeRegisters registerCache_;
+	std::shared_ptr<CBOService> _pCBOService;
+	const HawkeyeConfig::HawkeyeConfig_t* _config;
+	uint32_t _cur_volume_uL;
+	PhysicalPort_t _curPhysicalPort;
+	std::string _version;
+	SyringeRegisters _registerCache;
 };

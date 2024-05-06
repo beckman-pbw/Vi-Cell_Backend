@@ -841,7 +841,6 @@ HawkeyeError HawkeyeLogicImpl::RetrieveSignatureDefinitions (DataSignature_t*& s
 
 		AuditLogger::L().Log (generateAuditWriteData(
 			UserList::Instance().GetAttributableUserName(),
-//TODO: 			UserList::Instance().GetLoggedInUsername(),			
 			audit_event_type::evt_notAuthorized, 
 			"Retrieve Signature Definitions"));
 		return HawkeyeError::eNotPermittedByUser;
@@ -870,7 +869,6 @@ void HawkeyeLogicImpl::SignResultRecord (uuid__t record_id, char* signature_shor
 	{
 		AuditLogger::L().Log (generateAuditWriteData(
 			UserList::Instance().GetAttributableUserName(),
-//TODO: 			UserList::Instance().GetLoggedInUsername(),			
 			audit_event_type::evt_notAuthorized, 
 			"Sign Result Record"));
 		pHawkeyeServices_->enqueueExternal (cb, HawkeyeError::eNotPermittedByUser);

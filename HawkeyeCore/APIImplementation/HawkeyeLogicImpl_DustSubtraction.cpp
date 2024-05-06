@@ -31,8 +31,7 @@ void HawkeyeLogicImpl::StartBrightfieldDustSubtract (BrightfieldDustSubtractWork
 
 	eCarrierType type = eCarrierType::ePlate_96;
 
-	int16_t instrumentType = HawkeyeConfig::Instance().get().instrumentType;
-	if (instrumentType != HawkeyeConfig::CellHealth_ScienceModule)
+	if (HawkeyeConfig::Instance().get().instrumentType != HawkeyeConfig::CellHealth_ScienceModule)
 	{
 		if (Hardware::Instance().getStageController()->IsCarouselPresent())
 		{

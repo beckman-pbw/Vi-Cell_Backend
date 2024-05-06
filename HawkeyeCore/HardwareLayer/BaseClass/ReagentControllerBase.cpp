@@ -67,7 +67,7 @@ ReagentControllerBase::ReagentPackFluids ReagentControllerBase::convertToReagent
 //*****************************************************************************
 ReagentControllerBase::ReagentPackFluids ReagentControllerBase::convertToReagentFluid(const PhysicalPort& port)
 {
-	return convertToReagentFluid(SyringePumpPort::FromPhysicalPort(port).get());
+	return convertToReagentFluid(SyringePumpPort::FromPhysicalPort(port).Get());
 }
 
 //*****************************************************************************

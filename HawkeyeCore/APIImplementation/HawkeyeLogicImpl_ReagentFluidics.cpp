@@ -37,7 +37,6 @@ void HawkeyeLogicImpl::StartFlushFlowCell(
 		{
 			AuditLogger::L().Log (generateAuditWriteData(
 				UserList::Instance().GetAttributableUserName(),
-//TODO: 				UserList::Instance().GetLoggedInUsername(),				
 				audit_event_type::evt_fluidicsflush, 
 				"Completed"));
 		}
@@ -107,8 +106,7 @@ void HawkeyeLogicImpl::StartDecontaminateFlowCell(
 
 	eCarrierType type = eCarrierType::ePlate_96;
 
-	int16_t instrumentType = HawkeyeConfig::Instance().get().instrumentType;
-	if (instrumentType == HawkeyeConfig::CellHealth_ScienceModule)
+	if (HawkeyeConfig::Instance().get().instrumentType == HawkeyeConfig::CellHealth_ScienceModule)
 	{
 		type = eCarrierType::eACup;
 	}
@@ -142,7 +140,6 @@ void HawkeyeLogicImpl::StartDecontaminateFlowCell(
 		{
 			AuditLogger::L().Log (generateAuditWriteData(
 				UserList::Instance().GetAttributableUserName(),
-//TODO:				UserList::Instance().GetLoggedInUsername(),				
 				audit_event_type::evt_fluidicsdecontaminate, 
 				"Completed"));
 		}
@@ -225,7 +222,6 @@ void HawkeyeLogicImpl::StartPrimeReagentLines(
 		{
 			AuditLogger::L().Log (generateAuditWriteData(
 				UserList::Instance().GetAttributableUserName(),
-//TODO:				UserList::Instance().GetLoggedInUsername(),				
 				audit_event_type::evt_fluidicsprime, 
 				"Completed"));
 		}

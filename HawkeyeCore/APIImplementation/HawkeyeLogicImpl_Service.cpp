@@ -411,8 +411,7 @@ void HawkeyeLogicImpl::svc_CameraAutoFocus(
 		return;
 	}
 
-	int16_t instrumentType = HawkeyeConfig::Instance().get().instrumentType;
-	if (instrumentType == HawkeyeConfig::CellHealth_ScienceModule)
+	if (HawkeyeConfig::Instance().get().instrumentType == HawkeyeConfig::CellHealth_ScienceModule)
 	{
 	}
 	else
@@ -2020,8 +2019,7 @@ void HawkeyeLogicImpl::svc_StartLiveImageFeed (LiveScanningUtilities::service_li
 	// do not enable LiveScanning as this will use the images in the ExternalImages folder
 	// and mess up the set focus simulation.
 	if (!HawkeyeConfig::Instance().get().withHardware &&
-		HawkeyeConfig::Instance().get().instrumentType == HawkeyeConfig::CellHealth_ScienceModule &&
-		isAutoFocusWf)
+		HawkeyeConfig::Instance().get().instrumentType == HawkeyeConfig::CellHealth_ScienceModule && isAutoFocusWf)
 	{
 		Logger::L().Log (MODULENAME, severity_level::debug1, "svc_StartLiveImageFeed: <exit 2>");
 		pHawkeyeServices_->enqueueExternal (functionCallback, HawkeyeError::eSuccess);

@@ -1383,7 +1383,7 @@ void Hardware::UpdateSystemStatus (const boost::system::error_code& ec) {
 			// The valve position is from the DLL point of view, not from the syringe pump point of view.
 			SyringePumpPort valvePosition;
 			pSyringePump_->getValve (valvePosition);
-			systemStatusData.syringeValvePosition = valvePosition.get();
+			systemStatusData.syringeValvePosition = valvePosition.Get();
 
 			uint32_t position;
 			pSyringePump_->getPosition (position);

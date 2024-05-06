@@ -15,50 +15,37 @@ typedef enum PhysicalPort : uint8_t
 	PortH = 8,
 } PhysicalPort_t;
 
+#define CHM_PORT_OFFSET 10
 class SyringePumpPort
 {
 public:
-#ifdef CELLHEALTH_MODULE
 	enum Port : uint8_t
 	{
 		InvalidPort = 0,
 		Waste       = 1,
-		ACup        = 2,
+		Sample      = 2,	// Vi-Cell
+		CHM_ACup    = 2 + CHM_PORT_OFFSET,	// CHM A-Cup
 		FlowCell    = 3,
 		Reagent_1   = 4,	// Trypan Blue
 		Cleaner_1   = 5,	// Cleaning Agent
 		Cleaner_2   = 6,	// Conditioning Solution
 		Cleaner_3   = 7,	// Buffer
-		Diluent     = 8,	// DI Water
+		ViCell_ACup = 8,	// Vi-Cell A-Cup
+		Diluent     = 8 + CHM_PORT_OFFSET,	// CHM DI Water
 	};
-#endif
 
-#ifdef VICELL_BLU
-	enum Port : uint8_t
-	{
-		InvalidPort = 0,
-		Waste       = 1,
-		Sample      = 2,
-		FlowCell    = 3,
-		Reagent_1   = 4,	// Trypan Blue
-		Cleaner_1   = 5,	// Cleaning Agent
-		Cleaner_2   = 6,	// Conditioning Solution
-		Cleaner_3   = 7,	// Buffer
-		Sample_2    = 8,	// ACup
-	};
-#endif
-
-	SyringePumpPort() { port_ = InvalidPort; }
-	SyringePumpPort(Port port) { port_ = port; }
+	SyringePumpPort();
+	SyringePumpPort(Port port);
+	Port Get();
+	void Set (Port port);
 	virtual ~SyringePumpPort() {};
-	std::string getAsString();
-	Port get() const { return port_; }
-
+	std::string ToString(); 
+	static SyringePumpPort ParamToPort(uint32_t param);
 	static PhysicalPort_t ToPhysicalPort (SyringePumpPort port);
 	static SyringePumpPort FromPhysicalPort (PhysicalPort_t port);
 
 private:
-	Port port_;
+	Port _port;
 };
 
 class SyringePumpDirection {
@@ -69,11 +56,11 @@ public:
 		DirectionError = 2,
 	};
 
-	SyringePumpDirection() { direction_ = DirectionError; }
-	SyringePumpDirection (Direction direction) { direction_ = direction; }
-	std::string getAsString();
-	Direction get() const { return direction_; }
+	SyringePumpDirection() { _direction = DirectionError; }
+	SyringePumpDirection (Direction direction) { _direction = direction; }
+	std::string ToString();
+	Direction Get() const { return _direction; }
 
 private:
-	Direction direction_;
+	Direction _direction;
 };

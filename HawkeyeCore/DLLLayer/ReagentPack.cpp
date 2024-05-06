@@ -493,8 +493,16 @@ void ReagentPack::setValveMap (std::function<void (bool)> callback) const
 void ReagentPack::initializeInternal (std::function<void (bool)> callback)
 {
 	Logger::L().Log (MODULENAME, severity_level::debug2, "initializeInternal <enter>");
-	SystemStatus::Instance().getData().remainingReagentPackUses = CellHealthReagents::GetRemainingReagentUses();
-
+	
+	if (HawkeyeConfig::Instance().get().instrumentType == HawkeyeConfig::CellHealth_ScienceModule)
+	{
+		SystemStatus::Instance().getData().remainingReagentPackUses = CellHealthReagents::GetRemainingReagentUses();
+	}
+	else
+	{
+		SystemStatus::Instance().getData().remainingReagentPackUses = 0;
+	}
+	
 	readRfidTagsTimer_ = std::make_shared <boost::asio::deadline_timer> (impl->pReagentPackServices->getInternalIosRef());
 
 	auto onReadRfidTagsComplete = [this, callback](bool status) -> void {
@@ -1033,12 +1041,15 @@ void ReagentPack::continuouslyReadRfidTags (boost::system::error_code ec)
 			return;
 		}
 
-// Removed to only read once as CellHealth does not have a reagent pack.
-// Only read once to ensure that the rest of the reagent pack code does not report errors.
 		readRfidTagsTimer_->expires_from_now (boost::posix_time::milliseconds(2000));
 		readRfidTagsTimer_->async_wait ([this](boost::system::error_code ec)->void
 			{
-				SystemStatus::Instance().getData().remainingReagentPackUses = CellHealthReagents::GetRemainingReagentUses();
+				if (HawkeyeConfig::Instance().get().instrumentType == HawkeyeConfig::CellHealth_ScienceModule)
+				{
+					// Removed to only read once as CellHealth does not have a reagent pack.
+					// Only read once to ensure that the rest of the reagent pack code does not report errors.
+					SystemStatus::Instance().getData().remainingReagentPackUses = CellHealthReagents::GetRemainingReagentUses();
+				}
 				continuouslyReadRfidTags (ec);
 			});
 	};

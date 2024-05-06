@@ -257,7 +257,7 @@ void ReagentLoadWorkflow::executeReagentLoadSequence (ReagentLoadSequence curren
 		default:
 		{
 			Logger::L().Log (MODULENAME, severity_level::critical, "reagentPackLoad: Invalid load sequence option!!!");
-			throw std::exception("reagentPackLoad: Invalid load sequence option!!!");
+			throw std::exception("reagentPackLoad: Invalid load sequence option");
 			return;
 		}
 	}

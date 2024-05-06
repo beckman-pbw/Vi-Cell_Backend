@@ -37,10 +37,6 @@ private:
 	void readVersion (std::function<void(bool)> callback);
 	void readAndCacheRegisters (std::function<void(bool)> callback);
 	void checkReagentUsage (boost::system::error_code ec);
-
-//TODO: deprecated for now...   after integration and testing this may be deleted.
-	//bool isSyringeError (uint32_t errorCode);
-
 	bool getSyringeConfigCommands();
 
 	boost::optional<std::string> currentSyringeSetCmd_;
@@ -100,7 +96,7 @@ public:
 		mode_ = WriteMode;
 		regData_.Command = static_cast<uint32_t>(SyringePumpOperation::SetValve);
 		regData_.CommandParam = static_cast<uint32_t>(physicalPort);
-		regData_.CommandParam2 = static_cast<uint32_t>(direction.get());
+		regData_.CommandParam2 = static_cast<uint32_t>(direction.Get());
 		lengthInBytes_ = sizeof(uint32_t) * 3;
 	}
 };

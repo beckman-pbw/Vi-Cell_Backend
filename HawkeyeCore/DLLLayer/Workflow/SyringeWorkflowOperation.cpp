@@ -101,21 +101,21 @@ void SyringeWorkflowOperation::executeInternal (Wf_Operation_Callback onComplete
 
 		case SetValve:
 		{
-			logStr.append(boost::str(boost::format("Setting syringe valve : tgtPort<%s> tgtDirection<%s>") % cmd_.port.getAsString() % cmd_.direction.getAsString()));
+			logStr.append(boost::str(boost::format("Setting syringe valve : tgtPort<%s> tgtDirection<%s>") % cmd_.port.ToString() % cmd_.direction.ToString()));
 
 			std::string errStr = logStr;
 
-			if (cmd_.port.get() == SyringePumpPort::InvalidPort)
+			if (cmd_.port.Get() == SyringePumpPort::InvalidPort)
 			{
-				errStr.append("Invalid syringe pump port : " + cmd_.port.getAsString());
+				errStr.append("Invalid syringe pump port : " + cmd_.port.ToString());
 				Logger::L().Log (MODULENAME, severity_level::error, errStr);
 				triggerCallback(onCompleteCallback, HawkeyeError::eInvalidArgs);
 				return;
 			}
 
-			if (cmd_.direction.get() == SyringePumpDirection::DirectionError)
+			if (cmd_.direction.Get() == SyringePumpDirection::DirectionError)
 			{
-				errStr.append("Invalid syringe pump direction : " + cmd_.direction.getAsString());
+				errStr.append("Invalid syringe pump direction : " + cmd_.direction.ToString());
 				Logger::L().Log (MODULENAME, severity_level::error, errStr);
 				triggerCallback(onCompleteCallback, HawkeyeError::eInvalidArgs);
 				return;
@@ -144,7 +144,7 @@ void SyringeWorkflowOperation::executeInternal (Wf_Operation_Callback onComplete
 
 		case RotateValve:
 		{
-			logStr.append(boost::str(boost::format("Rotating syringe valve:: angle: %d direction: %s") % cmd_.angle % cmd_.direction.getAsString()));
+			logStr.append(boost::str(boost::format("Rotating syringe valve:: angle: %d direction: %s") % cmd_.angle % cmd_.direction.ToString()));
 
 			std::string errStr = logStr;
 
@@ -156,9 +156,9 @@ void SyringeWorkflowOperation::executeInternal (Wf_Operation_Callback onComplete
 				return;
 			}
 
-			if (cmd_.direction.get() == SyringePumpDirection::DirectionError)
+			if (cmd_.direction.Get() == SyringePumpDirection::DirectionError)
 			{
-				errStr.append("Invalid syringe pump direction : " + cmd_.direction.getAsString());
+				errStr.append("Invalid syringe pump direction : " + cmd_.direction.ToString());
 				Logger::L().Log(MODULENAME, severity_level::error, errStr);
 				triggerCallback(onCompleteCallback, HawkeyeError::eInvalidArgs);
 				return;

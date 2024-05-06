@@ -328,23 +328,23 @@ static void Test_QCs()
 //*****************************************************************************
 void HawkeyeLogicImpl::Initialize (bool withHardware)
 {
-	// Set the availability of hardware in the HawkeyeConfig so it can be accessed by
-	// all of the code simply by *get*ting the HawkeyeConfig_t.
-	if (withHardware)
-	{
-//TODO: can the h/w be set up after getting the Insrument configuration ???
-#ifdef CELLHEALTH_MODULE
-		HawkeyeConfig::Instance().setHardwareForCHM();
-#endif
-#ifdef VICELL_BLU
-		HawkeyeConfig::Instance().setHardwareForViCell();
-#endif
-	}
-			
-	else
-	{
-		HawkeyeConfig::Instance().setHardwareForSimulation();
-	}
+//	// Set the availability of hardware in the HawkeyeConfig so it can be accessed by
+//	// all of the code simply by *get*ting the HawkeyeConfig_t.
+//	if (withHardware)
+//	{
+////TODO: can the h/w be set up after getting the Insrument configuration ???
+//#ifdef CELLHEALTH_MODULE
+//		HawkeyeConfig::Instance().setHardwareForCHM();
+//#endif
+//#ifdef VICELL_BLU
+//		HawkeyeConfig::Instance().setHardwareForViCell();
+//#endif
+//	}
+//			
+//	else
+//	{
+//		HawkeyeConfig::Instance().setHardwareForSimulation();
+//	}
 	
 	auto onInitializeComplete = [this](bool status) -> void
 	{
@@ -384,6 +384,24 @@ void HawkeyeLogicImpl::Initialize (bool withHardware)
 	}
 
 	Logger::L().Log (MODULENAME, severity_level::debug1, "Initialize: <enter>");
+
+	// Set the availability of hardware in the HawkeyeConfig so it can be accessed by
+	// all of the code simply by *get*ting the HawkeyeConfig_t.
+	if (withHardware)
+	{
+		if (HawkeyeConfig::Instance().get().instrumentType == HawkeyeConfig::CellHealth_ScienceModule)
+		{
+			HawkeyeConfig::Instance().setHardwareForCHM();
+		}
+		else
+		{
+			HawkeyeConfig::Instance().setHardwareForViCell();
+		}
+	}
+	else
+	{
+		HawkeyeConfig::Instance().setHardwareForSimulation();
+	}
 
 	isShutdownInProgress_ = false;
 

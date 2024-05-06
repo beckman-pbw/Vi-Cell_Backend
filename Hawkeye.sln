@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29613.14
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ControllerBoardTest", "Test\ControllerBoardTest\ControllerBoardTest.vcxproj", "{41C639ED-172F-4C31-83AC-8D94A1C1E7E6}"
 EndProject
@@ -116,9 +116,7 @@ Global
 		{E044DA4F-EC8B-4B5B-BE51-D333642B3DB2}.Release|x64.ActiveCfg = Release|x64
 		{E044DA4F-EC8B-4B5B-BE51-D333642B3DB2}.Release|x64.Build.0 = Release|x64
 		{941EE319-6DB7-4EBF-8984-0BB1DB506EC7}.Debug|x64.ActiveCfg = Debug|x64
-		{941EE319-6DB7-4EBF-8984-0BB1DB506EC7}.Debug|x64.Build.0 = Debug|x64
 		{941EE319-6DB7-4EBF-8984-0BB1DB506EC7}.Release|x64.ActiveCfg = Release|x64
-		{941EE319-6DB7-4EBF-8984-0BB1DB506EC7}.Release|x64.Build.0 = Release|x64
 		{4EBCE728-F384-41E0-9CAD-0A0D238AD3CB}.Debug|x64.ActiveCfg = Debug|x64
 		{4EBCE728-F384-41E0-9CAD-0A0D238AD3CB}.Release|x64.ActiveCfg = Release|x64
 		{30321834-F095-4200-A65A-0F5A725ADA8A}.Debug|x64.ActiveCfg = Debug|x64
@@ -150,25 +148,19 @@ Global
 		{39340E0B-E775-4E8E-B893-EAAD3280F75A}.Release|x64.ActiveCfg = Release|x64
 		{39340E0B-E775-4E8E-B893-EAAD3280F75A}.Release|x64.Build.0 = Release|x64
 		{6676F0EB-B5F5-4B03-A802-8D835B45424A}.Debug|x64.ActiveCfg = Debug|x64
-		{6676F0EB-B5F5-4B03-A802-8D835B45424A}.Debug|x64.Build.0 = Debug|x64
 		{6676F0EB-B5F5-4B03-A802-8D835B45424A}.Release|x64.ActiveCfg = Release|x64
-		{6676F0EB-B5F5-4B03-A802-8D835B45424A}.Release|x64.Build.0 = Release|x64
 		{75D18768-33A0-4C4E-9A17-A155599AB570}.Debug|x64.ActiveCfg = Debug|x64
 		{75D18768-33A0-4C4E-9A17-A155599AB570}.Debug|x64.Build.0 = Debug|x64
 		{75D18768-33A0-4C4E-9A17-A155599AB570}.Release|x64.ActiveCfg = Release|x64
 		{75D18768-33A0-4C4E-9A17-A155599AB570}.Release|x64.Build.0 = Release|x64
 		{882AE7B6-6E9B-4D9C-97A1-2D9B9C8D0DE1}.Debug|x64.ActiveCfg = Debug|x64
-		{882AE7B6-6E9B-4D9C-97A1-2D9B9C8D0DE1}.Debug|x64.Build.0 = Debug|x64
 		{882AE7B6-6E9B-4D9C-97A1-2D9B9C8D0DE1}.Release|x64.ActiveCfg = Release|x64
-		{882AE7B6-6E9B-4D9C-97A1-2D9B9C8D0DE1}.Release|x64.Build.0 = Release|x64
 		{4C474BF4-B275-4CB6-9873-4D3D5C3E9456}.Debug|x64.ActiveCfg = Debug|x64
 		{4C474BF4-B275-4CB6-9873-4D3D5C3E9456}.Debug|x64.Build.0 = Debug|x64
 		{4C474BF4-B275-4CB6-9873-4D3D5C3E9456}.Release|x64.ActiveCfg = Release|x64
-		{4C474BF4-B275-4CB6-9873-4D3D5C3E9456}.Release|x64.Build.0 = Release|x64
 		{E1D65EDF-C39C-49F6-A597-46B6C7FF10BB}.Debug|x64.ActiveCfg = Debug|x64
 		{E1D65EDF-C39C-49F6-A597-46B6C7FF10BB}.Debug|x64.Build.0 = Debug|x64
 		{E1D65EDF-C39C-49F6-A597-46B6C7FF10BB}.Release|x64.ActiveCfg = Release|x64
-		{E1D65EDF-C39C-49F6-A597-46B6C7FF10BB}.Release|x64.Build.0 = Release|x64
 		{19072EFB-4D06-46C4-98CB-43372E1E7CCB}.Debug|x64.ActiveCfg = Debug|x64
 		{19072EFB-4D06-46C4-98CB-43372E1E7CCB}.Debug|x64.Build.0 = Debug|x64
 		{19072EFB-4D06-46C4-98CB-43372E1E7CCB}.Release|x64.ActiveCfg = Release|x64

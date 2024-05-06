@@ -45,7 +45,6 @@ HawkeyeError HawkeyeLogicImpl::ClearSystemErrorCode (uint32_t active_error)
 
 		AuditLogger::L().Log (generateAuditWriteData(
 			UserList::Instance().GetAttributableUserName(),
-//TODO: 			UserList::Instance().GetLoggedInUsername(),
 			audit_event_type::evt_notAuthorized, 
 			"Clear System Error Code"));
 		return HawkeyeError::eNotPermittedByUser;

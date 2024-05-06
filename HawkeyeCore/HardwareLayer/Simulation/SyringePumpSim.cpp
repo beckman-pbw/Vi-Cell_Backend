@@ -64,21 +64,21 @@ void SyringePumpSim::setPosition(std::function<void(bool)> callback, uint32_t ta
 
 	// Compute the timeout for the syringe move based on the volume of fluid being moved in or out.
 	uint32_t volume_being_moved;
-	if (target_volume_uL > cur_volume_uL_) {
+	if (target_volume_uL > _cur_volume_uL) {
 		// drawing fluid in.
-		volume_being_moved = target_volume_uL - cur_volume_uL_;
+		volume_being_moved = target_volume_uL - _cur_volume_uL;
 
 	}
 	else {
 		// pushing fluid out.
-		volume_being_moved = cur_volume_uL_ - target_volume_uL;
+		volume_being_moved = _cur_volume_uL - target_volume_uL;
 	}
 
 	Logger::L().Log(MODULENAME, severity_level::debug1,
 		boost::str(boost::format("setPosition: moving to %dul at %dul/sec, current volume: %d, volume being moved: %d")
 			% target_volume_uL
 			% speed
-			% cur_volume_uL_
+			% _cur_volume_uL
 			% volume_being_moved
 		));
 
@@ -89,11 +89,11 @@ void SyringePumpSim::setPosition(std::function<void(bool)> callback, uint32_t ta
 	}
 	Delay(delayT, kRAND_TIME);
 
-	cur_volume_uL_ = target_volume_uL;
+	_cur_volume_uL = target_volume_uL;
 
-	UpdateReagentVolume (curPhysicalPort_, volume_being_moved);
+	UpdateReagentVolume (_curPhysicalPort, volume_being_moved);
 
-	pCBOService_->enqueueExternal(callback, true);
+	_pCBOService->enqueueExternal(callback, true);
 }
 
 //*****************************************************************************
@@ -101,16 +101,16 @@ void SyringePumpSim::setValve(std::function<void(bool)> callback, SyringePumpPor
 {
 	HAWKEYE_ASSERT(MODULENAME, callback);
 
-	Logger::L().Log(MODULENAME, severity_level::debug1, "setValve: set " + port.getAsString() + " valve " + direction.getAsString());
+	Logger::L().Log(MODULENAME, severity_level::debug1, "setValve: set " + port.ToString() + " valve " + direction.ToString());
 
-	int v1 = curPhysicalPort_;
-	int v2 = SyringePumpPort::ToPhysicalPort(port.get());
+	int v1 = _curPhysicalPort;
+	int v2 = SyringePumpPort::ToPhysicalPort(port.Get());
 	uint32_t delta = abs(v1 - v2);
 
 	uint32_t delayT = (delta * kVALVE_POS_MOVE_TIME);
 	Delay(delayT, kRAND_TIME);
 
-	curPhysicalPort_ = SyringePumpPort::ToPhysicalPort(port.get());
+	_curPhysicalPort = SyringePumpPort::ToPhysicalPort(port.Get());
 
-	pCBOService_->enqueueInternal(callback, true);
+	_pCBOService->enqueueInternal(callback, true);
 }

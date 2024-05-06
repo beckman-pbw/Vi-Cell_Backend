@@ -159,7 +159,6 @@ HawkeyeError HawkeyeLogicImpl::ClearCalibrationActivityLog (calibration_type cal
 	Logger::L().Log (MODULENAME, severity_level::debug1, "ClearCalibrationActivityLog: <enter>");
 
 	std::string loggedInUsername = UserList::Instance().GetAttributableUserName();
-//TODO:	std::string loggedInUsername = UserList::Instance().GetLoggedInUsername();
 
 	// This must be done by Elevated User.
 	// limited to local logins only

@@ -163,7 +163,6 @@ void HawkeyeLogicImpl::reanlyzeSampleInternal (ReanlyzeSample_DataParams data_pa
 			Logger::L().Log (MODULENAME, severity_level::error, "reanlyzeSampleInternal: rs_Error, Failed to perform reanalysis");
 			// Report error to UI...
 			pHawkeyeServices_->enqueueExternal (data_params.cb, data_params.completion_status, data_params.sampleDef.sampleDataUuid, ResultRecordDLL{});
-//TODO: should the Vi-Cell be used ???
 			return;
 		}
 	}

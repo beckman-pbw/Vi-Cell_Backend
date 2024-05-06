@@ -549,7 +549,6 @@ HawkeyeError HawkeyeLogicImpl::SpecializeAnalysisForCellType (AnalysisDefinition
 	Logger::L ().Log (MODULENAME, severity_level::debug3, "SpecializeAnalysisForCellType: <enter>");
 
 	std::string loggedInUsername = UserList::Instance().GetAttributableUserName();
-//TODO: 	std::string loggedInUsername = UserList::Instance().GetLoggedInUsername();
 
 	//TODO: need to test...
 		/// 0) Check user permissions (admin or higher)

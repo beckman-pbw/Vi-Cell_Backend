@@ -53,7 +53,9 @@ std::string DrainReagentPackWorkflow::getWorkFlowScriptFile (uint8_t workflowSub
 		
 		case SyringePumpPort::InvalidPort:
 		case SyringePumpPort::Waste:
-		case SyringePumpPort::ACup:
+		case SyringePumpPort::Sample:
+		case SyringePumpPort::ViCell_ACup:
+		case SyringePumpPort::CHM_ACup:
 		case SyringePumpPort::FlowCell:
 		case SyringePumpPort::Diluent:
 		default:

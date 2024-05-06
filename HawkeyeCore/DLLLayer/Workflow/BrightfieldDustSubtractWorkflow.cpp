@@ -72,9 +72,7 @@ HawkeyeError BrightfieldDustSubtractWorkflow::execute()
 	
 	currentState_ = eBrightfieldDustSubtractionState::bds_FindingTube;
 
-
-	int16_t instrumentType = HawkeyeConfig::Instance().get().instrumentType;
-	if (instrumentType == HawkeyeConfig::CellHealth_ScienceModule)
+	if (HawkeyeConfig::Instance().get().instrumentType == HawkeyeConfig::CellHealth_ScienceModule)
 	{
 		HawkeyeError he = Workflow::execute();
 		if (he != HawkeyeError::eSuccess)
@@ -347,7 +345,6 @@ void BrightfieldDustSubtractWorkflow::processImage (const std::vector<cv::Mat>& 
 
 	bdsImage_.reset(new Mat());
 
-//TODO: !!!
 	ImageProcessingUtilities::generateDustImage(acquiredImages, *bdsImage_)
 		.whenComplete([this, callback](HawkeyeError he)
 	{
@@ -560,8 +557,7 @@ void BrightfieldDustSubtractWorkflow::cleanupBeforeExit(std::function<void(bool)
 	Logger::L().Log (MODULENAME, severity_level::debug1, "cleanupBeforeExit : <enter>");
 	HAWKEYE_ASSERT (MODULENAME, callback);
 
-	int16_t instrumentType = HawkeyeConfig::Instance().get().instrumentType;
-	if (instrumentType == HawkeyeConfig::CellHealth_ScienceModule)
+	if (HawkeyeConfig::Instance().get().instrumentType == HawkeyeConfig::CellHealth_ScienceModule)
 	{
 		pServices_->enqueueInternal(callback, true);
 	}

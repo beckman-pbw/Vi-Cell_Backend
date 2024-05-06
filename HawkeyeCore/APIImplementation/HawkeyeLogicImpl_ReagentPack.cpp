@@ -329,7 +329,6 @@ void HawkeyeLogicImpl::StartDrainReagentPack(
 			{
 				AuditLogger::L().Log (generateAuditWriteData(
 					UserList::Instance().GetAttributableUserName(),
-//TODO:					UserList::Instance().GetLoggedInUsername(),					
 					audit_event_type::evt_fluidicsdrain, 
 					"Completed"));
 			}
@@ -353,7 +352,6 @@ HawkeyeError HawkeyeLogicImpl::CancelDrainReagentPack()
 
 		AuditLogger::L().Log (generateAuditWriteData(
 			UserList::Instance().GetAttributableUserName(),
-//TODO:					UserList::Instance().GetLoggedInUsername(),					
 			audit_event_type::evt_notAuthorized, 
 			"Cancel Drain Reagent Pack"));
 		return HawkeyeError::eNotPermittedByUser;

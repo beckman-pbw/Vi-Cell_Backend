@@ -14,29 +14,23 @@ char SyringePumpBase::MaxPhysicalValvePosition = 'H';
 
 //*****************************************************************************
 SyringePumpBase::SyringePumpBase (std::shared_ptr<CBOService> pCBOService)
-	: pCBOService_(std::move(pCBOService))
-	, version_("unknown")
-	, cur_volume_uL_(0)
+	: _pCBOService(std::move(pCBOService))
+	, _version("unknown")
+	, _cur_volume_uL(0)
 {
-	portMap_[SyringePumpPort::Waste]     = PhysicalPort::PortF;
-	portMap_[SyringePumpPort::FlowCell]  = PhysicalPort::PortH;
-	portMap_[SyringePumpPort::Reagent_1] = PhysicalPort::PortA;
-	portMap_[SyringePumpPort::Cleaner_1] = PhysicalPort::PortB;
-	portMap_[SyringePumpPort::Cleaner_2] = PhysicalPort::PortC;
-	portMap_[SyringePumpPort::Cleaner_3] = PhysicalPort::PortD;
-
-#ifdef CELLHEALTH_MODULE
-	portMap_[SyringePumpPort::ACup]      = PhysicalPort::PortG;
-	portMap_[SyringePumpPort::Diluent]   = PhysicalPort::PortE;
-#endif
-#ifdef VICELL_BLU
-	portMap_[SyringePumpPort::Sample]    = PhysicalPort::PortG;
-	portMap_[SyringePumpPort::Sample_2]  = PhysicalPort::PortE;	// Vi-Cell_BLU ACup
-#endif
-//TODO: is something miss from the above ???
+	portMap_[SyringePumpPort::Waste]       = PhysicalPort::PortF;
+	portMap_[SyringePumpPort::FlowCell]    = PhysicalPort::PortH;
+	portMap_[SyringePumpPort::Reagent_1]   = PhysicalPort::PortA;
+	portMap_[SyringePumpPort::Cleaner_1]   = PhysicalPort::PortB;
+	portMap_[SyringePumpPort::Cleaner_2]   = PhysicalPort::PortC;
+	portMap_[SyringePumpPort::Cleaner_3]   = PhysicalPort::PortD;
+	portMap_[SyringePumpPort::Sample]      = PhysicalPort::PortG;
+	portMap_[SyringePumpPort::CHM_ACup]    = PhysicalPort::PortG;
+	portMap_[SyringePumpPort::ViCell_ACup] = PhysicalPort::PortE;
+	portMap_[SyringePumpPort::Diluent]     = PhysicalPort::PortE;
 
 	// Set default syringe pump valve position.
-	curPhysicalPort_ = SyringePumpPort::ToPhysicalPort (SyringePumpPort::Waste);
+	_curPhysicalPort = SyringePumpPort::ToPhysicalPort (SyringePumpPort::Waste);
 }
 
 //*****************************************************************************
@@ -44,13 +38,13 @@ void SyringePumpBase::initialize (std::function<void(bool)> callback)
 {
 	HAWKEYE_ASSERT (MODULENAME, callback);
 
-	pCBOService_->enqueueInternal (callback, true);
+	_pCBOService->enqueueInternal (callback, true);
 }
 
 //*****************************************************************************
 bool SyringePumpBase::getPosition (uint32_t& position)
 {
-	position = cur_volume_uL_;
+	position = _cur_volume_uL;
 	return true;
 }
 
@@ -64,13 +58,13 @@ bool SyringePumpBase::getValve (SyringePumpPort& port)
 //*****************************************************************************
 SyringePumpPort SyringePumpBase::getValve()
 {
-	return SyringePumpPort::FromPhysicalPort (curPhysicalPort_);
+	return SyringePumpPort::FromPhysicalPort (_curPhysicalPort);
 }
 
 //*****************************************************************************
 bool SyringePumpBase::getPhysicalValve (PhysicalPort_t& valveNum)
 {
-	valveNum = curPhysicalPort_;
+	valveNum = _curPhysicalPort;
 	return true;
 }
 
@@ -80,67 +74,31 @@ void SyringePumpBase::setPhysicalValve (std::function<void(bool)> callback, char
 	HAWKEYE_ASSERT (MODULENAME, callback);
 
 	// Convert the given the port character to Physical valve number.
-	curPhysicalPort_ = (PhysicalPort_t)(port - MinPhysicalValvePosition + 1);
+	_curPhysicalPort = (PhysicalPort_t)(port - MinPhysicalValvePosition + 1);
 
-	pCBOService_->enqueueInternal (callback, true);
+	_pCBOService->enqueueInternal (callback, true);
 }
 
 //*****************************************************************************
 void SyringePumpBase::rotateValve (std::function<void(bool)> callback, uint32_t angle, SyringePumpDirection direction)
 {
-	pCBOService_->enqueueInternal (callback, true);
+	_pCBOService->enqueueInternal (callback, true);
 }
 
 //*****************************************************************************
 void SyringePumpBase::sendValveCommand(std::function<void(bool)> callback, std::string valveCommand)
 {
-	pCBOService_->enqueueInternal(callback, true);
+	_pCBOService->enqueueInternal(callback, true);
 }
 
 //*****************************************************************************
 bool SyringePumpBase::isAspirating(uint32_t target_volume_uL)
 {
-	return target_volume_uL > cur_volume_uL_;
+	return target_volume_uL > _cur_volume_uL;
 }
 
 //*****************************************************************************
-SyringePumpPort SyringePumpBase::paramToPort (uint32_t param) {
-
-	switch (param) {
-		case 1:
-			return SyringePumpPort(SyringePumpPort::Waste);
-		case 2:
-#ifdef CELLHEALTH_MODULE
-			return SyringePumpPort(SyringePumpPort::ACup);
-#endif
-#ifdef VICELL_BLU
-			return SyringePumpPort(SyringePumpPort::Sample);
-#endif
-		case 3:
-			return SyringePumpPort(SyringePumpPort::FlowCell);
-		case 4:
-			return SyringePumpPort(SyringePumpPort::Reagent_1);
-		case 5:
-			return SyringePumpPort(SyringePumpPort::Cleaner_1);
-		case 6:
-			return SyringePumpPort(SyringePumpPort::Cleaner_2);
-		case 7:
-			return SyringePumpPort(SyringePumpPort::Cleaner_3);
-		case 8:
-#ifdef CELLHEALTH_MODULE
-			return SyringePumpPort(SyringePumpPort::Diluent);
-#endif
-#ifdef VICELL_BLU
-			return SyringePumpPort(SyringePumpPort::Sample_2);
-#endif
-		default:
-			Logger::L().Log (MODULENAME, severity_level::critical, "paramToPort: invalid port: " + std::to_string(param));
-			return SyringePumpPort(SyringePumpPort::InvalidPort);
-	}
-}
-
-//*****************************************************************************
-SyringePumpDirection SyringePumpBase::paramToDirection (uint32_t param) {
+SyringePumpDirection SyringePumpBase::ParamToDirection (uint32_t param) {
 
 	switch (param) {
 		case 0:
@@ -159,43 +117,8 @@ std::string SyringePumpBase::getVersion()
 }
 
 //*****************************************************************************
-std::string SyringePumpPort::getAsString() {
-	switch (port_) {
-		case Waste:
-			return "Waste";
-#ifdef CELLHEALTH_MODULE
-		case ACup:
-			return "ACup";
-#endif
-#ifdef VICELL_BLU
-		case Sample:
-			return "Sample";
-#endif
-		case FlowCell:
-			return "FlowCell";
-		case Reagent_1:
-			return "Reagent_1";
-		case Cleaner_1:
-			return "Cleaner_1";
-		case Cleaner_2:
-			return "Cleaner_2";
-		case Cleaner_3:
-			return "Cleaner_3";
-#ifdef CELLHEALTH_MODULE
-		case Diluent:
-			return "Diluent";
-#endif
-#ifdef VICELL_BLU
-		case Sample_2:
-			return "Sample_2";	//TODO: should this also return A-Cup ?
-#endif
-		default:
-			return "InvalidPort";
-	}
-}
-
-std::string SyringePumpDirection::getAsString() {
-	switch (direction_) {
+std::string SyringePumpDirection::ToString() {
+	switch (_direction) {
 		case Clockwise:
 			return "Clockwise";
 		case CounterClockwise:
@@ -208,7 +131,7 @@ std::string SyringePumpDirection::getAsString() {
 //*****************************************************************************
 PhysicalPort_t SyringePumpPort::ToPhysicalPort (SyringePumpPort port) {
 
-	return portMap_[port.get()];
+	return portMap_[port.Get()];
 }
 
 //*****************************************************************************
