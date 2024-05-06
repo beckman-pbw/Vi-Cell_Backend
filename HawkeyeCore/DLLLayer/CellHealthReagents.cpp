@@ -245,7 +245,7 @@ bool CellHealthReagents::Initialize()
 		chrList [v.Type] = v;
 	}
 	
-	std::string filePath = HawkeyeDirectory::Instance().getWorkFlowScriptFile (HawkeyeDirectory::WorkFlowScriptType::eSampleACup);
+	std::string filePath = HawkeyeDirectory::Instance().GetWorkFlowScriptFile (HawkeyeDirectory::WorkFlowScriptType::eSampleACup);
 	workflowScript.LoadWorkflow ("Sample", filePath);
 
 	Log();

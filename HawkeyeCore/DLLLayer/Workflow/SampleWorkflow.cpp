@@ -117,13 +117,13 @@ std::string SampleWorkflow::getWorkFlowScriptFile (uint8_t workflowSubType)
 	switch (workflowSubType)
 	{
 		case SampleWorkflow::eSampleWorkflowSubType::eNormalWash:
-			return HawkeyeDirectory::Instance().getWorkFlowScriptFile (HawkeyeDirectory::WorkFlowScriptType::eSampleNormal);
+			return HawkeyeDirectory::Instance().GetWorkFlowScriptFile (HawkeyeDirectory::WorkFlowScriptType::eSampleNormal);
 		case SampleWorkflow::eSampleWorkflowSubType::eFastWash:
-			return HawkeyeDirectory::Instance().getWorkFlowScriptFile (HawkeyeDirectory::WorkFlowScriptType::eSampleFast);
+			return HawkeyeDirectory::Instance().GetWorkFlowScriptFile (HawkeyeDirectory::WorkFlowScriptType::eSampleFast);
 		case SampleWorkflow::eSampleWorkflowSubType::eACup:
-			return HawkeyeDirectory::Instance().getWorkFlowScriptFile (HawkeyeDirectory::WorkFlowScriptType::eSampleACup);
+			return HawkeyeDirectory::Instance().GetWorkFlowScriptFile (HawkeyeDirectory::WorkFlowScriptType::eSampleACup);
 		case SampleWorkflow::eSampleWorkflowSubType::eACupNoInternalDilution:
-			return HawkeyeDirectory::Instance().getWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eSampleACupNoDilution);
+			return HawkeyeDirectory::Instance().GetWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eSampleACupNoDilution);
 		default:
 			Logger::L().Log (MODULENAME, severity_level::error, "getWorkFlowScriptFile() : Not supported eSamplePostWash type : " + std::to_string(workflowSubType));
 			break;

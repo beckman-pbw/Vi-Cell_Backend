@@ -291,7 +291,7 @@ bool ReagentControllerSim::isFluidAvailableInternal(std::shared_ptr<std::vector<
 		return false;
 	}
 
-	std::string outs = boost::str(boost::format("Port %d / Fluid %d: %d uL required; %d uL remaining") % port % (uint16_t) fluid % volume % remainingVolume);
+	std::string outs = boost::str(boost::format("Port %d / Fluid %d: %d uL required; %d uL remaining") % (int)port % (uint16_t) fluid % volume % remainingVolume);
 	Logger::L().Log(MODULENAME, severity_level::debug1, outs);
 
 	return remainingVolume >= static_cast<uint32_t>(volume);

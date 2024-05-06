@@ -1,0 +1,60 @@
+D, C:\Leia-Clean
+
+I
+
+
+G, 0
+!Was intially 0
+
+E, 50
+
+P, 74
+!Was initally 20
+
+! Move to Flow Cell (port 3), CW
+V, 3, 0
+
+! Aspirate 1000ul.
+S, 100, 300
+
+! Aspirate 1000ul.
+S, 200, 100
+
+! Aspirate 1000ul.
+S, 300, 300
+
+! Aspirate 1000ul.
+S, 400, 100
+
+! Aspirate 1000ul.
+S, 500, 300
+
+! Move to Waste (port 1), CW
+V, 1, 0
+
+! Empty syringe.
+S, 0, 300
+
+! Move to Buffer (port 7), CW
+V, 7, 0
+
+! Aspirate 1000ul.
+S, 500, 300
+
+! Move to Flow Cell (port 3), CW
+V, 3, 0
+
+! Empty syringe.
+S, 0, 100
+
+! Move to Sample Probe (port 2), CCW
+V, 2, 1
+
+! Aspirate 1000ul.
+S, 500, 500
+
+! Move to Flow Cell (port 3), CW
+V, 3, 0
+
+! Empty syringe.
+S, 0, 100

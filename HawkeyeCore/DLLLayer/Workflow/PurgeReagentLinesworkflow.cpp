@@ -59,11 +59,11 @@ std::string PurgeReagentLinesWorkflow::getWorkFlowScriptFile (uint8_t workflowSu
 	switch (pos)
 	{		
 		case ReagentContainerPosition::eMainBay_1:
-			return HawkeyeDirectory::Instance().getWorkFlowScriptFile (HawkeyeDirectory::WorkFlowScriptType::ePurge);
+			return HawkeyeDirectory::Instance().GetWorkFlowScriptFile (HawkeyeDirectory::WorkFlowScriptType::ePurge);
 		case ReagentContainerPosition::eDoorLeft_2:
-			return HawkeyeDirectory::Instance().getWorkFlowScriptFile (HawkeyeDirectory::WorkFlowScriptType::eDoorLeft);
+			return HawkeyeDirectory::Instance().GetWorkFlowScriptFile (HawkeyeDirectory::WorkFlowScriptType::eDoorLeft);
 		case ReagentContainerPosition::eDoorRight_3:
-			return HawkeyeDirectory::Instance().getWorkFlowScriptFile (HawkeyeDirectory::WorkFlowScriptType::eDoorRight);
+			return HawkeyeDirectory::Instance().GetWorkFlowScriptFile (HawkeyeDirectory::WorkFlowScriptType::eDoorRight);
 		case ReagentContainerPosition::eUnknown:
 		default:
 		{

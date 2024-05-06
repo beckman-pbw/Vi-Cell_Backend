@@ -1,0 +1,23 @@
+!Command List----------------
+! SC - Workflow State Change Cmd
+! S  - Syringe Cmd
+!    V  - Syringe Param Valve
+!    M  - Syringe Param Move
+
+! -----Drain Other Reagent (Reagent2) Cycle-----
+
+!Set state change to "eDrainPurgeReagentLinesState::drp_DrainReagent2"
+SC, 5
+
+! Move to Other Reagent (port 8), CW
+S, V, 8, 0
+
+! Aspirate 150ul.
+S, M, 150, 400
+
+! Move to Waste (port 1), CW
+S, V, 1, 0
+
+! Empty syringe.
+S, M, 0, 600
+

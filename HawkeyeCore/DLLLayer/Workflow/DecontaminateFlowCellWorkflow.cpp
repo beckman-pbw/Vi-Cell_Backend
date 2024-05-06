@@ -143,7 +143,7 @@ std::string DecontaminateFlowCellWorkflow::getWorkFlowScriptFile(uint8_t workflo
 		Logger::L().Log (MODULENAME, severity_level::error, "getWorkFlowScriptFile : Not supported input index : " + std::to_string(workflowSubType));
 		return std::string();
 	}
-	return  HawkeyeDirectory::Instance().getWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eDecontaminateFlowCell);
+	return  HawkeyeDirectory::Instance().GetWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eDecontaminateFlowCell);
 }
 
 HawkeyeError DecontaminateFlowCellWorkflow::load(std::string filename)

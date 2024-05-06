@@ -1,0 +1,22 @@
+!Command List----------------
+! SC - Workflow State Change Cmd
+! S  - Syringe Cmd
+!    V  - Syringe Param Valve
+!    M  - Syringe Param Move
+
+! -----Trypan Blue Drain (Reagent1) Cycle-----
+
+!Set state change to "eDrainPurgeReagentLinesState::drp_DrainReagent1"
+SC, 4
+
+! Move to TrypanBlue (port 4), CW
+S, V, 4, 0
+
+! Aspirate 150ul.
+S, M, 150, 400
+
+! Move to Waste (port 1), CW
+S, V, 1, 0
+
+! Empty syringe.
+S, M, 0, 600

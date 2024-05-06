@@ -1,0 +1,21 @@
+!Command List----------------
+! SC - Workflow State Change Cmd
+! S  - Syringe Cmd
+!    V  - Syringe Param Valve
+!    M  - Syringe Param Move
+
+! -----Trypan Blue Purge Cycle-----
+!Set state change to "ePurgePurgeReagentLinesState::dprl_PurgeReagent2"
+SC, 5
+
+! Move to Sample (port 2),  - to get air
+S, V, 1, 0
+
+! Aspirate 1000ul.
+S, M, 1000, 600
+
+! Move to Reagent 2 (port 5), CW
+S, V, 5, 0
+
+! Empty syringe.
+S, M, 0, 600

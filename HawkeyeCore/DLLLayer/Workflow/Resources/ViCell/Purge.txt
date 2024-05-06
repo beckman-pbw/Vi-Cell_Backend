@@ -1,0 +1,193 @@
+!Command List----------------
+! SC - Workflow State Change Cmd
+! S  - Syringe Cmd
+!    V  - Syringe Param Valve
+!    M  - Syringe Param Move
+! P - Sample Probe Cmd
+!    U  - Raise Probe (Up)
+!----------------------------
+
+!Raise Sample Probe
+P, U
+
+! -----Trypan Blue Purge Cycle-----
+
+!Set state change to "ePurgePurgeReagentLinesState::dprl_PurgeReagent1"
+SC, 4
+
+! Move to TrypanBlue (port 4), CW
+S, V, 4, 0
+
+! Aspirate 150ul.
+S, M, 150, 400
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 500
+
+! Move to TrypanBlue (port 4), CW
+S, V, 4, 0
+
+! Aspirate 150ul.
+S, M, 150, 400
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 500
+
+! Move to TrypanBlue (port 4), CW
+S, V, 4, 0
+
+! Aspirate 150ul.
+S, M, 150, 400
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 500
+
+!-----Coulter Clenz Purge Cycle-----
+
+!Set state change to "ePurgePurgeReagentLinesState::dprl_PurgeCleaner1"
+SC, 1
+
+! Move to Coulter Clenz (port 5), CW
+S, V, 5, 0
+
+! Aspirate 600ul.
+S, M, 600, 500
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 500
+
+! Move to Coulter Clenz (port 5), CW
+S, V, 5, 0
+
+! Aspirate 600ul.
+S, M, 600, 500
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 500
+
+! Move to Coulter Clenz (port 5), CW
+S, V, 5, 0
+
+! Aspirate 600ul.
+S, M, 600, 500
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 500
+
+!-----Disinfectant Purge Cycle-----
+
+!Set state change to "ePurgePurgeReagentLinesState::dprl_PurgeCleaner2"
+SC, 2
+
+! Move to Disinfectant (port 6), CW 
+S, V, 6, 0
+
+! Aspirate 600ul.
+S, M, 600, 400
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 400
+
+! Move to Disinfectant (port 6), CW 
+S, V, 6, 0
+
+! Aspirate 600ul.
+S, M, 600, 400
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 400
+
+! Move to Disinfectant (port 6), CW 
+S, V, 6, 0
+
+! Aspirate 600ul.
+S, M, 600, 400
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 400
+
+!-----Buffer Purge Cycle-----
+
+!Set state change to "ePurgePurgeReagentLinesState::dprl_PurgeCleaner3"
+SC, 3
+
+! Move to Buffer (port 7), CW 
+S, V, 7, 0
+
+! Aspirate 600ul.
+S, M, 600, 500
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 500
+
+! Move to Buffer (port 7), CW 
+S, V, 7, 0
+
+! Aspirate 600ul.
+S, M, 600, 500
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 500
+
+! Move to Buffer (port 7), CW 
+S, V, 7, 0
+
+! Aspirate 600ul.
+S, M, 600, 500
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 500
+
+!-----Waste Purge Cycle-----
+
+! Move to Sample (port 2),  - to get air
+S, V, 2, 0
+
+! Aspirate 1000ul.
+S, M, 1000, 600
+
+! Move to Waste (port 1), CW
+S, V, 1, 0
+
+! Empty syringe.
+S, M, 0, 600
+
+!-- we are done
+SC, 11
+

@@ -1,0 +1,90 @@
+! This script mixes sample in Caroussel position 1 with Trypan blue and loads the flow cell (to use before autofocus)
+
+T, Z, 1
+
+P, D
+
+
+!-----Re-Suspension and Sample Dosing-----
+
+!Move to SampleProbe (Port 2), CW
+S, V, 2, 0
+
+!Aspirate to 125 uL
+S, M, 125, 200
+
+!Empty Syringe
+S, M, 0, 200
+
+!Aspirate to 125 uL
+S, M, 125, 200
+
+!Empty Syringe
+S, M, 0, 200
+
+!Aspirate to 125 uL
+S, M, 125, 200
+
+!Empty Syringe
+S, M, 0, 200
+
+!Aspirate to 600 uL
+S, M, 600, 200
+
+! Move to Waste (Port 1), CCW
+S, V, 1, 1
+
+! Dispense to 150 uL
+S, M, 150, 400
+
+!-----Introduce Trypan Blue & Mix-----
+
+! Move to TrypanBlue (port 4), CW
+S, V, 4, 0
+
+! Aspirate to 300ul.
+S, M, 300, 600
+
+! Move to SampleProbe (port 2), CCW
+S, V, 2, 1
+
+! Empty syringe.
+S, M, 0, 400
+
+! Aspirate 200ul.
+S, M, 200, 300
+
+! Empty syringe.
+S, M, 0, 400
+
+! Aspirate 200ul.
+S, M, 200, 300
+
+! Empty syringe.
+S, M, 0, 400
+
+! Aspirate 200ul.
+S, M, 200, 300
+
+! Empty syringe.
+S, M, 0, 400
+
+! Aspirate 250ul.
+S, M, 250, 300
+
+! Clear fluid segmentation in sample tubing
+S, M, 300, 150
+
+!-----Sample Interrogation-----
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Dispense to 225 uL.
+S, M, 225, 600
+
+! Move to FlowCell (port 3), CW
+S, V, 3, 0
+
+! Boost to 55 uL @ 25uL/s.
+S, M, 55, 25

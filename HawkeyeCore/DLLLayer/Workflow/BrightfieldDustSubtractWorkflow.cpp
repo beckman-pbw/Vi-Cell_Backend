@@ -259,7 +259,7 @@ std::string BrightfieldDustSubtractWorkflow::getWorkFlowScriptFile(uint8_t workf
 		Logger::L().Log (MODULENAME, severity_level::error, "getWorkFlowScriptFile : Not supported input index : " + std::to_string(workflowSubType));
 		return std::string();
 	}
-	return HawkeyeDirectory::Instance().getWorkFlowScriptFile (HawkeyeDirectory::WorkFlowScriptType::eDustSubstract);
+	return HawkeyeDirectory::Instance().GetWorkFlowScriptFile (HawkeyeDirectory::WorkFlowScriptType::eDustSubstract);
 }
 
 //*****************************************************************************

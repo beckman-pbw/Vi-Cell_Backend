@@ -1,0 +1,111 @@
+!The post load clean cleans the sample line, not the flow cell.
+! v 3.2
+
+! --- Empty syringe and air ---
+
+! Move to sample (port 2), CCW
+S, V, 2, 1
+
+! Aspirate 600ul.
+S, M, 600, 600
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe
+S, M, 0, 600
+
+! Move to sample (port 2), CW - fill valve volume with air
+S, V, 2, 0
+
+! Aspirate 100ul.
+S, M, 100, 600
+
+! --- cleanse cycle ----
+! Move to Coulter Cleanse (port 5), CW
+S, V, 5, 0
+
+! Aspirate 600ul.
+S, M, 600, 600
+
+! Move to sample (port 2), CCW
+S, V, 2, 1
+
+! Empty syringe.
+S, M, 0, 600
+
+! Aspirate 600ul.
+S, M, 750, 600
+
+! Move to waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 600
+
+! ---- disinfectant cycle ------
+! Move to Disinfectant (port 6), CW
+S, V, 6, 0
+
+! Aspirate 600ul.
+S, M, 600, 600
+
+! Move to sample (port 2), CCW
+S, V, 2, 1
+
+! Dispense syringe.
+S, M, 0, 600
+
+! Aspirate 600ul.
+S, M, 600, 600
+
+! Clear fluid segmentation in sample tubing
+S, M, 750, 150
+
+! Move to waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 600
+
+! ---- buffer cycle -----
+! Move to Buffer (port 7), CW
+S, V, 7, 0
+
+! Aspirate 600ul.
+S, M, 600, 600
+
+! Move to sample (port 2), CCW
+S, V, 2, 1
+
+! Dispense syringe.
+S, M, 0, 600
+
+! Aspirate 600ul.
+S, M, 600, 600
+
+! Clear fluid segmentation in sample tubing
+S, M, 750, 150
+
+! Move to waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 600
+
+! ----- air cycle ----------
+! Move to Air (Port 2), CW
+S, V, 2, 0
+
+ ! Aspirate 600ul.
+S, M, 600, 600
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 600
+
+! Move to Air (Port 2), CW
+S, V, 2, 0
+

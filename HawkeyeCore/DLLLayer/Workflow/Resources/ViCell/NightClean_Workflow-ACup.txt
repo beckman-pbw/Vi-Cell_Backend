@@ -1,0 +1,386 @@
+! Nightclean for ACup connected to port 8 through 0.03" I.D., 4.5ft long tubing
+! version 4.03 (same as dvpt version dev006)
+
+!----- Aspirate possible fluid from the Acup
+
+! Move to Acup, CCW
+S, V, 8, 1
+
+! Aspirate to 1000ul.
+S, M, 1000, 200
+
+! Move to Waste (port 1), CW
+S, V, 1, 0
+
+! Empty syringe.
+S, M, 0, 400
+
+! Move to Acup, CCW
+S, V, 8, 1
+
+! Aspirate to 1000ul.
+S, M, 1000, 200
+
+! Move to Waste (port 1), CW
+S, V, 1, 0
+
+! Empty syringe.
+S, M, 0, 400
+
+! Move to Acup, CCW
+S, V, 8, 1
+
+! Aspirate to 1000ul.
+S, M, 1000, 200
+
+! Move to Waste (port 1), CW
+S, V, 1, 0
+
+! Empty syringe.
+S, M, 0, 400
+
+!-------Clenz Cycle------
+
+!Set state change to "eFlushFlowCellState::ffc_FlushingCleaner"
+SC, 1
+
+! Move to Coulter Clenz (port 5), CCW
+S, V, 5, 1
+
+! Aspirate 600ul.
+S, M, 600, 600
+
+! Move to Acup (port 8), CW
+S, V, 8, 0
+
+! Empty syringe.
+S, M, 0, 200
+
+! Wait for 40 seconds
+W, 40000
+
+! Move to port2 (open), CW
+S, V, 2, 0
+
+! Aspirate 450uL of air
+S, M, 450, 400
+
+! Move to Acup (port 8), CCW
+S, V, 8, 1
+
+! Empty syringe.
+S, M, 0, 200
+
+! Aspirate 250uL
+S, M, 250, 200
+
+! Empty syringe.
+S, M, 0, 200
+
+! Aspirate 250uL
+S, M, 250, 200
+
+! Empty syringe.
+S, M, 0, 200
+
+! Wait for 90 seconds
+W, 90000
+
+! Aspirate 250uL
+S, M, 250, 200
+
+! Empty syringe.
+S, M, 0, 200
+
+! Aspirate air
+S, M, 450, 150
+
+! Move to waste , CW
+S, V, 1, 0
+
+! Empty syringe
+S, M, 0, 400
+
+! Move to Acup (port 8), CCW
+S, V, 8, 1
+
+! Aspirate clenz
+S, M, 800, 150
+
+! Move to Flow Cell (port 3), CW
+S, V, 3, 0
+
+! Empty syringe.
+S, M, 300, 250
+
+! Aspirate 300 uL
+S, M, 600, 100
+
+! Empty syringe.
+S, M, 0, 250
+
+! Aspirate 300 uL
+S, M, 300, 100
+
+! Empty syringe.
+S, M, 0, 250
+
+! Move to Acup, CCW
+S, V, 8, 1
+
+! Aspirate remaining Clenz
+S, M, 1000, 150
+
+! Wait 0.5s for pressure to stabilize
+W, 500
+
+! Move to waste, CW
+S, V, 1, 0
+
+! Empty syringe
+S, M, 0, 200
+
+!Suppressed 110seconds wait here; added wait with alcohol in ACup instead. Clenz sill spends about 2mins in flow cell.
+
+
+!-------Disinfectant Cycle ---------
+
+!Set state change to "eFlushFlowCellState::ffc_FlushingDisinfectant"
+SC, 2
+
+! Move to Disinfectant (port 6), CW
+S, V, 6, 0
+
+! Aspirate 600ul.
+S, M, 600, 600
+
+! Move to Acup (port 8), CW
+S, V, 8, 0
+
+! Empty syringe.
+S, M, 0, 200
+
+! Wait for 40 seconds
+W, 40000
+
+! Move to port2 (open), CW
+S, V, 2, 0
+
+! Aspirate 450uL of air
+S, M, 450, 400
+
+! Move to Acup (port 8), CCW
+S, V, 8, 1
+
+! Empty syringe.
+S, M, 0, 100
+
+! Wait for 60 seconds
+W, 60000
+
+! Aspirate air volume and a little more
+S, M, 575, 100
+
+! Wait 1s for air slug to stabilize
+W, 1000
+
+! Dispense 100 uL to 475uL to increase pressure in syringe
+S, M, 475, 200
+
+! Move to waste , CW
+S, V, 1, 0
+
+! Empty syringe
+S, M, 0, 400
+
+!-- Go back to flow cell to aspirate clenz and dipense to waste
+
+! Move to flow cell, CW
+S, V, 3, 0
+
+! Aspirate 300ul.
+S, M, 300, 100
+
+! Move to waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 600
+
+!--- 
+! Move to Acup (port 8), CCW
+S, V, 8, 1
+
+! Aspirate alcohol
+S, M, 700, 40
+
+! Move to Flow Cell (port 3), CW
+S, V, 3, 0
+
+! Empty syringe.
+S, M, 0, 100
+
+! Move to Acup, CCW
+S, V, 8, 1
+
+! Aspirate remaining alcohol
+S, M, 650, 40
+S, M, 550, 200
+
+! Move to waste, CW
+S, V, 1, 0
+
+! Empty syringe
+S, M, 0, 200
+
+! Move to Flow Cell (port 3), CW
+S, V, 3, 0
+
+! Aspirate 300ul.
+S, M, 350, 50
+S, M, 300, 50
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 200
+
+!-------Buffer Cycle--------
+
+! Set state change to "eFlushFlowCellState::ffc_FlushingBuffer"
+SC, 3
+
+! Move to Buffer (port 7), CW
+S, V, 7, 0
+
+! Aspirate 600ul
+S, M, 600, 600
+
+! Move to Acup (port 8), CW
+S, V, 8, 0
+
+! Empty syringe.
+S, M, 0, 200
+
+! Move to port2 (open), CW
+S, V, 2, 0
+
+! Aspirate 550uL or air
+S, M, 550, 400
+
+! Move to Acup (port 8), CCW
+S, V, 8, 1
+
+! Empty syringe.
+S, M, 0, 100
+
+! Aspirate 250uL
+S, M, 250, 200
+
+! Empty syringe.
+S, M, 0, 200
+
+! Aspirate 250uL
+S, M, 250, 200
+
+! Empty syringe.
+S, M, 0, 200
+
+! Wait for 5 seconds
+W, 5000
+
+! Aspirate air
+S, M, 600, 150
+
+! Pushback
+S, M, 550, 150
+
+! Move to waste , CW
+S, V, 1, 0
+
+! Empty syringe
+S, M, 0, 400
+
+! Move to Acup (port 8), CCW
+S, V, 8, 1
+
+! Aspirate water
+S, M, 700, 50
+
+! Move to Flow Cell (port 3), CCW
+S, V, 3, 1
+
+! Empty syringe.
+S, M, 0, 250
+
+! Aspirate 300 uL
+S, M, 300, 100
+
+! Empty syringe.
+S, M, 0, 250
+
+! Aspirate 300 uL
+S, M, 300, 100
+
+! Empty syringe.
+S, M, 0, 250
+
+! Aspirate 300ul.
+S, M, 300, 100
+
+! Move to sample probe (port2), CCW
+S, V, 2, 1
+
+! Aspirate to 500ul.
+S, M, 500, 100
+
+! Move to waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 600
+
+! Move to Acup (port 8), CCW
+S, V, 8, 1
+
+! Aspirate remaining water
+S, M, 1000, 50
+S, M, 900, 100
+
+! Move to waste (port 1), CW
+S, V, 1, 0
+
+! Empty syringe.
+S, M, 0, 600
+
+
+!--------- Air Cycle -----------
+
+!Set state change to "eFlushFlowCellState::ffc_FlushingAir"
+SC, 4
+
+! Move to Acup (port 8), CCW
+S, V, 8, 1
+
+! Aspirate air
+S, M, 700, 100
+S, M, 650, 100
+
+! Move to Sample Probe (Port 2), CW
+S, V, 2, 0
+
+! Aspirate to 1000ul.
+S, M, 1000, 100
+
+! Move to Flow Cell (port 3), CW 
+S, V, 3, 0
+
+! Empty syringe
+S, M, 400, 300
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 300

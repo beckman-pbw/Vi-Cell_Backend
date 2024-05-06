@@ -1,0 +1,134 @@
+! v3.5
+!-------Clenz Cycle------
+
+!Set state change to "eFlushFlowCellState::ffc_FlushingCleaner"
+SC, 1
+
+! Move to Coulter Cleanse (port 5), CW
+S, V, 5, 0
+
+! Aspirate 600ul.
+S, M, 600, 600
+
+! Move to Flow Cell (port 3), CCW
+S, V, 3, 1
+
+! Empty syringe.
+S, M, 0, 250
+
+!Aspirate 300 uL
+S, M, 300, 100
+
+! Empty syringe.
+S, M, 0, 250
+
+!Aspirate 300 uL
+S, M, 300, 100
+
+! Empty syringe.
+S, M, 0, 250
+
+!Wait for 120 seconds
+W, 120000
+
+! Aspirate 300ul.
+S, M, 300, 100
+
+!Move to waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 600
+
+!-------Disinfectant Cycle ---------
+
+!Set state change to "eFlushFlowCellState::ffc_FlushingDisinfectant"
+SC, 2
+
+! Move to Disinfectant (port 6), CW
+S, V, 6, 0
+
+! Aspirate 600ul.
+S, M, 600, 600
+
+! Move to Flow Cell (port 3), CCW
+S, V, 3, 1
+
+! Empty syringe.
+S, M, 0, 100
+
+! Aspirate 300ul.
+S, M, 300, 50
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 300
+
+!-------Buffer Cycle--------
+
+!Set state change to "eFlushFlowCellState::ffc_FlushingBuffer"
+SC, 3
+
+! Move to Buffer (port 7), CW
+S, V, 7, 0
+
+! Aspirate 600ul.
+S, M, 600, 600
+
+! Move to Flow Cell (port 3), CCW
+S, V, 3, 1
+
+! Empty syringe.
+S, M, 0, 250
+
+!Aspirate 300 uL
+S, M, 300, 100
+
+! Empty syringe.
+S, M, 0, 250
+
+!Aspirate 300 uL
+S, M, 300, 100
+
+! Empty syringe.
+S, M, 0, 250
+
+! Aspirate 300ul.
+S, M, 300, 100
+
+!Move to waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 600
+
+!--------- Air Cycle -----------
+
+!Set state change to "eFlushFlowCellState::ffc_FlushingAir"
+SC, 4
+
+! Move to Sample Probe (Port 2), CW
+S, V, 2, 0
+
+ ! Aspirate 600ul.
+S, M, 600, 600
+
+! Move to Flow Cell (port 3), CW
+S, V, 3, 0
+
+! Empty syringe.
+S, M, 0, 300
+
+! Move to Sample Probe (Port 2), CCW
+S, V, 2, 1
+
+ ! Aspirate 600ul.
+S, M, 600, 600
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 300

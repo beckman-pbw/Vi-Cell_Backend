@@ -1,0 +1,23 @@
+!Command List----------------
+! SC - Workflow State Change Cmd
+! S  - Syringe Cmd
+!    V  - Syringe Param Valve
+!    M  - Syringe Param Move
+
+!-----Coulter Clenz Drain Cycle-----
+
+!Set state change to "eDrainPurgeReagentLinesState::dprl_DrainCleaner1"
+SC, 1
+
+! Move to Coulter Clenz (port 5), 
+S, V, 5, 0
+
+! Aspirate 600ul.
+S, M, 600, 500
+
+! Move to Waste (port 1), CW
+S, V, 1, 0
+
+! Empty syringe.
+S, M, 0, 600
+

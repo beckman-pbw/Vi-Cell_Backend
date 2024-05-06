@@ -1126,7 +1126,7 @@ HawkeyeError HawkeyeLogicImpl::GetSampleColumns(const char* username, ColumnSett
 	auto result = UserList::Instance().GetSampleColumns(username, recs, retrieved_count);
 	if (result != HawkeyeError::eSuccess)
 	{
-		Logger::L().Log(MODULENAME, severity_level::error, "GetSampleColumns: <exit, UserList...SetSampleColumns failed>");
+		Logger::L().Log(MODULENAME, severity_level::warning, "GetSampleColumns: <exit, UserList...SetSampleColumns failed>");
 		return HawkeyeError::eStorageFault;
 	}
 

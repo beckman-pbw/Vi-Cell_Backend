@@ -46,10 +46,10 @@ std::string DrainReagentPackWorkflow::getWorkFlowScriptFile (uint8_t workflowSub
 	const auto valve_port = SyringePumpPort::Port(workflowSubType);
 	switch (valve_port)
 	{
-		case SyringePumpPort::Reagent_1: return HawkeyeDirectory::Instance().getWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eDrainReagent1);
-		case SyringePumpPort::Cleaner_1: return HawkeyeDirectory::Instance().getWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eDrainCleaner1);
-		case SyringePumpPort::Cleaner_2: return HawkeyeDirectory::Instance().getWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eDrainCleaner2);
-		case SyringePumpPort::Cleaner_3: return HawkeyeDirectory::Instance().getWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eDrainCleaner3);
+		case SyringePumpPort::Reagent_1: return HawkeyeDirectory::Instance().GetWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eDrainReagent1);
+		case SyringePumpPort::Cleaner_1: return HawkeyeDirectory::Instance().GetWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eDrainCleaner1);
+		case SyringePumpPort::Cleaner_2: return HawkeyeDirectory::Instance().GetWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eDrainCleaner2);
+		case SyringePumpPort::Cleaner_3: return HawkeyeDirectory::Instance().GetWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eDrainCleaner3);
 		
 		case SyringePumpPort::InvalidPort:
 		case SyringePumpPort::Waste:

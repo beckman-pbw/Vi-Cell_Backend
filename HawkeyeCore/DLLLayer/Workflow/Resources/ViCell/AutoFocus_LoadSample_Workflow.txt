@@ -1,0 +1,122 @@
+! This script mixes sample in Caroussel position 1 with Trypan blue and loads the flow cell (to use before autofocus)
+
+! version 3.2
+! The valve now never goes in front of the empty port now
+! Changed valve directions in sample re-suspension steps
+
+P, D
+
+!--- Buffer rinse step
+
+! Move to Buffer (Port 7), CW
+S, V, 7, 0
+
+! Aspirate 150ul.
+S, M, 150, 600
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 600
+
+!-----Re-Suspension and Sample Dosing-----
+
+!Move to SampleProbe (Port 2), CW
+S, V, 2, 0
+
+!Aspirate to 125 uL
+S, M, 125, 200
+
+!Empty Syringe
+S, M, 0, 200
+
+!Aspirate to 125 uL
+S, M, 125, 200
+
+!Empty Syringe
+S, M, 0, 200
+
+!Aspirate to 125 uL
+S, M, 125, 200
+
+!Empty Syringe
+S, M, 0, 200
+
+!Aspirate to 400 uL
+S, M, 400, 200
+
+!Aspirate to 600 uL
+S, M, 600, 50
+
+! Move to Waste (Port 1), CCW
+S, V, 1, 1
+
+! Dispense to 150 uL
+S, M, 150, 600
+
+!-----Introduce Trypan Blue & Mix-----
+
+! Move to TrypanBlue (port 4), CW
+S, V, 4, 0
+
+! Aspirate to 300ul.
+S, M, 300, 300
+
+! Move to SampleProbe (port 2), CCW
+S, V, 2, 1
+
+! Empty syringe.
+S, M, 0, 400
+
+! Aspirate 200ul.
+S, M, 200, 300
+
+! Empty syringe.
+S, M, 0, 400
+
+! Aspirate 200ul.
+S, M, 200, 300
+
+! Empty syringe.
+S, M, 0, 400
+
+! Aspirate 200ul.
+S, M, 200, 300
+
+! Empty syringe.
+S, M, 0, 400
+
+! Aspirate 250ul.
+S, M, 250, 300
+
+! Clear fluid segmentation in sample tubing
+S, M, 300, 50
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Dispense to 225 uL.
+S, M, 225, 600
+
+!Set state change to "eAutofocusState::af_SampleToFlowCell"
+SC, 2
+
+! Move to FlowCell (port 3), CW
+S, V, 3, 0
+
+! Boost to 55 uL @ 25uL/s.
+S, M, 55, 25
+
+! Wait for pressure to equalize
+W, 1000
+
+L, U, BRIGHTFIELD
+
+C, E, 50
+
+C, G, 0
+
+! CameraCmd, ABICmd, SyringeVolume, SyringeRate, CameraExposure, LedType, Target_Intensity, Target_Intensity_Offset
+C, ABI, 55, 0, 50, 1, 180, 2
+!----------------

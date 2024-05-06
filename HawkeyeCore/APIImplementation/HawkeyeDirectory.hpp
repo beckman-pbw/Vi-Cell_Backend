@@ -20,8 +20,8 @@ static std::string                     rawImagesDir = "RawImages";
 static std::string                resultBinariesDir = "ResultBinaries";
 static std::string               resultsDataBaseDir = "ResultsData";
 static std::string                  logFilesBaseDir = "Logs";
-static std::string                     ResourcesDir = "Resources";
-
+static std::string               ViCellResourcesDir = "Resources\\ViCell";
+static std::string           CellHealthResourcesDir = "Resources\\CellHealth";
 
 static std::string           analysisInfoFilename = "Analysis.info";
 static std::string         bioprocessInfoFilename = "BioProcess.info";
@@ -145,10 +145,7 @@ public:
 	}
 
 	// Returns the complete file path.
-	std::string getWorkFlowScriptFile(WorkFlowScriptType scriptType)
-	{
-		return boost::str(boost::format("%s\\%s\\%s") % boost::filesystem::current_path().string() % ResourcesDir %  getWorkFlowScriptFilename(scriptType));
-	}
+	std::string GetWorkFlowScriptFile(WorkFlowScriptType scriptType);
 
 	std::string getBackupFile(FileType infoFile)
 	{

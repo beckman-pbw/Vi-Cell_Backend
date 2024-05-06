@@ -100,9 +100,9 @@ std::string LoadNudgeExpelWorkflow::getWorkFlowScriptFile (uint8_t workflowSubTy
 	switch (op)
 	{
 		case LoadNudgeExpelWorkflow::Load:
-			return HawkeyeDirectory::Instance().getWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eLoadSample);
+			return HawkeyeDirectory::Instance().GetWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eLoadSample);
 		case LoadNudgeExpelWorkflow::Expel:
-			return HawkeyeDirectory::Instance().getWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eExpelSample);
+			return HawkeyeDirectory::Instance().GetWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eExpelSample);
 		case LoadNudgeExpelWorkflow::Nudge:
 			return std::string(); // Return empty string here. See LoadNudgeExpelWorkflow::load() method for more details
 		default:

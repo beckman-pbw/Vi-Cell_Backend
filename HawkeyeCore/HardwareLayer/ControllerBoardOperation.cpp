@@ -256,7 +256,7 @@ void ControllerBoardOperation::internalInitialize (eInitStates currentState, std
 		}
 		case eInitStates::eComplete:
 		{
-			Logger::L().Log(MODULENAME, severity_level::debug1, "internalInitialize:  CBO initialization complete");
+			Logger::L().Log(MODULENAME, severity_level::notification, "internalInitialize:  CBO initialization complete");
 			pServices_.enqueueExternal (callback, true);
 			return;
 		}

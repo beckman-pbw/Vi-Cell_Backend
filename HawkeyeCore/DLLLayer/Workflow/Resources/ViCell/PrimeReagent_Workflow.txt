@@ -1,0 +1,246 @@
+! rev 3.6 - Reduced flow rate when dispensing to flow cell to
+!           Avoid overpressurization when priming with the flush kit
+
+! -----Trypan Blue Priming Cycle-----
+
+!Set state change to "ePrimeReagentLinesState::prl_PrimingReagent1"
+SC, 4
+
+! Move to TrypanBlue (port 4), CW
+S, V, 4, 0
+
+! Aspirate 150ul.
+S, M, 150, 400
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 500
+
+! Move to TrypanBlue (port 4), CW
+S, V, 4, 0
+
+! Aspirate 150ul.
+S, M, 150, 400
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 500
+
+! Move to TrypanBlue (port 4), CW
+S, V, 4, 0
+
+! Aspirate 150ul.
+S, M, 150, 400
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 500
+
+! Move to TrypanBlue (port 4), CW
+S, V, 4, 0
+
+! Aspirate 150ul.
+S, M, 150, 400
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 500
+
+!-----Coulter Clenz Priming Cycle-----
+
+!Set state change to "ePrimeReagentLinesState::prl_PrimingCleaner1"
+SC, 1
+
+! Move to Coulter Cleanse (port 5), CW
+S, V, 5, 0
+
+! Aspirate 600ul.
+S, M, 600, 500
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 500
+
+! Move to Coulter Cleanse (port 5), CW
+S, V, 5, 0
+
+! Aspirate 600ul.
+S, M, 600, 500
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 500
+
+! Move to Coulter Cleanse (port 5), CW
+S, V, 5, 0
+
+! Aspirate 600ul.
+S, M, 600, 500
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 500
+
+! Move to Coulter Cleanse (port 5), CW
+S, V, 5, 0
+
+! Aspirate 600ul.
+S, M, 600, 500
+
+! Move to port 3 (flow cell), CCW
+S, V, 3, 1
+
+! Dispense to 300ul. *** V3.6 - reduced flow rate ***
+S, M, 300, 100
+
+! Aspirate to 400ul. *** V3.6 - reduced flow rate ***
+S, M, 400, 100
+
+! Move Valve to port 1 (waste) , CCW
+S, V, 1, 1
+
+! Empty Syringe. *** V3.6 - reduced flow rate ***
+S, M, 0, 500
+
+!-----Disinfectant Priming Cycle-----
+
+!Set state change to "ePrimeReagentLinesState::prl_PrimingCleaner2"
+SC, 2
+
+! Move to Disinfectant (port 6), CW
+S, V, 6, 0
+
+! Aspirate 600ul.
+S, M, 600, 400
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 400
+
+! Move to Disinfectant (port 6), CW
+S, V, 6, 0
+
+! Aspirate 600ul.
+S, M, 600, 400
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 400
+
+! Move to Disinfectant (port 6), CW
+S, V, 6, 0
+
+! Aspirate 600ul.
+S, M, 600, 400
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 400
+
+! Move to Disinfectant (port 6), CW
+S, V, 6, 0
+
+! Aspirate 600ul.
+S, M, 600, 400
+
+! Move to port 3 (flow cell), CCW
+S, V, 3, 1
+
+! Empty syringe.
+S, M, 0, 100
+
+!-----Buffer Priming Cycle-----
+
+!Set state change to "ePrimeReagentLinesState::prl_PrimingCleaner3"
+SC, 3
+
+! Move to Buffer (port 7), CW
+S, V, 7, 0
+
+! Aspirate 600ul.
+S, M, 600, 500
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 500
+
+! Move to Buffer (port 7), CW
+S, V, 7, 0
+
+! Aspirate 600ul.
+S, M, 600, 500
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 500
+
+! Move to Buffer (port 7), CW
+S, V, 7, 0
+
+! Aspirate 600ul.
+S, M, 600, 500
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 500
+
+! Move to Buffer (port 7), CW
+S, V, 7, 0
+
+! Aspirate 600ul.
+S, M, 600, 500
+
+! Move to port 3 (flow cell), CCW
+S, V, 3, 1
+
+! Empty syringe. *** V3.6 - reduced flow rate ***
+S, M, 0, 100
+
+!Move Valve to SampleProbe (Port 2), CCW
+S, V, 2, 1
+
+!Aspirate to 600 uL
+S, M, 1000, 600
+
+! Move to port 3 (flow cell), CCW
+S, V, 3, 1
+
+!Empty syringe to 500uL *** V3.6 - reduced flow rate ***
+S, M, 500, 100
+
+!Wait for Pressure to equalize
+W, 1000
+
+!Move to Waste (Port 1), CCW
+S, V, 1, 1
+
+!Empty syringe *** V3.6 - reduced flow rate ***
+S, M, 0, 400
+
+

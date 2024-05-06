@@ -59,7 +59,7 @@ std::string PrimeReagentLinesWorkflow::getWorkFlowScriptFile (uint8_t workflowSu
 		Logger::L().Log (MODULENAME, severity_level::error, "getWorkFlowScriptFile: unsupported input index : " + std::to_string(workflowSubType));
 		return std::string();
 	}
-	return HawkeyeDirectory::Instance().getWorkFlowScriptFile (HawkeyeDirectory::WorkFlowScriptType::ePrimeReagent);
+	return HawkeyeDirectory::Instance().GetWorkFlowScriptFile (HawkeyeDirectory::WorkFlowScriptType::ePrimeReagent);
 }
 
 HawkeyeError PrimeReagentLinesWorkflow::load (std::string filename)

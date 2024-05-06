@@ -63,11 +63,11 @@ std::string FlushFlowCellWorkflow::getWorkFlowScriptFile (uint8_t workflowSubTyp
 	switch (flushType)
 	{
 		case FlushType::eFlushFlowCell:
-			return HawkeyeDirectory::Instance().getWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eFlushFlowCell);
+			return HawkeyeDirectory::Instance().GetWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eFlushFlowCell);
 		case FlushType::eStandardNightlyClean:
-			return HawkeyeDirectory::Instance().getWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eStandardNightlyClean);
+			return HawkeyeDirectory::Instance().GetWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eStandardNightlyClean);
 		case FlushType::eACupNightlyClean:
-			return HawkeyeDirectory::Instance().getWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eACupNightlyClean);
+			return HawkeyeDirectory::Instance().GetWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eACupNightlyClean);
 		default:
 		{
 			Logger::L().Log (MODULENAME, severity_level::error, "getWorkFlowScriptFile() : Not supported input index : " + std::to_string(workflowSubType));

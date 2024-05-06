@@ -1879,7 +1879,7 @@ bool StageController::isProbeUp()
 	// If probe is at home, check offset before consider it up
 	if (!isProbeHome())
 	{
-		Logger::L().Log (MODULENAME, severity_level::error, "isProbeUp : probe is not home");
+		Logger::L().Log (MODULENAME, severity_level::warning, "isProbeUp : probe is not home");
 		return false;
 	}
 
