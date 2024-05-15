@@ -12,6 +12,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HawkeyeCore", "HawkeyeCore\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HawkeyeFTDIEEPROMWriter", "FT2232H EEPROM Modify\FT2232H EEPROM Modify.vcxproj", "{941EE319-6DB7-4EBF-8984-0BB1DB506EC7}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HawkeyeWin_Encrypt", "HawkeyeWin_Encrypt\HawkeyeWin_Encrypt.vcxproj", "{A2F34DF7-CD6E-4BA2-A8EE-3533303FADCB}"
+EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "RFIDMemoryMapGenerator", "RFIDMemoryMapGenerator\RFIDMemoryMapGenerator.vbproj", "{4EBCE728-F384-41E0-9CAD-0A0D238AD3CB}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ServiceAccountAccess", "ServiceAccountAccess\ServiceAccountAccess.vcxproj", "{30321834-F095-4200-A65A-0F5A725ADA8A}"
