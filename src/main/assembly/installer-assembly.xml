@@ -115,7 +115,7 @@
       <outputDirectory>Hawkeye/Resources</outputDirectory>
       <fileMode>0755</fileMode>
       <includes>
-        <include>*.etxt</include>
+        <include>*.txt</include>
       </includes>
     </fileSet>
     <fileSet>
