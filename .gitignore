@@ -67,7 +67,6 @@ BuildOutput/
 /HawkeyeCore/x64/Debug
 /HawkeyeCore/DataAndConfigFiles/*.e*
 /HawkeyeCore/DataAndConfigFiles/*.bin
-/HawkeyeWin_Encrypt
 /RFIDMemoryMapGenerator/bin/Debug
 /RFIDProgrammingStation/x64/Debug
 /RFIDProgrammingStation/RFIDProgrammingStationDlg.h~RF5e8351f.TMP

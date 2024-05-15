@@ -1,0 +1,29 @@
+// HawkeyeWin_Encrypt.idl : type library source for HawkeyeWin_Encrypt.exe
+
+// This file will be processed by the MIDL compiler to produce the
+// type library (HawkeyeWin_Encrypt.tlb).
+
+[ uuid(D8CE0FCC-CAC2-4E78-8FAC-7D013C036863), version(1.0) ]
+library HawkeyeWin_Encrypt
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+	//  Primary dispatch interface for CHawkeyeWin_EncryptDoc
+	
+	[ uuid(4F769907-1E5F-4872-8504-E9BA36528E02) ]
+	dispinterface IHawkeyeWin_Encrypt
+	{
+		properties:
+			
+		methods:
+	};
+
+	//  Class information for CHawkeyeWin_EncryptDoc
+	
+	[ uuid(726B3ABB-8C65-4EA1-8609-CCE83267E005) ]
+	coclass HawkeyeWin_Encrypt
+	{
+		[default] dispinterface IHawkeyeWin_Encrypt;
+	};
+};

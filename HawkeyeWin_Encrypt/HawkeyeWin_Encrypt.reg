@@ -1,0 +1,17 @@
+REGEDIT
+; This .REG file may be used by your SETUP program.
+;   If a SETUP program is not available, the entries below will be
+;   registered in your InitInstance automatically with a call to
+;   CWinApp::RegisterShellFileTypes and COleObjectFactory::UpdateRegistryAll.
+
+
+HKEY_CLASSES_ROOT\HawkeyeWin_Encrypt.Application = HawkeyeWin_Encrypt Application
+
+
+HKEY_CLASSES_ROOT\HawkeyeWin_Encrypt.Application\CLSID = {726B3ABB-8C65-4EA1-8609-CCE83267E005}
+
+HKEY_CLASSES_ROOT\CLSID\{726B3ABB-8C65-4EA1-8609-CCE83267E005} = HawkeyeWin_Encrypt Application
+HKEY_CLASSES_ROOT\CLSID\{726B3ABB-8C65-4EA1-8609-CCE83267E005}\ProgId = HawkeyeWin_Encrypt.Application
+
+
+HKEY_CLASSES_ROOT\CLSID\{726B3ABB-8C65-4EA1-8609-CCE83267E005}\LocalServer32 = HawkeyeWin_Encrypt.EXE
