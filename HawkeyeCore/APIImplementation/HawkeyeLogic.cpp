@@ -23,9 +23,11 @@ extern "C"
 // Miscellaneous APIs.
 //*****************************************************************************
 //*****************************************************************************
-	DLL_CLASS void Initialize(bool with_hardware)
+	DLL_CLASS void Initialize(uint16_t* instrumentType, bool with_hardware)
 	{
-		impl_.Initialize(with_hardware);
+//TODO: needs more work...
+		impl_.Initialize(with_hardware);		
+		*instrumentType = static_cast<uint16_t>(HawkeyeConfig::Instance().get().instrumentType);
 	}
 
 	DLL_CLASS InitializationState IsInitializationComplete()

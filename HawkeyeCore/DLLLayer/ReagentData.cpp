@@ -335,6 +335,7 @@ THIS FUNCTION MAY NOT BE IMPLEMENTED RIGHT FOR HUNTER
 	if (HawkeyeConfig::Instance().get().instrumentType == HawkeyeConfig::CellHealth_ScienceModule)
 	{
 		rcs.events_remaining = CellHealthReagents::GetRemainingReagentUses();
+		impl->isEmpty = false;
 	}
 	else
 	{

@@ -71,8 +71,6 @@ void SystemStatus::loadSystemStatusForSimulation (SystemStatusData& systemStatus
 	systemStatusData.temperature_ControllerBoard = 25.1f;
 	systemStatusData.temperature_CPU = 26.4f;
 	systemStatusData.temperature_OpticalCase = 24.7f;
-
-	systemStatusData.instrumentType = static_cast<int16_t>(HawkeyeConfig::Instance().get().instrumentType);
 }
 
 //*****************************************************************************

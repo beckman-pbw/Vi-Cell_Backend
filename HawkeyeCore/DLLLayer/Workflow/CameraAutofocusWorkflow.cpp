@@ -228,7 +228,7 @@ std::string CameraAutofocusWorkflow::getWorkFlowScriptFile(uint8_t workflowSubTy
 		Logger::L().Log (MODULENAME, severity_level::error, "getWorkFlowScriptFile : Not supported input index : " + std::to_string(workflowSubType));
 		return std::string();
 	}
-	return  HawkeyeDirectory::Instance().getWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eAFMain);
+	return  HawkeyeDirectory::Instance().GetWorkFlowScriptFile(HawkeyeDirectory::WorkFlowScriptType::eAFMain);
 }
 
 HawkeyeError CameraAutofocusWorkflow::load(std::string filename)

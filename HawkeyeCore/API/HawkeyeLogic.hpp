@@ -52,7 +52,7 @@ extern "C"
 {
 	//****************************************************************************
 	// Initialize the instrument.  For desktop/standalone mode, call with "with_hardware" set to false.
-	DLL_CLASS void Initialize (bool with_hardware = true);
+	DLL_CLASS void Initialize (uint16_t* instrumentType, bool with_hardware = true);
 	DLL_CLASS InitializationState IsInitializationComplete();
 	DLL_CLASS void Shutdown();
 	DLL_CLASS bool IsShutdownComplete();

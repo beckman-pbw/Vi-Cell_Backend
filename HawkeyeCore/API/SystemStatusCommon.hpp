@@ -126,6 +126,4 @@ struct SystemStatusData
 
 	/* Nightly clean cycle status*/
 	eNightlyCleanStatus nightly_clean_cycle;
-
-	int16_t instrumentType;
 };
