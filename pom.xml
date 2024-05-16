@@ -684,9 +684,8 @@
                 when building in the IDE. Note: The trailing '\' is important.
                 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                 -->
-
-                <argument>/p:SolutionDir=${basedir}\</argument>
-                <!--argument>/t:MotorControlTester:ReBuild</argument-->
+                                                                <argument>/p:SolutionDir=${basedir}\</argument>
+                                                                <!--argument>/t:MotorControlTester:ReBuild</argument-->
 								<!--argument>/t:BackgroundUniformityCriteriaModel:ReBuild</argument-->
 								<argument>/t:Build</argument>
 								<argument>/p:Configuration=Release</argument>
@@ -723,6 +722,21 @@
 						</configuration>
 					</execution>
 					<execution>
+						<id>encrypt-workflow-files</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<workingDirectory>${project.basedir}/target/Release</workingDirectory>
+							<executable>DataEncryptDecrypt.exe</executable>
+							<commandlineArgs>
+								-E -F ${project.basedir}\HawkeyeCore\DLLLayer\Workflow\Resources\CellHealth 
+								-E -F ${project.basedir}\HawkeyeCore\DLLLayer\Workflow\Resources\ViCell
+							</commandlineArgs>
+						</configuration>
+					</execution>
+					<execution>
 						<id>compile-crc-release</id>
 						<phase>compile</phase>
 						<goals>
@@ -744,9 +758,9 @@
                 when building in the IDE. Note: The trailing '\' is important.
                 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                 -->                
-                <argument>/p:SolutionDir=${basedir}/</argument>
-                <!--argument>/t:ReBuild</argument-->
-                <argument>/t:Build</argument>
+                                <argument>/p:SolutionDir=${basedir}/</argument>
+                                <!--argument>/t:ReBuild</argument-->
+                                <argument>/t:Build</argument>
 								<argument>/p:Configuration=Release</argument>
 								<argument>/p:Platform=x64</argument>
 								<argument>/m</argument>
