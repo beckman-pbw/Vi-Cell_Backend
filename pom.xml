@@ -1,8 +1,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<name>Vi-Cell Backend</name>
+  <!-- ****************************************************************-->
+  <!-- *********            properties         ************************-->
+  <!-- ****************************************************************-->
+  <properties>
+	<project.build.name>Vi-Cell Backend</project.build.name>
+	<project.build.variant>vi-cell</project.build.variant>
+	<project.build.repository>beckman-pbw/Vi-Cell_Backend</project.build.repository>
+	<project.build.sourceEncoding>iso-8859-1</project.build.sourceEncoding>
+	<nullsoft.builder>c:\Program Files (x86)\NSIS\makensis.exe</nullsoft.builder>
+	<visualstudio.devenv>C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Current\Bin\msbuild.exe</visualstudio.devenv>
+	<mstest>"C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Current\Bin\msbuild.exe"</mstest>
+	<timestamp>${maven.build.timestamp}</timestamp>
+	<maven.build.timestamp.format>ssSS</maven.build.timestamp.format>
+  </properties>
+	
+	<name>${project.build.name}</name>
 	<description>Build and deploy</description>
 
-	<groupId>com.beckman.particle.vi-cell</groupId>
+	<groupId>com.beckman.particle.${project.build.variant}</groupId>
 	<artifactId>backend</artifactId>
 	
 	<version>0.0.1-SNAPSHOT</version>
@@ -11,9 +26,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<scm>
-		<connection>scm:git:git@github.com/beckman-pbw/Vi-Cell_Backend.git</connection>
-		<developerConnection>scm:git:github.com/beckman-pbw/Vi-Cell_Backend.git</developerConnection>
-		<url>https://github.com/beckman-pbw/Vi-Cell_Backend.git</url>				
+		<connection>scm:git:git@github.com/${project.build.repository}.git</connection>
+		<developerConnection>scm:git:github.com/${project.build.repository}.git</developerConnection>
+		<url>https://github.com/${project.build.repository}.git</url>				
 	</scm>
 
 	<distributionManagement>
@@ -42,18 +57,6 @@
 			<url>https://s3-us-west-2.amazonaws.com/beckman-build-artifacts/m2/snapshot</url>
 		</repository>
 	</repositories>
-
-  <!-- ****************************************************************-->
-  <!-- *********            properties         ************************-->
-  <!-- ****************************************************************-->
-  <properties>
-    <project.build.sourceEncoding>iso-8859-1</project.build.sourceEncoding>
-		<nullsoft.builder>c:\Program Files (x86)\NSIS\makensis.exe</nullsoft.builder>
-		<visualstudio.devenv>C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Current\Bin\msbuild.exe</visualstudio.devenv>
-		<mstest>"C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Current\Bin\msbuild.exe"</mstest>
-		<timestamp>${maven.build.timestamp}</timestamp>
-		<maven.build.timestamp.format>ssSS</maven.build.timestamp.format>
-	</properties>
 
   <!-- ****************************************************************-->
   <!-- *********            dependencies         **********************-->
@@ -222,7 +225,7 @@
 							<fromDir>${project.reporting.outputDirectory}/doxygen/html</fromDir>
 							<includes>*</includes>
 							<url>s3://beckman-build-artifacts/docs/</url>
-							<toDir>com.beckman.particle.vi-cell/backend/Current/html</toDir>
+							<toDir>com.beckman.particle.${project.build.variant}/backend/Current/html</toDir>
 						</configuration>
 					</execution>
 					<execution>
@@ -233,7 +236,7 @@
 						</goals>
 						<configuration>
 							<fromFile>${project.outputDirectory}/doxygen/ApplicationSource.tag</fromFile>
-							<url>s3://beckman-build-artifacts/docs/com.beckman.particle.vi-cell/backend/Current/tagfiles</url>
+							<url>s3://beckman-build-artifacts/docs/com.beckman.particle.${project.build.variant}/backend/Current/tagfiles</url>
 						</configuration>
 					</execution>
 				</executions>
