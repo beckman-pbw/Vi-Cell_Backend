@@ -110,12 +110,21 @@
       </includes>
     </fileSet>
     <fileSet>
-      <directory>HawkeyeCore/DLLLayer/Workflow/Resources</directory>
+      <directory>HawkeyeCore/DLLLayer/Workflow/Resources/CellHealth</directory>
       <lineEnding>keep</lineEnding>
-      <outputDirectory>Hawkeye/Resources</outputDirectory>
+      <outputDirectory>Hawkeye/Resources/CellHealth</outputDirectory>
       <fileMode>0755</fileMode>
       <includes>
-        <include>*.txt</include>
+        <include>*.etxt</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <directory>HawkeyeCore/DLLLayer/Workflow/Resources/ViCell</directory>
+      <lineEnding>keep</lineEnding>
+      <outputDirectory>Hawkeye/Resources/ViCell</outputDirectory>
+      <fileMode>0755</fileMode>
+      <includes>
+        <include>*.etxt</include>
       </includes>
     </fileSet>
     <fileSet>

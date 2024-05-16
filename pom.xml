@@ -681,6 +681,7 @@
                 when building in the IDE. Note: The trailing '\' is important.
                 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                 -->
+
                 <argument>/p:SolutionDir=${basedir}\</argument>
                 <!--argument>/t:MotorControlTester:ReBuild</argument-->
 								<!--argument>/t:BackgroundUniformityCriteriaModel:ReBuild</argument-->
@@ -695,7 +696,7 @@
 						</configuration>
 					</execution>
 					<execution>
-						<id>encrypt-info-txt-png-cfg-files</id>
+						<id>encrypt-info-png-files</id>
 						<phase>compile</phase>
 						<goals>
 							<goal>exec</goal>
@@ -707,8 +708,14 @@
 								<argument>-E</argument>
 								<argument>"${project.basedir}\HawkeyeCore\DataAndConfigFiles\DataImporter.info"</argument>
 								<argument>"${project.basedir}\HawkeyeCore\DataAndConfigFiles\MotorControl.info"</argument>
-								<argument>"${project.basedir}\HawkeyeCore\DataAndConfigFiles\*.png"</argument>
-								<argument>"${project.basedir}\HawkeyeCore\DLLLayer\Workflow\Resources\*.txt"</argument>
+								<argument>"${project.basedir}\HawkeyeCore\DataAndConfigFiles\CamBF_0.png"</argument>
+								<argument>"${project.basedir}\HawkeyeCore\DataAndConfigFiles\CamBF_1.png"</argument>
+								<argument>"${project.basedir}\HawkeyeCore\DataAndConfigFiles\CamBF_2.png"</argument>
+								<argument>"${project.basedir}\HawkeyeCore\DataAndConfigFiles\CamBF_3.png"</argument>
+								<argument>"${project.basedir}\HawkeyeCore\DataAndConfigFiles\CamBF_4.png"</argument>
+								<argument>"${project.basedir}\HawkeyeCore\DataAndConfigFiles\CamBF_5.png"</argument>
+								<argument>"${project.basedir}\HawkeyeCore\DataAndConfigFiles\CamBF_6.png"</argument>
+								<argument>"${project.basedir}\HawkeyeCore\DataAndConfigFiles\CamBF_7.png"</argument>
 							</arguments>
 						</configuration>
 					</execution>
