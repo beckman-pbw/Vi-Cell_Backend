@@ -105,6 +105,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		Documentation\SystemErrorCode_ResourceList.md = Documentation\SystemErrorCode_ResourceList.md
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ResetPasswordGenerator", "ResetPasswordGenerator\ResetPasswordGenerator.vcxproj", "{85175528-F20B-48E2-8323-5B4182769CA4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AutomationUser", "AutomationUser\AutomationUser.vcxproj", "{F0174391-4B17-4D97-A47C-1FC80AF79503}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomationUserTest", "Test\AutomationUserTest\AutomationUserTest.csproj", "{84A95203-EC66-45A0-B8AD-D29F63CF2AFA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -179,6 +185,18 @@ Global
 		{296625B5-E965-42A2-8947-B4F50C5ED032}.Debug|x64.Build.0 = Debug|x64
 		{296625B5-E965-42A2-8947-B4F50C5ED032}.Release|x64.ActiveCfg = Release|x64
 		{296625B5-E965-42A2-8947-B4F50C5ED032}.Release|x64.Build.0 = Release|x64
+		{85175528-F20B-48E2-8323-5B4182769CA4}.Debug|x64.ActiveCfg = Debug|x64
+		{85175528-F20B-48E2-8323-5B4182769CA4}.Debug|x64.Build.0 = Debug|x64
+		{85175528-F20B-48E2-8323-5B4182769CA4}.Release|x64.ActiveCfg = Release|x64
+		{85175528-F20B-48E2-8323-5B4182769CA4}.Release|x64.Build.0 = Release|x64
+		{F0174391-4B17-4D97-A47C-1FC80AF79503}.Debug|x64.ActiveCfg = Debug|x64
+		{F0174391-4B17-4D97-A47C-1FC80AF79503}.Debug|x64.Build.0 = Debug|x64
+		{F0174391-4B17-4D97-A47C-1FC80AF79503}.Release|x64.ActiveCfg = Release|x64
+		{F0174391-4B17-4D97-A47C-1FC80AF79503}.Release|x64.Build.0 = Release|x64
+		{84A95203-EC66-45A0-B8AD-D29F63CF2AFA}.Debug|x64.ActiveCfg = Debug|x64
+		{84A95203-EC66-45A0-B8AD-D29F63CF2AFA}.Debug|x64.Build.0 = Debug|x64
+		{84A95203-EC66-45A0-B8AD-D29F63CF2AFA}.Release|x64.ActiveCfg = Release|x64
+		{84A95203-EC66-45A0-B8AD-D29F63CF2AFA}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -202,6 +220,9 @@ Global
 		{19072EFB-4D06-46C4-98CB-43372E1E7CCB} = {FA5613D9-3F98-4F99-8BCB-07B889607EA7}
 		{296625B5-E965-42A2-8947-B4F50C5ED032} = {FA5613D9-3F98-4F99-8BCB-07B889607EA7}
 		{59F0AC9C-7B1A-4B4B-974E-20D28C9661B2} = {0DCA26AC-BA2F-447E-99DE-CC2A64D465E5}
+		{85175528-F20B-48E2-8323-5B4182769CA4} = {FA5613D9-3F98-4F99-8BCB-07B889607EA7}
+		{F0174391-4B17-4D97-A47C-1FC80AF79503} = {FA5613D9-3F98-4F99-8BCB-07B889607EA7}
+		{84A95203-EC66-45A0-B8AD-D29F63CF2AFA} = {EE82BC56-3CB0-4089-B6E6-9047577E9D65}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A73DA5D3-CAEA-407D-AEDB-0FBAD118CAD0}

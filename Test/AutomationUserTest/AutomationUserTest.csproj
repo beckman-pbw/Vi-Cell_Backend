@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <Platforms>x64</Platforms>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if not exist &quot;$(OutDir)$(TargetFileName)&quot; goto no_exe&#xD;&#xA;copy /Y &quot;$(OutDir)$(TargetFileName)&quot; &quot;$(SolutionDir)\target\$(ConfigurationName)&quot;&#xD;&#xA;&#xD;&#xA;if not exist &quot;$(SolutionDir)BuildOutput&quot; mkdir &quot;$(SolutionDir)BuildOutput&quot;&#xD;&#xA;if not exist &quot;$(SolutionDir)BuildOutput\$(PlatformName)&quot; mkdir &quot;$(SolutionDir)BuildOutput\$(PlatformName)&quot;&#xD;&#xA;if not exist &quot;$(SolutionDir)BuildOutput\$(PlatformName)\$(ConfigurationName)&quot; mkdir &quot;$(SolutionDir)BuildOutput\$(PlatformName)\$(ConfigurationName)&quot;&#xD;&#xA;&#xD;&#xA;copy /Y &quot;$(OutDir)$(TargetFileName)&quot; &quot;$(SolutionDir)\BuildOutput\$(PlatformName)\$(ConfigurationName)&quot;&#xD;&#xA;copy /Y &quot;$(OutDir)$(TargetFileName).config&quot; &quot;$(SolutionDir)\target\$(ConfigurationName)&quot;&#xD;&#xA;copy /Y &quot;$(OutDir)$(TargetFileName).config&quot; &quot;$(SolutionDir)\BuildOutput\$(PlatformName)\$(ConfigurationName)&quot;&#xD;&#xA;&#xD;&#xA;:pdb_chk&#xD;&#xA;if not exist &quot;$(OutDir)$(TargetName).pdb&quot; goto instrument_chk&#xD;&#xA;copy /Y &quot;$(OutDir)$(TargetName).pdb&quot; &quot;$(SolutionDir)\target\$(ConfigurationName)&quot;&#xD;&#xA;copy /Y &quot;$(OutDir)$(TargetName).pdb&quot; &quot;$(SolutionDir)\BuildOutput\$(PlatformName)\$(ConfigurationName)&quot;&#xD;&#xA;&#xD;&#xA;:instrument_chk&#xD;&#xA;if not exist \Instrument\Software\ goto build_success&#xD;&#xA;copy /Y &quot;$(OutDir)$(TargetFileName)&quot; \Instrument\Software&#xD;&#xA;copy /Y &quot;$(OutDir)$(TargetFileName).config&quot; \Instrument\Software&#xD;&#xA;copy /Y &quot;$(OutDir)$(TargetFileName).config&quot; \Instrument\Software&#xD;&#xA;&#xD;&#xA;:build_success&#xD;&#xA;echo BUILD SUCCESS!&#xD;&#xA;goto done_xit&#xD;&#xA;&#xD;&#xA;:no_exe&#xD;&#xA;echo BUILD ERROR: output exe file not found! &quot;$(TargetPath)&quot;&#xD;&#xA;&#xD;&#xA;:done_xit&#xD;&#xA;" />
+  </Target>
+
+</Project>
