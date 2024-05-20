@@ -1,3 +1,0 @@
-#define CELLHEALTH_MODULE
-
-//#define VICELL_BLU

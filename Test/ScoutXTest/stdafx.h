@@ -11,6 +11,4 @@
 
 #include "targetver.h"
 
-#include "..\VariantToBuild.hpp"
-
 #define DLL_CLASS //          __declspec(dllimport)

@@ -14,8 +14,6 @@
 
 #include "targetver.h"
 
-#include "..\VariantToBuild.hpp"
-
 #ifdef HAWKEYECORE_EXPORTS
 #define DLL_CLASS           __declspec(dllexport)
 #else
