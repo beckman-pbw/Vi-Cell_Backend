@@ -1,0 +1,402 @@
+﻿! Sample workflow to process 200µL of sample in ACup connected to port8 by 4.5ft long, 0.03" ID tubing
+! version 4.03 (same as dvpt version Dev242b) 
+
+
+!-----Initialization-----
+
+C, G, 0
+
+L, S, 1, 20, 0, 100, 100, 1
+
+! SampleStatus: aspirating
+SC, 1
+
+!-----Re-Suspension and Sample Dosing----- 
+
+!Move to SampleProbe (Port 8), CCW -  Acup connected to port 8
+S, V, 8, 1
+
+!Repeat aspiration cycle (following 2 commands) as directed by software
+REPEAT, 2, aspiration_cycles
+
+!Aspirate to 80 uL
+S, M, 80, 200
+
+!Empty Syringe - slower on push back to create less segments at sample tail
+S, M, 0, 100
+
+!---End of Re-suspension cycles---
+
+!----- Sample staging ---------
+!Aspirate to 180 uL at 100uL/s
+S, M, 180, 100
+
+!Aspirate to 580uL at 30uL/s
+S, M, 580, 30
+
+!Dispense to 460uL for pressure compensation
+S, M, 460, 100
+
+! Wait 0.5s
+W, 500
+
+! Move to Waste (port 1), CW
+S, V, 1, 0
+
+! Empty syringe.
+S, M, 0, 600
+
+!--- Buffer prime step - split to reduce alcohol content of dead volume
+! Move to Buffer (Port 7), CCW
+S, V, 7, 1
+
+! Aspirate 50uL
+S, M, 50, 600
+
+! Move to port 2(air), CW
+S, V, 2, 0
+
+! Aspirate 150uL to pull water into syringe and mix more with dead volume
+S, M, 150, 300
+
+! Wait 0.5s
+W, 500
+
+! Move to Waste (port 1), CCW
+S, V, 1, 1
+
+! Empty syringe.
+S, M, 0, 600
+
+! Move to Buffer (Port 7), CCW
+S, V, 7, 1
+
+! Aspirate 100uL
+S, M, 100, 600
+
+! Move to Waste (port 1), CW
+S, V, 1, 0
+
+! Empty syringe.
+S, M, 0, 600
+
+! ----- End of buffer prime ------
+
+! -----Sample aspiration ------
+! Move to Sample (port8), CCW
+S, V, 8, 1
+
+! Aspirate to 150uL
+S, M, 150, 30
+
+! Aspirate to 950uL at 50uL/s
+S, M, 950, 50
+
+! Dispense to 600uL for pressure compensation
+S, M, 600, 300
+
+!Wait 0.5s
+W, 500
+
+! Move to Waste (Port 1), CW
+S, V, 1, 0
+
+! Dispense to 150 uL
+S, M, 150, 600
+
+!-----Introduce Trypan Blue & Mix----- 
+
+! SampleStatus: mixing
+SC, 2
+
+! Move to TrypanBlue (port 4), CW
+S, V, 4, 0
+
+! Aspirate to 300ul.
+S, M, 300, 300
+
+! Move to SampleProbe (port 8), CCW
+S, V, 8, 1
+
+! Aspirate to 350ul @ 300uL/s to help with mixing then empty syringe to 80uL at 400uL/s
+S, VC, V1800A8400V2400A1920
+
+! Repeat Mixing Cycle as directed by software
+REPEAT, 1, mixing_cycles
+
+! Aspirate to 250uL and dispense to 80uL at 300uL/s. 
+S, VC, V1800A6000M180A1920
+
+!---end of mix cycles---
+
+! Aspirate to 250ul at 125ul/s, then to 320uL at 60uL/s
+S, VC, V750A6000V360A7680
+
+! pushback 20uL to 300uL
+S, M, 300, 200
+
+!-----Sample Interrogation----- 
+
+! SampleStatus: image acquisition
+SC, 3
+
+! Move to Waste (port 1), CW
+S, V, 1, 0
+
+! Dispense to 225 uL.
+S, M, 225, 600
+
+! Move to FlowCell (port 3), CW
+S, V, 3, 0
+
+! Boost to 59 uL @ 25uL/s. 
+S, M, 59, 25
+
+! CameraCmd, ABICmd, SyringeVolume, SyringeRate, CameraExposure, LedType, Target_Intensity, Target_Intensity_Offset
+C, ABI, 55, 3, 50, 1, 135, 5
+
+! params: 1: end volume, 2: flow rate (uL/s), 3: exposure_usec, 
+! 4: LED to use, 5: # images to take (0 Means loop forever) 6: # warmp Up Images (5 maximum)
+C, C, 31, 3, 50, 1, 100, 3
+
+!BACKFLUSH - Aspirate to 150 uL @ 100 uL/s
+S, M, 150, 100
+
+! Move to port 8 (sample), CCW
+S, V, 8, 1
+
+! Aspirate any remaining sample in cup - increase end volume from 300 to 700uL to accomodate larger tube volume
+S, M, 675, 100
+
+! Move to Waste (port 1), CW
+S, V, 1, 0
+
+! Empty syringe.
+S, M, 0, 600
+
+!-----Cleaning and Disinfecting----- Because of the requirement to not use more than 600uL of reagents, a workaround could be to use air from open port to push the reagents to the cup. This is implemented here
+
+!-----Clenz Cycle-----
+
+! SampleStatus: cleaning
+SC, 4
+
+! Move to port 5 (clenz), CW
+S, V, 5, 0
+
+! Aspirate 600ul.
+S, M, 600, 600
+
+! Move to port 8 (sample), CW
+S, V, 8, 0
+
+! Empty a little less than tube volume at normal speed
+S, M, 0, 600
+
+! Move to port 2 (open to air), CW
+S, V, 2, 0
+
+! Aspirate to 375uL - add enough air to fill sample cup with 350uL of cleaning fluids
+S, M, 375, 600
+
+! Move to port 8 (sample), CCW
+S, V, 8, 1
+
+! Empty syringe at reduced speed
+S, M, 0, 200
+
+! Wait 0.5s for air slug to stabilize
+W, 500
+
+! Aspirate air slug and a little more
+S, M, 400, 400
+
+! Wait 1.5s for air slug to stabilize
+W, 1500
+
+! Move Valve to port 1 (waste) , CW
+S, V, 1, 0
+
+! Empty to waste.
+S, M, 0, 600
+
+! Move to port 8 (sample), CCW
+S, V, 8, 1
+
+! Aspirate clenz 1000uL
+S, M, 1000, 150
+
+! Wait 0.5s for pressure to stabilize
+W, 500
+
+! Move to port 3 (flow cell), CW
+S, V, 3, 0
+
+! Dispense to 0 uL
+S, M, 0, 250
+
+! Aspirate to 300uL - backflush clenz
+S, M, 300, 150
+
+! Move Valve to port 1 (waste) , CCW
+S, V, 1, 1
+
+! Empty Syringe.
+S, M, 0, 600
+
+!-----Disinfectant Cycle-----
+
+! Move to Disinfectant (Port 6), CCW
+S, V, 6, 1
+
+! Aspirate 600ul.
+S, M, 600, 500
+
+! Move to port 8 (sample), CW
+S, V, 8, 0
+
+! Empty at 300uL/s
+S, M, 0, 300
+
+! Move to port 2 (open to air), CW
+S, V, 2, 0
+
+! Aspirate to 375uL - add enough air to fill sample cup with 350uL of cleaning fluids
+S, M, 375, 600
+
+! Move to port 8 (sample), CCW
+S, V, 8, 1
+
+! Empty syringe at reduced speed
+S, M, 0, 200
+
+! Wait 1s for air slug to stabilize
+W, 1000
+
+! Aspirate air slug and a little more
+S, M, 450, 200
+
+! Wait 1s for air slug to stabilize
+W, 1000
+
+! Dispense 100 uL to 350uL to increase pressure in syringe
+S, M, 350, 200
+
+! Move Valve to port 1 (waste) , CW 
+S, V, 1, 0
+
+! Empty air slug to waste Syringe.
+S, M, 0, 600
+
+! Move to port 8 (sample), CCW
+S, V, 8, 1
+
+! Aspirate disinfectant at reduced speed to decrease amount left
+S, M, 850, 40
+
+! Wait 0.5s for pressure to stabilitize
+W, 500
+
+! Move Valve to Flow Cell (Port 3), CW
+S, V, 3, 0
+
+! Empty air in flow cell at 250uL/s to save time
+S, M, 600, 250
+
+!Empty disinfectant at 100uL/s
+S, M, 0, 100
+
+! Move to port 2 (open) to relieve pressure, CCW
+S, V, 2, 1
+
+!-----Buffer Cycle-----
+
+! Move to Buffer (Port 7), CCW
+S, V, 7, 1
+
+! Aspirate 450ul.
+S, M, 450, 600
+
+! Move to port 8 (sample), CW
+S, V, 8, 0
+
+! Empty syringe at normal speed
+S, M, 0, 500
+
+! Move to port 2 (open to air), CW
+S, V, 2, 0
+
+! Aspirate to 625uL, enough to fill Acup to 450uL
+S, M, 625, 600
+
+! Move to port 8 (sample), CCW
+S, V, 8, 1
+
+! Empty air slug at lower speed
+S, M, 0, 200
+
+! Wait 1s for air slug to stabilize
+W, 1000
+
+! Aspirate air slug
+S, M, 625, 200
+
+! Wait 1s for air pressure in syringe to reduce before moving to waste
+W, 1000
+
+! Dispense 125uL to 500 to increase pressure 
+S, M, 500, 200
+
+! Move Valve to port 1 (waste) , CW
+S, V, 1, 0
+
+! Empty air slug to waste.
+S, M, 0, 600
+
+! Move to port 8 (sample), CCW
+S, V, 8, 1
+
+! Aspirate 350uL
+S, M, 350, 200
+
+! Aspirate at slow speed to clear fluid segmentation
+S, M, 1000, 40
+
+! Dispense to increase pressure in syringe
+S, M, 900, 200
+
+! Move to port 3 (Flow cell), CW
+S, V, 3, 0
+
+! Empty Syringe - Reduced flow rate to clear disinfectant in flow cell inlet tube.
+S, M, 0, 175
+
+!-----Air Cycle-----
+
+!Move Valve to sample (Port 8), CCW
+S, V, 8, 1
+
+!Aspirate to 1000 uL
+S, M, 1000, 50
+
+!Dispense to 900 uL
+S, M, 900, 200
+
+!Move to Flow Cell (Port 3), CW
+S, V, 3, 0
+
+!Empty syringe to 400uL
+S, M, 400, 250
+
+!Wait for Pressure to equalize
+W, 500
+
+!Move to Waste (Port 1), CCW
+S, V, 1, 1
+
+!Empty Syringe
+S, M, 0, 600
+
+!Move Valve to SampleProbe (Port 2), CW
+S, V, 2, 0
+
